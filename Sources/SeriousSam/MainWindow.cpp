@@ -226,7 +226,7 @@ void OpenMainWindowNormal( PIX pixSizeI, PIX pixSizeJ)
   AssertWindowCreation(); // [Cecil]
 
   // set window title
-  sprintf(_achWindowTitle, TRANS("Serious Sam (Window %dx%d)"), pixSizeI, pixSizeJ);
+  sprintf(_achWindowTitle, TRANS("Abnormal Day (Window %dx%d)"), pixSizeI, pixSizeJ);
   SetWindowTextA(_hwndMain, _achWindowTitle);
   _pixLastSizeI = pixSizeI;
   _pixLastSizeJ = pixSizeJ;
@@ -234,7 +234,7 @@ void OpenMainWindowNormal( PIX pixSizeI, PIX pixSizeJ)
 
 #else
   // [Cecil] SDL: Create normal window
-  _snprintf(_achWindowTitle, sizeof(_achWindowTitle), TRANS("Serious Sam (Window %dx%d)"), pixSizeI, pixSizeJ);
+  _snprintf(_achWindowTitle, sizeof(_achWindowTitle), TRANS("Abnormal Day (Window %dx%d)"), pixSizeI, pixSizeJ);
   _hwndMain = SDL_CreateWindow(_achWindowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, pixSizeI, pixSizeJ,
     SDL_WINDOW_OPENGL);
 
@@ -267,13 +267,13 @@ void OpenMainWindowFullScreen( PIX pixSizeI, PIX pixSizeJ)
   AssertWindowCreation(); // [Cecil]
 
   // set window title and show it
-  sprintf(_achWindowTitle, TRANS("Serious Sam (FullScreen %dx%d)"), pixSizeI, pixSizeJ);
+  sprintf(_achWindowTitle, TRANS("Abnormal Day (FullScreen %dx%d)"), pixSizeI, pixSizeJ);
   SetWindowTextA(_hwndMain, _achWindowTitle);
   ShowWindow(    _hwndMain, SW_SHOWNORMAL);
 
 #else
   // [Cecil] SDL: Create fullscreen window
-  _snprintf(_achWindowTitle, sizeof(_achWindowTitle), TRANS("Serious Sam (FullScreen %dx%d)"), pixSizeI, pixSizeJ);
+  _snprintf(_achWindowTitle, sizeof(_achWindowTitle), TRANS("Abnormal Day (FullScreen %dx%d)"), pixSizeI, pixSizeJ);
   _hwndMain = SDL_CreateWindow(_achWindowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, pixSizeI, pixSizeJ,
     SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
 
@@ -295,7 +295,7 @@ void OpenMainWindowBorderless(PIX pixSizeI, PIX pixSizeJ) {
   AssertWindowCreation();
 
   // Set window title and show it
-  sprintf(_achWindowTitle, TRANS("Serious Sam (Borderless %dx%d)"), pixSizeI, pixSizeJ);
+  sprintf(_achWindowTitle, TRANS("Abnormal Day (Borderless %dx%d)"), pixSizeI, pixSizeJ);
   SetWindowTextA(_hwndMain, _achWindowTitle);
 
   _pixLastSizeI = pixSizeI;
@@ -305,7 +305,7 @@ void OpenMainWindowBorderless(PIX pixSizeI, PIX pixSizeJ) {
 
 #else
   // [Cecil] SDL: Create normal window
-  _snprintf(_achWindowTitle, sizeof(_achWindowTitle), TRANS("Serious Sam (Borderless %dx%d)"), pixSizeI, pixSizeJ);
+  _snprintf(_achWindowTitle, sizeof(_achWindowTitle), TRANS("Abnormal Day (Borderless %dx%d)"), pixSizeI, pixSizeJ);
   _hwndMain = SDL_CreateWindow(_achWindowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, pixSizeI, pixSizeJ,
     SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
 
@@ -337,12 +337,12 @@ void OpenMainWindowInvisible(void)
   AssertWindowCreation(); // [Cecil]
 
   // set window title
-  sprintf(_achWindowTitle, "Serious Sam");
+  sprintf(_achWindowTitle, "Abnormal Day");
   SetWindowTextA( _hwndMain, _achWindowTitle);
 
 #else
   // [Cecil] SDL: Create invisible window
-  _hwndMain = SDL_CreateWindow("Serious Sam", 0, 0, 10, 10, SDL_WINDOW_OPENGL | SDL_WINDOW_HIDDEN);
+  _hwndMain = SDL_CreateWindow("Abnormal Day", 0, 0, 10, 10, SDL_WINDOW_OPENGL | SDL_WINDOW_HIDDEN);
   AssertWindowCreation();
 #endif // !SE1_PREFER_SDL
 
