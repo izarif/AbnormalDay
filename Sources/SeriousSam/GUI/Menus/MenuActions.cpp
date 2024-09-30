@@ -301,15 +301,14 @@ void InitActionsForConfirmMenu() {
 }
 
 // ------------------------ CMainMenu implementation
+static void StartSinglePlayerGame_Normal(void);
+
 void InitActionsForMainMenu() {
   CMainMenu &gmCurrent = _pGUIM->gmMainMenu;
 
-  gmCurrent.gm_mgSingle.mg_pActivatedFunction = &StartSinglePlayerMenu;
-  gmCurrent.gm_mgNetwork.mg_pActivatedFunction = StartNetworkMenu;
-  gmCurrent.gm_mgSplitScreen.mg_pActivatedFunction = &StartSplitScreenMenu;
-  gmCurrent.gm_mgDemo.mg_pActivatedFunction = &StartDemoLoadMenu;
-  gmCurrent.gm_mgMods.mg_pActivatedFunction = &StartModsLoadMenu;
-  gmCurrent.gm_mgHighScore.mg_pActivatedFunction = &StartHighScoreMenu;
+  gmCurrent.gm_mgNewGame.mg_pActivatedFunction = &StartSinglePlayerGame_Normal;
+  gmCurrent.gm_mgLoadGame.mg_pActivatedFunction = &StartSinglePlayerLoadMenu;
+  gmCurrent.gm_mgCredits.mg_pActivatedFunction = NULL;
   gmCurrent.gm_mgOptions.mg_pActivatedFunction = &StartOptionsMenu;
   gmCurrent.gm_mgQuit.mg_pActivatedFunction = &ExitConfirm;
 }
@@ -363,7 +362,6 @@ extern void SetDemoStartStopRecText(void)
 extern CTString sam_strTechTestLevel;
 extern CTString sam_strTrainingLevel;
 
-static void StartSinglePlayerGame_Normal(void);
 static void StartTechTest(void)
 {
   _pGUIM->gmSinglePlayerNewMenu.gm_pgmParentMenu = &_pGUIM->gmSinglePlayerMenu;

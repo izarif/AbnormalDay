@@ -104,14 +104,6 @@ CTString _strURLToVisit = CTString("");
 INDEX _iAddonExecState = 0;
 CTFileName _fnmAddonToExec = CTString("");
 
-// logo textures
-static CTextureObject  _toLogoCT;
-static CTextureObject  _toLogoODI;
-static CTextureObject  _toLogoEAX;
-CTextureObject *_ptoLogoCT  = NULL;
-CTextureObject *_ptoLogoODI = NULL;
-CTextureObject *_ptoLogoEAX = NULL;
-
 CTString sam_strVersion = "1.10";
 CTString sam_strModName = TRANS("Abnormal Day");
 
@@ -471,11 +463,6 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
     strCmd.PrintF("include \"%s\"", cmd_strScript.ConstData());
     _pShell->Execute(strCmd);
   }
-  
-  // load logo textures
-  LoadAndForceTexture(_toLogoCT,   _ptoLogoCT,   CTFILENAME("Textures\\Logo\\LogoCT.tex"));
-  LoadAndForceTexture(_toLogoODI,  _ptoLogoODI,  CTFILENAME("Textures\\Logo\\GodGamesLogo.tex"));
-  LoadAndForceTexture(_toLogoEAX,  _ptoLogoEAX,  CTFILENAME("Textures\\Logo\\LogoEAX.tex"));
 
   // !! NOTE !! Re-enable these to allow mod support.
   LoadStringVar(CTString("Data\\Var\\AD_Version.var"), sam_strVersion);

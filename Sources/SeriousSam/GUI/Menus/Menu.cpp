@@ -36,9 +36,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 extern BOOL bMenuActive;
 extern BOOL bMenuRendering;
-extern CTextureObject *_ptoLogoCT;
-extern CTextureObject *_ptoLogoODI;
-extern CTextureObject *_ptoLogoEAX;
 
 INDEX _iLocalPlayer = -1;
 BOOL  _bPlayerMenuFromSinglePlayer = FALSE;
@@ -88,8 +85,7 @@ CSoundData *_psdPress = NULL;
 CSoundObject *_psoMenuSound = NULL;
 
 static CTextureObject _toPointer;
-static CTextureObject _toLogoMenuA;
-static CTextureObject _toLogoMenuB;
+static CTextureObject _toLogoMenu;
 
 // -------------- All possible menu entities
 #define BIG_BUTTONS_CT 6
@@ -265,15 +261,13 @@ void InitializeMenus(void)
 
     // initialize and load menu textures
     _toPointer.SetData_t( CTFILENAME( "Textures\\General\\Pointer.tex"));
-    _toLogoMenuA.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256a.tex"));
-    _toLogoMenuB.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256b.tex"));
+    _toLogoMenu.SetData_t(  CTFILENAME( "Textures\\Logo\\Menu.tex"));
   }
   catch( char *strError) {
     FatalError( strError);
   }
   // force logo textures to be of maximal size
-  ((CTextureData*)_toLogoMenuA.GetData())->Force(TEX_CONSTANT);
-  ((CTextureData*)_toLogoMenuB.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)_toLogoMenu.GetData())->Force(TEX_CONSTANT);
 
   // menu's relative placement
   CPlacement3D plRelative = CPlacement3D( FLOAT3D( 0.0f, 0.0f, -9.0f), 
@@ -304,7 +298,7 @@ void InitializeMenus(void)
 
   _pGUIM->gmMainMenu.Initialize_t();
   _pGUIM->gmMainMenu.gm_strName = "Main";
-  _pGUIM->gmMainMenu.gm_pmgSelectedByDefault = &_pGUIM->gmMainMenu.gm_mgSingle;
+  _pGUIM->gmMainMenu.gm_pmgSelectedByDefault = &_pGUIM->gmMainMenu.gm_mgNewGame;
   _pGUIM->gmMainMenu.gm_pgmParentMenu = NULL;
   InitActionsForMainMenu();
 
@@ -709,56 +703,16 @@ BOOL DoMenu( CDrawPort *pdp)
     PIX   pixI0, pixJ0, pixI1, pixJ1;
     // put logo(s) to main menu (if logos exist)
   if (pgmCurrentMenu == &_pGUIM->gmMainMenu)
-    {
-      if( _ptoLogoODI!=NULL) {
-        CTextureData &td = (CTextureData&)*_ptoLogoODI->GetData();
-        #define LOGOSIZE 50
-        const PIX pixLogoWidth  = LOGOSIZE * dpMenu.dp_fWideAdjustment;
-        const PIX pixLogoHeight = LOGOSIZE* td.GetHeight() / td.GetWidth();
-        pixI0 = (640-pixLogoWidth -16)*fScaleW;
-        pixJ0 = (480-pixLogoHeight-16)*fScaleH;
-        pixI1 = pixI0+ pixLogoWidth *fScaleW;
-        pixJ1 = pixJ0+ pixLogoHeight*fScaleH;
-        dpMenu.PutTexture( _ptoLogoODI, PIXaabbox2D( PIX2D( pixI0, pixJ0),PIX2D( pixI1, pixJ1)));
-        #undef LOGOSIZE
-      }  
-      if( _ptoLogoCT!=NULL) {
-        CTextureData &td = (CTextureData&)*_ptoLogoCT->GetData();
-        #define LOGOSIZE 50
-        const PIX pixLogoWidth  = LOGOSIZE * dpMenu.dp_fWideAdjustment;
-        const PIX pixLogoHeight = LOGOSIZE* td.GetHeight() / td.GetWidth();
-        pixI0 = 12*fScaleW;
-        pixJ0 = (480-pixLogoHeight-16)*fScaleH;
-        pixI1 = pixI0+ pixLogoWidth *fScaleW;
-        pixJ1 = pixJ0+ pixLogoHeight*fScaleH;
-        dpMenu.PutTexture( _ptoLogoCT, PIXaabbox2D( PIX2D( pixI0, pixJ0),PIX2D( pixI1, pixJ1)));
-        #undef LOGOSIZE
-      } 
-      
+    { 
       {
-        FLOAT fResize = Min(dpMenu.GetWidth()/640.0f, dpMenu.GetHeight()/480.0f);
-        PIX pixSizeI = 256*fResize;
-        PIX pixSizeJ = 64*fResize;
-        PIX pixCenterI = dpMenu.GetWidth()/2;
-        PIX pixHeightJ = 10*fResize;
-        dpMenu.PutTexture(&_toLogoMenuA, PIXaabbox2D( 
-          PIX2D( pixCenterI-pixSizeI, pixHeightJ),PIX2D( pixCenterI, pixHeightJ+pixSizeJ)));
-        dpMenu.PutTexture(&_toLogoMenuB, PIXaabbox2D( 
-          PIX2D( pixCenterI, pixHeightJ),PIX2D( pixCenterI+pixSizeI, pixHeightJ+pixSizeJ)));
+        PIX pixLogoWidth = 256 * fScaleW;
+        PIX pixLogoHeight = 128 * fScaleH;
+        PIX pixLogoI = 6.4 * fScaleW;
+        PIX pixLogoJ = 177 * fScaleH;
+        dpMenu.PutTexture(&_toLogoMenu, PIXaabbox2D( 
+          PIX2D(pixLogoI, pixLogoJ),PIX2D(pixLogoI + pixLogoWidth, pixLogoJ + pixLogoHeight)));
       }
-  } else if (pgmCurrentMenu == &_pGUIM->gmAudioOptionsMenu) {
-      if( _ptoLogoEAX!=NULL) {
-        CTextureData &td = (CTextureData&)*_ptoLogoEAX->GetData();
-        const INDEX iSize = 95;
-        const PIX pixLogoWidth  = iSize * dpMenu.dp_fWideAdjustment;
-        const PIX pixLogoHeight = iSize * td.GetHeight() / td.GetWidth();
-        pixI0 =  (640-pixLogoWidth - 35)*fScaleW;
-        pixJ0 = (480-pixLogoHeight - 7)*fScaleH;
-        pixI1 = pixI0+ pixLogoWidth *fScaleW;
-        pixJ1 = pixJ0+ pixLogoHeight*fScaleH;
-        dpMenu.PutTexture( _ptoLogoEAX, PIXaabbox2D( PIX2D( pixI0, pixJ0),PIX2D( pixI1, pixJ1)));
-      }
-    }
+  }
 
 #define THUMBW 96
 #define THUMBH 96
