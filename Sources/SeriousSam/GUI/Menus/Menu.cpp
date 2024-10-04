@@ -57,10 +57,6 @@ extern CTString sam_strNetworkSettings;
 // function to activate when level is chosen
 void (*_pAfterLevelChosen)(void);
 
-// functions for init actions
-
-void FixupBackButton(CGameMenu *pgm);
-
 // mouse cursor position
 PIX _pixCursorPosI = 0;
 PIX _pixCursorPosJ = 0;
@@ -101,9 +97,6 @@ static CTextureObject _toLogoMenu;
 
 // ptr to current menu
 CGameMenu *pgmCurrentMenu = NULL;
-
-// global back button
-CMGButton mgBack;
 
 // -------- console variable adjustment menu
 BOOL _bVarChanged = FALSE;
@@ -183,27 +176,23 @@ void StartMenus(const CTString &str)
   if (str == "save") {
     StartCurrentSaveMenu();
     _pGUIM->gmLoadSaveMenu.gm_pgmParentMenu = NULL;
-    FixupBackButton(&_pGUIM->gmLoadSaveMenu);
   }
 
   if (str == "controls") {
     void StartControlsMenuFromOptions(void);
     StartControlsMenuFromOptions();
     _pGUIM->gmControls.gm_pgmParentMenu = NULL;
-    FixupBackButton(&_pGUIM->gmControls);
   }
 
   if (str == "join") {
     void StartSelectPlayersMenuFromOpen(void);
     StartSelectPlayersMenuFromOpen();
     _pGUIM->gmSelectPlayersMenu.gm_pgmParentMenu = &_pGUIM->gmMainMenu;
-    FixupBackButton(&_pGUIM->gmSelectPlayersMenu);
   }
 
   if (str == "hiscore") {
     ChangeToMenu(&_pGUIM->gmHighScoreMenu);
     _pGUIM->gmHighScoreMenu.gm_pgmParentMenu = &_pGUIM->gmMainMenu;
-    FixupBackButton(&_pGUIM->gmHighScoreMenu);
   }
 
   bMenuActive = TRUE;
@@ -343,7 +332,6 @@ void InitializeMenus(void)
 
   _pGUIM->gmHighScoreMenu.Initialize_t();
   _pGUIM->gmHighScoreMenu.gm_strName = "HighScore";
-  _pGUIM->gmHighScoreMenu.gm_pmgSelectedByDefault = &mgBack;
 
   _pGUIM->gmCustomizeKeyboardMenu.Initialize_t();
   _pGUIM->gmCustomizeKeyboardMenu.gm_strName = "CustomizeKeyboard";
@@ -846,61 +834,6 @@ void MenuBack(void)
   MenuGoToParent();
 }
 
-extern void FixupBackButton(CGameMenu *pgm)
-{
-  BOOL bResume = FALSE;
-
-  if (mgBack.mg_lnNode.IsLinked()) {
-    mgBack.mg_lnNode.Remove();
-  }
-
-  BOOL bHasBack = TRUE;
-
-  if (pgm->gm_bPopup) {
-    bHasBack = FALSE;
-  }
-
-  if (pgm->gm_pgmParentMenu==NULL) {
-    if (_gmRunningGameMode==GM_NONE) {
-      bHasBack = FALSE;
-    } else {
-      bResume = TRUE;
-    }
-  }
-  if (!bHasBack) {
-    mgBack.Disappear();
-    return;
-  }
-
-  if (bResume) {
-    mgBack.mg_strText = TRANS("RESUME");
-    mgBack.mg_strTip = TRANS("return to game");
-  } else {
-    if (_bVarChanged) {
-      mgBack.mg_strText = TRANS("CANCEL");
-      mgBack.mg_strTip = TRANS("cancel changes");
-    } else {
-      mgBack.mg_strText = TRANS("BACK");
-      mgBack.mg_strTip = TRANS("return to previous menu");
-    }
-  }
-
-  mgBack.mg_iCenterI = -1;
-  mgBack.mg_bfsFontSize = BFS_LARGE;
-  mgBack.mg_boxOnScreen = BoxBack();
-  mgBack.mg_boxOnScreen = BoxLeftColumn(16.5f);
-  pgm->gm_lhGadgets.AddTail( mgBack.mg_lnNode);
-
-  mgBack.mg_pmgLeft = 
-  mgBack.mg_pmgRight = 
-  mgBack.mg_pmgUp = 
-  mgBack.mg_pmgDown = pgm->gm_pmgSelectedByDefault;
-
-  mgBack.mg_pActivatedFunction = &MenuBack;
-
-  mgBack.Appear();
-}
-
 void ChangeToMenu( CGameMenu *pgmNewMenu)
 {
   // auto-clear old thumbnail when going out of menu
@@ -917,11 +850,7 @@ void ChangeToMenu( CGameMenu *pgmNewMenu)
   }
   pgmNewMenu->StartMenu();
   if (pgmNewMenu->gm_pmgSelectedByDefault) {
-    if (mgBack.mg_bFocused) {
-      mgBack.OnKillFocus();
-    }
     pgmNewMenu->gm_pmgSelectedByDefault->OnSetFocus();
   }
-  FixupBackButton(pgmNewMenu);
   pgmCurrentMenu = pgmNewMenu;
 }

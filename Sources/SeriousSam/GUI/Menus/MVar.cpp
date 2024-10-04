@@ -129,6 +129,4 @@ void CVarMenu::EndMenu(void)
 void CVarMenu::Think(void)
 {
   gm_mgApply.mg_bEnabled = _bVarChanged;
-  extern void FixupBackButton(CGameMenu *pgm);
-  FixupBackButton(this);
 }
