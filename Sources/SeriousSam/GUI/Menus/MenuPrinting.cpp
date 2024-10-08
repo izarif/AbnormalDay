@@ -101,8 +101,8 @@ FLOATaabbox2D BoxKeyRow(FLOAT fRow)
 FLOATaabbox2D BoxMediumLeft(FLOAT fRow)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.05f, _fBigStartJ+fRow*_fMediumSizeJ),
-    FLOAT2D(0.45f, _fBigStartJ+(fRow+1)*_fMediumSizeJ));
+    FLOAT2D(0.01f, _fBigStartJ+fRow*_fMediumSizeJ),
+    FLOAT2D(0.49f, _fBigStartJ+(fRow+1)*_fMediumSizeJ));
 }
 
 FLOATaabbox2D BoxPlayerSwitch(FLOAT fRow)
