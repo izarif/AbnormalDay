@@ -34,6 +34,7 @@ public:
   CMGButton gm_mgVideoRendering;
   CMGTrigger gm_mgBitsPerPixelTrigger;
   CMGButton gm_mgApply;
+  CMGButton gm_mgBack;
 
   void StartMenu(void);
   void Initialize_t(void);
