@@ -882,6 +882,7 @@ void InitActionsForVideoOptionsMenu()
   gmCurrent.gm_mgBitsPerPixelTrigger.mg_pOnTriggerChange = &UpdateVideoOptionsButtons;
   gmCurrent.gm_mgVideoRendering.mg_pActivatedFunction = &StartRenderingOptionsMenu;
   gmCurrent.gm_mgApply.mg_pActivatedFunction = &ApplyVideoOptions;
+  gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
 }
 
 // ------------------------ CAudioOptionsMenu implementation
