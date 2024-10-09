@@ -291,7 +291,7 @@ void InitializeMenus(void)
 
   _pGUIM->gmInGameMenu.Initialize_t();
   _pGUIM->gmInGameMenu.gm_strName = "InGame";
-  _pGUIM->gmInGameMenu.gm_pmgSelectedByDefault = &_pGUIM->gmInGameMenu.gm_mgQuickLoad;
+  _pGUIM->gmInGameMenu.gm_pmgSelectedByDefault = &_pGUIM->gmInGameMenu.gm_mgResumeGame;
   _pGUIM->gmInGameMenu.gm_pgmParentMenu = NULL;
   InitActionsForInGameMenu();
 

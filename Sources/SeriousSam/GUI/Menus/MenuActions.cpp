@@ -324,38 +324,19 @@ static void QuickSaveFromMenu()
 static void StopRecordingDemo(void)
 {
   _pNetwork->StopDemoRec();
-  void SetDemoStartStopRecText(void);
-  SetDemoStartStopRecText();
 }
+
+void MenuBack(void);
 
 void InitActionsForInGameMenu()
 {
   CInGameMenu &gmCurrent = _pGUIM->gmInGameMenu;
 
-  gmCurrent.gm_mgQuickLoad.mg_pActivatedFunction = &StartCurrentQuickLoadMenu;
-  gmCurrent.gm_mgQuickSave.mg_pActivatedFunction = &QuickSaveFromMenu;
-  gmCurrent.gm_mgLoad.mg_pActivatedFunction = &StartCurrentLoadMenu;
-  gmCurrent.gm_mgSave.mg_pActivatedFunction = &StartCurrentSaveMenu;
-  gmCurrent.gm_mgHighScore.mg_pActivatedFunction = &StartHighScoreMenu;
+  gmCurrent.gm_mgResumeGame.mg_pActivatedFunction = &MenuBack;
+  gmCurrent.gm_mgLoadGame.mg_pActivatedFunction = &StartCurrentLoadMenu;
+  gmCurrent.gm_mgSaveGame.mg_pActivatedFunction = &StartCurrentSaveMenu;
   gmCurrent.gm_mgOptions.mg_pActivatedFunction = &StartOptionsMenu;
-  gmCurrent.gm_mgStop.mg_pActivatedFunction = &StopConfirm;
-  gmCurrent.gm_mgQuit.mg_pActivatedFunction = &ExitConfirm;
-}
-
-extern void SetDemoStartStopRecText(void)
-{
-  CInGameMenu &gmCurrent = _pGUIM->gmInGameMenu;
-
-  if (_pNetwork->IsRecordingDemo())
-  {
-    gmCurrent.gm_mgDemoRec.SetText(TRANS("STOP RECORDING"));
-    gmCurrent.gm_mgDemoRec.mg_strTip = TRANS("stop current recording");
-    gmCurrent.gm_mgDemoRec.mg_pActivatedFunction = &StopRecordingDemo;
-  } else {
-    gmCurrent.gm_mgDemoRec.SetText(TRANS("RECORD DEMO"));
-    gmCurrent.gm_mgDemoRec.mg_strTip = TRANS("start recording current game");
-    gmCurrent.gm_mgDemoRec.mg_pActivatedFunction = &StartDemoSaveMenu;
-  }
+  gmCurrent.gm_mgQuit.mg_pActivatedFunction = &StopConfirm;
 }
 
 // ------------------------ CSinglePlayerMenu implementation
@@ -613,8 +594,6 @@ void InitActionsForCustomizeAxisMenu()
 }
 
 // ------------------------ COptionsMenu implementation
-void MenuBack(void);
-
 void InitActionsForOptionsMenu()
 {
   COptionsMenu &gmCurrent = _pGUIM->gmOptionsMenu;
