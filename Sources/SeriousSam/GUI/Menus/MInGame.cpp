@@ -22,153 +22,57 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 void CInGameMenu::Initialize_t(void)
 {
   // intialize main menu
-  gm_mgTitle.mg_strText = TRANS("GAME");
+  gm_mgTitle.mg_strText = TRANS("[GAME]");
   gm_mgTitle.mg_boxOnScreen = BoxTitle();
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
-  gm_mgLabel1.mg_strText = "";
-  gm_mgLabel1.mg_boxOnScreen = BoxMediumRow(-2.0);
-  gm_mgLabel1.mg_bfsFontSize = BFS_MEDIUM;
-  gm_mgLabel1.mg_iCenterI = -1;
-  gm_mgLabel1.mg_bEnabled = FALSE;
-  gm_mgLabel1.mg_bLabel = TRUE;
-  gm_lhGadgets.AddTail(gm_mgLabel1.mg_lnNode);
+  gm_mgResumeGame.mg_strText = TRANS("RESUME GAME");
+  gm_mgResumeGame.mg_bfsFontSize = BFS_LARGE;
+  gm_mgResumeGame.mg_boxOnScreen = BoxBigLeft(5.5f);
+  gm_mgResumeGame.mg_strTip = TRANS("Resume current game");
+  gm_lhGadgets.AddTail(gm_mgResumeGame.mg_lnNode);
+  gm_mgResumeGame.mg_pmgUp = &gm_mgQuit;
+  gm_mgResumeGame.mg_pmgDown = &gm_mgLoadGame;
+  gm_mgResumeGame.mg_pActivatedFunction = NULL;
+  gm_mgResumeGame.mg_iCenterI = -1;
 
-  gm_mgLabel2.mg_strText = "";
-  gm_mgLabel2.mg_boxOnScreen = BoxMediumRow(-1.0);
-  gm_mgLabel2.mg_bfsFontSize = BFS_MEDIUM;
-  gm_mgLabel2.mg_iCenterI = -1;
-  gm_mgLabel2.mg_bEnabled = FALSE;
-  gm_mgLabel2.mg_bLabel = TRUE;
-  gm_lhGadgets.AddTail(gm_mgLabel2.mg_lnNode);
+  gm_mgLoadGame.mg_strText = TRANS("LOAD GAME");
+  gm_mgLoadGame.mg_bfsFontSize = BFS_LARGE;
+  gm_mgLoadGame.mg_boxOnScreen = BoxBigLeft(6.5f);
+  gm_mgLoadGame.mg_strTip = TRANS("Load a saved game");
+  gm_lhGadgets.AddTail(gm_mgLoadGame.mg_lnNode);
+  gm_mgLoadGame.mg_pmgUp = &gm_mgResumeGame;
+  gm_mgLoadGame.mg_pmgDown = &gm_mgSaveGame;
+  gm_mgLoadGame.mg_pActivatedFunction = NULL;
+  gm_mgLoadGame.mg_iCenterI = -1;
 
-  gm_mgQuickLoad.mg_strText = TRANS("QUICK LOAD");
-  gm_mgQuickLoad.mg_bfsFontSize = BFS_LARGE;
-  gm_mgQuickLoad.mg_boxOnScreen = BoxBigRow(0.0f);
-  gm_mgQuickLoad.mg_strTip = TRANS("load a quick-saved game (F9)");
-  gm_lhGadgets.AddTail(gm_mgQuickLoad.mg_lnNode);
-  gm_mgQuickLoad.mg_pmgUp = &gm_mgQuit;
-  gm_mgQuickLoad.mg_pmgDown = &gm_mgQuickSave;
-  gm_mgQuickLoad.mg_pActivatedFunction = NULL;
-
-  gm_mgQuickSave.mg_strText = TRANS("QUICK SAVE");
-  gm_mgQuickSave.mg_bfsFontSize = BFS_LARGE;
-  gm_mgQuickSave.mg_boxOnScreen = BoxBigRow(1.0f);
-  gm_mgQuickSave.mg_strTip = TRANS("quick-save current game (F6)");
-  gm_lhGadgets.AddTail(gm_mgQuickSave.mg_lnNode);
-  gm_mgQuickSave.mg_pmgUp = &gm_mgQuickLoad;
-  gm_mgQuickSave.mg_pmgDown = &gm_mgLoad;
-  gm_mgQuickSave.mg_pActivatedFunction = NULL;
-
-  gm_mgLoad.mg_strText = TRANS("LOAD");
-  gm_mgLoad.mg_bfsFontSize = BFS_LARGE;
-  gm_mgLoad.mg_boxOnScreen = BoxBigRow(2.0f);
-  gm_mgLoad.mg_strTip = TRANS("load a saved game");
-  gm_lhGadgets.AddTail(gm_mgLoad.mg_lnNode);
-  gm_mgLoad.mg_pmgUp = &gm_mgQuickSave;
-  gm_mgLoad.mg_pmgDown = &gm_mgSave;
-  gm_mgLoad.mg_pActivatedFunction = NULL;
-
-  gm_mgSave.mg_strText = TRANS("SAVE");
-  gm_mgSave.mg_bfsFontSize = BFS_LARGE;
-  gm_mgSave.mg_boxOnScreen = BoxBigRow(3.0f);
-  gm_mgSave.mg_strTip = TRANS("save current game (each player has own slots!)");
-  gm_lhGadgets.AddTail(gm_mgSave.mg_lnNode);
-  gm_mgSave.mg_pmgUp = &gm_mgLoad;
-  gm_mgSave.mg_pmgDown = &gm_mgDemoRec;
-  gm_mgSave.mg_pActivatedFunction = NULL;
-
-  gm_mgDemoRec.mg_boxOnScreen = BoxBigRow(4.0f);
-  gm_mgDemoRec.mg_bfsFontSize = BFS_LARGE;
-  gm_mgDemoRec.mg_pmgUp = &gm_mgSave;
-  gm_mgDemoRec.mg_pmgDown = &gm_mgHighScore;
-  gm_mgDemoRec.mg_strText = "Text not set";
-  gm_lhGadgets.AddTail(gm_mgDemoRec.mg_lnNode);
-  gm_mgDemoRec.mg_pActivatedFunction = NULL;
-
-  gm_mgHighScore.mg_strText = TRANS("HIGH SCORES");
-  gm_mgHighScore.mg_bfsFontSize = BFS_LARGE;
-  gm_mgHighScore.mg_boxOnScreen = BoxBigRow(5.0f);
-  gm_mgHighScore.mg_strTip = TRANS("view list of top ten best scores");
-  gm_lhGadgets.AddTail(gm_mgHighScore.mg_lnNode);
-  gm_mgHighScore.mg_pmgUp = &gm_mgDemoRec;
-  gm_mgHighScore.mg_pmgDown = &gm_mgOptions;
-  gm_mgHighScore.mg_pActivatedFunction = NULL;
+  gm_mgSaveGame.mg_strText = TRANS("SAVE GAME");
+  gm_mgSaveGame.mg_bfsFontSize = BFS_LARGE;
+  gm_mgSaveGame.mg_boxOnScreen = BoxBigLeft(7.5f);
+  gm_mgSaveGame.mg_strTip = TRANS("Save current game");
+  gm_lhGadgets.AddTail(gm_mgSaveGame.mg_lnNode);
+  gm_mgSaveGame.mg_pmgUp = &gm_mgLoadGame;
+  gm_mgSaveGame.mg_pmgDown = &gm_mgOptions;
+  gm_mgSaveGame.mg_pActivatedFunction = NULL;
+  gm_mgSaveGame.mg_iCenterI = -1;
 
   gm_mgOptions.mg_strText = TRANS("OPTIONS");
   gm_mgOptions.mg_bfsFontSize = BFS_LARGE;
-  gm_mgOptions.mg_boxOnScreen = BoxBigRow(6.0f);
-  gm_mgOptions.mg_strTip = TRANS("adjust video, audio and input options");
+  gm_mgOptions.mg_boxOnScreen = BoxBigLeft(8.5f);
+  gm_mgOptions.mg_strTip = TRANS("Adjust video, audio and input options");
   gm_lhGadgets.AddTail(gm_mgOptions.mg_lnNode);
-  gm_mgOptions.mg_pmgUp = &gm_mgHighScore;
-  gm_mgOptions.mg_pmgDown = &gm_mgStop;
+  gm_mgOptions.mg_pmgUp = &gm_mgSaveGame;
+  gm_mgOptions.mg_pmgDown = &gm_mgQuit;
   gm_mgOptions.mg_pActivatedFunction = NULL;
+  gm_mgOptions.mg_iCenterI = -1;
 
-  gm_mgStop.mg_strText = TRANS("STOP GAME");
-  gm_mgStop.mg_bfsFontSize = BFS_LARGE;
-  gm_mgStop.mg_boxOnScreen = BoxBigRow(7.0f);
-  gm_mgStop.mg_strTip = TRANS("stop currently running game");
-  gm_lhGadgets.AddTail(gm_mgStop.mg_lnNode);
-  gm_mgStop.mg_pmgUp = &gm_mgOptions;
-  gm_mgStop.mg_pmgDown = &gm_mgQuit;
-  gm_mgStop.mg_pActivatedFunction = NULL;
-
-  gm_mgQuit.mg_strText = TRANS("QUIT");
+  gm_mgQuit.mg_strText = TRANS("QUIT GAME");
   gm_mgQuit.mg_bfsFontSize = BFS_LARGE;
-  gm_mgQuit.mg_boxOnScreen = BoxBigRow(8.0f);
-  gm_mgQuit.mg_strTip = TRANS("exit game immediately");
+  gm_mgQuit.mg_boxOnScreen = BoxBigLeft(9.5f);
+  gm_mgQuit.mg_strTip = TRANS("Quit to main menu");
   gm_lhGadgets.AddTail(gm_mgQuit.mg_lnNode);
-  gm_mgQuit.mg_pmgUp = &gm_mgStop;
-  gm_mgQuit.mg_pmgDown = &gm_mgQuickLoad;
+  gm_mgQuit.mg_pmgUp = &gm_mgOptions;
+  gm_mgQuit.mg_pmgDown = &gm_mgResumeGame;
   gm_mgQuit.mg_pActivatedFunction = NULL;
-}
-
-void CInGameMenu::StartMenu(void)
-{
-  gm_mgQuickLoad.mg_bEnabled = _pNetwork->IsServer();
-  gm_mgQuickSave.mg_bEnabled = _pNetwork->IsServer();
-  gm_mgLoad.mg_bEnabled = _pNetwork->IsServer();
-  gm_mgSave.mg_bEnabled = _pNetwork->IsServer();
-  gm_mgDemoRec.mg_bEnabled = TRUE;//_pNetwork->IsServer();
-  extern void SetDemoStartStopRecText();
-  SetDemoStartStopRecText();
-
-
-  if (_gmRunningGameMode == GM_SINGLE_PLAYER) {
-    CPlayerCharacter &pc = _pGame->gm_apcPlayers[_pGame->gm_iSinglePlayer];
-    gm_mgLabel1.mg_strText.PrintF(TRANS("Player: %s"), pc.GetNameForPrinting().ConstData());
-    gm_mgLabel2.mg_strText = "";
-
-  } else {
-    if (_pNetwork->IsServer()) {
-
-      CTString strHost, strAddress;
-      CTString strHostName;
-      _pNetwork->GetHostName(strHost, strAddress);
-      if (strHost == "") {
-        strHostName = TRANS("<not started yet>");
-      }
-      else {
-        strHostName = strHost + " (" + strAddress + ")";
-      }
-
-      gm_mgLabel1.mg_strText = TRANS("Address: ") + strHostName;
-      gm_mgLabel2.mg_strText = "";
-
-    } else {
-
-      CTString strConfig;
-      strConfig = TRANS("<not adjusted>");
-      extern CTString sam_strNetworkSettings;
-      if (sam_strNetworkSettings != "") {
-        LoadStringVar(CTFileName(sam_strNetworkSettings).NoExt() + ".des", strConfig);
-        strConfig.OnlyFirstLine();
-      }
-
-      gm_mgLabel1.mg_strText = TRANS("Connected to: ") + _pGame->gam_strJoinAddress;
-      gm_mgLabel2.mg_strText = TRANS("Connection: ") + strConfig;
-    }
-  }
-
-  CGameMenu::StartMenu();
+  gm_mgQuit.mg_iCenterI = -1;
 }
