@@ -23,15 +23,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 void CCustomizeAxisMenu::Initialize_t(void)
 {
   // intialize axis menu
-  gm_mgTitle.mg_strText = TRANS("CUSTOMIZE AXIS");
+  gm_mgTitle.mg_strText = TRANS("[CUSTOMIZE AXIS]");
   gm_mgTitle.mg_boxOnScreen = BoxTitle();
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
-  TRIGGER_MG(gm_mgActionTrigger, 0, gm_mgSmoothTrigger, gm_mgMountedTrigger, TRANS("ACTION"), astrNoYes);
-  gm_mgActionTrigger.mg_strTip = TRANS("choose action to customize");
+  TRIGGER_MG(gm_mgActionTrigger, 8.5f, gm_mgSmoothTrigger, gm_mgMountedTrigger, TRANS("ACTION"), astrNoYes);
+  gm_mgActionTrigger.mg_strTip = TRANS("Choose action to customize");
+  gm_mgActionTrigger.mg_iCenterI = -1;
 
-  TRIGGER_MG(gm_mgMountedTrigger, 2, gm_mgActionTrigger, gm_mgSensitivity, TRANS("MOUNTED TO"), astrNoYes);
-  gm_mgMountedTrigger.mg_strTip = TRANS("choose controller axis that will perform the action");
+  TRIGGER_MG(gm_mgMountedTrigger, 9.5f, gm_mgActionTrigger, gm_mgSensitivity, TRANS("MOUNTED TO"), astrNoYes);
+  gm_mgMountedTrigger.mg_strTip = TRANS("Choose controller axis that will perform the action");
+  gm_mgMountedTrigger.mg_iCenterI = -1;
 
   gm_mgActionTrigger.mg_astrTexts = new CTString[AXIS_ACTIONS_CT];
   gm_mgActionTrigger.mg_ctTexts = AXIS_ACTIONS_CT;
@@ -53,26 +55,42 @@ void CCustomizeAxisMenu::Initialize_t(void)
     gm_mgMountedTrigger.mg_astrTexts[iAxis] = _pInput->GetAxisTransName(iAxis);
   }
 
-  gm_mgSensitivity.mg_boxOnScreen = BoxMediumRow(3);
+  gm_mgSensitivity.mg_boxOnScreen = BoxMediumLeft(10.5f);
   gm_mgSensitivity.mg_strText = TRANS("SENSITIVITY");
   gm_mgSensitivity.mg_pmgUp = &gm_mgMountedTrigger;
   gm_mgSensitivity.mg_pmgDown = &gm_mgDeadzone;
   gm_lhGadgets.AddTail(gm_mgSensitivity.mg_lnNode);
-  gm_mgSensitivity.mg_strTip = TRANS("set sensitivity for this axis");
+  gm_mgSensitivity.mg_strTip = TRANS("Set sensitivity for this axis");
+  gm_mgSensitivity.mg_iCenterI = -1;
 
-  gm_mgDeadzone.mg_boxOnScreen = BoxMediumRow(4);
+  gm_mgDeadzone.mg_boxOnScreen = BoxMediumLeft(11.5f);
   gm_mgDeadzone.mg_strText = TRANS("DEAD ZONE");
   gm_mgDeadzone.mg_pmgUp = &gm_mgSensitivity;
   gm_mgDeadzone.mg_pmgDown = &gm_mgInvertTrigger;
   gm_lhGadgets.AddTail(gm_mgDeadzone.mg_lnNode);
-  gm_mgDeadzone.mg_strTip = TRANS("set dead zone for this axis");
+  gm_mgDeadzone.mg_strTip = TRANS("Set dead zone for this axis");
+  gm_mgDeadzone.mg_iCenterI = -1;
 
-  TRIGGER_MG(gm_mgInvertTrigger, 5, gm_mgDeadzone, gm_mgRelativeTrigger, TRANS("INVERTED"), astrNoYes);
-  gm_mgInvertTrigger.mg_strTip = TRANS("choose whether to invert this axis or not");
-  TRIGGER_MG(gm_mgRelativeTrigger, 6, gm_mgInvertTrigger, gm_mgSmoothTrigger, TRANS("RELATIVE"), astrNoYes);
-  gm_mgRelativeTrigger.mg_strTip = TRANS("select relative or absolute axis reading");
-  TRIGGER_MG(gm_mgSmoothTrigger, 7, gm_mgRelativeTrigger, gm_mgActionTrigger, TRANS("SMOOTH"), astrNoYes);
-  gm_mgSmoothTrigger.mg_strTip = TRANS("turn this on to filter readings on this axis");
+  TRIGGER_MG(gm_mgInvertTrigger, 12.5f, gm_mgDeadzone, gm_mgRelativeTrigger, TRANS("INVERTED"), astrNoYes);
+  gm_mgInvertTrigger.mg_strTip = TRANS("Choose whether to invert this axis or not");
+  gm_mgInvertTrigger.mg_iCenterI = -1;
+
+  TRIGGER_MG(gm_mgRelativeTrigger, 13.5f, gm_mgInvertTrigger, gm_mgSmoothTrigger, TRANS("RELATIVE"), astrNoYes);
+  gm_mgRelativeTrigger.mg_strTip = TRANS("Select relative or absolute axis reading");
+  gm_mgRelativeTrigger.mg_iCenterI = -1;
+
+  TRIGGER_MG(gm_mgSmoothTrigger, 14.5f, gm_mgRelativeTrigger, gm_mgBack, TRANS("SMOOTH"), astrNoYes);
+  gm_mgSmoothTrigger.mg_strTip = TRANS("Filter readings on this axis");
+  gm_mgSmoothTrigger.mg_iCenterI = -1;
+
+  gm_mgBack.mg_bfsFontSize = BFS_LARGE;
+  gm_mgBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  gm_mgBack.mg_strText = TRANS("BACK");
+  gm_mgBack.mg_pmgUp = &gm_mgSmoothTrigger;
+  gm_mgBack.mg_pmgDown = &gm_mgActionTrigger;
+  gm_lhGadgets.AddTail(gm_mgBack.mg_lnNode);
+  gm_mgBack.mg_strTip = TRANS("Return to previous menu");
+  gm_mgBack.mg_iCenterI = -1;
 }
 
 CCustomizeAxisMenu::~CCustomizeAxisMenu(void)
