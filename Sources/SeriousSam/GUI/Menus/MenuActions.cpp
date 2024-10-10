@@ -591,6 +591,7 @@ void InitActionsForCustomizeAxisMenu()
 
   gmCurrent.gm_mgActionTrigger.mg_pPreTriggerChange = PreChangeAxis;
   gmCurrent.gm_mgActionTrigger.mg_pOnTriggerChange = PostChangeAxis;
+  gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
 }
 
 // ------------------------ COptionsMenu implementation

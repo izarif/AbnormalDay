@@ -35,6 +35,7 @@ public:
   CMGTrigger gm_mgInvertTrigger;
   CMGTrigger gm_mgRelativeTrigger;
   CMGTrigger gm_mgSmoothTrigger;
+  CMGButton gm_mgBack;
 
   ~CCustomizeAxisMenu(void);
   void Initialize_t(void);
