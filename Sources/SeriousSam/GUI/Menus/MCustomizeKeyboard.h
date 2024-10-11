@@ -31,6 +31,7 @@ public:
   CMGKeyDefinition gm_mgKey[KEYS_ON_SCREEN];
   CMGArrow gm_mgArrowUp;
   CMGArrow gm_mgArrowDn;
+  CMGButton gm_mgBack;
 
   void Initialize_t(void);
   void StartMenu(void);

@@ -44,7 +44,7 @@ void CCustomizeKeyboardMenu::FillListItems(void)
       gm_mgKey[iInMenu].mg_strLabel = TranslateConst(itAct->ba_strName, 0);
       gm_mgKey[iInMenu].mg_iControlNumber = iLabel;
       gm_mgKey[iInMenu].SetBindingNames(FALSE);
-      gm_mgKey[iInMenu].mg_strTip = TRANS("Enter - change binding, Backspace - unbind");
+      gm_mgKey[iInMenu].mg_strTip = TRANS("Enter - change, Backspace - unbind");
       gm_mgKey[iInMenu].mg_bEnabled = TRUE;
       gm_mgKey[iInMenu].mg_iInList = iLabel;
     }
@@ -59,7 +59,7 @@ void CCustomizeKeyboardMenu::FillListItems(void)
 void CCustomizeKeyboardMenu::Initialize_t(void)
 {
   // intialize Audio options menu
-  gm_mgTitle.mg_strText = TRANS("CUSTOMIZE BUTTONS");
+  gm_mgTitle.mg_strText = TRANS("[CUSTOMIZE BUTTONS]");
   gm_mgTitle.mg_boxOnScreen = BoxTitle();
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
@@ -70,7 +70,7 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
     INDEX iPrev = (gm_ctListVisible + iLabel - 1) % KEYS_ON_SCREEN;
     INDEX iNext = (iLabel + 1) % KEYS_ON_SCREEN;
     // initialize label entities
-    gm_mgKey[iLabel].mg_boxOnScreen = BoxKeyRow(iLabel);
+    gm_mgKey[iLabel].mg_boxOnScreen = BoxKeyRow(4.5f + iLabel);
     // initialize label gadgets
     gm_mgKey[iLabel].mg_pmgUp = &gm_mgKey[iPrev];
     gm_mgKey[iLabel].mg_pmgDown = &gm_mgKey[iNext];
@@ -82,18 +82,27 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(gm_mgArrowUp.mg_lnNode);
   gm_mgArrowDn.mg_adDirection = AD_DOWN;
   gm_mgArrowUp.mg_adDirection = AD_UP;
-  gm_mgArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
-  gm_mgArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
+  gm_mgArrowDn.mg_boxOnScreen = BoxArrow(14.5f);
+  gm_mgArrowUp.mg_boxOnScreen = BoxArrow(3.5f);
   gm_mgArrowDn.mg_pmgRight = gm_mgArrowDn.mg_pmgUp =
-    &gm_mgKey[KEYS_ON_SCREEN - 1];
+    &gm_mgBack;
   gm_mgArrowUp.mg_pmgRight = gm_mgArrowUp.mg_pmgDown =
-    &gm_mgKey[0];
+    &gm_mgBack;
 
   gm_ctListVisible = KEYS_ON_SCREEN;
   gm_pmgArrowUp = &gm_mgArrowUp;
   gm_pmgArrowDn = &gm_mgArrowDn;
   gm_pmgListTop = &gm_mgKey[0];
   gm_pmgListBottom = &gm_mgKey[KEYS_ON_SCREEN - 1];
+
+  gm_mgBack.mg_bfsFontSize = BFS_LARGE;
+  gm_mgBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  gm_mgBack.mg_strText = TRANS("BACK");
+  gm_mgBack.mg_pmgUp = &gm_mgArrowDn;
+  gm_mgBack.mg_pmgDown = &gm_mgArrowUp;
+  gm_mgBack.mg_strTip = TRANS("Return to previous menu");
+  gm_lhGadgets.AddTail(gm_mgBack.mg_lnNode);
+  gm_mgBack.mg_iCenterI = -1;
 }
 
 void CCustomizeKeyboardMenu::StartMenu(void)

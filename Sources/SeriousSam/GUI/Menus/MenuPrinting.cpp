@@ -95,8 +95,8 @@ FLOATaabbox2D BoxMediumRow(FLOAT fRow)
 FLOATaabbox2D BoxKeyRow(FLOAT fRow)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.15f, _fBigStartJ+fRow*_fMediumSizeJ),
-    FLOAT2D(0.85f, _fBigStartJ+(fRow+1)*_fMediumSizeJ));
+    FLOAT2D(0.01f, _fBigStartJ + fRow * _fMediumSizeJ),
+    FLOAT2D(0.99f, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
 }
 
 FLOATaabbox2D BoxMediumLeft(FLOAT fRow)
@@ -200,20 +200,11 @@ FLOATaabbox2D BoxInfoTable(INDEX iTable)
   }
 }
 
-FLOATaabbox2D BoxArrow(enum ArrowDir ad)
+FLOATaabbox2D BoxArrow(FLOAT fRow)
 {
-  switch(ad) {
-  default:
-    ASSERT(FALSE);
-  case AD_UP:
-    return FLOATaabbox2D(
-      FLOAT2D(0.02f, _fBigStartJ+0*_fMediumSizeJ),
-      FLOAT2D(0.15f, _fBigStartJ+(0+1)*_fMediumSizeJ));
-  case AD_DOWN:
-    return FLOATaabbox2D(
-      FLOAT2D(0.02f, _fBigStartJ+15*_fMediumSizeJ),
-      FLOAT2D(0.15f, _fBigStartJ+(15+1)*_fMediumSizeJ));
-  }
+  return FLOATaabbox2D(
+    FLOAT2D(0.01f, _fBigStartJ + fRow * _fMediumSizeJ),
+    FLOAT2D(0.99f, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
 }
 
 FLOATaabbox2D BoxBack(void)

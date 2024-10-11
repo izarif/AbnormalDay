@@ -574,6 +574,14 @@ void InitActionsForControlsMenu()
   gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
 }
 
+// ------------------------ CCustomizeKeyboardMenu implementation
+void InitActionsForCustomizeKeyboardMenu()
+{
+  CCustomizeKeyboardMenu& gmCurrent = _pGUIM->gmCustomizeKeyboardMenu;
+
+  gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
+}
+
 // ------------------------ CCustomizeAxisMenu implementation
 void PreChangeAxis(INDEX iDummy)
 {

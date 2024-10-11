@@ -337,6 +337,7 @@ void InitializeMenus(void)
   _pGUIM->gmCustomizeKeyboardMenu.gm_strName = "CustomizeKeyboard";
   _pGUIM->gmCustomizeKeyboardMenu.gm_pmgSelectedByDefault = &_pGUIM->gmCustomizeKeyboardMenu.gm_mgKey[0];
   _pGUIM->gmCustomizeKeyboardMenu.gm_pgmParentMenu = &_pGUIM->gmControls;
+  InitActionsForCustomizeKeyboardMenu();
 
   _pGUIM->gmCustomizeAxisMenu.Initialize_t();
   _pGUIM->gmCustomizeAxisMenu.gm_strName = "CustomizeAxis";
