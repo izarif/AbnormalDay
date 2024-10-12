@@ -19,7 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
   #pragma once
 #endif
 
-FLOATaabbox2D BoxTitle(void);
+FLOATaabbox2D BoxTitle(FLOAT fRow);
 FLOATaabbox2D BoxVersion(void);
 FLOATaabbox2D BoxBigRow(FLOAT fRow);
 FLOATaabbox2D BoxBigLeft(FLOAT fRow);

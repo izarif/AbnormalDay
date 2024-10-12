@@ -26,7 +26,7 @@ extern void UpdateSplitLevel(INDEX iDummy);
 void CSplitStartMenu::Initialize_t(void)
 {
   // intialize split screen menu
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_mgTitle.mg_strText = TRANS("START SPLIT SCREEN");
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 

@@ -26,7 +26,7 @@ extern void UpdateNetworkLevel(INDEX iDummy);
 void CNetworkStartMenu::Initialize_t(void)
 {
   // title
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_mgTitle.mg_strText = TRANS("START SERVER");
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 

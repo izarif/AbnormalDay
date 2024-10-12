@@ -23,7 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 void CNetworkOpenMenu::Initialize_t(void)
 {
   // intialize network join menu
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_mgTitle.mg_strText = TRANS("JOIN");
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 

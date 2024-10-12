@@ -22,7 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 void COptionsMenu::Initialize_t(void)
 {
   // intialize options menu
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(2.85f);
   gm_mgTitle.mg_strText = TRANS("[OPTIONS]");
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 

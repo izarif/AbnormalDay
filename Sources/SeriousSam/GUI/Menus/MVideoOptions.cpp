@@ -41,7 +41,7 @@ void CVideoOptionsMenu::Initialize_t(void)
   }
 
   // intialize video options menu
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(1.50f);
   gm_mgTitle.mg_strText = TRANS("[VIDEO]");
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 

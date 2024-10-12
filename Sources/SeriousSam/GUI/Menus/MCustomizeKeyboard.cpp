@@ -60,7 +60,7 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
 {
   // intialize Audio options menu
   gm_mgTitle.mg_strText = TRANS("[CUSTOMIZE BUTTONS]");
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.45f);
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
 #define KL_START 3.0f
