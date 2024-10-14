@@ -25,7 +25,7 @@ void CConfirmMenu::Initialize_t(void)
   gm_mgConfirmLabel.mg_strText = "";
   gm_lhGadgets.AddTail(gm_mgConfirmLabel.mg_lnNode);
   gm_mgConfirmLabel.mg_boxOnScreen = BoxPopupLabel();
-  gm_mgConfirmLabel.mg_iCenterI = 0;
+  gm_mgConfirmLabel.mg_iCenterI = -1;
   gm_mgConfirmLabel.mg_bfsFontSize = BFS_LARGE;
 
   gm_mgConfirmYes.mg_strText = TRANS("YES");
@@ -34,7 +34,7 @@ void CConfirmMenu::Initialize_t(void)
   gm_mgConfirmYes.mg_pActivatedFunction = NULL;
   gm_mgConfirmYes.mg_pmgLeft =
     gm_mgConfirmYes.mg_pmgRight = &gm_mgConfirmNo;
-  gm_mgConfirmYes.mg_iCenterI = 1;
+  gm_mgConfirmYes.mg_iCenterI = -1;
   gm_mgConfirmYes.mg_bfsFontSize = BFS_LARGE;
 
   gm_mgConfirmNo.mg_strText = TRANS("NO");

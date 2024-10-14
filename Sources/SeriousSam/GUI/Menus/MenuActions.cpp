@@ -141,7 +141,7 @@ static void ExitConfirm(void)
 
   gmCurrent._pConfimedYes = &ExitGame;
   gmCurrent._pConfimedNo = NULL;
-  gmCurrent.gm_mgConfirmLabel.mg_strText = TRANS("ARE YOU SERIOUS?");
+  gmCurrent.gm_mgConfirmLabel.mg_strText = TRANS("ARE YOU SURE?");
   gmCurrent.gm_pgmParentMenu = pgmCurrentMenu;
   gmCurrent.BeLarge();
   ChangeToMenu(&gmCurrent);
@@ -161,7 +161,7 @@ static void StopConfirm(void)
 
   gmCurrent._pConfimedYes = &StopCurrentGame;
   gmCurrent._pConfimedNo = NULL;
-  gmCurrent.gm_mgConfirmLabel.mg_strText = TRANS("ARE YOU SERIOUS?");
+  gmCurrent.gm_mgConfirmLabel.mg_strText = TRANS("ARE YOU SURE?");
   gmCurrent.gm_pgmParentMenu = pgmCurrentMenu;
   gmCurrent.BeLarge();
   ChangeToMenu(&gmCurrent);
@@ -265,7 +265,7 @@ void VideoConfirm(void)
   gmCurrent._pConfimedYes = NULL;
   gmCurrent._pConfimedNo = RevertVideoSettings;
 
-  gmCurrent.gm_mgConfirmLabel.mg_strText = TRANS("KEEP THIS SETTING?");
+  gmCurrent.gm_mgConfirmLabel.mg_strText = TRANS("SAVE THIS SETTINGS?");
   gmCurrent.gm_pgmParentMenu = pgmCurrentMenu;
   gmCurrent.BeLarge();
   ChangeToMenu(&gmCurrent);
