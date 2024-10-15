@@ -75,8 +75,8 @@ FLOATaabbox2D BoxBigRight(FLOAT fRow)
 FLOATaabbox2D BoxSaveLoad(FLOAT fRow)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.20f, _fBigStartJ+fRow*_fMediumSizeJ),
-    FLOAT2D(0.95f, _fBigStartJ+(fRow+1)*_fMediumSizeJ));
+    FLOAT2D(0.01f, _fBigStartJ + fRow * _fMediumSizeJ),
+    FLOAT2D(0.99f, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
 }
 
 FLOATaabbox2D BoxVersion(void)

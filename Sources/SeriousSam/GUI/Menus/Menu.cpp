@@ -329,6 +329,7 @@ void InitializeMenus(void)
   _pGUIM->gmLoadSaveMenu.Initialize_t();
   _pGUIM->gmLoadSaveMenu.gm_strName = "LoadSave";
   _pGUIM->gmLoadSaveMenu.gm_pmgSelectedByDefault = &_pGUIM->gmLoadSaveMenu.gm_amgButton[0];
+  InitActionsForLoadSaveMenu();
 
   _pGUIM->gmHighScoreMenu.Initialize_t();
   _pGUIM->gmHighScoreMenu.gm_strName = "HighScore";
@@ -709,8 +710,8 @@ BOOL DoMenu( CDrawPort *pdp)
     if( _bThumbnailOn) {
       const FLOAT fThumbScaleW = fScaleW * dpMenu.dp_fWideAdjustment;
       PIX pixOfs = 8*fScaleW;
-      pixI0 = 8*fScaleW;
-      pixJ0 = (240-THUMBW/2)*fScaleH;
+      pixI0 = 252 * fScaleW;
+      pixJ0 = 206 * fScaleH;
       pixI1 = pixI0+ THUMBW*fThumbScaleW;
       pixJ1 = pixJ0+ THUMBH*fScaleH;
       if( _toThumbnail.GetData()!=NULL)
@@ -722,7 +723,7 @@ BOOL DoMenu( CDrawPort *pdp)
         dpMenu.SetFont( _pfdDisplayFont);
         dpMenu.SetTextScaling( fScaleW);
         dpMenu.SetTextAspect( 1.0f);
-        dpMenu.PutTextCXY( TRANS("no thumbnail"), (pixI0+pixI1)/2, (pixJ0+pixJ1)/2, _pGame->LCDGetColor(C_GREEN|255, "no thumbnail"));
+        dpMenu.PutTextCXY(TRANS("<no thumbnail>"), (pixI0 + pixI1) / 2, (pixJ0 + pixJ1) / 2, _pGame->LCDGetColor(C_GREEN | 255, "no thumbnail"));
       }
     }
 

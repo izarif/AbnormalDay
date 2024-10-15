@@ -25,7 +25,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "GUI/Components/MGFileButton.h"
 #include "GUI/Components/MGTitle.h"
 
-#define SAVELOAD_BUTTONS_CT 14
+#define SAVELOAD_BUTTONS_CT 10
 
 enum ELSSortType
 {
@@ -63,10 +63,10 @@ public:
   INDEX gm_iLastFile;         // index of last saved file in numbered format
 
   CMGTitle gm_mgTitle;
-  CMGButton gm_mgNotes;
   CMGFileButton gm_amgButton[SAVELOAD_BUTTONS_CT];
   CMGArrow gm_mgArrowUp;
   CMGArrow gm_mgArrowDn;
+  CMGButton gm_mgBack;
 
   // called to get info of a file from directory, or to skip it
   BOOL ParseFile(const CTFileName &fnm, CTString &strName);

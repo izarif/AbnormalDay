@@ -574,6 +574,14 @@ void InitActionsForControlsMenu()
   gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
 }
 
+// ------------------------ CCLoadSaveMenu implementation
+void InitActionsForLoadSaveMenu()
+{
+  CLoadSaveMenu& gmCurrent = _pGUIM->gmLoadSaveMenu;
+
+  gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
+}
+
 // ------------------------ CCustomizeKeyboardMenu implementation
 void InitActionsForCustomizeKeyboardMenu()
 {
