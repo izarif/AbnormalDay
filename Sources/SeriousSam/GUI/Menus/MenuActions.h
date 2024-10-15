@@ -23,6 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 void InitActionsForAudioOptionsMenu();
 void InitActionsForConfirmMenu();
 void InitActionsForControlsMenu();
+void InitActionsForLoadSaveMenu();
 void InitActionsForCustomizeKeyboardMenu();
 void InitActionsForCustomizeAxisMenu();
 void InitActionsForMainMenu();
