@@ -539,7 +539,7 @@
     <ClCompile Include="GUI\Menus\MenuPrinting.cpp" />
     <ClCompile Include="GUI\Menus\MenuStuff.cpp" />
     <ClCompile Include="GUI\Menus\MenuActions.cpp" />
-    <ClCompile Include="GUI\Menus\MHighScore.cpp" />
+    <ClCompile Include="GUI\Menus\MGameOptions.cpp" />
     <ClCompile Include="GUI\Menus\MInGame.cpp" />
     <ClCompile Include="GUI\Menus\MLevels.cpp" />
     <ClCompile Include="GUI\Menus\MLoadSave.cpp" />
@@ -591,7 +591,7 @@
     <ClInclude Include="GUI\Menus\MenuStartersAF.h" />
     <ClInclude Include="GUI\Menus\MenuStuff.h" />
     <ClInclude Include="GUI\Menus\MenuStarters.h" />
-    <ClInclude Include="GUI\Menus\MHighScore.h" />
+    <ClInclude Include="GUI\Menus\MGameOptions.h" />
     <ClInclude Include="GUI\Menus\MInGame.h" />
     <ClInclude Include="GUI\Menus\MLevels.h" />
     <ClInclude Include="GUI\Menus\MLoadSave.h" />

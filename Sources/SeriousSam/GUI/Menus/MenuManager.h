@@ -26,7 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "MCustomizeKeyboard.h"
 #include "MCredits.h"
 #include "MDisabled.h"
-#include "MHighScore.h"
+#include "MGameOptions.h"
 #include "MInGame.h"
 #include "MLevels.h"
 #include "MMain.h"
@@ -58,7 +58,7 @@ public:
   CPlayerProfileMenu gmPlayerProfile;
   CControlsMenu gmControls;
   CLoadSaveMenu gmLoadSaveMenu;
-  CHighScoreMenu gmHighScoreMenu;
+  CGameOptionsMenu gmGameOptionsMenu;
   CCustomizeKeyboardMenu gmCustomizeKeyboardMenu;
   CServersMenu gmServersMenu;
   CCustomizeAxisMenu gmCustomizeAxisMenu;

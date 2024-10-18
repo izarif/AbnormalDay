@@ -48,6 +48,7 @@ extern CTString *astrDisplayAPIRadioTexts; // [Cecil] Dynamically created array
 extern CTString astrBitsPerPixelRadioTexts[3];
 extern CTString astrFrequencyRadioTexts[4];
 extern CTString *astrSoundAPIRadioTexts; // [Cecil] Dynamically created array
+extern CTString astrBloodAndGoreRadioTexts[4];
 
 void InitGameTypes(void);
 

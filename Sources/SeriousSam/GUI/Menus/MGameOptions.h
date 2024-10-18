@@ -13,24 +13,28 @@ You should have received a copy of the GNU General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA. */
 
-#include "StdH.h"
-#include <Engine/CurrentVersion.h>
-#include "MenuPrinting.h"
-#include "MHighScore.h"
+#ifndef SE_INCL_GAME_MENU_GAMEOPTIONS_H
+#define SE_INCL_GAME_MENU_GAMEOPTIONS_H
+#ifdef PRAGMA_ONCE
+  #pragma once
+#endif
+
+#include "GameMenu.h"
+#include "GUI/Components/MGHighScore.h"
+#include "GUI/Components/MGTitle.h"
 
 
-void CHighScoreMenu::Initialize_t(void)
-{
-  gm_mgHScore.mg_boxOnScreen = FLOATaabbox2D(FLOAT2D(0, 0), FLOAT2D(1, 0.5));
-  gm_lhGadgets.AddTail(gm_mgHScore.mg_lnNode);
+class CGameOptionsMenu : public CGameMenu {
+public:
+  CMGTitle gm_mgTitle;
+  CMGTrigger gm_mgAutoSave;
+  CMGTrigger gm_mgSharpTurning;
+  CMGTrigger gm_mgBloodAndGore;
+  CMGTrigger gm_mgGibs;
+  CMGButton gm_mgApply;
+  CMGButton gm_mgBack;
 
-  gm_mgTitle.mg_strText = TRANS("HIGH SCORE TABLE");
-  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
-  gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
-}
+  void Initialize_t(void);
+};
 
-void CHighScoreMenu::StartMenu(void)
-{
-  gm_pgmParentMenu = pgmCurrentMenu;
-  CGameMenu::StartMenu();
-}
+#endif  /* include-once check. */

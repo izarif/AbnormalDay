@@ -24,6 +24,7 @@ void InitActionsForAudioOptionsMenu();
 void InitActionsForConfirmMenu();
 void InitActionsForControlsMenu();
 void InitActionsForLoadSaveMenu();
+void InitActionsForGameOptionsMenu();
 void InitActionsForCustomizeKeyboardMenu();
 void InitActionsForCustomizeAxisMenu();
 void InitActionsForMainMenu();

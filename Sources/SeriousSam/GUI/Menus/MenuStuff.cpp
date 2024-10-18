@@ -118,6 +118,13 @@ CTString astrFrequencyRadioTexts[] = {
 // [Cecil] Dynamically created array
 CTString *astrSoundAPIRadioTexts = NULL;
 
+CTString astrBloodAndGoreRadioTexts[] = {
+  RADIOTRANS("None"),
+  RADIOTRANS("Red"),
+  RADIOTRANS("Green"),
+  RADIOTRANS("Hippie"),
+};
+
 // initialize game type strings table
 void InitGameTypes(void)
 {

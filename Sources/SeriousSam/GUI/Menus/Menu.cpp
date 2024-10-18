@@ -190,11 +190,6 @@ void StartMenus(const CTString &str)
     _pGUIM->gmSelectPlayersMenu.gm_pgmParentMenu = &_pGUIM->gmMainMenu;
   }
 
-  if (str == "hiscore") {
-    ChangeToMenu(&_pGUIM->gmHighScoreMenu);
-    _pGUIM->gmHighScoreMenu.gm_pgmParentMenu = &_pGUIM->gmMainMenu;
-  }
-
   bMenuActive = TRUE;
   bMenuRendering = TRUE;
 }
@@ -331,8 +326,11 @@ void InitializeMenus(void)
   _pGUIM->gmLoadSaveMenu.gm_pmgSelectedByDefault = &_pGUIM->gmLoadSaveMenu.gm_amgButton[0];
   InitActionsForLoadSaveMenu();
 
-  _pGUIM->gmHighScoreMenu.Initialize_t();
-  _pGUIM->gmHighScoreMenu.gm_strName = "HighScore";
+  _pGUIM->gmGameOptionsMenu.Initialize_t();
+  _pGUIM->gmGameOptionsMenu.gm_strName = "GameOptions";
+  _pGUIM->gmGameOptionsMenu.gm_pmgSelectedByDefault = &_pGUIM->gmGameOptionsMenu.gm_mgAutoSave;
+  _pGUIM->gmGameOptionsMenu.gm_pgmParentMenu = &_pGUIM->gmOptionsMenu;
+  InitActionsForGameOptionsMenu();
 
   _pGUIM->gmCustomizeKeyboardMenu.Initialize_t();
   _pGUIM->gmCustomizeKeyboardMenu.gm_strName = "CustomizeKeyboard";

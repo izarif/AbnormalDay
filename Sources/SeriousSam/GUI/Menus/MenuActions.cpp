@@ -582,6 +582,25 @@ void InitActionsForLoadSaveMenu()
   gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
 }
 
+// ------------------------ CGameOptionsMenu implementation
+static void ApplyGameOptions()
+{
+  CGameOptionsMenu& gmCurrent = _pGUIM->gmGameOptionsMenu;
+
+  ChangeAutoSave(gmCurrent.gm_mgAutoSave.mg_iSelected);
+  ChangeSharpTurning(gmCurrent.gm_mgSharpTurning.mg_iSelected);
+  _pShell->SetINDEX("gam_iBlood", gmCurrent.gm_mgBloodAndGore.mg_iSelected);
+  _pShell->SetINDEX("gam_bGibs", gmCurrent.gm_mgGibs.mg_iSelected);
+}
+
+void InitActionsForGameOptionsMenu()
+{
+  CGameOptionsMenu& gmCurrent = _pGUIM->gmGameOptionsMenu;
+
+  gmCurrent.gm_mgApply.mg_pActivatedFunction = &ApplyGameOptions;
+  gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
+}
+
 // ------------------------ CCustomizeKeyboardMenu implementation
 void InitActionsForCustomizeKeyboardMenu()
 {

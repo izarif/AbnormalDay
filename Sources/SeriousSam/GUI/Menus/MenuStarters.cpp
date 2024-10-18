@@ -110,12 +110,7 @@ void StartVarGameOptions(void)
 
 void StartSinglePlayerGameOptions(void)
 {
-  CVarMenu &gmCurrent = _pGUIM->gmVarMenu;
-
-  gmCurrent.gm_mgTitle.mg_strText = TRANS("GAME OPTIONS");
-  gmCurrent.gm_fnmMenuCFG = CTFILENAME("Scripts\\Menu\\SPOptions.cfg");
-  gmCurrent.gm_pgmParentMenu = &_pGUIM->gmSinglePlayerMenu;
-  ChangeToMenu(&gmCurrent);
+  ChangeToMenu(&_pGUIM->gmGameOptionsMenu);
 }
 
 void StartGameOptionsFromNetwork(void)
@@ -226,12 +221,6 @@ void StartControlsMenuFromOptions(void)
 {
   _pGUIM->gmControls.gm_pgmParentMenu = &_pGUIM->gmOptionsMenu;
   ChangeToMenu(&_pGUIM->gmControls);
-}
-
-void StartHighScoreMenu(void)
-{
-  _pGUIM->gmHighScoreMenu.gm_pgmParentMenu = pgmCurrentMenu;
-  ChangeToMenu(&_pGUIM->gmHighScoreMenu);
 }
 
 void StartSplitScreenGame(void)

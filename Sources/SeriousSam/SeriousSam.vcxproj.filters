@@ -153,7 +153,7 @@
     <ClCompile Include="GUI\Menus\MServers.cpp">
       <Filter>Source Files\GUI\Menus</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\Menus\MHighScore.cpp">
+    <ClCompile Include="GUI\Menus\MGameOptions.cpp">
       <Filter>Source Files\GUI\Menus</Filter>
     </ClCompile>
     <ClCompile Include="GUI\Menus\MNetwork.cpp">
@@ -308,7 +308,7 @@
     <ClInclude Include="GUI\Menus\MDisabled.h">
       <Filter>Header Files\GUI headers\Menus headers</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\Menus\MHighScore.h">
+    <ClInclude Include="GUI\Menus\MGameOptions.h">
       <Filter>Header Files\GUI headers\Menus headers</Filter>
     </ClInclude>
     <ClInclude Include="GUI\Menus\MLoadSave.h">
