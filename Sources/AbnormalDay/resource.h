@@ -15,7 +15,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
-// Used by SeriousSam.rc
+// Used by AbnormalDay.rc
 //
 #define IDB_SPLASH                      102
 #define IDB_SPLASHMASK                  104

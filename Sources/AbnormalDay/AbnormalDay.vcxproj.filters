@@ -48,7 +48,7 @@
     <ClCompile Include="MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SeriousSam.cpp">
+    <ClCompile Include="AbnormalDay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SplashScreen.cpp">
@@ -227,7 +227,7 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SeriousSam.h">
+    <ClInclude Include="AbnormalDay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SplashScreen.h">
@@ -400,7 +400,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="SeriousSam.rc">
+    <ResourceCompile Include="AbnormalDay.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -411,7 +411,7 @@
     <CustomBuild Include="nodrop.cur">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="res\SeriousSam.ico">
+    <CustomBuild Include="res\AbnormalDay.ico">
       <Filter>Resource Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Splash.bmp">

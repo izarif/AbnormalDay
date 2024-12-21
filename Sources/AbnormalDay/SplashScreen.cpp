@@ -17,7 +17,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "SplashScreen.h"
 
-#define SPLASH_TITLE "SeriousSam loading..."
+#define SPLASH_TITLE "Abnormal Day loading..."
 
 static OS::Window _window = NULL;
 

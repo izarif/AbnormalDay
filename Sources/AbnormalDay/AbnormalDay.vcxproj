@@ -41,6 +41,7 @@
     </SccLocalPath>
     <ProjectGuid>{F0E01B8A-1C93-85CB-693E-B9CA24A27168}</ProjectGuid>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>AbnormalDay</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic-Release|Win32'" Label="Configuration">
@@ -612,7 +613,7 @@
     <ClInclude Include="GUI\Menus\MVar.h" />
     <ClInclude Include="GUI\Menus\MVideoOptions.h" />
     <ClCompile Include="GUI\Menus\MenuStarters.cpp" />
-    <ClCompile Include="SeriousSam.cpp" />
+    <ClCompile Include="AbnormalDay.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="StdH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dynamic-Debug|Win32'">Create</PrecompiledHeader>
@@ -636,7 +637,7 @@
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ScreenResolutions.h" />
-    <ClInclude Include="SeriousSam.h" />
+    <ClInclude Include="AbnormalDay.h" />
     <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="StdH.h" />
     <ClInclude Include="VarList.h" />
@@ -644,11 +645,11 @@
   <ItemGroup>
     <CustomBuild Include="nocursor.cur" />
     <CustomBuild Include="nodrop.cur" />
-    <CustomBuild Include="res\SeriousSam.ico" />
+    <CustomBuild Include="res\AbnormalDay.ico" />
     <CustomBuild Include="Splash.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="SeriousSam.rc" />
+    <ResourceCompile Include="AbnormalDay.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
