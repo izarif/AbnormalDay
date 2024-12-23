@@ -474,8 +474,6 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
   }
   
   // load logo textures
-  LoadAndForceTexture(_toLogoCT,   _ptoLogoCT,   CTFILENAME("Textures\\Logo\\LogoCT.tex"));
-  LoadAndForceTexture(_toLogoODI,  _ptoLogoODI,  CTFILENAME("Textures\\Logo\\GodGamesLogo.tex"));
   LoadAndForceTexture(_toLogoEAX,  _ptoLogoEAX,  CTFILENAME("Textures\\Logo\\LogoEAX.tex"));
 
   // !! NOTE !! Re-enable these to allow mod support.

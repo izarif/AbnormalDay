@@ -56,11 +56,12 @@ FLOATaabbox2D BoxBigRow(FLOAT fRow)
     FLOAT2D(0.1f, _fBigStartJ+fRow*_fBigSizeJ),
     FLOAT2D(0.9f, _fBigStartJ+(fRow+1)*_fBigSizeJ));
 }
+
 FLOATaabbox2D BoxBigLeft(FLOAT fRow)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.1f, _fBigStartJ+fRow*_fBigSizeJ),
-    FLOAT2D(0.45f, _fBigStartJ+(fRow+1)*_fBigSizeJ));
+    FLOAT2D(0.01f, _fBigStartJ + fRow * _fBigSizeJ),
+    FLOAT2D(0.99f, _fBigStartJ + (fRow + 1) * _fBigSizeJ));
 }
 
 FLOATaabbox2D BoxBigRight(FLOAT fRow)
@@ -80,8 +81,8 @@ FLOATaabbox2D BoxSaveLoad(FLOAT fRow)
 FLOATaabbox2D BoxVersion(void)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.05f, _fBigStartJ+-5.5f*_fMediumSizeJ),
-    FLOAT2D(0.97f, _fBigStartJ+(-5.5f+1)*_fMediumSizeJ));
+    FLOAT2D(0.01f, _fBigStartJ + -5.9f * _fMediumSizeJ),
+    FLOAT2D(0.99f, _fBigStartJ + (-5.9f + 1) * _fMediumSizeJ));
 }
 
 FLOATaabbox2D BoxMediumRow(FLOAT fRow)
