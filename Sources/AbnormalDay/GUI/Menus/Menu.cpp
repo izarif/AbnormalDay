@@ -186,27 +186,23 @@ void StartMenus(const CTString &str)
   if (str == "save") {
     StartCurrentSaveMenu();
     _pGUIM->gmLoadSaveMenu.gm_pgmParentMenu = NULL;
-    FixupBackButton(&_pGUIM->gmLoadSaveMenu);
   }
 
   if (str == "controls") {
     void StartControlsMenuFromOptions(void);
     StartControlsMenuFromOptions();
     _pGUIM->gmControls.gm_pgmParentMenu = NULL;
-    FixupBackButton(&_pGUIM->gmControls);
   }
 
   if (str == "join") {
     void StartSelectPlayersMenuFromOpen(void);
     StartSelectPlayersMenuFromOpen();
     _pGUIM->gmSelectPlayersMenu.gm_pgmParentMenu = &_pGUIM->gmMainMenu;
-    FixupBackButton(&_pGUIM->gmSelectPlayersMenu);
   }
 
   if (str == "hiscore") {
     ChangeToMenu(&_pGUIM->gmHighScoreMenu);
     _pGUIM->gmHighScoreMenu.gm_pgmParentMenu = &_pGUIM->gmMainMenu;
-    FixupBackButton(&_pGUIM->gmHighScoreMenu);
   }
 
   bMenuActive = TRUE;
@@ -962,6 +958,5 @@ void ChangeToMenu( CGameMenu *pgmNewMenu)
     }
     pgmNewMenu->gm_pmgSelectedByDefault->OnSetFocus();
   }
-  FixupBackButton(pgmNewMenu);
   pgmCurrentMenu = pgmNewMenu;
 }
