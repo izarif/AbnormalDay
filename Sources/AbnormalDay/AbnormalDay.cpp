@@ -1223,9 +1223,6 @@ int SubMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, const CTString &strCm
   }
 #endif
 
-  // invoke quit screen if needed
-  if( _bQuitScreen && _fnmModToLoad=="") QuitScreenLoop();
-  
   End();
   return TRUE;
 }
