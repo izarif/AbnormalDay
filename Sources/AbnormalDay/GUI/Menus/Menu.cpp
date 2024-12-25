@@ -863,8 +863,8 @@ BOOL DoMenu( CDrawPort *pdp)
     }
     // print the tip
     SetFontMedium(&dpMenu);
-    dpMenu.PutTextC(strTip, 
-      pixW*0.5f, pixH*0.92f, _pGame->LCDGetColor(C_WHITE|255, "tool tip"));
+    dpMenu.PutText(strTip,
+      pixW * 0.01f, pixH * 0.96f, _pGame->LCDGetColor(C_WHITE | 255, "tool tip"));
   }
 
   _pGame->ConsolePrintLastLines(&dpMenu);
