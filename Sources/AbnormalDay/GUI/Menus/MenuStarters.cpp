@@ -850,6 +850,11 @@ void StartSplitScreenSaveMenu(void)
   ChangeToMenu(&gmCurrent);
 }
 
+void StartCreditsMenu(void)
+{
+  ChangeToMenu(&_pGUIM->gmCredits);
+}
+
 // -------- Disabled Menu Calling Function
 void DisabledFunction(void)
 {

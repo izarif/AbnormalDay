@@ -24,7 +24,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 class CCreditsMenu : public CGameMenu {
 public:
+  CSoundObject soMusic;
+  CMGButton gm_mgBack;
+
   void Initialize_t(void);
+  void StartMenu(void);
+  void EndMenu(void);
 };
 
 #endif  /* include-once check. */

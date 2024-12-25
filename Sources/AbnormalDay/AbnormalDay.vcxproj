@@ -561,6 +561,7 @@
     <ClCompile Include="GUI\Menus\MVideoOptions.cpp" />
     <ClCompile Include="LevelInfo.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="GUI\Menus\MCredits.cpp" />
     <ClCompile Include="ScreenResolutions.cpp" />
     <ClInclude Include="GUI\Components\MenuGadget.h" />
     <ClInclude Include="GUI\Components\MGArrow.h" />

@@ -40,5 +40,6 @@ void InitActionsForSplitScreenMenu();
 void InitActionsForSplitStartMenu();
 void InitActionsForVideoOptionsMenu();
 void InitActionsForVarMenu();
+void InitActionsForCreditsMenu();
 
 #endif  /* include-once check. */

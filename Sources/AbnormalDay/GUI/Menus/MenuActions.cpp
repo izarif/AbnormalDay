@@ -309,7 +309,7 @@ void InitActionsForMainMenu() {
   gmCurrent.gm_mgNewGame.mg_pActivatedFunction = &StartSinglePlayerGame_Normal;
   gmCurrent.gm_mgLoadGame.mg_pActivatedFunction = &StartSinglePlayerLoadMenu;
   gmCurrent.gm_mgOptions.mg_pActivatedFunction = &StartOptionsMenu;
-  gmCurrent.gm_mgCredits.mg_pActivatedFunction = NULL;
+  gmCurrent.gm_mgCredits.mg_pActivatedFunction = &StartCreditsMenu;
   gmCurrent.gm_mgQuit.mg_pActivatedFunction = &ExitGame;
 }
 
@@ -1306,4 +1306,14 @@ extern void UpdateSplitLevel(INDEX iDummy)
   ValidateLevelForFlags(_pGame->gam_strCustomLevel,
     GetSpawnFlagsForGameType(gmCurrent.gm_mgGameType.mg_iSelected));
   gmCurrent.gm_mgLevel.mg_strText = FindLevelByFileName(_pGame->gam_strCustomLevel).li_strName;
+}
+
+// ------------------------ CCreditsMenu implementation
+void MenuBack(void);
+
+void InitActionsForCreditsMenu()
+{
+  CCreditsMenu& gmCurrent = _pGUIM->gmCredits;
+
+  gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
 }

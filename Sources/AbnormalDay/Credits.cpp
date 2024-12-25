@@ -47,7 +47,7 @@ void PrintOneLine(CDrawPort *pdp, const CTString &strText)
 {
   pdp->SetTextScaling( fResolutionScaling);
   pdp->SetTextAspect( 1.0f);
-  pdp->PutTextC( strText, pixW/2, pixJ, C_WHITE|255);
+  pdp->PutText(strText, pixW * 0.01, pixJ, C_WHITE | 255);
   pixJ+=pixLineHeight;
 }
 

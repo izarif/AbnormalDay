@@ -25,6 +25,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "LevelInfo.h"
 #include "VarList.h"
 #include "FileInfo.h"
+#include "Credits.h"
 #include "MenuManager.h"
 
 #include "MenuActions.h"
@@ -39,6 +40,7 @@ extern BOOL bMenuRendering;
 extern CTextureObject *_ptoLogoCT;
 extern CTextureObject *_ptoLogoODI;
 extern CTextureObject *_ptoLogoEAX;
+extern CTextureObject* _ptoCreditsMenuBack;
 
 INDEX _iLocalPlayer = -1;
 BOOL  _bPlayerMenuFromSinglePlayer = FALSE;
@@ -432,6 +434,11 @@ void InitializeMenus(void)
   _pGUIM->gmSplitStartMenu.gm_pmgSelectedByDefault = &_pGUIM->gmSplitStartMenu.gm_mgStart;
   _pGUIM->gmSplitStartMenu.gm_pgmParentMenu = &_pGUIM->gmSplitScreenMenu;
   InitActionsForSplitStartMenu();
+
+  _pGUIM->gmCredits.Initialize_t();
+  _pGUIM->gmCredits.gm_strName = "Credits";
+  _pGUIM->gmCredits.gm_pmgSelectedByDefault = &_pGUIM->gmCredits.gm_mgBack;
+  InitActionsForCreditsMenu();
   }
   catch( char *strError)
   {
@@ -636,6 +643,7 @@ void RenderMouseCursor(CDrawPort *pdp)
   _pGame->LCDDrawPointer(_pixCursorPosI, _pixCursorPosJ);
 }
 
+void MenuBack(void);
 
 BOOL DoMenu( CDrawPort *pdp)
 {
@@ -697,6 +705,10 @@ BOOL DoMenu( CDrawPort *pdp)
     _pGame->LCDRenderGrid();
     _pGame->LCDRenderClouds2();
 
+    if (pgmCurrentMenu == &_pGUIM->gmCredits) {
+      dpMenu.PutTexture(_ptoCreditsMenuBack, PIXaabbox2D(PIX2D(0, 0), PIX2D(pixW, pixH)));
+    }
+
     FLOAT fScaleW = (FLOAT)pixW / 640.0f;
     FLOAT fScaleH = (FLOAT)pixH / 480.0f;
     PIX   pixI0, pixJ0, pixI1, pixJ1;
@@ -748,7 +760,14 @@ BOOL DoMenu( CDrawPort *pdp)
         pixJ1 = pixJ0+ pixLogoHeight*fScaleH;
         dpMenu.PutTexture( _ptoLogoEAX, PIXaabbox2D( PIX2D( pixI0, pixJ0),PIX2D( pixI1, pixJ1)));
       }
+  }
+  else if (pgmCurrentMenu == &_pGUIM->gmCredits) {
+    FLOAT fCreditsLeftCount = Credits_Render(pdp);
+
+    if (fCreditsLeftCount == 0) {
+      MenuBack();
     }
+  }
 
 #define THUMBW 96
 #define THUMBH 96

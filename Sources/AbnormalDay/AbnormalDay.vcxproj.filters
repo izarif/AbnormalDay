@@ -207,6 +207,9 @@
     <ClCompile Include="ScreenResolutions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\Menus\MCredits.cpp">
+      <Filter>Source Files\GUI\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CmdLine.h">

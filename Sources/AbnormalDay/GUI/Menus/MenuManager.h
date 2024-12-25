@@ -43,6 +43,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "MSplitStart.h"
 #include "MVar.h"
 #include "MVideoOptions.h"
+#include "MCredits.h"
 
 
 class CMenuManager {
@@ -72,6 +73,7 @@ public:
   CSplitScreenMenu gmSplitScreenMenu;
   CSplitStartMenu gmSplitStartMenu;
   CSelectPlayersMenu gmSelectPlayersMenu;
+  CCreditsMenu gmCredits;
 };
 
 extern CMenuManager *_pGUIM; // TODO: Make singleton!

@@ -109,9 +109,11 @@ CTFileName _fnmAddonToExec = CTString("");
 static CTextureObject  _toLogoCT;
 static CTextureObject  _toLogoODI;
 static CTextureObject  _toLogoEAX;
+static CTextureObject _toCreditsMenuBack;
 CTextureObject *_ptoLogoCT  = NULL;
 CTextureObject *_ptoLogoODI = NULL;
 CTextureObject *_ptoLogoEAX = NULL;
+CTextureObject* _ptoCreditsMenuBack = NULL;
 
 CTString sam_strVersion = "1.00";
 CTString sam_strModName = TRANS("Abnormal Day");
@@ -472,6 +474,9 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
     strCmd.PrintF("include \"%s\"", cmd_strScript.ConstData());
     _pShell->Execute(strCmd);
   }
+
+  // load menu background textures
+  LoadAndForceTexture(_toCreditsMenuBack, _ptoCreditsMenuBack, CTFILENAME("TexturesMP\\General\\CreditsBack.tex"));
   
   // load logo textures
   LoadAndForceTexture(_toLogoEAX,  _ptoLogoEAX,  CTFILENAME("Textures\\Logo\\LogoEAX.tex"));
@@ -665,10 +670,6 @@ void DoGame(void)
     sam_iStartCredits = 0;
   }
   if (sam_iStartCredits<0) {
-    Credits_Off();
-    sam_iStartCredits = 0;
-  }
-  if( _gmRunningGameMode==GM_NONE) {
     Credits_Off();
     sam_iStartCredits = 0;
   }
