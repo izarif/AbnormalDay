@@ -613,16 +613,17 @@ void InitActionsForCustomizeAxisMenu()
 }
 
 // ------------------------ COptionsMenu implementation
+void MenuBack(void);
+
 void InitActionsForOptionsMenu()
 {
   COptionsMenu &gmCurrent = _pGUIM->gmOptionsMenu;
 
+  gmCurrent.gm_mgGameOptions.mg_pActivatedFunction = NULL;
   gmCurrent.gm_mgVideoOptions.mg_pActivatedFunction = &StartVideoOptionsMenu;
   gmCurrent.gm_mgAudioOptions.mg_pActivatedFunction = &StartAudioOptionsMenu;
-  gmCurrent.gm_mgPlayerProfileOptions.mg_pActivatedFunction = &StartChangePlayerMenuFromOptions;
-  gmCurrent.gm_mgNetworkOptions.mg_pActivatedFunction = &StartNetworkSettingsMenu;
-  gmCurrent.gm_mgCustomOptions.mg_pActivatedFunction = &StartCustomLoadMenu;
-  gmCurrent.gm_mgAddonOptions.mg_pActivatedFunction = &StartAddonsLoadMenu;
+  gmCurrent.gm_mgControls.mg_pActivatedFunction = &StartControlsMenuFromOptions;
+  gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
 }
 
 // ------------------------ CVideoOptionsMenu implementation
@@ -1309,8 +1310,6 @@ extern void UpdateSplitLevel(INDEX iDummy)
 }
 
 // ------------------------ CCreditsMenu implementation
-void MenuBack(void);
-
 void InitActionsForCreditsMenu()
 {
   CCreditsMenu& gmCurrent = _pGUIM->gmCredits;

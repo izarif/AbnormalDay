@@ -23,7 +23,7 @@ void CInGameMenu::Initialize_t(void)
 {
   // intialize main menu
   gm_mgTitle.mg_strText = TRANS("GAME");
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
   gm_mgLabel1.mg_strText = "";

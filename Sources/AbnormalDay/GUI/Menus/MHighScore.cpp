@@ -25,7 +25,7 @@ void CHighScoreMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(gm_mgHScore.mg_lnNode);
 
   gm_mgTitle.mg_strText = TRANS("HIGH SCORE TABLE");
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 }
 

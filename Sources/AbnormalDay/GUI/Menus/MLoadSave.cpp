@@ -24,7 +24,7 @@ void CLoadSaveMenu::Initialize_t(void)
 {
   gm_pgmNextMenu = NULL;
 
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
   gm_mgNotes.mg_boxOnScreen = BoxMediumRow(10.0);

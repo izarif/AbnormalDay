@@ -24,7 +24,7 @@ CMGEdit mgServerFilter[7];
 
 void CServersMenu::Initialize_t(void)
 {
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_mgTitle.mg_strText = TRANS("CHOOSE SERVER");
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 

@@ -43,7 +43,7 @@ void CPlayerProfileMenu::Initialize_t(void)
 {
   // intialize player and controls menu
   _bPlayerMenuFromSinglePlayer = FALSE;
-  gm_mgProfileTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgProfileTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_mgProfileTitle.mg_strText = TRANS("PLAYER PROFILE");
   gm_lhGadgets.AddTail(gm_mgProfileTitle.mg_lnNode);
 

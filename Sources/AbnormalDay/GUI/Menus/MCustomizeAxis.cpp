@@ -24,7 +24,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
 {
   // intialize axis menu
   gm_mgTitle.mg_strText = TRANS("CUSTOMIZE AXIS");
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
   TRIGGER_MG(gm_mgActionTrigger, 0, gm_mgSmoothTrigger, gm_mgMountedTrigger, TRANS("ACTION"), astrNoYes);

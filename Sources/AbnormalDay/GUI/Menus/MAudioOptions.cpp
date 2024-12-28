@@ -37,7 +37,7 @@ void CAudioOptionsMenu::Initialize_t(void)
   }
 
   // intialize Audio options menu
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_mgTitle.mg_strText = TRANS("AUDIO");
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 

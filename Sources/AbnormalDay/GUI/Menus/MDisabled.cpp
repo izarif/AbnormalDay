@@ -21,7 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 void CDisabledMenu::Initialize_t(void)
 {
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
   gm_mgButton.mg_bfsFontSize = BFS_MEDIUM;

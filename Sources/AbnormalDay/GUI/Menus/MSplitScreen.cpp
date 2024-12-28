@@ -22,7 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 void CSplitScreenMenu::Initialize_t(void)
 {
   // intialize split screen menu
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_mgTitle.mg_strText = TRANS("SPLIT SCREEN");
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 

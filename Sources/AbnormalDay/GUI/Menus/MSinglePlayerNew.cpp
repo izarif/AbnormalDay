@@ -24,7 +24,7 @@ void CSinglePlayerNewMenu::Initialize_t(void)
 {
   // intialize single player new menu
   gm_mgTitle.mg_strText = TRANS("NEW GAME");
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
   gm_mgTourist.mg_strText = TRANS("TOURIST");

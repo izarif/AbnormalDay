@@ -24,7 +24,7 @@ void CSinglePlayerMenu::Initialize_t(void)
 {
   // intialize single player menu
   gm_mgTitle.mg_strText = TRANS("SINGLE PLAYER");
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
   gm_mgPlayerLabel.mg_boxOnScreen = BoxBigRow(-1.0f);

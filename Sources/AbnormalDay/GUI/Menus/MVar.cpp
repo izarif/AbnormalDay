@@ -24,7 +24,7 @@ extern BOOL _bVarChanged;
 
 void CVarMenu::Initialize_t(void)
 {
-  gm_mgTitle.mg_boxOnScreen = BoxTitle();
+  gm_mgTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_mgTitle.mg_strText = "";
   gm_lhGadgets.AddTail(gm_mgTitle.mg_lnNode);
 
