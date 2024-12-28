@@ -109,11 +109,15 @@ CTFileName _fnmAddonToExec = CTString("");
 static CTextureObject  _toLogoCT;
 static CTextureObject  _toLogoODI;
 static CTextureObject  _toLogoEAX;
+static CTextureObject _toMenuBack;
 static CTextureObject _toCreditsMenuBack;
+static CTextureObject _toPopupBack;
 CTextureObject *_ptoLogoCT  = NULL;
 CTextureObject *_ptoLogoODI = NULL;
 CTextureObject *_ptoLogoEAX = NULL;
-CTextureObject* _ptoCreditsMenuBack = NULL;
+CTextureObject *_ptoMenuBack = NULL;
+CTextureObject *_ptoCreditsMenuBack = NULL;
+CTextureObject* _ptoPopupBack = NULL;
 
 CTString sam_strVersion = "1.00";
 CTString sam_strModName = TRANS("Abnormal Day");
@@ -476,7 +480,9 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
   }
 
   // load menu background textures
+  LoadAndForceTexture(_toMenuBack, _ptoMenuBack, CTFILENAME("TexturesMP\\General\\MenuBack.tex"));
   LoadAndForceTexture(_toCreditsMenuBack, _ptoCreditsMenuBack, CTFILENAME("TexturesMP\\General\\CreditsBack.tex"));
+  LoadAndForceTexture(_toPopupBack, _ptoPopupBack, CTFILENAME("TexturesMP\\General\\PopupBack.tex"));
   
   // load logo textures
   LoadAndForceTexture(_toLogoEAX,  _ptoLogoEAX,  CTFILENAME("Textures\\Logo\\LogoEAX.tex"));

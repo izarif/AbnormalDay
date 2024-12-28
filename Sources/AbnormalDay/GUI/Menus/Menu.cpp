@@ -40,7 +40,9 @@ extern BOOL bMenuRendering;
 extern CTextureObject *_ptoLogoCT;
 extern CTextureObject *_ptoLogoODI;
 extern CTextureObject *_ptoLogoEAX;
+extern CTextureObject* _ptoMenuBack;
 extern CTextureObject* _ptoCreditsMenuBack;
+extern CTextureObject* _ptoPopupBack;
 
 INDEX _iLocalPlayer = -1;
 BOOL  _bPlayerMenuFromSinglePlayer = FALSE;
@@ -701,12 +703,11 @@ BOOL DoMenu( CDrawPort *pdp)
     _pGame->LCDSetDrawport(&dpMenu);
     // do not allow game to show through
     dpMenu.Fill(C_BLACK|255);
-    _pGame->LCDRenderClouds1();
-    _pGame->LCDRenderGrid();
-    _pGame->LCDRenderClouds2();
 
     if (pgmCurrentMenu == &_pGUIM->gmCredits) {
       dpMenu.PutTexture(_ptoCreditsMenuBack, PIXaabbox2D(PIX2D(0, 0), PIX2D(pixW, pixH)));
+    } else {
+      dpMenu.PutTexture(_ptoMenuBack, PIXaabbox2D(PIX2D(0, 0), PIX2D(pixW, pixH)));
     }
 
     FLOAT fScaleW = (FLOAT)pixW / 640.0f;
@@ -820,9 +821,7 @@ BOOL DoMenu( CDrawPort *pdp)
     dpPopup.Lock();
     _pGame->LCDSetDrawport(&dpPopup);
     dpPopup.Fill(C_BLACK|255);
-    _pGame->LCDRenderClouds1();
-    _pGame->LCDRenderGrid();
-  //_pGame->LCDRenderClouds2();
+    dpMenu.PutTexture(_ptoPopupBack, PIXaabbox2D(PIX2D(0, 0), PIX2D(pixW, pixH)));
     _pGame->LCDScreenBox(_pGame->LCDGetColor(C_GREEN|255, "popup box"));
     dpPopup.Unlock();
     dpMenu.Lock();
