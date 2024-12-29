@@ -483,9 +483,6 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
   LoadAndForceTexture(_toMenuBack, _ptoMenuBack, CTFILENAME("TexturesMP\\General\\MenuBack.tex"));
   LoadAndForceTexture(_toCreditsMenuBack, _ptoCreditsMenuBack, CTFILENAME("TexturesMP\\General\\CreditsBack.tex"));
   LoadAndForceTexture(_toPopupBack, _ptoPopupBack, CTFILENAME("TexturesMP\\General\\PopupBack.tex"));
-  
-  // load logo textures
-  LoadAndForceTexture(_toLogoEAX,  _ptoLogoEAX,  CTFILENAME("Textures\\Logo\\LogoEAX.tex"));
 
   // !! NOTE !! Re-enable these to allow mod support.
   LoadStringVar(CTString("Data\\Var\\ad_Version.var"), sam_strVersion);

@@ -986,6 +986,7 @@ void InitActionsForAudioOptionsMenu()
   gmCurrent.gm_mgMPEGVolume.mg_pOnSliderChange = &OnMPEGVolumeChange;
   gmCurrent.gm_mgMPEGVolume.mg_pActivatedFunction = MPEGSliderChange;
   gmCurrent.gm_mgApply.mg_pActivatedFunction = &ApplyAudioOptions;
+  gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
 }
 
 // ------------------------ CVarMenu implementation

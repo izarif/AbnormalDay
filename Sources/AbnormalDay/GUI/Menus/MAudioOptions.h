@@ -35,6 +35,7 @@ public:
   CMGSlider gm_mgWaveVolume;
   CMGSlider gm_mgMPEGVolume;
   CMGButton gm_mgApply;
+  CMGButton gm_mgBack;
 
   void StartMenu(void);
   void Initialize_t(void);
