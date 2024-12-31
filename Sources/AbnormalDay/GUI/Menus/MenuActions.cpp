@@ -584,6 +584,8 @@ void InitActionsForPlayerProfileMenu()
 }
 
 // ------------------------ CControlsMenu implementation
+void MenuBack(void);
+
 void InitActionsForControlsMenu()
 {
   CControlsMenu &gmCurrent = _pGUIM->gmControls;
@@ -591,6 +593,7 @@ void InitActionsForControlsMenu()
   gmCurrent.gm_mgButtons.mg_pActivatedFunction = &StartCustomizeKeyboardMenu;
   gmCurrent.gm_mgAdvanced.mg_pActivatedFunction = &StartCustomizeAxisMenu;
   gmCurrent.gm_mgPredefined.mg_pActivatedFunction = &StartControlsLoadMenu;
+  gmCurrent.gm_mgBack.mg_pActivatedFunction = &MenuBack;
 }
 
 // ------------------------ CCustomizeAxisMenu implementation
@@ -613,8 +616,6 @@ void InitActionsForCustomizeAxisMenu()
 }
 
 // ------------------------ COptionsMenu implementation
-void MenuBack(void);
-
 void InitActionsForOptionsMenu()
 {
   COptionsMenu &gmCurrent = _pGUIM->gmOptionsMenu;
