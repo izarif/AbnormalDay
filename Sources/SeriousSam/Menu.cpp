@@ -959,7 +959,7 @@ void ModConnect(void)
 void ModConnectConfirm(void)
 {
   if (_fnmModSelected==" ") {
-    _fnmModSelected = CTString("SeriousSam");
+    _fnmModSelected = CTString("AbnormalDay");
   }
   CTFileName fnmModPath = "Mods\\"+_fnmModSelected+"\\";
   if (!FileExists(fnmModPath+"BaseWriteInclude.lst")

@@ -90,7 +90,7 @@ void ShowSplashScreen(HINSTANCE hInstance)
   hwnd = CreateWindowExA(
 	  WS_EX_TRANSPARENT|WS_EX_TOOLWINDOW,
 	  NAME,
-	  "SeriousSam loading...",   // title
+	  "Abnormal Day loading...",   // title
     WS_POPUP,
 	  iScreenX/2-_bmSplash.bmWidth/2,
 	  iScreenY/2-_bmSplash.bmHeight/2,
@@ -150,7 +150,7 @@ void ShowSplashScreen(HINSTANCE hInstance)
       SDL_FreeSurface(bmp);
       return;
     }
-    window = SDL_CreateShapedWindow("SeriousSam loading...", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, bmp->w, bmp->h, SDL_WINDOW_BORDERLESS); // RAKE!: commented out as its post SDL2.0.4 |SDL_WINDOW_SKIP_TASKBAR);
+    window = SDL_CreateShapedWindow("Abnormal Day loading...", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, bmp->w, bmp->h, SDL_WINDOW_BORDERLESS); // RAKE!: commented out as its post SDL2.0.4 |SDL_WINDOW_SKIP_TASKBAR);
     if (window) {
       SDL_WindowShapeMode mode;
       SDL_zero(mode);
@@ -165,7 +165,7 @@ void ShowSplashScreen(HINSTANCE hInstance)
   }
 
   if (!window) {
-    window = SDL_CreateWindow("SeriousSam loading...", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, bmp->w, bmp->h, SDL_WINDOW_BORDERLESS); // RAKE!: commented out as its post SDL2.0.4 |SDL_WINDOW_SKIP_TASKBAR);
+    window = SDL_CreateWindow("Abnormal Day loading...", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, bmp->w, bmp->h, SDL_WINDOW_BORDERLESS); // RAKE!: commented out as its post SDL2.0.4 |SDL_WINDOW_SKIP_TASKBAR);
   }
 
   bool okay = false;

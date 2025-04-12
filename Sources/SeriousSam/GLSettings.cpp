@@ -98,8 +98,8 @@ void InitGLSettings(void)
 
   _strLastRenderer= "none";
   _iLastPreferences = 1;
-  _pShell->DeclareSymbol("persistent CTString sam_strLastRenderer;", (void *) &_strLastRenderer);
-  _pShell->DeclareSymbol("persistent INDEX    sam_iLastSetup;",      (void *) &_iLastPreferences);
+  _pShell->DeclareSymbol("persistent CTString ad_strLastRenderer;", (void *) &_strLastRenderer);
+  _pShell->DeclareSymbol("persistent INDEX    ad_iLastSetup;",      (void *) &_iLastPreferences);
 }
 
 

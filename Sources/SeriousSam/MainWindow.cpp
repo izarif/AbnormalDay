@@ -267,14 +267,14 @@ void OpenMainWindowNormal( PIX pixSizeI, PIX pixSizeJ)
   SE_UpdateWindowHandle( _hwndMain);
 
   // set window title
-  sprintf( achWindowTitle, TRANS("Serious Sam (Window %dx%d)"), pixSizeI, pixSizeJ);
+  sprintf( achWindowTitle, TRANS("Abnormal Day (Window %dx%d)"), pixSizeI, pixSizeJ);
   SetWindowTextA( _hwndMain, achWindowTitle);
   _pixLastSizeI = pixSizeI;
   _pixLastSizeJ = pixSizeJ;
   ResetMainWindowNormal();
 
 #else
-  SDL_snprintf( achWindowTitle, sizeof (achWindowTitle), TRANSV("Serious Sam (Window %dx%d)"), pixSizeI, pixSizeJ);
+  SDL_snprintf( achWindowTitle, sizeof (achWindowTitle), TRANSV("Abnormal Day (Window %dx%d)"), pixSizeI, pixSizeJ);
   //CPrintF((const char*)"--- %s ---\n",achWindowTitle);
   unsigned int _uFlags = SDL_WINDOW_OPENGL;
   if (sam_bBorderLessActive) _uFlags |= SDL_WINDOW_BORDERLESS; 
@@ -309,12 +309,12 @@ void OpenMainWindowFullScreen( PIX pixSizeI, PIX pixSizeJ)
   SE_UpdateWindowHandle( _hwndMain);
 
   // set window title and show it
-  sprintf( achWindowTitle, TRANS("Serious Sam (FullScreen %dx%d)"), pixSizeI, pixSizeJ);
+  sprintf( achWindowTitle, TRANS("Abnormal Day (FullScreen %dx%d)"), pixSizeI, pixSizeJ);
   SetWindowTextA( _hwndMain, achWindowTitle);
   ShowWindow(    _hwndMain, SW_SHOWNORMAL);
 
 #else
-  SDL_snprintf( achWindowTitle, sizeof (achWindowTitle), TRANSV("Serious Sam (FullScreen %dx%d)"), pixSizeI, pixSizeJ);
+  SDL_snprintf( achWindowTitle, sizeof (achWindowTitle), TRANSV("Abnormal Day (FullScreen %dx%d)"), pixSizeI, pixSizeJ);
   //CPrintF((const char*)"--- %s ---\n",achWindowTitle);
   _hwndMain = SDL_CreateWindow((const char*)strWindow1251ToUtf8(achWindowTitle), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, pixSizeI, pixSizeJ, SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN | SDL_WINDOW_BORDERLESS);
   if( _hwndMain==NULL) FatalError(TRANSV("Cannot open main window!"));
@@ -353,7 +353,7 @@ void OpenMainWindowInvisible(void)
   SE_UpdateWindowHandle( _hwndMain);
 
   // set window title
-  sprintf( achWindowTitle, "Serious Sam");
+  sprintf( achWindowTitle, "Abnormal Day");
   SetWindowTextA( _hwndMain, achWindowTitle);
 
 #else
