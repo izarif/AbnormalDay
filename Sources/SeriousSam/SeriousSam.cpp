@@ -1053,9 +1053,6 @@ void DoGame(void)
       bMenuRendering = DoMenu(pdp);
     }
 
-    // print display mode info if needed
-    PrintDisplayModeInfo();
-
     // render console
     _pGame->ConsoleRender(pdp);
 
