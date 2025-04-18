@@ -810,13 +810,6 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
     _pShell->Execute(strCmd);
   }
 
-	//#################################################################33
-	//In order to fix completely fucked up menu layout (when wide screen is used)
-	//and since dumb fucks from croteam defined fucking 200000 constats for each letter on the fucking screen...
-	//we'll need to fix some of them for current resolution....
-  	SetAdjusters();
-	//#################################################################33
-
   LoadStringVar(CTString("Data\\Var\\AD_Version.var"), sam_strVersion);
   LoadStringVar(CTString("Data\\Var\\ModName.var"), sam_strModName);
   CPrintF(TRANSV("Abnormal Day version: %s\n"), (const char *) sam_strVersion);
@@ -1962,13 +1955,6 @@ void StartNewMode( enum GfxAPIType eGfxAPI, INDEX iAdapter, PIX pixSizeI, PIX pi
   } else {
     _iDisplayModeChangeFlag = 1;  // all ok
   }
-
-	//#################################################################33
-	//In order to fix completely fucked up menu layout (when wide screen is used)
-	//and since dumb fucks from croteam defined fucking 200000 constats for each letter on the fucking screen...
-	//we'll need to fix some of them for current resolution....
-  	SetAdjusters();
-	//#################################################################33
 
   // apply 3D-acc settings
   ApplyGLSettings(FALSE);

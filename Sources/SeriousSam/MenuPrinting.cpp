@@ -17,7 +17,7 @@ __extern FLOAT _fNoSizeJ		= 0.04f;
 #ifdef SAM_VERSION_FE105
 #define _scaler_ 3.5
 #else
-#define _scaler_ 3.5
+#define _scaler_ 1
 #endif
 
 #define _BOXBIGY1 (_fBigSizeJ * _scaler_)+fRow*_fBigSizeJ
@@ -47,8 +47,8 @@ FLOATaabbox2D BoxNoDown(FLOAT fRow)
 FLOATaabbox2D BoxBigRow(FLOAT fRow, FLOAT fOffset)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.1f, fOffset * _BOXBIGY1),
-    FLOAT2D(0.9f, fOffset * _BOXBIGY2)
+    FLOAT2D(0.1f, _fBigStartJ + fRow * _fBigSizeJ),
+    FLOAT2D(0.9f, _fBigStartJ + (fRow + 1) * _fBigSizeJ)
     );
 }
 FLOATaabbox2D BoxBigLeft(FLOAT fRow)
@@ -282,21 +282,21 @@ extern CFontData _fdTitle;
 void SetFontTitle(CDrawPort *pdp)
 {
   pdp->SetFont( &_fdTitle);
-  pdp->SetTextScaling( (1.25f * pdp->GetWidth() /640 *pdp->dp_fWideAdjustment)*0.7);
+  pdp->SetTextScaling(1.25f * pdp->GetWidth() / 640 * pdp->dp_fWideAdjustment);
   pdp->SetTextAspect(1.0f);
 }
 extern CFontData _fdBig;
 void SetFontBig(CDrawPort *pdp)
 {
   pdp->SetFont( &_fdBig);
-  pdp->SetTextScaling( (1.0f * pdp->GetWidth() /640 *pdp->dp_fWideAdjustment)*0.7);
+  pdp->SetTextScaling(1.0f * pdp->GetWidth() / 640 * pdp->dp_fWideAdjustment);
   pdp->SetTextAspect(1.0f);
 }
 extern CFontData _fdMedium;
 void SetFontMedium(CDrawPort *pdp)
 {
   pdp->SetFont( &_fdMedium);
-  pdp->SetTextScaling( (1.0f * pdp->GetWidth() /640 *pdp->dp_fWideAdjustment)*0.7);
+  pdp->SetTextScaling(1.0f * pdp->GetWidth() / 640 * pdp->dp_fWideAdjustment);
   pdp->SetTextAspect(0.75f);
 }
 void SetFontSmall(CDrawPort *pdp)
