@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see copyright notice in zlib.h 
  */
 
-/* @(#) $Id: zutil.c,v 1.2 2002/02/18 06:05:43 icculus Exp $ */
+/* @(#) $Id$ */
 
 #include "zutil.h"
 
@@ -26,7 +26,7 @@ const char *z_errmsg[10] = {
 ""};
 
 
-const char * ZEXPORT zlibVersion(void)
+const char * ZEXPORT zlibVersion()
 {
     return ZLIB_VERSION;
 }
@@ -38,7 +38,8 @@ const char * ZEXPORT zlibVersion(void)
 #  endif
 int z_verbose = verbose;
 
-void z_error (char *m)
+void z_error (m)
+    char *m;
 {
     fprintf(stderr, "%s\n", m);
     exit(1);
@@ -48,7 +49,8 @@ void z_error (char *m)
 /* exported to allow conversion of error code to string for compress() and
  * uncompress()
  */
-const char * ZEXPORT zError(int err)
+const char * ZEXPORT zError(err)
+    int err;
 {
     return ERR_MSG(err);
 }
@@ -56,7 +58,10 @@ const char * ZEXPORT zError(int err)
 
 #ifndef HAVE_MEMCPY
 
-void zmemcpy(Bytef* dest, const Bytef* source, uInt len)
+void zmemcpy(dest, source, len)
+    Bytef* dest;
+    const Bytef* source;
+    uInt  len;
 {
     if (len == 0) return;
     do {
@@ -64,7 +69,10 @@ void zmemcpy(Bytef* dest, const Bytef* source, uInt len)
     } while (--len != 0);
 }
 
-int zmemcmp(const Bytef* s1, const Bytef* s2, uInt len)
+int zmemcmp(s1, s2, len)
+    const Bytef* s1;
+    const Bytef* s2;
+    uInt  len;
 {
     uInt j;
 
@@ -74,7 +82,9 @@ int zmemcmp(const Bytef* s1, const Bytef* s2, uInt len)
     return 0;
 }
 
-void zmemzero(Bytef* dest, uInt len)
+void zmemzero(dest, len)
+    Bytef* dest;
+    uInt  len;
 {
     if (len == 0) return;
     do {
@@ -195,13 +205,18 @@ extern voidp  calloc OF((uInt items, uInt size));
 extern void   free   OF((voidpf ptr));
 #endif
 
-voidpf zcalloc (voidpf opaque, unsigned int items, unsigned int size)
+voidpf zcalloc (opaque, items, size)
+    voidpf opaque;
+    unsigned items;
+    unsigned size;
 {
     if (opaque) items += size - size; /* make compiler happy */
     return (voidpf)calloc(items, size);
 }
 
-void  zcfree (voidpf opaque, voidpf ptr)
+void  zcfree (opaque, ptr)
+    voidpf opaque;
+    voidpf ptr;
 {
     free(ptr);
     if (opaque) return; /* make compiler happy */

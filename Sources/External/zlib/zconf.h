@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see copyright notice in zlib.h 
  */
 
-/* @(#) $Id: zconf.h,v 1.2 2002/05/01 01:50:13 icculus Exp $ */
+/* @(#) $Id$ */
 
 #ifndef _ZCONF_H
 #define _ZCONF_H
@@ -51,7 +51,7 @@
 #if (defined(_WIN32) || defined(__WIN32__)) && !defined(WIN32)
 #  define WIN32
 #endif
-#if defined(__GNUC__) || defined(WIN32) || defined(__386__) || defined(i386) || defined(__INTEL_COMPILER)
+#if defined(__GNUC__) || defined(WIN32) || defined(__386__) || defined(i386)
 #  ifndef __32BIT__
 #    define __32BIT__
 #  endif

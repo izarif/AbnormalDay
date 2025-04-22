@@ -628,42 +628,6 @@
     <ClCompile Include="Light\LightSource.cpp">
       <Filter>Source Files\Light</Filter>
     </ClCompile>
-    <ClCompile Include="zlib\adler32.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\compress.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\deflate.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\infblock.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\infcodes.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\inffast.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\inflate.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\inftrees.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\infutil.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\trees.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\uncompr.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\zutil.c">
-      <Filter>Source Files\zlib</Filter>
-    </ClCompile>
     <ClCompile Include="Ska\AnimSet.cpp">
       <Filter>Source Files\Ska</Filter>
     </ClCompile>
@@ -1266,39 +1230,6 @@
     <ClInclude Include="Light\LightSource.h">
       <Filter>Header Files\Light Headers</Filter>
     </ClInclude>
-    <ClInclude Include="zlib\deflate.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\infblock.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\infcodes.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\inffast.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\inffixed.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\inftrees.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\infutil.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\trees.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\zconf.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\zlib.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\zutil.h">
-      <Filter>Header Files\zlib Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Ska\AnimSet.h">
       <Filter>Header Files\Ska Headers</Filter>
     </ClInclude>
@@ -1433,16 +1364,10 @@
     <CustomBuild Include="Math\Geometry.inl">
       <Filter>Header Files\Math Headers</Filter>
     </CustomBuild>
-    <CustomBuild Include="Base\FLEX.SKL">
-      <Filter>Grammar Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="Base\Parser.y">
       <Filter>Grammar Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Base\Scanner.l">
-      <Filter>Grammar Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Ska\smcFlex.skl">
       <Filter>Grammar Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Ska\smcPars.y">
@@ -1468,5 +1393,13 @@
     <CustomBuild Include="Ska\smcScwin.l">
       <Filter>Grammar Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Base\FLEX.SKL">
+      <Filter>Grammar Files</Filter>
+    </None>
+    <None Include="Ska\smcFlex.skl">
+      <Filter>Grammar Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
