@@ -99,7 +99,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ENGINEGUI_EXPORTS;_WINDLL;DIRECT3D_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>EngineGui/StdH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Include\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\External\DX8SDK\Include\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Midl>
@@ -117,7 +117,7 @@
       <LinkDLL>true</LinkDLL>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\External\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateMapFile>true</GenerateMapFile>
     </Link>
     <CustomBuildStep>
@@ -141,7 +141,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ENGINEGUI_EXPORTS;_WINDLL;DIRECT3D_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>EngineGui/StdH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Include\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\External\DX8SDK\Include\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Midl>
@@ -158,7 +158,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <LinkDLL>true</LinkDLL>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\External\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateMapFile>true</GenerateMapFile>
     </Link>
     <CustomBuildStep>
@@ -178,7 +178,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <PreprocessorDefinitions>WIN32;_DEBUG;ENGINEGUI_EXPORTS;_WINDLL;DIRECT3D_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>EngineGui/StdH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Include\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\External\DX8SDK\Include\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Midl>
@@ -196,7 +196,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <LinkDLL>true</LinkDLL>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\External\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateMapFile>true</GenerateMapFile>
     </Link>
     <CustomBuildStep>
@@ -216,7 +216,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <PreprocessorDefinitions>WIN32;_DEBUG;ENGINEGUI_EXPORTS;_WINDLL;DIRECT3D_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>EngineGui/StdH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Include\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\External\DX8SDK\Include\;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers>false</OmitFramePointers>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -234,7 +234,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <LinkDLL>true</LinkDLL>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\External\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateMapFile>true</GenerateMapFile>
     </Link>
     <CustomBuildStep>

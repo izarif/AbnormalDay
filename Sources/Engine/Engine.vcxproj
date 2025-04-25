@@ -108,7 +108,7 @@
       <PreprocessorDefinitions>PLATFORM_WIN32;WIN32;_DEBUG;_WINDOWS;ENGINE_EXPORTS;_WINDLL;_USE_32BIT_TIME_T;DIRECT3D_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Engine\StdH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Include\;..\;..\External\libvorbis\include\;..\External\libogg\include\;..\External\zlib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\External\DX8SDK\Include\;..\;..\External\libvorbis\include\;..\External\libogg\include\;..\External\zlib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -130,7 +130,7 @@
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <GenerateMapFile>true</GenerateMapFile>
-      <AdditionalLibraryDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\External\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
@@ -152,7 +152,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <PreprocessorDefinitions>PLATFORM_WIN32;WIN32;_DEBUG;_WINDOWS;ENGINE_EXPORTS;_WINDLL;DIRECT3D_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Engine\StdH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Include\;..\;..\External\libvorbis\include\;..\External\libogg\include\;..\External\zlib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\External\DX8SDK\Include\;..\;..\External\libvorbis\include\;..\External\libogg\include\;..\External\zlib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Midl>
@@ -174,7 +174,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <GenerateMapFile>true</GenerateMapFile>
-      <AdditionalLibraryDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\External\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
@@ -200,7 +200,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <PreprocessorDefinitions>PLATFORM_WIN32;WIN32;NDEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;DIRECT3D_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Engine\StdH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Include\;..\;..\External\libvorbis\include\;..\External\libogg\include\;..\External\zlib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\External\DX8SDK\Include\;..\;..\External\libvorbis\include\;..\External\libogg\include\;..\External\zlib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -222,7 +222,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <GenerateMapFile>true</GenerateMapFile>
-      <AdditionalLibraryDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\External\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
@@ -248,7 +248,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <PreprocessorDefinitions>PLATFORM_WIN32;WIN32;NDEBUG;_WINDOWS;_USRDLL;ENGINE_EXPORTS;DIRECT3D_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Engine\StdH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Include\;..\;..\External\libvorbis\include\;..\External\libogg\include\;..\External\zlib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\External\DX8SDK\Include\;..\;..\External\libvorbis\include\;..\External\libogg\include\;..\External\zlib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -269,7 +269,7 @@ copy $(OutDir)$(TargetName).map ..\..\Bin\$(Configuration)\ &gt;nul</Command>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <GenerateMapFile>true</GenerateMapFile>
-      <AdditionalLibraryDirectories>..\..\Tools.Win32\Libraries\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\External\DX8SDK\Lib\;..\..\Bin\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
