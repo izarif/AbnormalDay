@@ -203,6 +203,7 @@ copy $(OutDir)$(TargetName).map ..\..\..\Bin\$(Configuration)\ &gt;nul</Command>
   <ItemGroup>
     <ClInclude Include="include\ogg\ogg.h" />
     <ClInclude Include="include\ogg\os_types.h" />
+    <ClInclude Include="src\crctable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
