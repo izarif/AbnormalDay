@@ -100,7 +100,7 @@ void Credits_On(INDEX iType)
     LoadOneFile(CTFILENAME("Data\\Credits_End.txt"));
   } else {
     _fSpeed = 2.0f;
-#if _SE_DEMO || TECHTESTONLY
+#if TECHTESTONLY
     LoadOneFile(CTFILENAME("Data\\Credits_Demo.txt"));
 #else
     LoadOneFile(CTFILENAME("Data\\Credits.txt"));

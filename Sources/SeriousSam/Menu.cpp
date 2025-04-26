@@ -2303,7 +2303,7 @@ void InitializeMenus(void)
 
     // initialize and load menu textures
     _toPointer.SetData_t( CTFILENAME( "Textures\\General\\Pointer.tex"));
-#if _SE_DEMO || TECHTESTONLY
+#if TECHTESTONLY
     _toLogoMenuA.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256a_demo.tex"));
     _toLogoMenuB.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256b_demo.tex"));
 #else
@@ -3762,7 +3762,7 @@ void CSinglePlayerMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgSingleCustom.mg_lnNode);
   mgSingleCustom.mg_pmgUp = &mgSingleNewGame;
   mgSingleCustom.mg_pmgDown = &mgSingleQuickLoad;
-  #if _SE_DEMO || TECHTESTONLY
+  #if TECHTESTONLY
     mgSingleCustom.mg_pActivatedFunction = &DisabledFunction;
   #else
     mgSingleCustom.mg_pActivatedFunction = &StartSelectLevelFromSingle;
