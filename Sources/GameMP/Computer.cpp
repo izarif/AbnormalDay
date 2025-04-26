@@ -1313,15 +1313,9 @@ void CGame::ComputerRender(CDrawPort *pdp)
   //ULONG ulA   = NormFloatToByte(fComputerFadeValue);
 
   _colLight  = LCDFadedColor(C_WHITE|255);
-  #ifdef FIRST_ENCOUNTER  // First Encounter
-  _colMedium = LCDFadedColor(SE_COL_GREEN_LIGHT|255);
-  _colDark   = LCDFadedColor(LerpColor(SE_COL_GREEN_DARK, SE_COL_GREEN_LIGHT, 0.5f)|255);
-  _colBoxes  = LCDFadedColor(LerpColor(SE_COL_GREEN_DARK, SE_COL_GREEN_LIGHT, 0.5f)|255);    
-  #else // Second Encounter
   _colMedium = LCDFadedColor(SE_COL_BLUE_LIGHT|255);
   _colDark   = LCDFadedColor(LerpColor(SE_COL_BLUE_DARK, SE_COL_BLUE_LIGHT, 0.5f)|255);
   _colBoxes  = LCDFadedColor(LerpColor(SE_COL_BLUE_DARK, SE_COL_BLUE_LIGHT, 0.5f)|255);    
-  #endif
 
   // background
   LCDRenderCloudsForComp();

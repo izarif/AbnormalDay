@@ -18,18 +18,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "stdafx.h"
 
-#ifdef FIRST_ENCOUNTER
-  #ifdef _DEBUG
-    #define GAMEGUI_DLL_NAME "GameGUID.dll"
-  #else
-    #define GAMEGUI_DLL_NAME "GameGUI.dll"
-  #endif
+#ifdef _DEBUG
+  #define GAMEGUI_DLL_NAME "GameGUIMPD.dll"
 #else
-  #ifdef _DEBUG
-    #define GAMEGUI_DLL_NAME "GameGUIMPD.dll"
-  #else
-    #define GAMEGUI_DLL_NAME "GameGUIMP.dll"
-  #endif
+  #define GAMEGUI_DLL_NAME "GameGUIMP.dll"
 #endif
 
 extern CGame *_pGame = NULL;
@@ -42,18 +34,10 @@ static struct GameGUI_interface _Interface;
 void Initialize(const CTFileName &fnGameSettings)
 {
   try {
-#ifdef FIRST_ENCOUNTER
-    #ifndef NDEBUG 
-      #define GAMEDLL "Bin\\Debug\\GameD.dll"
-    #else
-      #define GAMEDLL "Bin\\Game.dll"
-    #endif
+#ifndef NDEBUG 
+  #define GAMEDLL "Bin\\Debug\\GameMPD.dll"
 #else
-    #ifndef NDEBUG 
-      #define GAMEDLL "Bin\\Debug\\GameMPD.dll"
-    #else
-      #define GAMEDLL "Bin\\GameMP.dll"
-    #endif
+  #define GAMEDLL "Bin\\GameMP.dll"
 #endif
     CTFileName fnmExpanded;
     ExpandFilePath(EFP_READ, CTString(GAMEDLL), fnmExpanded);

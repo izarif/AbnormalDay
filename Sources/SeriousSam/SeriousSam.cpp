@@ -34,11 +34,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <Engine/CurrentVersion.h>
 #include <GameMP/Game.h>
 #define DECL_DLL
-#ifdef FIRST_ENCOUNTER
-#include <Entities/Global.h>
-#else
 #include <EntitiesMP/Global.h>
-#endif
 #include "resource.h"
 #include "SplashScreen.h"
 #include "MainWindow.h"
@@ -164,20 +160,6 @@ __extern CTextureObject *_ptoLogoCT  = NULL;
 __extern CTextureObject *_ptoLogoODI = NULL;
 __extern CTextureObject *_ptoLogoEAX = NULL;
 
-#ifdef FIRST_ENCOUNTER  // First Encounter
-CTString sam_strVersion = "1.10";
-CTString sam_strModName = TRANS("-   T H E  F I R S T  E N C O U N T E R   -");
-#if _SE_DEMO
-  CTString sam_strFirstLevel = "Levels\\KarnakDemo.wld";
-#else
-  CTString sam_strFirstLevel = "Levels\\01_Hatshepsut.wld";
-#endif
-CTString sam_strIntroLevel = "Levels\\Intro.wld";
-CTString sam_strGameName = "serioussam";
-
-CTString sam_strTechTestLevel = "Levels\\TechTest.wld";
-CTString sam_strTrainingLevel = "Levels\\KarnakDemo.wld";
-#else    // Second Encounter
 CTString sam_strVersion = "1.10";
 CTString sam_strModName = TRANS("-   T H E  S E C O N D  E N C O U N T E R   -");
 
@@ -187,7 +169,6 @@ CTString sam_strGameName = "serioussamse";
 
 CTString sam_strTechTestLevel = "Levels\\LevelsMP\\Technology\\TechTest.wld";
 CTString sam_strTrainingLevel = "Levels\\KarnakDemo.wld";
-#endif
 
 ENGINE_API extern INDEX snd_iFormat;
 

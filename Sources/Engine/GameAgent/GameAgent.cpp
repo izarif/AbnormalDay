@@ -135,11 +135,7 @@ typedef struct sockaddr    SOCKADDR;
                             WSACleanup();
 
 #define SERIOUSSAMKEY       "AKbna4\0"
-#ifdef FIRST_ENCOUNTER  // First Encounter
-#define SERIOUSSAMSTR       "serioussam"
-#else
 #define SERIOUSSAMSTR       "serioussamse"
-#endif
 
 #include <Engine/GameAgent/MSLegacy.h>
 
@@ -456,15 +452,9 @@ void _sendHeartbeat(INDEX iChallenge)
         _SE_VER_STRING,
         (const char *) _pShell->GetString("sam_strGameName"));
   } else {
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-    strPacket.PrintF("\\heartbeat\\%hu\\gamename\\serioussam", (_pShell->GetINDEX("net_iPort") + 1));
-    DateTime(_datetime);
-    CPrintF("[%s] Send heartbeat - serioussam\n", _datetime);
-    #else
     strPacket.PrintF("\\heartbeat\\%hu\\gamename\\serioussamse", (_pShell->GetINDEX("net_iPort") + 1));
     DateTime(_datetime);
     CPrintF("[%s] Send heartbeat - serioussamse\n", _datetime);
-    #endif
   }
   _sendPacket(strPacket);
   _tmLastHeartbeat = _pTimer->GetRealTimeTick();
@@ -499,15 +489,9 @@ extern void GameAgent_ServerInit(void)
     _sendPacketB("q");
   } else {
     CTString strPacket;
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-    strPacket.PrintF("\\heartbeat\\%hu\\gamename\\serioussam", (_pShell->GetINDEX("net_iPort") + 1));
-    DateTime(_datetime);
-    CPrintF("[%s] Send heartbeat - serioussam\n", _datetime);
-    #else
     strPacket.PrintF("\\heartbeat\\%hu\\gamename\\serioussamse", (_pShell->GetINDEX("net_iPort") + 1));
     DateTime(_datetime);
     CPrintF("[%s] Send heartbeat - serioussamse\n", _datetime);
-    #endif
     _sendPacketB(strPacket);
   }
 }
@@ -521,15 +505,9 @@ extern void GameAgent_ServerEnd(void)
 
   if (ga_bMSLegacy) {
     CTString strPacket;
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-    strPacket.PrintF("\\heartbeat\\%hu\\gamename\\serioussam\\statechanged", (_pShell->GetINDEX("net_iPort") + 1));
-    DateTime(_datetime);
-    CPrintF("[%s] Send heartbeat - serioussam\\statechanged\n", _datetime);
-    #else
     strPacket.PrintF("\\heartbeat\\%hu\\gamename\\serioussamse\\statechanged", (_pShell->GetINDEX("net_iPort") + 1));
     DateTime(_datetime);
     CPrintF("[%s] Send heartbeat - serioussamse\\statechanged\n", _datetime);
-    #endif
     _sendPacket(strPacket);
   }
 
@@ -815,15 +793,9 @@ extern void GameAgent_ServerStateChanged(void)
     _sendPacket("u");
   } else {
     CTString strPacket;
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-    strPacket.PrintF("\\heartbeat\\%hu\\gamename\\serioussam\\statechanged", (_pShell->GetINDEX("net_iPort") + 1));
-    DateTime(_datetime);
-    CPrintF("[%s] Send heartbeat - serioussam\\statechanged\n", _datetime);
-    #else
     strPacket.PrintF("\\heartbeat\\%hu\\gamename\\serioussamse\\statechanged", (_pShell->GetINDEX("net_iPort") + 1));
     DateTime(_datetime);
     CPrintF("[%s] Send heartbeat - serioussamse\\statechanged\n", _datetime);
-    #endif
     _sendPacket(strPacket);
   }
 }
@@ -1597,11 +1569,7 @@ void*        _MS_Thread(void *arg) {
             // null terminate the buffer
             _szBuffer[iRet] = 0;
             char *sPch = NULL;
-            #ifdef FIRST_ENCOUNTER  // First Encounter
-            sPch = strstr(_szBuffer, "\\gamename\\serioussam\\");
-            #else
             sPch = strstr(_szBuffer, "\\gamename\\serioussamse\\");
-            #endif
             if(!sPch) {
                 DateTime(_datetime);
                 CPrintF("[%s] MS_Thread: Unknown query server response!\n", _datetime);
@@ -1811,11 +1779,7 @@ void*        _LocalNet_Thread(void *arg) {
             // null terminate the buffer
             _szBuffer[iRet] = 0;
             char *sPch = NULL;
-            #ifdef FIRST_ENCOUNTER  // First Encounter
-            sPch = strstr(_szBuffer, "\\gamename\\serioussam\\");
-            #else
             sPch = strstr(_szBuffer, "\\gamename\\serioussamse\\");
-            #endif
             if(!sPch) {
                 DateTime(_datetime);
                 CPrintF("[%s] LocalNet_Thread: Unknown query server response!\n", _datetime);

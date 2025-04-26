@@ -1970,11 +1970,7 @@ static void PrintStats( CDrawPort *pdpDrawPort)
     const FLOAT fMaxWidth = slDPWidth  *0.1f;
     const PIX pixJ = (PIX) (slDPHeight *0.9f);
     // draw canvas
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-    pdpDrawPort->Fill(       slDPWidth-1-fMaxWidth, pixJ-ctLines+1, fMaxWidth,   ctLines,   C_vdGREEN|64);    
-    #else // Second Encounter
     pdpDrawPort->Fill(       slDPWidth-1-fMaxWidth, pixJ-ctLines+1, fMaxWidth,   ctLines,   SE_COL_BLUE_DARK_HV|64);    
-    #endif
     // pdpDrawPort->Fill(       slDPWidth-1-fMaxWidth, pixJ-ctLines+1, fMaxWidth,   ctLines,   SE_COL_BLUE_DARK_HV|64);
     pdpDrawPort->DrawBorder( slDPWidth-2-fMaxWidth, pixJ-ctLines,   fMaxWidth+2, ctLines+2, C_WHITE  |192);
     // draw graph
@@ -2477,11 +2473,7 @@ void CGame::GameRedrawView( CDrawPort *pdpDrawPort, ULONG ulFlags)
         dpMsg.SetTextAspect( 1.0f);
         dpMsg.PutTextCXY( strIndicator, 
         dpMsg.GetWidth()*0.5f,
-        #ifdef FIRST_ENCOUNTER  // First Encounter
-        dpMsg.GetHeight()*0.4f, C_GREEN|192);    
-        #else // Second Encounter
         dpMsg.GetHeight()*0.4f, SE_COL_BLUEGREEN_LT|192);    
-        #endif
       }
       // print recording indicator
       if (_pNetwork->IsRecordingDemo()) {
@@ -2544,11 +2536,7 @@ void CGame::GameRedrawView( CDrawPort *pdpDrawPort, ULONG ulFlags)
   {
     // clear background
     if( pdpDrawPort->Lock()) {
-        #ifdef FIRST_ENCOUNTER  // First Encounter
-  	    pdpDrawPort->Fill( C_dGREEN|CT_OPAQUE);   
-        #else // Second Encounter
   	    pdpDrawPort->Fill( SE_COL_BLUE_DARK|CT_OPAQUE);   
-        #endif
       pdpDrawPort->FillZBuffer( ZBUF_BACK);
       pdpDrawPort->Unlock();
     }
@@ -2935,13 +2923,11 @@ void CGame::GameMainLoop(void)
 static CTextureObject _toPointer;
 static CTextureObject _toBcgClouds;
 static CTextureObject _toBcgGrid;
-#ifndef FIRST_ENCOUNTER
 static CTextureObject _toBackdrop;
 static CTextureObject _toSamU;
 static CTextureObject _toSamD;
 static CTextureObject _toLeftU;
 static CTextureObject _toLeftD;
-#endif
 
 static PIXaabbox2D _boxScreen_SE;
 static PIX _pixSizeI_SE;
@@ -2965,10 +2951,6 @@ void CGame::LCDInit(void)
 {
   try {
     _toBcgClouds.SetData_t(CTFILENAME("Textures\\General\\Background6.tex"));
-#ifdef FIRST_ENCOUNTER
-    _toPointer.SetData_t(CTFILENAME("Textures\\General\\Pointer.tex"));
-    _toBcgGrid.SetData_t(CTFILENAME("Textures\\General\\Grid16x16-dot.tex"));
-#else
     _toPointer.SetData_t(CTFILENAME("TexturesMP\\General\\Pointer.tex"));
     _toBcgGrid.SetData_t(CTFILENAME("TexturesMP\\General\\grid.tex"));
     _toBackdrop.SetData_t(CTFILENAME("TexturesMP\\General\\MenuBack.tex"));
@@ -2983,7 +2965,6 @@ void CGame::LCDInit(void)
     ((CTextureData*)_toSamD     .GetData())->Force(TEX_CONSTANT);
     ((CTextureData*)_toLeftU    .GetData())->Force(TEX_CONSTANT);
     ((CTextureData*)_toLeftD    .GetData())->Force(TEX_CONSTANT);
-#endif
     ((CTextureData*)_toBcgClouds.GetData())->Force(TEX_CONSTANT);
     ((CTextureData*)_toPointer  .GetData())->Force(TEX_CONSTANT);
     ((CTextureData*)_toBcgGrid  .GetData())->Force(TEX_CONSTANT);
@@ -3023,51 +3004,31 @@ void CGame::LCDSetDrawport(CDrawPort *pdp)
 }
 void CGame::LCDDrawBox(PIX pixUL, PIX pixDR, const PIXaabbox2D &box, COLOR col)
 {
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-    col = SE_COL_GREEN_NEUTRAL|255;    
-    #else // Second Encounter
     col = SE_COL_BLUE_NEUTRAL|255;
-    #endif
 
   ::_LCDDrawBox(pixUL, pixDR, box, col);
 }
 void CGame::LCDScreenBox(COLOR col)
 {
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-    col = SE_COL_GREEN_NEUTRAL|255;    
-    #else // Second Encounter
     col = SE_COL_BLUE_NEUTRAL|255;
-    #endif
 
   ::_LCDScreenBox(col);
 }
 void CGame::LCDScreenBoxOpenLeft(COLOR col)
 {
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-    col = SE_COL_GREEN_NEUTRAL|255;    
-    #else // Second Encounter
     col = SE_COL_BLUE_NEUTRAL|255;
-    #endif
 
   ::_LCDScreenBoxOpenLeft(col);
 }
 void CGame::LCDScreenBoxOpenRight(COLOR col)
 {
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-    col = SE_COL_GREEN_NEUTRAL|255;    
-    #else // Second Encounter
     col = SE_COL_BLUE_NEUTRAL|255;
-    #endif
 
   ::_LCDScreenBoxOpenRight(col);
 }
 void CGame::LCDRenderClouds1(void)
 {
 
-  #ifdef FIRST_ENCOUNTER 
-  LCDRenderCloudsForComp();
-  LCDRenderCompGrid();
-  #else
   _pdp_SE->PutTexture(&_toBackdrop, _boxScreen_SE, C_WHITE|255);
 
   if (!_bPopup) {
@@ -3124,25 +3085,16 @@ void CGame::LCDRenderClouds1(void)
   TiledTextureSE(_boxScreen_SE, 0.7f*_pdp_SE->GetWidth()/640.0f, 
     MEX2D(sin(_tmNow_SE*0.6f+1)*32,sin(_tmNow_SE*0.8f)*25),   boxBcgClouds1);
   _pdp_SE->PutTexture(&_toBcgClouds, _boxScreen_SE, boxBcgClouds1, C_BLACK|_ulA_SE>>2);
-  #endif
 }
 void CGame::LCDRenderCloudsForComp(void)
 {
   MEXaabbox2D boxBcgClouds1;
   TiledTextureSE(_boxScreen_SE, 1.856f*_pdp_SE->GetWidth()/640.0f, 
     MEX2D(sin(_tmNow_SE*0.5f)*35,sin(_tmNow_SE*0.7f)*21),   boxBcgClouds1);
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-  _pdp_SE->PutTexture(&_toBcgClouds, _boxScreen_SE, boxBcgClouds1, SE_COL_GREEN_NEUTRAL|_ulA_SE>>2);
-    #else // Second Encounter
   _pdp_SE->PutTexture(&_toBcgClouds, _boxScreen_SE, boxBcgClouds1, SE_COL_BLUE_NEUTRAL|_ulA_SE>>2);
-    #endif
   TiledTextureSE(_boxScreen_SE, 1.323f*_pdp_SE->GetWidth()/640.0f, 
     MEX2D(sin(_tmNow_SE*0.6f)*31,sin(_tmNow_SE*0.8f)*25),   boxBcgClouds1);
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-  _pdp_SE->PutTexture(&_toBcgClouds, _boxScreen_SE, boxBcgClouds1, SE_COL_GREEN_NEUTRAL|_ulA_SE>>2);
-    #else // Second Encounter
   _pdp_SE->PutTexture(&_toBcgClouds, _boxScreen_SE, boxBcgClouds1, SE_COL_BLUE_NEUTRAL|_ulA_SE>>2);
-    #endif
 }
 void CGame::LCDRenderClouds2(void)
 {
@@ -3156,11 +3108,7 @@ void CGame::LCDRenderCompGrid(void)
 {
    MEXaabbox2D boxBcgGrid;
    TiledTextureSE(_boxScreen_SE, 0.5f*_pdp_SE->GetWidth()/(_pdp_SE->dp_SizeIOverRasterSizeI*640.0f), MEX2D(0,0), boxBcgGrid);
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-   _pdp_SE->PutTexture(&_toBcgGrid, _boxScreen_SE, boxBcgGrid, SE_COL_GREEN_NEUTRAL|_ulA_SE>>1); 
-    #else // Second Encounter
    _pdp_SE->PutTexture(&_toBcgGrid, _boxScreen_SE, boxBcgGrid, SE_COL_BLUE_NEUTRAL|_ulA_SE>>1); 
-    #endif
 }
 void CGame::LCDDrawPointer(PIX pixI, PIX pixJ)
 {
@@ -3186,55 +3134,6 @@ void CGame::LCDDrawPointer(PIX pixI, PIX pixJ)
 COLOR CGame::LCDGetColor(COLOR colDefault, const char *strName)
 {
 
-  #ifdef FIRST_ENCOUNTER  // First Encounter
-  if (!strcmp(strName, "thumbnail border")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "no thumbnail")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "popup box")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "tool tip")) {
-    colDefault = C_WHITE|255;
-  } else if (!strcmp(strName, "unselected")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "selected")) {
-    colDefault = C_WHITE|255;
-  } else if (!strcmp(strName, "disabled selected")) {
-    colDefault = SE_COL_GREEN_NEUTRAL |255;
-  } else if (!strcmp(strName, "disabled unselected")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "label")) {
-    colDefault = C_WHITE|255;
-  } else if (!strcmp(strName, "title")) {
-    colDefault = C_WHITE|255;
-  } else if (!strcmp(strName, "editing")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "hilited")) {
-    colDefault = C_WHITE|255;
-  } else if (!strcmp(strName, "hilited rectangle")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "edit fill")) {
-    colDefault = SE_COL_GREEN_NEUTRAL|75;
-  } else if (!strcmp(strName, "editing cursor")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "model box")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "hiscore header")) {
-    colDefault = C_WHITE|255;
-  } else if (!strcmp(strName, "hiscore data")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "hiscore last set")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "slider box")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "file info")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "display mode")) {
-    colDefault = SE_COL_GREEN_LIGHT|255;
-  } else if (!strcmp(strName, "bcg fill")) {
-    colDefault = SE_COL_GREEN_DARK_LT|255;
-  }
-  #else // Second Encounter
   if (!strcmp(strName, "thumbnail border")) {
     colDefault = SE_COL_BLUE_NEUTRAL|255;
   } else if (!strcmp(strName, "no thumbnail")) {
@@ -3282,7 +3181,6 @@ COLOR CGame::LCDGetColor(COLOR colDefault, const char *strName)
   } else if (!strcmp(strName, "bcg fill")) {
     colDefault = SE_COL_BLUE_DARK|255;
   }
-  #endif
   return ::_LCDGetColor(colDefault, strName);
 }
 COLOR CGame::LCDFadedColor(COLOR col)

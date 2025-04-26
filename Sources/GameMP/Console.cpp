@@ -154,11 +154,7 @@ void CGame::ConsoleRender(CDrawPort *pdp)
   PIX pixSizeI = dpConsole.GetWidth();
   PIX pixSizeJ = dpConsole.GetHeight();
   COLOR colLight = LCDFadedColor(C_WHITE|255);
-  #ifdef FIRST_ENCOUNTER  // First Encounter
-  COLOR colDark  = LCDFadedColor(SE_COL_GREEN_LIGHT|255);  
-  #else // Second Encounter
   COLOR colDark  = LCDFadedColor(SE_COL_BLUE_LIGHT|255);   
-  #endif
   INDEX iBackwardLine = con_iFirstLine;
   if( iBackwardLine>1) Swap( colLight, colDark);
   PIX pixLineSpacing = _pfdConsoleFont->fd_pixCharHeight + _pfdConsoleFont->fd_pixLineSpacing;
@@ -166,11 +162,7 @@ void CGame::ConsoleRender(CDrawPort *pdp)
   LCDRenderCloudsForComp();
   //LCDRenderGrid();
   LCDRenderClouds2();
-  #ifdef FIRST_ENCOUNTER  // First Encounter
-  dpConsole.DrawLine( 0, pixSizeJ-1, pixSizeI, pixSizeJ-1, LCDFadedColor(SE_COL_GREEN_NEUTRAL|255));   
-  #else // Second Encounter
   dpConsole.DrawLine( 0, pixSizeJ-1, pixSizeI, pixSizeJ-1, LCDFadedColor(SE_COL_BLUE_NEUTRAL|255));    
-  #endif
   const ULONG colFill = (colDark & ~CT_AMASK) | 0x2F;
   dpConsole.Fill( 0, pixSizeJ-pixLineSpacing*1.6f, pixSizeI, pixLineSpacing*1.6f, colFill);
 
@@ -234,11 +226,7 @@ void CGame::ConsolePrintLastLines(CDrawPort *pdp)
   // for each line
   for( INDEX iLine=0; iLine<ctLines; iLine++) {
     CTString strLine = CON_GetLastLine(iLine+1);
-    #ifdef FIRST_ENCOUNTER  // First Encounter
-    pdp->PutText( strLine, 0, pixCharHeight*(ctLines-iLine-1), SE_COL_GREEN_LIGHT|255);
-    #else // Second Encounter
     pdp->PutText( strLine, 0, pixCharHeight*(ctLines-iLine-1), SE_COL_BLUE_LIGHT|255);
-    #endif
   }
 }
 

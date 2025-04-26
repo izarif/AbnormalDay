@@ -20,11 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #undef DECL_DLL
 #endif
 #define DECL_DLL
-#ifdef FIRST_ENCOUNTER
-#include "Entities/Common/Particles.h"
-#else
 #include "EntitiesMP/Common/Particles.h"
-#endif
 
 #include "Models/Enemies/Headman/headman.h"
 #include "Models/Enemies/Eyeman/Eyeman.h"
@@ -118,11 +114,7 @@ extern void SetupCompModel_t(const CTString &strName)
   _colLight = C_GRAY;
   _colAmbient = C_vdGRAY;
   _iParticleType = PARTICLES_NONE;
-#ifdef FIRST_ENCOUNTER
-  _moFloor.SetData_t(CTFILENAME("Models\\Computer\\Floor.mdl"));
-#else
   _moFloor.SetData_t(CTFILENAME("ModelsMP\\Computer\\Floor.mdl"));
-#endif
   _moFloor.mo_toTexture.SetData_t(CTFILENAME("Models\\Computer\\Floor.tex"));
   pmo->mo_colBlendColor = 0xFFFFFFFF;
   if (strName=="Rocketman") {
@@ -1015,7 +1007,6 @@ void RenderMessageModel(CDrawPort *pdp, const CTString &strModel)
     _moModel.RenderModel(rm);
 
     // render particles
-#ifndef FIRST_ENCOUNTER
     if (_iParticleType!=PARTICLES_NONE) {
       Particle_PrepareSystem(pdp, apr);
       Particle_PrepareEntity( 1, 0, 0, NULL);
@@ -1029,7 +1020,6 @@ void RenderMessageModel(CDrawPort *pdp, const CTString &strModel)
       }
       Particle_EndSystem();
     }
-#endif
     EndModelRenderingView();
   }
   Stereo_SetBuffer(STEREO_BOTH);

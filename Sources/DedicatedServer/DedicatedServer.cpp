@@ -33,15 +33,9 @@ CTString ded_strLevel = "";
 INDEX ded_bRestartWhenEmpty = TRUE;
 FLOAT ded_tmTimeout = -1;
 CGame *_pGame = NULL;
-#ifdef FIRST_ENCOUNTER
-CTString sam_strFirstLevel = "Levels\\KarnakDemo.wld";
-CTString sam_strIntroLevel = "Levels\\Intro.wld";
-CTString sam_strGameName = "serioussam";
-#else
 CTString sam_strFirstLevel = "Levels\\LevelsMP\\1_0_InTheLastEpisode.wld";
 CTString sam_strIntroLevel = "Levels\\LevelsMP\\Intro.wld";
 CTString sam_strGameName = "serioussamse";
-#endif
 
 CTimerValue _tvLastLevelEnd((__int64) -1);
 
