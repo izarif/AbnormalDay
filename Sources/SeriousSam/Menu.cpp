@@ -2303,13 +2303,8 @@ void InitializeMenus(void)
 
     // initialize and load menu textures
     _toPointer.SetData_t( CTFILENAME( "Textures\\General\\Pointer.tex"));
-#if TECHTESTONLY
-    _toLogoMenuA.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256a_demo.tex"));
-    _toLogoMenuB.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256b_demo.tex"));
-#else
     _toLogoMenuA.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256a.tex"));
     _toLogoMenuB.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256b.tex"));
-#endif
   }
   catch (const char *strError) {
     FatalError( strError);
@@ -3516,11 +3511,7 @@ void CMainMenu::Initialize_t(void)
   mgMainMods.mg_pmgUp = &mgMainDemo;
   mgMainMods.mg_pmgDown = &mgMainHighScore;
 
-  #if TECHTESTONLY
-    mgMainMods.mg_pActivatedFunction = &DisabledFunction;
-  #else
     mgMainMods.mg_pActivatedFunction = &StartModsLoadMenu;
-  #endif
 
   mgMainHighScore.mg_strText = TRANS("HIGH SCORES");
   mgMainHighScore.mg_bfsFontSize = BFS_LARGE;
@@ -3653,11 +3644,7 @@ void CInGameMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgInGameStop.mg_lnNode);
   mgInGameStop.mg_pmgUp = &mgInGameOptions;
   mgInGameStop.mg_pmgDown = &mgInGameQuit;
-#if TECHTESTONLY
-  mgInGameStop.mg_pActivatedFunction = &ExitConfirm;
-#else
   mgInGameStop.mg_pActivatedFunction = &StopConfirm;
-#endif
 
   mgInGameQuit.mg_strText = TRANS("QUIT");
   mgInGameQuit.mg_bfsFontSize = BFS_LARGE;
@@ -3762,11 +3749,7 @@ void CSinglePlayerMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgSingleCustom.mg_lnNode);
   mgSingleCustom.mg_pmgUp = &mgSingleNewGame;
   mgSingleCustom.mg_pmgDown = &mgSingleQuickLoad;
-  #if TECHTESTONLY
-    mgSingleCustom.mg_pActivatedFunction = &DisabledFunction;
-  #else
     mgSingleCustom.mg_pActivatedFunction = &StartSelectLevelFromSingle;
-  #endif
 
   mgSingleQuickLoad.mg_strText = TRANS("QUICK LOAD");
   mgSingleQuickLoad.mg_bfsFontSize = BFS_LARGE;
