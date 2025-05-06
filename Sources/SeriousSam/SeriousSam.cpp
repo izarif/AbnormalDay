@@ -642,11 +642,6 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
     _pShell->Execute(strCmd);
   }
 
-  // load logo textures
-  LoadAndForceTexture(_toLogoCT,   _ptoLogoCT,   CTFILENAME("Textures\\Logo\\LogoCT.tex"));
-  LoadAndForceTexture(_toLogoODI,  _ptoLogoODI,  CTFILENAME("Textures\\Logo\\GodGamesLogo.tex"));
-  LoadAndForceTexture(_toLogoEAX,  _ptoLogoEAX,  CTFILENAME("Textures\\Logo\\LogoEAX.tex"));
-
   LoadStringVar(CTString("Data\\Var\\AD_Version.var"), sam_strVersion);
   LoadStringVar(CTString("Data\\Var\\ModName.var"), sam_strModName);
   CPrintF(TRANSV("Abnormal Day version: %s\n"), (const char *) sam_strVersion);
