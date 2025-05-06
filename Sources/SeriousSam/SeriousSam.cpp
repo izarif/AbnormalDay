@@ -47,39 +47,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 CGame *_pGame = NULL;
 
-extern FLOAT _fMenuPlayerProfileAdjuster;
-
-extern FLOAT _fGlobalTopAdjuster;
-extern FLOAT _fGlobalListAdjuster;
-extern FLOAT _fGlobalTipAdjuster;
-extern FLOAT _fGlobalInfoAdjuster;
-extern FLOAT _fGlobalProfileAdjuster;
-extern FLOAT _fGlobalOptionsAdjuster;
-extern FLOAT _fGlobalModAdjuster;
-extern FLOAT _fGlobalButtonAdjuster;
-extern FLOAT _fGlobalProfileFOVAdjuster;
-#ifdef PLATFORM_UNIX
-ENGINE_API FLOAT _fWeaponFOVAdjuster;
-ENGINE_API FLOAT _fPlayerFOVAdjuster;
-ENGINE_API FLOAT _fArmorHeightAdjuster;
-ENGINE_API FLOAT _fFragScorerHeightAdjuster;
-#else
-extern ENGINE_API FLOAT _fPlayerFOVAdjuster;
-extern ENGINE_API FLOAT _fWeaponFOVAdjuster;
-extern ENGINE_API FLOAT _fArmorHeightAdjuster;
-extern ENGINE_API FLOAT _fFragScorerHeightAdjuster;
-#endif
-
-extern FLOAT _fBigStartJ;       //Position of contents below large font title
-extern FLOAT _fBigSizeJ;
-extern FLOAT _fMediumSizeJ;
-extern FLOAT _fNoStartI;
-extern FLOAT _fNoSizeI;
-extern FLOAT _fNoSpaceI;
-extern FLOAT _fNoUpStartJ;      //Postiion of contents without large font title
-extern FLOAT _fNoDownStartJ;
-extern FLOAT _fNoSizeJ;
-
 // application state variables
 __extern BOOL _bRunning = TRUE;
 __extern BOOL _bQuitScreen = TRUE;
@@ -542,122 +509,6 @@ void InitializeGame(void)
 static void atexit_sdlquit(void) { static bool firsttime = true; if (firsttime) { firsttime = false; SDL_Quit(); } }
 #endif
 
-//#### SetAdjusters()
-void SetAdjusters()
-{
-	if (pdp == NULL) return;
-	float ratio = (float)pdp->GetWidth() / (float)pdp->GetHeight();
- 	if (ratio >= 1.32f && ratio <= 1.34f) 		//4:3
- 	{
-		_fBigSizeJ					= 0.050f;
-		_fMediumSizeJ 				= 0.03f;	//medium font row size
- 		_fBigStartJ					= 0.40f;	//Position of the contents below large font title
-		_fNoUpStartJ				= 0.25f;	//Postiion of contents without large font title
-		_fNoDownStartJ				= 0.44f;
-		_fGlobalTopAdjuster 		= 0.12f;
-		_fGlobalListAdjuster 		= 0.55f;
-		_fGlobalTipAdjuster 		= 0.90f;
-		_fGlobalInfoAdjuster 		= 0.80f;
-		_fGlobalProfileAdjuster 	= 0.75f;
-		_fGlobalOptionsAdjuster 	= 0.45f;
-		_fGlobalModAdjuster 		= 0.55f;
-		_fGlobalButtonAdjuster  	= 1.20f;		//Menu items and buttons offset
-		_fWeaponFOVAdjuster			= 1.0f;		//Field of View for weapon
-		_fPlayerFOVAdjuster			= 1.0f;		//Field of View for player
-		_fGlobalProfileFOVAdjuster	= 33.0f;
-		_fArmorHeightAdjuster		= 0.7f;
-		_fFragScorerHeightAdjuster	= 0.75f;
-        _fMenuPlayerProfileAdjuster = 0.38f;
-	}else if (ratio >= 1.2f && ratio <= 1.26f) 		//5:4
- 	{
-		_fBigSizeJ					= 0.050f;
-		_fMediumSizeJ 				= 0.03f;	//medium font row size
- 		_fBigStartJ					= 0.40f;	//Position of the contents below large font title
-		_fNoUpStartJ				= 0.25f;	//Postiion of contents without large font title
-		_fNoDownStartJ				= 0.44f;
-		_fGlobalTopAdjuster 		= 0.12f;
-		_fGlobalListAdjuster 		= 0.55f;
-		_fGlobalTipAdjuster 		= 0.90f;
-		_fGlobalInfoAdjuster 		= 0.80f;
-		_fGlobalProfileAdjuster 	= 0.75f;
-		_fGlobalOptionsAdjuster 	= 0.45f;
-		_fGlobalModAdjuster 		= 0.55f;
-		_fGlobalButtonAdjuster  	= 1.20f;		//Menu items and buttons offset
-		_fWeaponFOVAdjuster			= 1.0f;		//Field of View for weapon
-		_fPlayerFOVAdjuster			= 1.0f;		//Field of View for player
-		_fGlobalProfileFOVAdjuster	= 33.0f;
-		_fArmorHeightAdjuster		= 0.7f;
-		_fFragScorerHeightAdjuster	= 0.75f;
-        _fMenuPlayerProfileAdjuster = 0.38f;
- 	}else if (ratio >= 1.76f && ratio <= 1.78f) 	//16:9
- 	{
-		_fBigSizeJ					= 0.060f;
-		_fMediumSizeJ 				= 0.04f;	//medium font row size
- 		_fBigStartJ					= 0.40f;	//Position of the contents below large font title
-		_fNoUpStartJ				= 0.25f;	//Postiion of contents without large font title
-		_fNoDownStartJ				= 0.44f;
-		_fGlobalTopAdjuster 		= 0.15f;
-		_fGlobalListAdjuster 		= 0.45f;
-		_fGlobalTipAdjuster 		= 0.90f;
-		_fGlobalInfoAdjuster 		= 0.80f;
-		_fGlobalProfileAdjuster 	= 0.60f;
-		_fGlobalOptionsAdjuster 	= 0.45f;
-		_fGlobalModAdjuster 		= 0.65f;
-		_fGlobalButtonAdjuster  	= 1.20f;
-		_fWeaponFOVAdjuster			= 1.25f;	//Field of View for weapon
-		_fPlayerFOVAdjuster			= 1.15f;		//Field of View for player
-		_fArmorHeightAdjuster		= 0.835f;
-		_fFragScorerHeightAdjuster	= 1.5f;
-		_fGlobalProfileFOVAdjuster	= 35.0f;
-        _fMenuPlayerProfileAdjuster = 0.35f;
- 	}else if (ratio >= 1.5 && ratio <= 1.70) 	//16:10
- 	{
-		_fBigSizeJ					= 0.050f;
-		_fMediumSizeJ 				= 0.03f;	//medium font row size
- 		_fBigStartJ					= 0.40f;	//Position of the contents below large font title
-		_fNoUpStartJ				= 0.25f;	//Postiion of contents without large font title
-		_fNoDownStartJ				= 0.44f;
-		_fGlobalTopAdjuster 		= 0.15f;
-		_fGlobalListAdjuster 		= 0.45f;
-		_fGlobalTipAdjuster 		= 0.90f;
-		_fGlobalInfoAdjuster 		= 0.80f;
-		_fGlobalProfileAdjuster 	= 0.60f;
-		_fGlobalOptionsAdjuster 	= 0.45f;
-		_fGlobalModAdjuster 		= 0.55f;
-		_fGlobalButtonAdjuster  	= 1.20f;
-		_fWeaponFOVAdjuster			= 1.15f;	//Field of View for weapon
-		_fPlayerFOVAdjuster			= 1.10f;		//Field of View for player
-		_fGlobalProfileFOVAdjuster	= 35.0f;
-		_fArmorHeightAdjuster		= 0.78f;
-		_fFragScorerHeightAdjuster	= 1.17f;
-        _fMenuPlayerProfileAdjuster = 0.32f;
- 	}else if (ratio >= 2.32 && ratio <= 2.34) 	//21:9
- 	{
-		_fBigSizeJ					= 0.076f;
-		_fMediumSizeJ 				= 0.04f;	//medium font row size
- 		_fBigStartJ					= 0.25f;	//Position of the contents below large font title
-		_fNoUpStartJ				= 0.25f;	//Postiion of contents without large font title
-		_fNoDownStartJ				= 0.25f;
-		_fGlobalTopAdjuster 		= 0.19f;
-		_fGlobalListAdjuster 		= 0.75f;
-		_fGlobalTipAdjuster 		= 0.90f;
-		_fGlobalInfoAdjuster 		= 0.90f;
-		_fGlobalProfileAdjuster 	= 0.70f;
-		_fGlobalOptionsAdjuster 	= 0.75f;
-		_fGlobalModAdjuster 		= 1.05f;
-		_fGlobalButtonAdjuster  	= 1.0f;
-		_fWeaponFOVAdjuster			= 1.55f;	//Field of View for weapon
-		_fPlayerFOVAdjuster			= 1.35f;		//Field of View for player
-		_fGlobalProfileFOVAdjuster	= 45.0f;
-		_fArmorHeightAdjuster	    = 1.0f;
-		_fFragScorerHeightAdjuster	= 2.35f;
-        _fMenuPlayerProfileAdjuster = 0.1f;
-	}
-
-  	ReInitializeMenus();
-}
-//##### SetAdjusters() end
-
 BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
 {
 #ifdef PLATFORM_UNIX
@@ -790,14 +641,6 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
     strCmd.PrintF("include \"%s\"", (const char *) cmd_strScript);
     _pShell->Execute(strCmd);
   }
-
-	//#################################################################33
-	//In order to fix completely fucked up menu layout (when wide screen is used)
-	//and since dumb fucks from croteam defined fucking 200000 constats for each letter on the fucking screen...
-	//we'll need to fix some of them for current resolution....
-  	SetAdjusters();
-	//#################################################################33
-
 
   // load logo textures
   LoadAndForceTexture(_toLogoCT,   _ptoLogoCT,   CTFILENAME("Textures\\Logo\\LogoCT.tex"));
@@ -1955,13 +1798,6 @@ void StartNewMode( enum GfxAPIType eGfxAPI, INDEX iAdapter, PIX pixSizeI, PIX pi
   } else {
     _iDisplayModeChangeFlag = 1;  // all ok
   }
-
-	//#################################################################33
-	//In order to fix completely fucked up menu layout (when wide screen is used)
-	//and since dumb fucks from croteam defined fucking 200000 constats for each letter on the fucking screen...
-	//we'll need to fix some of them for current resolution....
-  	SetAdjusters();
-	//#################################################################33
 
   // apply 3D-acc settings
   ApplyGLSettings(FALSE);

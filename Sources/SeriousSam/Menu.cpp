@@ -208,7 +208,7 @@ static CTextureObject _toLogoMenuB;
 #define TRIGGER_MG(mg, y, up, down, text, astr) \
   mg.mg_pmgUp = &up;\
   mg.mg_pmgDown = &down;\
-  mg.mg_boxOnScreen = BoxMediumRow(y, _fGlobalModAdjuster);\
+  mg.mg_boxOnScreen = BoxMediumRow(y);\
   gm_lhGadgets.AddTail( mg.mg_lnNode);\
   mg.mg_astrTexts = astr;\
   mg.mg_ctTexts = sizeof( astr)/sizeof( astr[0]);\
@@ -3451,7 +3451,7 @@ void CMainMenu::Initialize_t(void)
 
   extern CTString sam_strVersion;
   mgMainVersionLabel.mg_strText = sam_strVersion;
-  mgMainVersionLabel.mg_boxOnScreen = BoxVersion(_fGlobalModAdjuster);
+  mgMainVersionLabel.mg_boxOnScreen = BoxVersion();
   mgMainVersionLabel.mg_bfsFontSize = BFS_MEDIUM;
   mgMainVersionLabel.mg_iCenterI = +1;
   mgMainVersionLabel.mg_bEnabled = FALSE;
@@ -3460,7 +3460,7 @@ void CMainMenu::Initialize_t(void)
 
   extern CTString sam_strModName;
   mgMainModLabel.mg_strText = sam_strModName;
-  mgMainModLabel.mg_boxOnScreen = BoxMediumRow(-2.0f, _fGlobalModAdjuster);
+  mgMainModLabel.mg_boxOnScreen = BoxMediumRow(-2.0f);
   mgMainModLabel.mg_bfsFontSize = BFS_MEDIUM;
   mgMainModLabel.mg_iCenterI = 0;
   mgMainModLabel.mg_bEnabled = FALSE;
@@ -3469,7 +3469,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainSingle.mg_strText = TRANS("SINGLE PLAYER");
   mgMainSingle.mg_bfsFontSize = BFS_LARGE;
-  mgMainSingle.mg_boxOnScreen = BoxBigRow(0.0f, _fGlobalButtonAdjuster);
+  mgMainSingle.mg_boxOnScreen = BoxBigRow(0.0f);
   mgMainSingle.mg_strTip = TRANS("single player game menus");
   gm_lhGadgets.AddTail( mgMainSingle.mg_lnNode);
   mgMainSingle.mg_pmgUp = &mgMainQuit;
@@ -3478,7 +3478,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainNetwork.mg_strText = TRANS("NETWORK");
   mgMainNetwork.mg_bfsFontSize = BFS_LARGE;
-  mgMainNetwork.mg_boxOnScreen = BoxBigRow(1.0f, _fGlobalButtonAdjuster);
+  mgMainNetwork.mg_boxOnScreen = BoxBigRow(1.0f);
   mgMainNetwork.mg_strTip = TRANS("LAN/iNet multiplayer menus");
   gm_lhGadgets.AddTail( mgMainNetwork.mg_lnNode);
   mgMainNetwork.mg_pmgUp = &mgMainSingle;
@@ -3487,7 +3487,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainSplitScreen.mg_strText = TRANS("SPLIT SCREEN");
   mgMainSplitScreen.mg_bfsFontSize = BFS_LARGE;
-  mgMainSplitScreen.mg_boxOnScreen = BoxBigRow(2.0f, _fGlobalButtonAdjuster);
+  mgMainSplitScreen.mg_boxOnScreen = BoxBigRow(2.0f);
   mgMainSplitScreen.mg_strTip = TRANS("play with multiple players on one computer");
   gm_lhGadgets.AddTail( mgMainSplitScreen.mg_lnNode);
   mgMainSplitScreen.mg_pmgUp = &mgMainNetwork;
@@ -3496,7 +3496,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainDemo.mg_strText = TRANS("DEMO");
   mgMainDemo.mg_bfsFontSize = BFS_LARGE;
-  mgMainDemo.mg_boxOnScreen = BoxBigRow(3.0f, _fGlobalButtonAdjuster);
+  mgMainDemo.mg_boxOnScreen = BoxBigRow(3.0f);
   mgMainDemo.mg_strTip = TRANS("play a game demo");
   gm_lhGadgets.AddTail( mgMainDemo.mg_lnNode);
   mgMainDemo.mg_pmgUp = &mgMainSplitScreen;
@@ -3505,7 +3505,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainMods.mg_strText = TRANS("MODS");
   mgMainMods.mg_bfsFontSize = BFS_LARGE;
-  mgMainMods.mg_boxOnScreen = BoxBigRow(4.0f, _fGlobalButtonAdjuster);
+  mgMainMods.mg_boxOnScreen = BoxBigRow(4.0f);
   mgMainMods.mg_strTip = TRANS("run one of installed game modifications");
   gm_lhGadgets.AddTail( mgMainMods.mg_lnNode);
   mgMainMods.mg_pmgUp = &mgMainDemo;
@@ -3515,7 +3515,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainHighScore.mg_strText = TRANS("HIGH SCORES");
   mgMainHighScore.mg_bfsFontSize = BFS_LARGE;
-  mgMainHighScore.mg_boxOnScreen = BoxBigRow(5.0f, _fGlobalButtonAdjuster);
+  mgMainHighScore.mg_boxOnScreen = BoxBigRow(5.0f);
   mgMainHighScore.mg_strTip = TRANS("view list of top ten best scores");
   gm_lhGadgets.AddTail( mgMainHighScore.mg_lnNode);
   mgMainHighScore.mg_pmgUp = &mgMainMods;
@@ -3524,7 +3524,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainOptions.mg_strText = TRANS("OPTIONS");
   mgMainOptions.mg_bfsFontSize = BFS_LARGE;
-  mgMainOptions.mg_boxOnScreen = BoxBigRow(6.0f, _fGlobalButtonAdjuster);
+  mgMainOptions.mg_boxOnScreen = BoxBigRow(6.0f);
   mgMainOptions.mg_strTip = TRANS("adjust video, audio and input options");
   gm_lhGadgets.AddTail( mgMainOptions.mg_lnNode);
   mgMainOptions.mg_pmgUp = &mgMainHighScore;
@@ -3533,7 +3533,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainQuit.mg_strText = TRANS("QUIT");
   mgMainQuit.mg_bfsFontSize = BFS_LARGE;
-  mgMainQuit.mg_boxOnScreen = BoxBigRow(7.0f, _fGlobalButtonAdjuster);
+  mgMainQuit.mg_boxOnScreen = BoxBigRow(7.0f);
   mgMainQuit.mg_strTip = TRANS("exit game immediately");
   gm_lhGadgets.AddTail( mgMainQuit.mg_lnNode);
   mgMainQuit.mg_pmgUp = &mgMainOptions;
@@ -3559,7 +3559,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameLabel1.mg_strText = "";
   //mgInGameLabel1.mg_boxOnScreen = BoxMediumRow(-2.0f, _fGlobalButtonAdjuster);
-  mgInGameLabel1.mg_boxOnScreen = BoxMediumRow(-9.0f, _fGlobalButtonAdjuster);
+  mgInGameLabel1.mg_boxOnScreen = BoxMediumRow(-9.0f);
   mgInGameLabel1.mg_bfsFontSize = BFS_MEDIUM;
   mgInGameLabel1.mg_iCenterI = -1;
   mgInGameLabel1.mg_bEnabled = FALSE;
@@ -3568,7 +3568,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameLabel2.mg_strText = "";
   //mgInGameLabel2.mg_boxOnScreen = BoxMediumRow(-1.0f, _fGlobalButtonAdjuster);
-  mgInGameLabel2.mg_boxOnScreen = BoxMediumRow(-8.0f, _fGlobalButtonAdjuster);
+  mgInGameLabel2.mg_boxOnScreen = BoxMediumRow(-8.0f);
   mgInGameLabel2.mg_bfsFontSize = BFS_MEDIUM;
   mgInGameLabel2.mg_iCenterI = -1;
   mgInGameLabel2.mg_bEnabled = FALSE;
@@ -3577,7 +3577,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameQuickLoad.mg_strText = TRANS("QUICK LOAD");
   mgInGameQuickLoad.mg_bfsFontSize = BFS_LARGE;
-  mgInGameQuickLoad.mg_boxOnScreen = BoxBigRow(-1.0f, _fGlobalButtonAdjuster);
+  mgInGameQuickLoad.mg_boxOnScreen = BoxBigRow(-1.0f);
   mgInGameQuickLoad.mg_strTip = TRANS("load a quick-saved game (F9)");
   gm_lhGadgets.AddTail( mgInGameQuickLoad.mg_lnNode);
   mgInGameQuickLoad.mg_pmgUp = &mgInGameQuit;
@@ -3586,7 +3586,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameQuickSave.mg_strText = TRANS("QUICK SAVE");
   mgInGameQuickSave.mg_bfsFontSize = BFS_LARGE;
-  mgInGameQuickSave.mg_boxOnScreen = BoxBigRow(0.0f, _fGlobalButtonAdjuster);
+  mgInGameQuickSave.mg_boxOnScreen = BoxBigRow(0.0f);
   mgInGameQuickSave.mg_strTip = TRANS("quick-save current game (F6)");
   gm_lhGadgets.AddTail( mgInGameQuickSave.mg_lnNode);
   mgInGameQuickSave.mg_pmgUp = &mgInGameQuickLoad;
@@ -3595,7 +3595,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameLoad.mg_strText = TRANS("LOAD");
   mgInGameLoad.mg_bfsFontSize = BFS_LARGE;
-  mgInGameLoad.mg_boxOnScreen = BoxBigRow(1.0f, _fGlobalButtonAdjuster);
+  mgInGameLoad.mg_boxOnScreen = BoxBigRow(1.0f);
   mgInGameLoad.mg_strTip = TRANS("load a saved game");
   gm_lhGadgets.AddTail( mgInGameLoad.mg_lnNode);
   mgInGameLoad.mg_pmgUp = &mgInGameQuickSave;
@@ -3604,14 +3604,14 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameSave.mg_strText = TRANS("SAVE");
   mgInGameSave.mg_bfsFontSize = BFS_LARGE;
-  mgInGameSave.mg_boxOnScreen = BoxBigRow(2.0f, _fGlobalButtonAdjuster);
+  mgInGameSave.mg_boxOnScreen = BoxBigRow(2.0f);
   mgInGameSave.mg_strTip = TRANS("save current game (each player has own slots!)");
   gm_lhGadgets.AddTail( mgInGameSave.mg_lnNode);
   mgInGameSave.mg_pmgUp = &mgInGameLoad;
   mgInGameSave.mg_pmgDown = &mgInGameDemoRec;
   mgInGameSave.mg_pActivatedFunction = &StartCurrentSaveMenu;
 
-  mgInGameDemoRec.mg_boxOnScreen = BoxBigRow(3.0f, _fGlobalButtonAdjuster);
+  mgInGameDemoRec.mg_boxOnScreen = BoxBigRow(3.0f);
   mgInGameDemoRec.mg_bfsFontSize = BFS_LARGE;
   mgInGameDemoRec.mg_pmgUp = &mgInGameSave;
   mgInGameDemoRec.mg_pmgDown = &mgInGameHighScore;
@@ -3621,7 +3621,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameHighScore.mg_strText = TRANS("HIGH SCORES");
   mgInGameHighScore.mg_bfsFontSize = BFS_LARGE;
-  mgInGameHighScore.mg_boxOnScreen = BoxBigRow(4.0f, _fGlobalButtonAdjuster);
+  mgInGameHighScore.mg_boxOnScreen = BoxBigRow(4.0f);
   mgInGameHighScore.mg_strTip = TRANS("view list of top ten best scores");
   gm_lhGadgets.AddTail( mgInGameHighScore.mg_lnNode);
   mgInGameHighScore.mg_pmgUp = &mgInGameDemoRec;
@@ -3630,7 +3630,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameOptions.mg_strText = TRANS("OPTIONS");
   mgInGameOptions.mg_bfsFontSize = BFS_LARGE;
-  mgInGameOptions.mg_boxOnScreen = BoxBigRow(5.0f, _fGlobalButtonAdjuster);
+  mgInGameOptions.mg_boxOnScreen = BoxBigRow(5.0f);
   mgInGameOptions.mg_strTip = TRANS("adjust video, audio and input options");
   gm_lhGadgets.AddTail( mgInGameOptions.mg_lnNode);
   mgInGameOptions.mg_pmgUp = &mgInGameHighScore;
@@ -3639,7 +3639,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameStop.mg_strText = TRANS("STOP GAME");
   mgInGameStop.mg_bfsFontSize = BFS_LARGE;
-  mgInGameStop.mg_boxOnScreen = BoxBigRow(6.0f, _fGlobalButtonAdjuster);
+  mgInGameStop.mg_boxOnScreen = BoxBigRow(6.0f);
   mgInGameStop.mg_strTip = TRANS("stop currently running game");
   gm_lhGadgets.AddTail( mgInGameStop.mg_lnNode);
   mgInGameStop.mg_pmgUp = &mgInGameOptions;
@@ -3648,7 +3648,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameQuit.mg_strText = TRANS("QUIT");
   mgInGameQuit.mg_bfsFontSize = BFS_LARGE;
-  mgInGameQuit.mg_boxOnScreen = BoxBigRow(7.0f, _fGlobalButtonAdjuster);
+  mgInGameQuit.mg_boxOnScreen = BoxBigRow(7.0f);
   mgInGameQuit.mg_strTip = TRANS("exit game immediately");
   gm_lhGadgets.AddTail( mgInGameQuit.mg_lnNode);
   mgInGameQuit.mg_pmgUp = &mgInGameStop;
@@ -3726,7 +3726,7 @@ void CSinglePlayerMenu::Initialize_t(void)
   mgSingleTitle.mg_boxOnScreen = BoxTitle();
   gm_lhGadgets.AddTail( mgSingleTitle.mg_lnNode);
 
-  mgSinglePlayerLabel.mg_boxOnScreen = BoxBigRow(0.0f, _fGlobalModAdjuster);
+  mgSinglePlayerLabel.mg_boxOnScreen = BoxBigRow(0.0f);
   mgSinglePlayerLabel.mg_bfsFontSize = BFS_MEDIUM;
   mgSinglePlayerLabel.mg_iCenterI = -1;
   mgSinglePlayerLabel.mg_bEnabled = FALSE;
@@ -3735,7 +3735,7 @@ void CSinglePlayerMenu::Initialize_t(void)
 
   mgSingleNewGame.mg_strText = TRANS("NEW GAME");
   mgSingleNewGame.mg_bfsFontSize = BFS_LARGE;
-  mgSingleNewGame.mg_boxOnScreen = BoxBigRow(0.0f, _fGlobalButtonAdjuster);
+  mgSingleNewGame.mg_boxOnScreen = BoxBigRow(0.0f);
   mgSingleNewGame.mg_strTip = TRANS("start new game with current player");
   gm_lhGadgets.AddTail( mgSingleNewGame.mg_lnNode);
   mgSingleNewGame.mg_pmgUp = &mgSingleOptions;
@@ -3744,7 +3744,7 @@ void CSinglePlayerMenu::Initialize_t(void)
 
   mgSingleCustom.mg_strText = TRANS("CUSTOM LEVEL");
   mgSingleCustom.mg_bfsFontSize = BFS_LARGE;
-  mgSingleCustom.mg_boxOnScreen = BoxBigRow(1.0f, _fGlobalButtonAdjuster);
+  mgSingleCustom.mg_boxOnScreen = BoxBigRow(1.0f);
   mgSingleCustom.mg_strTip = TRANS("start new game on a custom level");
   gm_lhGadgets.AddTail( mgSingleCustom.mg_lnNode);
   mgSingleCustom.mg_pmgUp = &mgSingleNewGame;
@@ -3753,7 +3753,7 @@ void CSinglePlayerMenu::Initialize_t(void)
 
   mgSingleQuickLoad.mg_strText = TRANS("QUICK LOAD");
   mgSingleQuickLoad.mg_bfsFontSize = BFS_LARGE;
-  mgSingleQuickLoad.mg_boxOnScreen = BoxBigRow(2.0f, _fGlobalButtonAdjuster);
+  mgSingleQuickLoad.mg_boxOnScreen = BoxBigRow(2.0f);
   mgSingleQuickLoad.mg_strTip = TRANS("load a quick-saved game (F9)");
   gm_lhGadgets.AddTail( mgSingleQuickLoad.mg_lnNode);
   mgSingleQuickLoad.mg_pmgUp = &mgSingleCustom;
@@ -3762,7 +3762,7 @@ void CSinglePlayerMenu::Initialize_t(void)
 
   mgSingleLoad.mg_strText = TRANS("LOAD");
   mgSingleLoad.mg_bfsFontSize = BFS_LARGE;
-  mgSingleLoad.mg_boxOnScreen = BoxBigRow(3.0f, _fGlobalButtonAdjuster);
+  mgSingleLoad.mg_boxOnScreen = BoxBigRow(3.0f);
   mgSingleLoad.mg_strTip = TRANS("load a saved game of current player");
   gm_lhGadgets.AddTail( mgSingleLoad.mg_lnNode);
   mgSingleLoad.mg_pmgUp = &mgSingleQuickLoad;
@@ -3771,7 +3771,7 @@ void CSinglePlayerMenu::Initialize_t(void)
 
   mgSingleTraining.mg_strText = TRANS("TRAINING");
   mgSingleTraining.mg_bfsFontSize = BFS_LARGE;
-  mgSingleTraining.mg_boxOnScreen = BoxBigRow(4.0f, _fGlobalButtonAdjuster);
+  mgSingleTraining.mg_boxOnScreen = BoxBigRow(4.0f);
   mgSingleTraining.mg_strTip = TRANS("start training level - KarnakDemo");
   gm_lhGadgets.AddTail( mgSingleTraining.mg_lnNode);
   mgSingleTraining.mg_pmgUp = &mgSingleLoad;
@@ -3780,7 +3780,7 @@ void CSinglePlayerMenu::Initialize_t(void)
 
   mgSingleTechTest.mg_strText = TRANS("TECHNOLOGY TEST");
   mgSingleTechTest.mg_bfsFontSize = BFS_LARGE;
-  mgSingleTechTest.mg_boxOnScreen = BoxBigRow(5.0f, _fGlobalButtonAdjuster);
+  mgSingleTechTest.mg_boxOnScreen = BoxBigRow(5.0f);
   mgSingleTechTest.mg_strTip = TRANS("start technology testing level");
   gm_lhGadgets.AddTail( mgSingleTechTest.mg_lnNode);
   mgSingleTechTest.mg_pmgUp = &mgSingleTraining;
@@ -3788,7 +3788,7 @@ void CSinglePlayerMenu::Initialize_t(void)
   mgSingleTechTest.mg_pActivatedFunction = &StartTechTest;
 
   mgSinglePlayersAndControls.mg_bfsFontSize = BFS_LARGE;
-  mgSinglePlayersAndControls.mg_boxOnScreen = BoxBigRow(6.0f, _fGlobalButtonAdjuster);
+  mgSinglePlayersAndControls.mg_boxOnScreen = BoxBigRow(6.0f);
   mgSinglePlayersAndControls.mg_pmgUp = &mgSingleTechTest;
   mgSinglePlayersAndControls.mg_pmgDown = &mgSingleOptions;
   mgSinglePlayersAndControls.mg_strText = TRANS("PLAYERS AND CONTROLS");
@@ -3798,7 +3798,7 @@ void CSinglePlayerMenu::Initialize_t(void)
 
   mgSingleOptions.mg_strText = TRANS("GAME OPTIONS");
   mgSingleOptions.mg_bfsFontSize = BFS_LARGE;
-  mgSingleOptions.mg_boxOnScreen = BoxBigRow(7.0f, _fGlobalButtonAdjuster);
+  mgSingleOptions.mg_boxOnScreen = BoxBigRow(7.0f);
   mgSingleOptions.mg_strTip = TRANS("adjust miscellaneous game options");
   gm_lhGadgets.AddTail( mgSingleOptions.mg_lnNode);
   mgSingleOptions.mg_pmgUp = &mgSinglePlayersAndControls;
@@ -3816,36 +3816,36 @@ void CSinglePlayerMenu::StartMenu(void)
       gm_lhGadgets.AddTail( mgSingleTraining.mg_lnNode);
     }
 
-    mgSingleLoad.mg_boxOnScreen 	= BoxBigRow(3.0f, _fGlobalButtonAdjuster);
+    mgSingleLoad.mg_boxOnScreen 	= BoxBigRow(3.0f);
     mgSingleLoad.mg_pmgUp 			= &mgSingleQuickLoad;
     mgSingleLoad.mg_pmgDown 		= &mgSingleTraining;
 
-    mgSingleTraining.mg_boxOnScreen = BoxBigRow(4.0f, _fGlobalButtonAdjuster);
+    mgSingleTraining.mg_boxOnScreen = BoxBigRow(4.0f);
     mgSingleTraining.mg_pmgUp 		= &mgSingleLoad;
     mgSingleTraining.mg_pmgDown 	= &mgSingleTechTest;
 
-    mgSingleTechTest.mg_boxOnScreen = BoxBigRow(5.0f, _fGlobalButtonAdjuster);
+    mgSingleTechTest.mg_boxOnScreen = BoxBigRow(5.0f);
     mgSingleTechTest.mg_pmgUp 		= &mgSingleTraining;
     mgSingleTechTest.mg_pmgDown 	= &mgSinglePlayersAndControls;
 
-    mgSinglePlayersAndControls.mg_boxOnScreen = BoxBigRow(6.0f, _fGlobalButtonAdjuster);
-    mgSingleOptions.mg_boxOnScreen 	= BoxBigRow(7.0f, _fGlobalButtonAdjuster);
+    mgSinglePlayersAndControls.mg_boxOnScreen = BoxBigRow(6.0f);
+    mgSingleOptions.mg_boxOnScreen 	= BoxBigRow(7.0f);
 
   } else {
     if (mgSingleTraining.mg_lnNode.IsLinked()) {
       mgSingleTraining.mg_lnNode.Remove();
     }
 
-    mgSingleLoad.mg_boxOnScreen 	= BoxBigRow(3.0f, _fGlobalButtonAdjuster);
+    mgSingleLoad.mg_boxOnScreen 	= BoxBigRow(3.0f);
     mgSingleLoad.mg_pmgUp 			= &mgSingleQuickLoad;
     mgSingleLoad.mg_pmgDown 		= &mgSingleTechTest;
 
-    mgSingleTechTest.mg_boxOnScreen = BoxBigRow(4.0f, _fGlobalButtonAdjuster);
+    mgSingleTechTest.mg_boxOnScreen = BoxBigRow(4.0f);
     mgSingleTechTest.mg_pmgUp 		= &mgSingleLoad;
     mgSingleTechTest.mg_pmgDown 	= &mgSinglePlayersAndControls;
 
-    mgSinglePlayersAndControls.mg_boxOnScreen = BoxBigRow(5.0f, _fGlobalButtonAdjuster);
-    mgSingleOptions.mg_boxOnScreen 	= BoxBigRow(6.0f, _fGlobalButtonAdjuster);
+    mgSinglePlayersAndControls.mg_boxOnScreen = BoxBigRow(5.0f);
+    mgSingleOptions.mg_boxOnScreen 	= BoxBigRow(6.0f);
   }
 
   CGameMenu::StartMenu();
@@ -3864,7 +3864,7 @@ void CSinglePlayerNewMenu::Initialize_t(void)
 
   mgSingleNewTourist.mg_strText = TRANS("TOURIST");
   mgSingleNewTourist.mg_bfsFontSize = BFS_LARGE;
-  mgSingleNewTourist.mg_boxOnScreen = BoxBigRow(0.0f, _fGlobalButtonAdjuster);
+  mgSingleNewTourist.mg_boxOnScreen = BoxBigRow(0.0f);
   mgSingleNewTourist.mg_strTip = TRANS("for non-FPS players");
   gm_lhGadgets.AddTail( mgSingleNewTourist.mg_lnNode);
   mgSingleNewTourist.mg_pmgUp = &mgSingleNewSerious;
@@ -3873,7 +3873,7 @@ void CSinglePlayerNewMenu::Initialize_t(void)
 
   mgSingleNewEasy.mg_strText = TRANS("EASY");
   mgSingleNewEasy.mg_bfsFontSize = BFS_LARGE;
-  mgSingleNewEasy.mg_boxOnScreen = BoxBigRow(1.0f, _fGlobalButtonAdjuster);
+  mgSingleNewEasy.mg_boxOnScreen = BoxBigRow(1.0f);
   mgSingleNewEasy.mg_strTip = TRANS("for unexperienced FPS players");
   gm_lhGadgets.AddTail( mgSingleNewEasy.mg_lnNode);
   mgSingleNewEasy.mg_pmgUp = &mgSingleNewTourist;
@@ -3882,7 +3882,7 @@ void CSinglePlayerNewMenu::Initialize_t(void)
 
   mgSingleNewMedium.mg_strText = TRANS("NORMAL");
   mgSingleNewMedium.mg_bfsFontSize = BFS_LARGE;
-  mgSingleNewMedium.mg_boxOnScreen = BoxBigRow(2.0f, _fGlobalButtonAdjuster);
+  mgSingleNewMedium.mg_boxOnScreen = BoxBigRow(2.0f);
   mgSingleNewMedium.mg_strTip = TRANS("for experienced FPS players");
   gm_lhGadgets.AddTail( mgSingleNewMedium.mg_lnNode);
   mgSingleNewMedium.mg_pmgUp = &mgSingleNewEasy;
@@ -3891,7 +3891,7 @@ void CSinglePlayerNewMenu::Initialize_t(void)
 
   mgSingleNewHard.mg_strText = TRANS("HARD");
   mgSingleNewHard.mg_bfsFontSize = BFS_LARGE;
-  mgSingleNewHard.mg_boxOnScreen = BoxBigRow(3.0f, _fGlobalButtonAdjuster);
+  mgSingleNewHard.mg_boxOnScreen = BoxBigRow(3.0f);
   mgSingleNewHard.mg_strTip = TRANS("for experienced Serious Sam players");
   gm_lhGadgets.AddTail( mgSingleNewHard.mg_lnNode);
   mgSingleNewHard.mg_pmgUp = &mgSingleNewMedium;
@@ -3900,7 +3900,7 @@ void CSinglePlayerNewMenu::Initialize_t(void)
 
   mgSingleNewSerious.mg_strText = TRANS("SERIOUS");
   mgSingleNewSerious.mg_bfsFontSize = BFS_LARGE;
-  mgSingleNewSerious.mg_boxOnScreen = BoxBigRow(4.0f, _fGlobalButtonAdjuster);
+  mgSingleNewSerious.mg_boxOnScreen = BoxBigRow(4.0f);
   mgSingleNewSerious.mg_strTip = TRANS("are you serious?");
   gm_lhGadgets.AddTail( mgSingleNewSerious.mg_lnNode);
   mgSingleNewSerious.mg_pmgUp = &mgSingleNewHard;
@@ -3909,7 +3909,7 @@ void CSinglePlayerNewMenu::Initialize_t(void)
 
   mgSingleNewMental.mg_strText = TRANS("MENTAL");
   mgSingleNewMental.mg_bfsFontSize = BFS_LARGE;
-  mgSingleNewMental.mg_boxOnScreen = BoxBigRow(5.0f, _fGlobalButtonAdjuster);
+  mgSingleNewMental.mg_boxOnScreen = BoxBigRow(5.0f);
   mgSingleNewMental.mg_strTip = TRANS("you are not serious!");
   gm_lhGadgets.AddTail( mgSingleNewMental.mg_lnNode);
   mgSingleNewMental.mg_pmgUp = &mgSingleNewSerious;
@@ -3938,7 +3938,7 @@ void CDisabledMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgDisabledTitle.mg_lnNode);
 
   mgDisabledMenuButton.mg_bfsFontSize = BFS_MEDIUM;
-  mgDisabledMenuButton.mg_boxOnScreen = BoxBigRow(0.0f, _fGlobalButtonAdjuster);
+  mgDisabledMenuButton.mg_boxOnScreen = BoxBigRow(0.0f);
   gm_lhGadgets.AddTail( mgDisabledMenuButton.mg_lnNode);
   mgDisabledMenuButton.mg_pActivatedFunction = NULL;
 }
@@ -4038,7 +4038,7 @@ void CPlayerProfileMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgPlayerProfileTitle.mg_lnNode);
 
   mgPlayerNoLabel.mg_strText = TRANS("PROFILE:");
-  mgPlayerNoLabel.mg_boxOnScreen = BoxMediumLeft(0.0f, _fGlobalProfileAdjuster);
+  mgPlayerNoLabel.mg_boxOnScreen = BoxMediumLeft(0.0f);
   mgPlayerNoLabel.mg_bfsFontSize = BFS_MEDIUM;
   mgPlayerNoLabel.mg_iCenterI = -1;
   gm_lhGadgets.AddTail( mgPlayerNoLabel.mg_lnNode);
@@ -4061,7 +4061,7 @@ void CPlayerProfileMenu::Initialize_t(void)
 #define ADD_SELECT_PLAYER_MG( index, mg, mgprev, mgnext, me)\
   mg.mg_iIndex = index;\
   mg.mg_bfsFontSize = BFS_MEDIUM;\
-  mg.mg_boxOnScreen = BoxNoUp(index, _fGlobalProfileAdjuster);\
+  mg.mg_boxOnScreen = BoxNoUp(index);\
   mg.mg_bRectangle = TRUE;\
   mg.mg_pmgLeft = &mgprev;\
   mg.mg_pmgRight = &mgnext;\
@@ -4084,7 +4084,7 @@ void CPlayerProfileMenu::Initialize_t(void)
   mgPlayerNo[7].mg_pmgRight = &mgPlayerModel;
 
   mgPlayerNameLabel.mg_strText = TRANS("NAME:");
-  mgPlayerNameLabel.mg_boxOnScreen = BoxMediumLeft(1.25f, _fGlobalProfileAdjuster);
+  mgPlayerNameLabel.mg_boxOnScreen = BoxMediumLeft(1.25f);
   mgPlayerNameLabel.mg_bfsFontSize = BFS_MEDIUM;
   mgPlayerNameLabel.mg_iCenterI = -1;
   gm_lhGadgets.AddTail( mgPlayerNameLabel.mg_lnNode);
@@ -4092,7 +4092,7 @@ void CPlayerProfileMenu::Initialize_t(void)
   // setup of player name button is done on start menu
   mgPlayerName.mg_strText = "<***>";
   mgPlayerName.mg_ctMaxStringLen = 25;
-  mgPlayerName.mg_boxOnScreen = BoxPlayerEdit(1.25, _fGlobalProfileAdjuster);
+  mgPlayerName.mg_boxOnScreen = BoxPlayerEdit(1.25);
   mgPlayerName.mg_bfsFontSize = BFS_MEDIUM;
   mgPlayerName.mg_iCenterI = -1;
   mgPlayerName.mg_pmgUp = &mgPlayerNo[0];
@@ -4102,7 +4102,7 @@ void CPlayerProfileMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgPlayerName.mg_lnNode);
 
   mgPlayerTeamLabel.mg_strText = TRANS("TEAM:");
-  mgPlayerTeamLabel.mg_boxOnScreen = BoxMediumLeft(2.25f, _fGlobalProfileAdjuster);
+  mgPlayerTeamLabel.mg_boxOnScreen = BoxMediumLeft(2.25f);
   mgPlayerTeamLabel.mg_bfsFontSize = BFS_MEDIUM;
   mgPlayerTeamLabel.mg_iCenterI = -1;
   gm_lhGadgets.AddTail( mgPlayerTeamLabel.mg_lnNode);
@@ -4110,7 +4110,7 @@ void CPlayerProfileMenu::Initialize_t(void)
   // setup of player name button is done on start menu
   mgPlayerTeam.mg_strText = "<***>";
   mgPlayerName.mg_ctMaxStringLen = 25;
-  mgPlayerTeam.mg_boxOnScreen = BoxPlayerEdit(2.25f, _fGlobalProfileAdjuster);
+  mgPlayerTeam.mg_boxOnScreen = BoxPlayerEdit(2.25f);
   mgPlayerTeam.mg_bfsFontSize = BFS_MEDIUM;
   mgPlayerTeam.mg_iCenterI = -1;
   mgPlayerTeam.mg_pmgUp = &mgPlayerName;
@@ -4122,44 +4122,44 @@ void CPlayerProfileMenu::Initialize_t(void)
 
   TRIGGER_MG(mgPlayerCrosshair, 4.0, mgPlayerTeam, mgPlayerWeaponSelect, TRANS("CROSSHAIR"), astrCrosshair);
   mgPlayerCrosshair.mg_bVisual = TRUE;
-  mgPlayerCrosshair.mg_boxOnScreen = BoxPlayerSwitch(5.0f, _fGlobalProfileAdjuster);
+  mgPlayerCrosshair.mg_boxOnScreen = BoxPlayerSwitch(5.0f);
   mgPlayerCrosshair.mg_iCenterI = -1;
   mgPlayerCrosshair.mg_pOnTriggerChange = ChangeCrosshair;
   TRIGGER_MG(mgPlayerWeaponSelect, 4.0, mgPlayerCrosshair, mgPlayerWeaponHide, TRANS("AUTO SELECT WEAPON"), astrWeapon);
-  mgPlayerWeaponSelect.mg_boxOnScreen = BoxPlayerSwitch(6.0f, _fGlobalProfileAdjuster);
+  mgPlayerWeaponSelect.mg_boxOnScreen = BoxPlayerSwitch(6.0f);
   mgPlayerWeaponSelect.mg_iCenterI = -1;
   mgPlayerWeaponSelect.mg_pOnTriggerChange = ChangeWeaponSelect;
   TRIGGER_MG(mgPlayerWeaponHide, 4.0, mgPlayerWeaponSelect, mgPlayer3rdPerson, TRANS("HIDE WEAPON MODEL"), astrNoYes);
-  mgPlayerWeaponHide.mg_boxOnScreen = BoxPlayerSwitch(7.0f, _fGlobalProfileAdjuster);
+  mgPlayerWeaponHide.mg_boxOnScreen = BoxPlayerSwitch(7.0f);
   mgPlayerWeaponHide.mg_iCenterI = -1;
   mgPlayerWeaponHide.mg_pOnTriggerChange = ChangeWeaponHide;
   TRIGGER_MG(mgPlayer3rdPerson, 4.0, mgPlayerWeaponHide, mgPlayerQuotes, TRANS("PREFER 3RD PERSON VIEW"), astrNoYes);
-  mgPlayer3rdPerson.mg_boxOnScreen = BoxPlayerSwitch(8.0f, _fGlobalProfileAdjuster);
+  mgPlayer3rdPerson.mg_boxOnScreen = BoxPlayerSwitch(8.0f);
   mgPlayer3rdPerson.mg_iCenterI = -1;
   mgPlayer3rdPerson.mg_pOnTriggerChange = Change3rdPerson;
   TRIGGER_MG(mgPlayerQuotes, 4.0, mgPlayer3rdPerson, mgPlayerAutoSave, TRANS("VOICE QUOTES"), astrNoYes);
-  mgPlayerQuotes.mg_boxOnScreen = BoxPlayerSwitch(9.0f, _fGlobalProfileAdjuster);
+  mgPlayerQuotes.mg_boxOnScreen = BoxPlayerSwitch(9.0f);
   mgPlayerQuotes.mg_iCenterI = -1;
   mgPlayerQuotes.mg_pOnTriggerChange = ChangeQuotes;
   TRIGGER_MG(mgPlayerAutoSave, 4.0, mgPlayerQuotes, mgPlayerCompDoubleClick, TRANS("AUTO SAVE"), astrNoYes);
-  mgPlayerAutoSave.mg_boxOnScreen = BoxPlayerSwitch(10.0f, _fGlobalProfileAdjuster);
+  mgPlayerAutoSave.mg_boxOnScreen = BoxPlayerSwitch(10.0f);
   mgPlayerAutoSave.mg_iCenterI = -1;
   mgPlayerAutoSave.mg_pOnTriggerChange = ChangeAutoSave;
   TRIGGER_MG(mgPlayerCompDoubleClick, 4.0, mgPlayerAutoSave, mgPlayerSharpTurning, TRANS("INVOKE COMPUTER"), astrComputerInvoke);
-  mgPlayerCompDoubleClick.mg_boxOnScreen = BoxPlayerSwitch(11.0f, _fGlobalProfileAdjuster);
+  mgPlayerCompDoubleClick.mg_boxOnScreen = BoxPlayerSwitch(11.0f);
   mgPlayerCompDoubleClick.mg_iCenterI = -1;
   mgPlayerCompDoubleClick.mg_pOnTriggerChange = ChangeCompDoubleClick;
   TRIGGER_MG(mgPlayerSharpTurning, 4.0, mgPlayerCompDoubleClick, mgPlayerViewBobbing, TRANS("SHARP TURNING"), astrNoYes);
-  mgPlayerSharpTurning.mg_boxOnScreen = BoxPlayerSwitch(12.0f, _fGlobalProfileAdjuster);
+  mgPlayerSharpTurning.mg_boxOnScreen = BoxPlayerSwitch(12.0f);
   mgPlayerSharpTurning.mg_iCenterI = -1;
   mgPlayerSharpTurning.mg_pOnTriggerChange = ChangeSharpTurning;
   TRIGGER_MG(mgPlayerViewBobbing, 4.0, mgPlayerSharpTurning, mgPlayerCustomizeControls, TRANS("VIEW BOBBING"), astrNoYes);
-  mgPlayerViewBobbing.mg_boxOnScreen = BoxPlayerSwitch(13.0f, _fGlobalProfileAdjuster);
+  mgPlayerViewBobbing.mg_boxOnScreen = BoxPlayerSwitch(13.0f);
   mgPlayerViewBobbing.mg_iCenterI = -1;
   mgPlayerViewBobbing.mg_pOnTriggerChange = ChangeViewBobbing;
 
   mgPlayerCustomizeControls.mg_strText = TRANS("CUSTOMIZE CONTROLS");
-  mgPlayerCustomizeControls.mg_boxOnScreen = BoxMediumLeft(14.5f, _fGlobalProfileAdjuster);
+  mgPlayerCustomizeControls.mg_boxOnScreen = BoxMediumLeft(14.5f);
   mgPlayerCustomizeControls.mg_bfsFontSize = BFS_MEDIUM;
   mgPlayerCustomizeControls.mg_iCenterI = -1;
   mgPlayerCustomizeControls.mg_pmgUp = &mgPlayerViewBobbing;
@@ -4327,7 +4327,7 @@ void CControlsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgControlsTitle.mg_lnNode);
 
   mgControlsNameLabel.mg_strText = "";
-  mgControlsNameLabel.mg_boxOnScreen = BoxMediumRow(0.0, _fGlobalModAdjuster);
+  mgControlsNameLabel.mg_boxOnScreen = BoxMediumRow(0.0);
   mgControlsNameLabel.mg_bfsFontSize = BFS_MEDIUM;
   mgControlsNameLabel.mg_iCenterI = -1;
   mgControlsNameLabel.mg_bEnabled = FALSE;
@@ -4335,7 +4335,7 @@ void CControlsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgControlsNameLabel.mg_lnNode);
 
   mgControlsButtons.mg_strText = TRANS("CUSTOMIZE BUTTONS");
-  mgControlsButtons.mg_boxOnScreen = BoxMediumRow(2.0, _fGlobalModAdjuster);
+  mgControlsButtons.mg_boxOnScreen = BoxMediumRow(2.0);
   mgControlsButtons.mg_bfsFontSize = BFS_MEDIUM;
   mgControlsButtons.mg_iCenterI = 0;
   gm_lhGadgets.AddTail( mgControlsButtons.mg_lnNode);
@@ -4346,7 +4346,7 @@ void CControlsMenu::Initialize_t(void)
 
   mgControlsAdvanced.mg_strText = TRANS("ADVANCED JOYSTICK SETUP");
   mgControlsAdvanced.mg_iCenterI = 0;
-  mgControlsAdvanced.mg_boxOnScreen = BoxMediumRow(3, _fGlobalModAdjuster);
+  mgControlsAdvanced.mg_boxOnScreen = BoxMediumRow(3);
   mgControlsAdvanced.mg_bfsFontSize = BFS_MEDIUM;
   gm_lhGadgets.AddTail( mgControlsAdvanced.mg_lnNode);
   mgControlsAdvanced.mg_pmgUp = &mgControlsButtons;
@@ -4354,7 +4354,7 @@ void CControlsMenu::Initialize_t(void)
   mgControlsAdvanced.mg_pActivatedFunction = &StartCustomizeAxisMenu;
   mgControlsAdvanced.mg_strTip = TRANS("adjust advanced settings for joystick axis");
 
-  mgControlsSensitivity.mg_boxOnScreen = BoxMediumRow(4.5, _fGlobalModAdjuster);
+  mgControlsSensitivity.mg_boxOnScreen = BoxMediumRow(4.5);
   mgControlsSensitivity.mg_strText = TRANS("SENSITIVITY");
   mgControlsSensitivity.mg_pmgUp = &mgControlsAdvanced;
   mgControlsSensitivity.mg_pmgDown = &mgControlsInvertTrigger;
@@ -4376,7 +4376,7 @@ void CControlsMenu::Initialize_t(void)
 
   mgControlsPredefined.mg_strText = TRANS("LOAD PREDEFINED SETTINGS");
   mgControlsPredefined.mg_iCenterI = 0;
-  mgControlsPredefined.mg_boxOnScreen = BoxMediumRow(10, _fGlobalModAdjuster);
+  mgControlsPredefined.mg_boxOnScreen = BoxMediumRow(10);
   mgControlsPredefined.mg_bfsFontSize = BFS_MEDIUM;
   gm_lhGadgets.AddTail( mgControlsPredefined.mg_lnNode);
   mgControlsPredefined.mg_pmgUp   = &mgControlsIFeelTrigger;
@@ -4463,7 +4463,7 @@ void CLoadSaveMenu::Initialize_t(void)
   mgLoadSaveTitle.mg_boxOnScreen = BoxTitle();
   gm_lhGadgets.AddTail( mgLoadSaveTitle.mg_lnNode);
 
-  mgLoadSaveNotes.mg_boxOnScreen = BoxMediumRow(10.0, _fGlobalOptionsAdjuster);
+  mgLoadSaveNotes.mg_boxOnScreen = BoxMediumRow(10.0);
   mgLoadSaveNotes.mg_bfsFontSize = BFS_MEDIUM;
   mgLoadSaveNotes.mg_iCenterI = -1;
   mgLoadSaveNotes.mg_bEnabled = FALSE;
@@ -4477,7 +4477,7 @@ void CLoadSaveMenu::Initialize_t(void)
     // initialize label gadgets
     amgLSButton[iLabel].mg_pmgUp = &amgLSButton[iPrev];
     amgLSButton[iLabel].mg_pmgDown = &amgLSButton[iNext];
-    amgLSButton[iLabel].mg_boxOnScreen = BoxSaveLoad(iLabel, _fGlobalListAdjuster);
+    amgLSButton[iLabel].mg_boxOnScreen = BoxSaveLoad(iLabel);
     amgLSButton[iLabel].mg_pActivatedFunction = NULL; // never called!
     amgLSButton[iLabel].mg_iCenterI = -1;
     gm_lhGadgets.AddTail( amgLSButton[iLabel].mg_lnNode);
@@ -4487,8 +4487,8 @@ void CLoadSaveMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgLSArrowDn.mg_lnNode);
   mgLSArrowUp.mg_adDirection = AD_UP;
   mgLSArrowDn.mg_adDirection = AD_DOWN;
-  mgLSArrowUp.mg_boxOnScreen = BoxArrow(AD_UP, _fGlobalListAdjuster);
-  mgLSArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN, _fGlobalListAdjuster);
+  mgLSArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
+  mgLSArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
   mgLSArrowUp.mg_pmgRight = mgLSArrowUp.mg_pmgDown = &amgLSButton[0];
   mgLSArrowDn.mg_pmgRight = mgLSArrowDn.mg_pmgUp =   &amgLSButton[SAVELOAD_BUTTONS_CT-1];
 
@@ -4758,7 +4758,7 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
     INDEX iPrev = (gm_ctListVisible+iLabel-1)%KEYS_ON_SCREEN;
     INDEX iNext = (iLabel+1)%KEYS_ON_SCREEN;
     // initialize label entities
-    mgKey[iLabel].mg_boxOnScreen = BoxKeyRow(iLabel, _fGlobalListAdjuster);
+    mgKey[iLabel].mg_boxOnScreen = BoxKeyRow(iLabel);
     // initialize label gadgets
     mgKey[iLabel].mg_pmgUp = &mgKey[iPrev];
     mgKey[iLabel].mg_pmgDown = &mgKey[iNext];
@@ -4770,8 +4770,8 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgCustomizeArrowUp.mg_lnNode);
   mgCustomizeArrowDn.mg_adDirection = AD_DOWN;
   mgCustomizeArrowUp.mg_adDirection = AD_UP;
-  mgCustomizeArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN, _fGlobalListAdjuster);
-  mgCustomizeArrowUp.mg_boxOnScreen = BoxArrow(AD_UP, _fGlobalListAdjuster);
+  mgCustomizeArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
+  mgCustomizeArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
   mgCustomizeArrowDn.mg_pmgRight = mgCustomizeArrowDn.mg_pmgUp = &mgKey[KEYS_ON_SCREEN-1];
   mgCustomizeArrowUp.mg_pmgRight = mgCustomizeArrowUp.mg_pmgDown = &mgKey[0];
 
@@ -4842,14 +4842,14 @@ void CCustomizeAxisMenu::Initialize_t(void)
     mgAxisMountedTrigger.mg_astrTexts[ iAxis] = _pInput->GetAxisTransName( iAxis);
   }
   
-  mgAxisSensitivity.mg_boxOnScreen = BoxMediumRow(3, _fGlobalModAdjuster);
+  mgAxisSensitivity.mg_boxOnScreen = BoxMediumRow(3);
   mgAxisSensitivity.mg_strText = TRANS("SENSITIVITY");
   mgAxisSensitivity.mg_pmgUp = &mgAxisMountedTrigger;
   mgAxisSensitivity.mg_pmgDown = &mgAxisDeadzone;
   gm_lhGadgets.AddTail( mgAxisSensitivity.mg_lnNode);
   mgAxisSensitivity.mg_strTip = TRANS("set sensitivity for this axis");
 
-  mgAxisDeadzone.mg_boxOnScreen = BoxMediumRow(4, _fGlobalModAdjuster);
+  mgAxisDeadzone.mg_boxOnScreen = BoxMediumRow(4);
   mgAxisDeadzone.mg_strText = TRANS("DEAD ZONE");
   mgAxisDeadzone.mg_pmgUp = &mgAxisSensitivity;
   mgAxisDeadzone.mg_pmgDown = &mgAxisInvertTrigger;
@@ -4946,7 +4946,7 @@ void COptionsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgOptionsTitle.mg_lnNode);
 
   mgVideoOptions.mg_bfsFontSize = BFS_LARGE;
-  mgVideoOptions.mg_boxOnScreen = BoxBigRow(0.0f, _fGlobalButtonAdjuster);
+  mgVideoOptions.mg_boxOnScreen = BoxBigRow(0.0f);
   mgVideoOptions.mg_pmgUp = &mgAddonOptions;
   mgVideoOptions.mg_pmgDown = &mgAudioOptions;
   mgVideoOptions.mg_strText = TRANS("VIDEO OPTIONS");
@@ -4955,7 +4955,7 @@ void COptionsMenu::Initialize_t(void)
   mgVideoOptions.mg_pActivatedFunction = &StartVideoOptionsMenu;
 
   mgAudioOptions.mg_bfsFontSize = BFS_LARGE;
-  mgAudioOptions.mg_boxOnScreen = BoxBigRow(1.0f, _fGlobalButtonAdjuster);
+  mgAudioOptions.mg_boxOnScreen = BoxBigRow(1.0f);
   mgAudioOptions.mg_pmgUp = &mgVideoOptions;
   mgAudioOptions.mg_pmgDown = &mgPlayerProfileOptions;
   mgAudioOptions.mg_strText = TRANS("AUDIO OPTIONS");
@@ -4964,7 +4964,7 @@ void COptionsMenu::Initialize_t(void)
   mgAudioOptions.mg_pActivatedFunction = &StartAudioOptionsMenu;
 
   mgPlayerProfileOptions.mg_bfsFontSize = BFS_LARGE;
-  mgPlayerProfileOptions.mg_boxOnScreen = BoxBigRow(2.0f, _fGlobalButtonAdjuster);
+  mgPlayerProfileOptions.mg_boxOnScreen = BoxBigRow(2.0f);
   mgPlayerProfileOptions.mg_pmgUp = &mgAudioOptions;
   mgPlayerProfileOptions.mg_pmgDown = &mgNetworkOptions;
   mgPlayerProfileOptions.mg_strText = TRANS("PLAYERS AND CONTROLS");
@@ -4973,7 +4973,7 @@ void COptionsMenu::Initialize_t(void)
   mgPlayerProfileOptions.mg_pActivatedFunction = &StartChangePlayerMenuFromOptions;
 
   mgNetworkOptions.mg_bfsFontSize = BFS_LARGE;
-  mgNetworkOptions.mg_boxOnScreen = BoxBigRow(3, _fGlobalButtonAdjuster);
+  mgNetworkOptions.mg_boxOnScreen = BoxBigRow(3);
   mgNetworkOptions.mg_pmgUp = &mgPlayerProfileOptions;
   mgNetworkOptions.mg_pmgDown = &mgCustomOptions;
   mgNetworkOptions.mg_strText = TRANS("NETWORK CONNECTION");
@@ -4982,7 +4982,7 @@ void COptionsMenu::Initialize_t(void)
   mgNetworkOptions.mg_pActivatedFunction = &StartNetworkSettingsMenu;
 
   mgCustomOptions.mg_bfsFontSize = BFS_LARGE;
-  mgCustomOptions.mg_boxOnScreen = BoxBigRow(4, _fGlobalButtonAdjuster);
+  mgCustomOptions.mg_boxOnScreen = BoxBigRow(4);
   mgCustomOptions.mg_pmgUp = &mgNetworkOptions;
   mgCustomOptions.mg_pmgDown = &mgAddonOptions;
   mgCustomOptions.mg_strText = TRANS("ADVANCED OPTIONS");
@@ -4991,7 +4991,7 @@ void COptionsMenu::Initialize_t(void)
   mgCustomOptions.mg_pActivatedFunction = &StartCustomLoadMenu;
 
   mgAddonOptions.mg_bfsFontSize = BFS_LARGE;
-  mgAddonOptions.mg_boxOnScreen = BoxBigRow(5, _fGlobalButtonAdjuster);
+  mgAddonOptions.mg_boxOnScreen = BoxBigRow(5);
   mgAddonOptions.mg_pmgUp = &mgCustomOptions;
   mgAddonOptions.mg_pmgDown = &mgVideoOptions;
   mgAddonOptions.mg_strText = TRANS("EXECUTE ADDON");
@@ -5290,7 +5290,7 @@ void CVideoOptionsMenu::Initialize_t(void)
   
 
   mgVideoRendering.mg_bfsFontSize = BFS_MEDIUM;
-  mgVideoRendering.mg_boxOnScreen = BoxMediumRow(8.5f, _fGlobalModAdjuster);
+  mgVideoRendering.mg_boxOnScreen = BoxMediumRow(8.5f);
   mgVideoRendering.mg_pmgUp = &mgBitsPerPixelTrigger;
   mgVideoRendering.mg_pmgDown = &mgVideoOptionsApply;
   mgVideoRendering.mg_strText = TRANS("RENDERING OPTIONS");
@@ -5299,7 +5299,7 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgVideoRendering.mg_pActivatedFunction = &StartRenderingOptionsMenu;
 
   mgVideoOptionsApply.mg_bfsFontSize = BFS_LARGE;
-  mgVideoOptionsApply.mg_boxOnScreen = BoxBigRow(7.0f, _fGlobalButtonAdjuster);
+  mgVideoOptionsApply.mg_boxOnScreen = BoxBigRow(7.0f);
   mgVideoOptionsApply.mg_pmgUp = &mgVideoRendering;
   mgVideoOptionsApply.mg_pmgDown = &mgDisplayAPITrigger;
   mgVideoOptionsApply.mg_strText = TRANS("APPLY");
@@ -5377,7 +5377,7 @@ void CAudioOptionsMenu::Initialize_t(void)
   mgAudioAPITrigger.mg_strTip = TRANS("choose sound system (API) to use");
   mgAudioAPITrigger.mg_pOnTriggerChange = FrequencyTriggerChange;
 
-  mgWaveVolume.mg_boxOnScreen = BoxMediumRow(3, _fGlobalModAdjuster);
+  mgWaveVolume.mg_boxOnScreen = BoxMediumRow(3);
   mgWaveVolume.mg_strText = TRANS("SOUND EFFECTS VOLUME");
   mgWaveVolume.mg_strTip = TRANS("adjust volume of in-game sound effects");
   mgWaveVolume.mg_pmgUp = &mgAudioAPITrigger;
@@ -5386,7 +5386,7 @@ void CAudioOptionsMenu::Initialize_t(void)
   mgWaveVolume.mg_pActivatedFunction = WaveSliderChange;
   gm_lhGadgets.AddTail( mgWaveVolume.mg_lnNode);
 
-  mgMPEGVolume.mg_boxOnScreen = BoxMediumRow(4, _fGlobalModAdjuster);
+  mgMPEGVolume.mg_boxOnScreen = BoxMediumRow(4);
   mgMPEGVolume.mg_strText = TRANS("MUSIC VOLUME");
   mgMPEGVolume.mg_strTip = TRANS("adjust volume of in-game music");
   mgMPEGVolume.mg_pmgUp = &mgWaveVolume;
@@ -5396,7 +5396,7 @@ void CAudioOptionsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgMPEGVolume.mg_lnNode);
 
   mgAudioOptionsApply.mg_bfsFontSize = BFS_LARGE;
-  mgAudioOptionsApply.mg_boxOnScreen = BoxBigRow(4, _fGlobalButtonAdjuster);
+  mgAudioOptionsApply.mg_boxOnScreen = BoxBigRow(4);
   mgAudioOptionsApply.mg_strText = TRANS("APPLY");
   mgAudioOptionsApply.mg_strTip = TRANS("activate selected options");
   gm_lhGadgets.AddTail( mgAudioOptionsApply.mg_lnNode);
@@ -5459,7 +5459,7 @@ void CLevelsMenu::Initialize_t(void)
     // initialize label gadgets
     mgManualLevel[iLabel].mg_pmgUp = &mgManualLevel[iPrev];
     mgManualLevel[iLabel].mg_pmgDown = &mgManualLevel[iNext];
-    mgManualLevel[iLabel].mg_boxOnScreen = BoxMediumRow(iLabel, _fGlobalModAdjuster);
+    mgManualLevel[iLabel].mg_boxOnScreen = BoxMediumRow(iLabel);
     mgManualLevel[iLabel].mg_pActivatedFunction = NULL; // never called!
     gm_lhGadgets.AddTail( mgManualLevel[iLabel].mg_lnNode);
   }
@@ -5468,8 +5468,8 @@ void CLevelsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgLevelsArrowDn.mg_lnNode);
   mgLevelsArrowUp.mg_adDirection = AD_UP;
   mgLevelsArrowDn.mg_adDirection = AD_DOWN;
-  mgLevelsArrowUp.mg_boxOnScreen = BoxArrow(AD_UP, _fGlobalListAdjuster);
-  mgLevelsArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN, _fGlobalListAdjuster);
+  mgLevelsArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
+  mgLevelsArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
   mgLevelsArrowUp.mg_pmgRight = mgLevelsArrowUp.mg_pmgDown = 
     &mgManualLevel[0];
   mgLevelsArrowDn.mg_pmgRight = mgLevelsArrowDn.mg_pmgUp = 
@@ -5523,12 +5523,12 @@ void CVarMenu::Initialize_t(void)
     mgVar[iLabel].mg_pmgUp = &mgVar[iPrev];
     mgVar[iLabel].mg_pmgDown = &mgVar[iNext];
     mgVar[iLabel].mg_pmgLeft = &mgVarApply;
-    mgVar[iLabel].mg_boxOnScreen = BoxMediumRow(iLabel, _fGlobalOptionsAdjuster);
+    mgVar[iLabel].mg_boxOnScreen = BoxMediumRow(iLabel);
     mgVar[iLabel].mg_pActivatedFunction = NULL; // never called!
     gm_lhGadgets.AddTail( mgVar[iLabel].mg_lnNode);
   }
 
-  mgVarApply.mg_boxOnScreen = BoxMediumRow(16.5f, _fGlobalOptionsAdjuster);
+  mgVarApply.mg_boxOnScreen = BoxMediumRow(16.5f);
   mgVarApply.mg_bfsFontSize = BFS_LARGE;
   mgVarApply.mg_iCenterI = 1;
   mgVarApply.mg_pmgLeft = 
@@ -5544,8 +5544,8 @@ void CVarMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgVarArrowDn.mg_lnNode);
   mgVarArrowUp.mg_adDirection = AD_UP;
   mgVarArrowDn.mg_adDirection = AD_DOWN;
-  mgVarArrowUp.mg_boxOnScreen = BoxArrow(AD_UP, _fGlobalListAdjuster);
-  mgVarArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN, _fGlobalListAdjuster);
+  mgVarArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
+  mgVarArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
   mgVarArrowUp.mg_pmgRight = mgVarArrowUp.mg_pmgDown = 
     &mgVar[0];
   mgVarArrowDn.mg_pmgRight = mgVarArrowDn.mg_pmgUp = 
@@ -5672,7 +5672,7 @@ void CServersMenu::Initialize_t(void)
   ASSERT(ARRAYCOUNT(mgServerColumn)==ARRAYCOUNT(mgServerFilter));
   for (INDEX i=0; i < static_cast<INDEX>(ARRAYCOUNT(mgServerFilter)); i++) {
     mgServerColumn[i].mg_strText = "";
-    mgServerColumn[i].mg_boxOnScreen = BoxPlayerEdit(5.0, _fGlobalProfileAdjuster);
+    mgServerColumn[i].mg_boxOnScreen = BoxPlayerEdit(5.0);
     mgServerColumn[i].mg_bfsFontSize = BFS_SMALL;
     mgServerColumn[i].mg_iCenterI = -1;
     mgServerColumn[i].mg_pmgUp = &mgServerList;
@@ -5680,7 +5680,7 @@ void CServersMenu::Initialize_t(void)
     gm_lhGadgets.AddTail( mgServerColumn[i].mg_lnNode);
 
     mgServerFilter[i].mg_ctMaxStringLen = 25;
-    mgServerFilter[i].mg_boxOnScreen = BoxPlayerEdit(5.0, _fGlobalProfileAdjuster);
+    mgServerFilter[i].mg_boxOnScreen = BoxPlayerEdit(5.0);
     mgServerFilter[i].mg_bfsFontSize = BFS_SMALL;
     mgServerFilter[i].mg_iCenterI = -1;
     mgServerFilter[i].mg_pmgUp = &mgServerColumn[i];
@@ -5691,7 +5691,7 @@ void CServersMenu::Initialize_t(void)
   }
 
   mgServerRefresh.mg_strText = TRANS("REFRESH");
-  mgServerRefresh.mg_boxOnScreen = BoxRefresh();
+  mgServerRefresh.mg_boxOnScreen = BoxLeftColumn(15.0);
   mgServerRefresh.mg_bfsFontSize = BFS_SMALL;
   mgServerRefresh.mg_iCenterI = -1;
   mgServerRefresh.mg_pmgDown = &mgServerList;
@@ -5745,7 +5745,7 @@ void CNetworkMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgNetworkTitle.mg_lnNode);
 
   mgNetworkJoin.mg_bfsFontSize = BFS_LARGE;
-  mgNetworkJoin.mg_boxOnScreen = BoxBigRow(1.0f, _fGlobalButtonAdjuster);
+  mgNetworkJoin.mg_boxOnScreen = BoxBigRow(1.0f);
   mgNetworkJoin.mg_pmgUp = &mgNetworkLoad;
   mgNetworkJoin.mg_pmgDown = &mgNetworkStart;
   mgNetworkJoin.mg_strText = TRANS("JOIN GAME");
@@ -5754,7 +5754,7 @@ void CNetworkMenu::Initialize_t(void)
   mgNetworkJoin.mg_pActivatedFunction = &StartNetworkJoinMenu;
 
   mgNetworkStart.mg_bfsFontSize = BFS_LARGE;
-  mgNetworkStart.mg_boxOnScreen = BoxBigRow(2.0f, _fGlobalButtonAdjuster);
+  mgNetworkStart.mg_boxOnScreen = BoxBigRow(2.0f);
   mgNetworkStart.mg_pmgUp = &mgNetworkJoin;
   mgNetworkStart.mg_pmgDown = &mgNetworkQuickLoad;
   mgNetworkStart.mg_strText = TRANS("START SERVER");
@@ -5763,7 +5763,7 @@ void CNetworkMenu::Initialize_t(void)
   mgNetworkStart.mg_pActivatedFunction = &StartNetworkStartMenu;
 
   mgNetworkQuickLoad.mg_bfsFontSize = BFS_LARGE;
-  mgNetworkQuickLoad.mg_boxOnScreen = BoxBigRow(3.0f, _fGlobalButtonAdjuster);
+  mgNetworkQuickLoad.mg_boxOnScreen = BoxBigRow(3.0f);
   mgNetworkQuickLoad.mg_pmgUp = &mgNetworkStart;
   mgNetworkQuickLoad.mg_pmgDown = &mgNetworkLoad;
   mgNetworkQuickLoad.mg_strText = TRANS("QUICK LOAD");
@@ -5772,7 +5772,7 @@ void CNetworkMenu::Initialize_t(void)
   mgNetworkQuickLoad.mg_pActivatedFunction = &StartNetworkQuickLoadMenu;
 
   mgNetworkLoad.mg_bfsFontSize = BFS_LARGE;
-  mgNetworkLoad.mg_boxOnScreen = BoxBigRow(4.0f, _fGlobalButtonAdjuster);
+  mgNetworkLoad.mg_boxOnScreen = BoxBigRow(4.0f);
   mgNetworkLoad.mg_pmgUp = &mgNetworkQuickLoad;
   mgNetworkLoad.mg_pmgDown = &mgNetworkJoin;
   mgNetworkLoad.mg_strText = TRANS("LOAD");
@@ -5802,7 +5802,7 @@ void CNetworkJoinMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgNetworkJoinTitle.mg_lnNode);
 
   mgNetworkJoinLAN.mg_bfsFontSize = BFS_LARGE;
-  mgNetworkJoinLAN.mg_boxOnScreen = BoxBigRow(1.0f, _fGlobalButtonAdjuster);
+  mgNetworkJoinLAN.mg_boxOnScreen = BoxBigRow(1.0f);
   mgNetworkJoinLAN.mg_pmgUp = &mgNetworkJoinOpen;
   mgNetworkJoinLAN.mg_pmgDown = &mgNetworkJoinNET;
   mgNetworkJoinLAN.mg_strText = TRANS("SEARCH LAN");
@@ -5811,7 +5811,7 @@ void CNetworkJoinMenu::Initialize_t(void)
   mgNetworkJoinLAN.mg_pActivatedFunction = &StartSelectServerLAN;
 
   mgNetworkJoinNET.mg_bfsFontSize = BFS_LARGE;
-  mgNetworkJoinNET.mg_boxOnScreen = BoxBigRow(2.0f, _fGlobalButtonAdjuster);
+  mgNetworkJoinNET.mg_boxOnScreen = BoxBigRow(2.0f);
   mgNetworkJoinNET.mg_pmgUp = &mgNetworkJoinLAN;
   mgNetworkJoinNET.mg_pmgDown = &mgNetworkJoinOpen;
   mgNetworkJoinNET.mg_strText = TRANS("SEARCH INTERNET");
@@ -5820,7 +5820,7 @@ void CNetworkJoinMenu::Initialize_t(void)
   mgNetworkJoinNET.mg_pActivatedFunction = &StartSelectServerNET;
 
   mgNetworkJoinOpen.mg_bfsFontSize = BFS_LARGE;
-  mgNetworkJoinOpen.mg_boxOnScreen = BoxBigRow(3.0f, _fGlobalButtonAdjuster);
+  mgNetworkJoinOpen.mg_boxOnScreen = BoxBigRow(3.0f);
   mgNetworkJoinOpen.mg_pmgUp = &mgNetworkJoinNET;
   mgNetworkJoinOpen.mg_pmgDown = &mgNetworkJoinLAN;
   mgNetworkJoinOpen.mg_strText = TRANS("SPECIFY SERVER");
@@ -5842,7 +5842,7 @@ void CNetworkStartMenu::Initialize_t(void)
   mgNetworkSessionName.mg_strLabel = TRANS("Session name:");
   mgNetworkSessionName.mg_ctMaxStringLen = 25;
   mgNetworkSessionName.mg_pstrToChange = &_pGame->gam_strSessionName;
-  mgNetworkSessionName.mg_boxOnScreen = BoxMediumRow(1, _fGlobalModAdjuster);
+  mgNetworkSessionName.mg_boxOnScreen = BoxMediumRow(1);
   mgNetworkSessionName.mg_bfsFontSize = BFS_MEDIUM;
   mgNetworkSessionName.mg_iCenterI = -1;
   mgNetworkSessionName.mg_pmgUp = &mgNetworkStartStart;
@@ -5864,7 +5864,7 @@ void CNetworkStartMenu::Initialize_t(void)
   // level name
   mgNetworkLevel.mg_strText = "";
   mgNetworkLevel.mg_strLabel = TRANS("Level:");
-  mgNetworkLevel.mg_boxOnScreen = BoxMediumRow(4, _fGlobalModAdjuster);
+  mgNetworkLevel.mg_boxOnScreen = BoxMediumRow(4);
   mgNetworkLevel.mg_bfsFontSize = BFS_MEDIUM;
   mgNetworkLevel.mg_iCenterI = -1;
   mgNetworkLevel.mg_pmgUp = &mgNetworkDifficulty;
@@ -5890,7 +5890,7 @@ void CNetworkStartMenu::Initialize_t(void)
 
   // options button
   mgNetworkGameOptions.mg_strText = TRANS("Game options");
-  mgNetworkGameOptions.mg_boxOnScreen = BoxMediumRow(8, _fGlobalModAdjuster);
+  mgNetworkGameOptions.mg_boxOnScreen = BoxMediumRow(8);
   mgNetworkGameOptions.mg_bfsFontSize = BFS_MEDIUM;
   mgNetworkGameOptions.mg_iCenterI = 0;
   mgNetworkGameOptions.mg_pmgUp = &mgNetworkVisible;
@@ -5901,7 +5901,7 @@ void CNetworkStartMenu::Initialize_t(void)
 
   // start button
   mgNetworkStartStart.mg_bfsFontSize = BFS_LARGE;
-  mgNetworkStartStart.mg_boxOnScreen = BoxBigRow(7, _fGlobalButtonAdjuster);
+  mgNetworkStartStart.mg_boxOnScreen = BoxBigRow(7);
   mgNetworkStartStart.mg_pmgUp = &mgNetworkGameOptions;
   mgNetworkStartStart.mg_pmgDown = &mgNetworkSessionName;
   mgNetworkStartStart.mg_strText = TRANS("START");
@@ -6160,10 +6160,10 @@ void CSelectPlayersMenu::Initialize_t(void)
   mgPlayer1Change.mg_iCenterI = -1;
   mgPlayer2Change.mg_iCenterI = -1;
   mgPlayer3Change.mg_iCenterI = -1;
-  mgPlayer0Change.mg_boxOnScreen = BoxMediumMiddle(4, _fGlobalModAdjuster);
-  mgPlayer1Change.mg_boxOnScreen = BoxMediumMiddle(5, _fGlobalModAdjuster);
-  mgPlayer2Change.mg_boxOnScreen = BoxMediumMiddle(6, _fGlobalModAdjuster);
-  mgPlayer3Change.mg_boxOnScreen = BoxMediumMiddle(7, _fGlobalModAdjuster);
+  mgPlayer0Change.mg_boxOnScreen = BoxMediumMiddle(4);
+  mgPlayer1Change.mg_boxOnScreen = BoxMediumMiddle(5);
+  mgPlayer2Change.mg_boxOnScreen = BoxMediumMiddle(6);
+  mgPlayer3Change.mg_boxOnScreen = BoxMediumMiddle(7);
   mgPlayer0Change.mg_strTip =
   mgPlayer1Change.mg_strTip =
   mgPlayer2Change.mg_strTip =
@@ -6173,7 +6173,7 @@ void CSelectPlayersMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgPlayer2Change.mg_lnNode);
   gm_lhGadgets.AddTail( mgPlayer3Change.mg_lnNode);
 
-  mgSelectPlayersNotes.mg_boxOnScreen = BoxMediumRow(9.0, _fGlobalModAdjuster);
+  mgSelectPlayersNotes.mg_boxOnScreen = BoxMediumRow(9.0);
   mgSelectPlayersNotes.mg_bfsFontSize = BFS_MEDIUM;
   mgSelectPlayersNotes.mg_iCenterI = -1;
   mgSelectPlayersNotes.mg_bEnabled = FALSE;
@@ -6202,7 +6202,7 @@ void CSelectPlayersMenu::Initialize_t(void)
   mgSplitStartStart.mg_pActivatedFunction = &StartSelectPlayersMenuFromSplit;
 */
 
-  ADD_GADGET( mgSelectPlayersStart, BoxMediumRow(11, _fGlobalModAdjuster), &mgSplitScreenCfg, &mgPlayer0Change, NULL, NULL, TRANS("START"));
+  ADD_GADGET( mgSelectPlayersStart, BoxMediumRow(11), &mgSplitScreenCfg, &mgPlayer0Change, NULL, NULL, TRANS("START"));
   mgSelectPlayersStart.mg_bfsFontSize = BFS_LARGE;
   mgSelectPlayersStart.mg_iCenterI = 0;
 }
@@ -6230,14 +6230,14 @@ void CNetworkOpenMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgNetworkOpenTitle.mg_lnNode);
 
   mgNetworkOpenAddressLabel.mg_strText = TRANS("Address:");
-  mgNetworkOpenAddressLabel.mg_boxOnScreen = BoxMediumLeft(1, _fGlobalProfileAdjuster);
+  mgNetworkOpenAddressLabel.mg_boxOnScreen = BoxMediumLeft(1);
   mgNetworkOpenAddressLabel.mg_iCenterI = -1;
   gm_lhGadgets.AddTail( mgNetworkOpenAddressLabel.mg_lnNode);
 
   mgNetworkOpenAddress.mg_strText = _pGame->gam_strJoinAddress;
   mgNetworkOpenAddress.mg_ctMaxStringLen = 20;
   mgNetworkOpenAddress.mg_pstrToChange = &_pGame->gam_strJoinAddress;
-  mgNetworkOpenAddress.mg_boxOnScreen = BoxMediumMiddle(1, _fGlobalProfileAdjuster);
+  mgNetworkOpenAddress.mg_boxOnScreen = BoxMediumMiddle(1);
   mgNetworkOpenAddress.mg_bfsFontSize = BFS_MEDIUM;
   mgNetworkOpenAddress.mg_iCenterI = -1;
   mgNetworkOpenAddress.mg_pmgUp = &mgNetworkOpenJoin;
@@ -6246,14 +6246,14 @@ void CNetworkOpenMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgNetworkOpenAddress.mg_lnNode);
 
   mgNetworkOpenPortLabel.mg_strText = TRANS("Port:");
-  mgNetworkOpenPortLabel.mg_boxOnScreen = BoxMediumLeft(2, _fGlobalProfileAdjuster);
+  mgNetworkOpenPortLabel.mg_boxOnScreen = BoxMediumLeft(2);
   mgNetworkOpenPortLabel.mg_iCenterI = -1;
   gm_lhGadgets.AddTail( mgNetworkOpenPortLabel.mg_lnNode);
 
   mgNetworkOpenPort.mg_strText = "";
   mgNetworkOpenPort.mg_ctMaxStringLen = 10;
   mgNetworkOpenPort.mg_pstrToChange = &_strPort;
-  mgNetworkOpenPort.mg_boxOnScreen = BoxMediumMiddle(2, _fGlobalProfileAdjuster);
+  mgNetworkOpenPort.mg_boxOnScreen = BoxMediumMiddle(2);
   mgNetworkOpenPort.mg_bfsFontSize = BFS_MEDIUM;
   mgNetworkOpenPort.mg_iCenterI = -1;
   mgNetworkOpenPort.mg_pmgUp = &mgNetworkOpenAddress;
@@ -6261,7 +6261,7 @@ void CNetworkOpenMenu::Initialize_t(void)
   mgNetworkOpenPort.mg_strTip = TRANS("specify server address");
   gm_lhGadgets.AddTail( mgNetworkOpenPort.mg_lnNode);
 
-  mgNetworkOpenJoin.mg_boxOnScreen = BoxMediumMiddle(3, _fGlobalProfileAdjuster);
+  mgNetworkOpenJoin.mg_boxOnScreen = BoxMediumMiddle(3);
   mgNetworkOpenJoin.mg_pmgUp = &mgNetworkOpenPort;
   mgNetworkOpenJoin.mg_pmgDown = &mgNetworkOpenAddress;
   mgNetworkOpenJoin.mg_strText = TRANS("Join");
@@ -6289,7 +6289,7 @@ void CSplitScreenMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgSplitScreenTitle.mg_lnNode);
 
   mgSplitScreenStart.mg_bfsFontSize = BFS_LARGE;
-  mgSplitScreenStart.mg_boxOnScreen = BoxBigRow(0, _fGlobalButtonAdjuster);
+  mgSplitScreenStart.mg_boxOnScreen = BoxBigRow(0);
   mgSplitScreenStart.mg_pmgUp = &mgSplitScreenLoad;
   mgSplitScreenStart.mg_pmgDown = &mgSplitScreenQuickLoad;
   mgSplitScreenStart.mg_strText = TRANS("NEW GAME");
@@ -6298,7 +6298,7 @@ void CSplitScreenMenu::Initialize_t(void)
   mgSplitScreenStart.mg_pActivatedFunction = &StartSplitStartMenu;
 
   mgSplitScreenQuickLoad.mg_bfsFontSize = BFS_LARGE;
-  mgSplitScreenQuickLoad.mg_boxOnScreen = BoxBigRow(1, _fGlobalButtonAdjuster);
+  mgSplitScreenQuickLoad.mg_boxOnScreen = BoxBigRow(1);
   mgSplitScreenQuickLoad.mg_pmgUp = &mgSplitScreenStart;
   mgSplitScreenQuickLoad.mg_pmgDown = &mgSplitScreenLoad;
   mgSplitScreenQuickLoad.mg_strText = TRANS("QUICK LOAD");
@@ -6307,7 +6307,7 @@ void CSplitScreenMenu::Initialize_t(void)
   mgSplitScreenQuickLoad.mg_pActivatedFunction = &StartSplitScreenQuickLoadMenu;
 
   mgSplitScreenLoad.mg_bfsFontSize = BFS_LARGE;
-  mgSplitScreenLoad.mg_boxOnScreen = BoxBigRow(2, _fGlobalButtonAdjuster);
+  mgSplitScreenLoad.mg_boxOnScreen = BoxBigRow(2);
   mgSplitScreenLoad.mg_pmgUp = &mgSplitScreenQuickLoad;
   mgSplitScreenLoad.mg_pmgDown = &mgSplitScreenStart;
   mgSplitScreenLoad.mg_strText = TRANS("LOAD");
@@ -6351,7 +6351,7 @@ void CSplitStartMenu::Initialize_t(void)
   // level name
   mgSplitLevel.mg_strText = "";
   mgSplitLevel.mg_strLabel = TRANS("Level:");
-  mgSplitLevel.mg_boxOnScreen = BoxMediumRow(2, _fGlobalModAdjuster);
+  mgSplitLevel.mg_boxOnScreen = BoxMediumRow(2);
   mgSplitLevel.mg_bfsFontSize = BFS_MEDIUM;
   mgSplitLevel.mg_iCenterI = -1;
   mgSplitLevel.mg_pmgUp = &mgSplitDifficulty;
@@ -6362,7 +6362,7 @@ void CSplitStartMenu::Initialize_t(void)
 
   // options button
   mgSplitOptions.mg_strText = TRANS("Game options");
-  mgSplitOptions.mg_boxOnScreen = BoxMediumRow(3, _fGlobalModAdjuster);
+  mgSplitOptions.mg_boxOnScreen = BoxMediumRow(3);
   mgSplitOptions.mg_bfsFontSize = BFS_MEDIUM;
   mgSplitOptions.mg_iCenterI = 0;
   mgSplitOptions.mg_pmgUp = &mgSplitLevel;
@@ -6373,7 +6373,7 @@ void CSplitStartMenu::Initialize_t(void)
 
   // start button
   mgSplitStartStart.mg_bfsFontSize = BFS_LARGE;
-  mgSplitStartStart.mg_boxOnScreen = BoxBigRow(4, _fGlobalButtonAdjuster);
+  mgSplitStartStart.mg_boxOnScreen = BoxBigRow(4);
   mgSplitStartStart.mg_pmgUp = &mgSplitOptions;
   mgSplitStartStart.mg_pmgDown = &mgSplitGameType;
   mgSplitStartStart.mg_strText = TRANS("START");

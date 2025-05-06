@@ -1274,7 +1274,7 @@ void CMGFileButton::Render( CDrawPort *pdp)
     // add info at the bottom if screen
     SetFontMedium(pdp);
 
-    PIXaabbox2D box = FloatBoxToPixBox(pdp, BoxSaveLoad(15.0, 1.0));
+    PIXaabbox2D box = FloatBoxToPixBox(pdp, BoxSaveLoad(15.0));
     PIX pixI = box.Min()(1);
     PIX pixJ = box.Min()(2);
 
