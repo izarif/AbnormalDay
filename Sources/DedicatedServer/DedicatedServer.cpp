@@ -26,16 +26,16 @@ BOOL _bRunning = TRUE;
 static BOOL _bForceRestart = FALSE;
 static BOOL _bForceNextMap = FALSE;
 
-CTString _strSamVersion = "no version information";
+CTString _strSamVersion = "1.00";
 INDEX ded_iMaxFPS = 100;
 CTString ded_strConfig = "";
 CTString ded_strLevel = "";
 INDEX ded_bRestartWhenEmpty = TRUE;
 FLOAT ded_tmTimeout = -1;
 CGame *_pGame = NULL;
-CTString sam_strFirstLevel = "Levels\\LevelsMP\\1_0_InTheLastEpisode.wld";
+CTString sam_strFirstLevel = "Levels\\LevelsMP\\First.wld";
 CTString sam_strIntroLevel = "Levels\\LevelsMP\\Intro.wld";
-CTString sam_strGameName = "serioussamse";
+CTString sam_strGameName = "abnormalday";
 
 CTimerValue _tvLastLevelEnd((__int64) -1);
 
@@ -298,7 +298,7 @@ BOOL Init(int argc, char* argv[])
     AddTranslationTable_t(fnmTransTable);
     fnmTransTable = CTFILENAME("Data\\Translations\\Entities.txt");
     AddTranslationTable_t(fnmTransTable);
-    fnmTransTable = CTFILENAME("Data\\Translations\\SeriousSam.txt");
+    fnmTransTable = CTFILENAME("Data\\Translations\\AbnormalDay.txt");
     AddTranslationTable_t(fnmTransTable);
     fnmTransTable = CTFILENAME("Data\\Translations\\Levels.txt");
     AddTranslationTable_t(fnmTransTable);
@@ -320,16 +320,16 @@ BOOL Init(int argc, char* argv[])
   _pShell->DeclareSymbol("user INDEX ded_bRestartWhenEmpty;", (void *) &ded_bRestartWhenEmpty);
   _pShell->DeclareSymbol("user void Restart(void);", (void *) &RestartGame);
   _pShell->DeclareSymbol("user void NextMap(void);", (void *) &NextMap);
-  _pShell->DeclareSymbol("persistent user CTString sam_strIntroLevel;",      (void *) &sam_strIntroLevel);
-  _pShell->DeclareSymbol("persistent user CTString sam_strGameName;",      (void *) &sam_strGameName);
+  _pShell->DeclareSymbol("persistent user CTString ad_strIntroLevel;",      (void *) &sam_strIntroLevel);
+  _pShell->DeclareSymbol("persistent user CTString ad_strGameName;",      (void *) &sam_strGameName);
   _pShell->DeclareSymbol("user CTString sam_strFirstLevel;", (void *) &sam_strFirstLevel);
 
   // init game - this will load persistent symbols
   InitializeGame();
   _pNetwork->md_strGameID = sam_strGameName;
 
-  LoadStringVar(CTString("Data\\Var\\Sam_Version.var"), _strSamVersion);
-  CPrintF(TRANSV("Serious Sam version: %s\n"), (const char *) _strSamVersion);
+  LoadStringVar(CTString("Data\\Var\\AD_Version.var"), _strSamVersion);
+  CPrintF(TRANSV("Abnormal Day version: %s\n"), (const char *) _strSamVersion);
 
   #if (defined PLATFORM_WIN32)
     SetConsoleCtrlHandler(HandlerRoutine, TRUE);

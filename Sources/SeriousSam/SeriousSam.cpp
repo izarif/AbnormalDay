@@ -127,15 +127,15 @@ __extern CTextureObject *_ptoLogoCT  = NULL;
 __extern CTextureObject *_ptoLogoODI = NULL;
 __extern CTextureObject *_ptoLogoEAX = NULL;
 
-CTString sam_strVersion = "1.10";
-CTString sam_strModName = TRANS("-   T H E  S E C O N D  E N C O U N T E R   -");
+CTString sam_strVersion = "1.00";
+CTString sam_strModName = TRANS("Abnormal Day");
 
-CTString sam_strFirstLevel = "Levels\\LevelsMP\\1_0_InTheLastEpisode.wld";
+CTString sam_strFirstLevel = "Levels\\LevelsMP\\First.wld";
 CTString sam_strIntroLevel = "Levels\\LevelsMP\\Intro.wld";
-CTString sam_strGameName = "serioussamse";
+CTString sam_strGameName = "abnormalday";
 
-CTString sam_strTechTestLevel = "Levels\\LevelsMP\\Technology\\TechTest.wld";
-CTString sam_strTrainingLevel = "Levels\\KarnakDemo.wld";
+CTString sam_strTechTestLevel = "Levels\\LevelsMP\\TechTest.wld";
+CTString sam_strTrainingLevel = "Levels\\LevelsMP\\Training.wld";
 
 ENGINE_API extern INDEX snd_iFormat;
 
@@ -201,11 +201,11 @@ static FILE *_hLock = NULL;
 static void DirectoryLockOn(void)
 {
   // create lock filename
-  _fnmLock = _fnmUserDir + "SeriousSam.loc";
+  _fnmLock = _fnmUserDir + "AbnormalDay.loc";
   // try to open lock file
 
   if (_pFileSystem->Exists(_fnmLock))
-    CPrintF(TRANSV("WARNING: SeriousSam didn't shut down properly last time!\n"));
+    CPrintF(TRANSV("WARNING: Abnormal Day didn't shut down properly last time!\n"));
 
   _hLock = fopen(_fnmLock, "w");
   if (_hLock == NULL) {
@@ -230,7 +230,7 @@ static CTFileName _fnmLock;
 static void DirectoryLockOn(void)
 {
 	// create lock filename
-	_fnmLock = _fnmApplicationPath + "SeriousSam.loc";
+	_fnmLock = _fnmApplicationPath + "AbnormalDay.loc";
 	// try to open lock file
 	_hLock = CreateFileA(
 		_fnmLock,
@@ -243,7 +243,7 @@ static void DirectoryLockOn(void)
 	// if failed
 	if (_hLock == NULL || GetLastError() != 0) {
 		// report warning
-		CPrintF(TRANS("WARNING: SeriousSam didn't shut down properly last time!\n"));
+		CPrintF(TRANS("WARNING: Abnormal Day didn't shut down properly last time!\n"));
 	}
 }
 static void DirectoryLockOff(void)
@@ -497,7 +497,7 @@ void InitializeGame(void)
     FatalError("%s", strError);
   }
   // init game - this will load persistent symbols
-  _pGame->Initialize(CTString("Data\\SeriousSam.gms"));
+  _pGame->Initialize(CTString("Data\\AbnormalDay.gms"));
   // save executable path and sys var.
 #ifdef PLATFORM_UNIX
   _pFileSystem->GetExecutablePath(_strExePath, sizeof (_strExePath)-1);
@@ -573,46 +573,46 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
 
   // declare shell symbols
   _pShell->DeclareSymbol("user void PlayDemo(CTString);", (void *) &PlayDemo);
-  _pShell->DeclareSymbol("persistent INDEX sam_bFullScreen;",   (void *) &sam_bFullScreenActive);
-  _pShell->DeclareSymbol("persistent INDEX sam_bBorderLess;",   (void *) &sam_bBorderLessActive);
-  _pShell->DeclareSymbol("persistent INDEX sam_iScreenSizeI;",  (void *) &sam_iScreenSizeI);
-  _pShell->DeclareSymbol("persistent INDEX sam_iScreenSizeJ;",  (void *) &sam_iScreenSizeJ);
-  _pShell->DeclareSymbol("persistent INDEX sam_iAspectSizeI;",  (void *) &sam_iAspectSizeI);
-  _pShell->DeclareSymbol("persistent INDEX sam_iAspectSizeJ;",  (void *) &sam_iAspectSizeJ);
-  _pShell->DeclareSymbol("persistent INDEX sam_iDisplayDepth;", (void *) &sam_iDisplayDepth);
-  _pShell->DeclareSymbol("persistent INDEX sam_iDisplayAdapter;", (void *) &sam_iDisplayAdapter);
-  _pShell->DeclareSymbol("persistent INDEX sam_iGfxAPI;",         (void *) &sam_iGfxAPI);
-  _pShell->DeclareSymbol("persistent INDEX sam_bFirstStarted;", (void *) &sam_bFirstStarted);
-  _pShell->DeclareSymbol("persistent INDEX sam_bAutoAdjustAudio;", (void *) &sam_bAutoAdjustAudio);
-  _pShell->DeclareSymbol("persistent user INDEX sam_bWideScreen;", (void *) &sam_bWideScreen);
-  _pShell->DeclareSymbol("persistent user FLOAT sam_fPlayerOffset;", (void *) &sam_fPlayerOffset);
-  _pShell->DeclareSymbol("persistent user INDEX sam_bAutoPlayDemos;", (void *) &sam_bAutoPlayDemos);
-  _pShell->DeclareSymbol("persistent user INDEX sam_iMaxFPSActive;",   (void *) &sam_iMaxFPSActive);
-  _pShell->DeclareSymbol("persistent user INDEX sam_iMaxFPSInactive;", (void *) &sam_iMaxFPSInactive);
-  _pShell->DeclareSymbol("persistent user INDEX sam_bPauseOnMinimize;", (void *) &sam_bPauseOnMinimize);
-  _pShell->DeclareSymbol("persistent user FLOAT sam_tmDisplayModeReport;",   (void *) &sam_tmDisplayModeReport);
-  _pShell->DeclareSymbol("persistent user CTString sam_strNetworkSettings;", (void *) &sam_strNetworkSettings);
-  _pShell->DeclareSymbol("persistent user CTString sam_strIntroLevel;",      (void *) &sam_strIntroLevel);
-  _pShell->DeclareSymbol("persistent user CTString sam_strGameName;",      (void *) &sam_strGameName);
-  _pShell->DeclareSymbol("user CTString sam_strVersion;",    (void *) &sam_strVersion);
-  _pShell->DeclareSymbol("user CTString sam_strFirstLevel;", (void *) &sam_strFirstLevel);
-  _pShell->DeclareSymbol("user CTString sam_strModName;", (void *) &sam_strModName);
-  _pShell->DeclareSymbol("persistent INDEX sam_bShowAllLevels;", (void *) &sam_bShowAllLevels);
-  _pShell->DeclareSymbol("persistent INDEX sam_bMentalActivated;", (void *) &sam_bMentalActivated);
+  _pShell->DeclareSymbol("persistent INDEX ad_bFullScreen;",   (void *) &sam_bFullScreenActive);
+  _pShell->DeclareSymbol("persistent INDEX ad_bBorderLess;",   (void *) &sam_bBorderLessActive);
+  _pShell->DeclareSymbol("persistent INDEX ad_iScreenSizeI;",  (void *) &sam_iScreenSizeI);
+  _pShell->DeclareSymbol("persistent INDEX ad_iScreenSizeJ;",  (void *) &sam_iScreenSizeJ);
+  _pShell->DeclareSymbol("persistent INDEX ad_iAspectSizeI;",  (void *) &sam_iAspectSizeI);
+  _pShell->DeclareSymbol("persistent INDEX ad_iAspectSizeJ;",  (void *) &sam_iAspectSizeJ);
+  _pShell->DeclareSymbol("persistent INDEX ad_iDisplayDepth;", (void *) &sam_iDisplayDepth);
+  _pShell->DeclareSymbol("persistent INDEX ad_iDisplayAdapter;", (void *) &sam_iDisplayAdapter);
+  _pShell->DeclareSymbol("persistent INDEX ad_iGfxAPI;",         (void *) &sam_iGfxAPI);
+  _pShell->DeclareSymbol("persistent INDEX ad_bFirstStarted;", (void *) &sam_bFirstStarted);
+  _pShell->DeclareSymbol("persistent INDEX ad_bAutoAdjustAudio;", (void *) &sam_bAutoAdjustAudio);
+  _pShell->DeclareSymbol("persistent user INDEX ad_bWideScreen;", (void *) &sam_bWideScreen);
+  _pShell->DeclareSymbol("persistent user FLOAT ad_fPlayerOffset;", (void *) &sam_fPlayerOffset);
+  _pShell->DeclareSymbol("persistent user INDEX ad_bAutoPlayDemos;", (void *) &sam_bAutoPlayDemos);
+  _pShell->DeclareSymbol("persistent user INDEX ad_iMaxFPSActive;",   (void *) &sam_iMaxFPSActive);
+  _pShell->DeclareSymbol("persistent user INDEX ad_iMaxFPSInactive;", (void *) &sam_iMaxFPSInactive);
+  _pShell->DeclareSymbol("persistent user INDEX ad_bPauseOnMinimize;", (void *) &sam_bPauseOnMinimize);
+  _pShell->DeclareSymbol("persistent user FLOAT ad_tmDisplayModeReport;",   (void *) &sam_tmDisplayModeReport);
+  _pShell->DeclareSymbol("persistent user CTString ad_strNetworkSettings;", (void *) &sam_strNetworkSettings);
+  _pShell->DeclareSymbol("persistent user CTString ad_strIntroLevel;",      (void *) &sam_strIntroLevel);
+  _pShell->DeclareSymbol("persistent user CTString ad_strGameName;",      (void *) &sam_strGameName);
+  _pShell->DeclareSymbol("user CTString ad_strVersion;",    (void *) &sam_strVersion);
+  _pShell->DeclareSymbol("user CTString ad_strFirstLevel;", (void *) &sam_strFirstLevel);
+  _pShell->DeclareSymbol("user CTString ad_strModName;", (void *) &sam_strModName);
+  _pShell->DeclareSymbol("persistent INDEX ad_bShowAllLevels;", (void *) &sam_bShowAllLevels);
+  _pShell->DeclareSymbol("persistent INDEX ad_bMentalActivated;", (void *) &sam_bMentalActivated);
 
   _pShell->DeclareSymbol("user void Quit(void);", (void *) &QuitGame);
 
-  _pShell->DeclareSymbol("persistent user INDEX sam_iVideoSetup;",     (void *) &sam_iVideoSetup);
+  _pShell->DeclareSymbol("persistent user INDEX ad_iVideoSetup;",     (void *) &sam_iVideoSetup);
   _pShell->DeclareSymbol("user void ApplyRenderingPreferences(void);", (void *) &ApplyRenderingPreferences);
   _pShell->DeclareSymbol("user void ApplyVideoMode(void);",            (void *) &ApplyVideoMode);
   _pShell->DeclareSymbol("user void Benchmark(void);", (void *) &BenchMark);
 
-  _pShell->DeclareSymbol("user INDEX sam_bMenuSave;",     (void *) &sam_bMenuSave);
-  _pShell->DeclareSymbol("user INDEX sam_bMenuLoad;",     (void *) &sam_bMenuLoad);
-  _pShell->DeclareSymbol("user INDEX sam_bMenuControls;", (void *) &sam_bMenuControls);
-  _pShell->DeclareSymbol("user INDEX sam_bMenuHiScore;",  (void *) &sam_bMenuHiScore);
-  _pShell->DeclareSymbol("user INDEX sam_bToggleConsole;",(void *) &sam_bToggleConsole);
-  _pShell->DeclareSymbol("INDEX sam_iStartCredits;", (void *) &sam_iStartCredits);
+  _pShell->DeclareSymbol("user INDEX ad_bMenuSave;",     (void *) &sam_bMenuSave);
+  _pShell->DeclareSymbol("user INDEX ad_bMenuLoad;",     (void *) &sam_bMenuLoad);
+  _pShell->DeclareSymbol("user INDEX ad_bMenuControls;", (void *) &sam_bMenuControls);
+  _pShell->DeclareSymbol("user INDEX ad_bMenuHiScore;",  (void *) &sam_bMenuHiScore);
+  _pShell->DeclareSymbol("user INDEX ad_bToggleConsole;",(void *) &sam_bToggleConsole);
+  _pShell->DeclareSymbol("INDEX ad_iStartCredits;", (void *) &sam_iStartCredits);
 
   InitializeGame();
   _pNetwork->md_strGameID = sam_strGameName;
@@ -621,7 +621,7 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
 
   if( sam_bFirstStarted) {
     InfoMessage("%s", TRANS(
-      "SeriousSam is starting for the first time.\n"
+      "Abnormal Day is starting for the first time.\n"
       "If you experience any problems, please consult\n"
       "ReadMe file for troubleshooting information."));
   }
@@ -647,9 +647,9 @@ BOOL Init( HINSTANCE hInstance, int nCmdShow, CTString strCmdLine)
   LoadAndForceTexture(_toLogoODI,  _ptoLogoODI,  CTFILENAME("Textures\\Logo\\GodGamesLogo.tex"));
   LoadAndForceTexture(_toLogoEAX,  _ptoLogoEAX,  CTFILENAME("Textures\\Logo\\LogoEAX.tex"));
 
-  LoadStringVar(CTString("Data\\Var\\Sam_Version.var"), sam_strVersion);
+  LoadStringVar(CTString("Data\\Var\\AD_Version.var"), sam_strVersion);
   LoadStringVar(CTString("Data\\Var\\ModName.var"), sam_strModName);
-  CPrintF(TRANSV("Serious Sam version: %s\n"), (const char *) sam_strVersion);
+  CPrintF(TRANSV("Abnormal Day version: %s\n"), (const char *) sam_strVersion);
   CPrintF(TRANSV("Active mod: %s\n"), (const char *) sam_strModName);
   InitializeMenus();
   
@@ -1424,14 +1424,14 @@ void CheckModReload(void)
 #endif
 
 #ifdef PLATFORM_WIN32
-	CTString strCommand = "SeriousSam.exe";
+	CTString strCommand = "AbnormalDay.exe";
     CTString strPatch = _fnmApplicationPath+"Bin\\"+strDebug+strCommand;
 #else
     CTString strCommand;
     if (sys_iSysPath == 1) {
       strCommand = sam_strGameName;
     } else {
-      strCommand = "SeriousSam";
+      strCommand = "AbnormalDay";
     }
     CTString strPatch = CTString(_strExePath) + strDebug + strCommand;
 #endif
@@ -1455,12 +1455,12 @@ void CheckModReload(void)
 #ifdef PLATFORM_WIN32
     _execl((const char *)argv[0],(const char *)argv[1],(const char *)argv[2],(const char *)argv[3], \
        (const char *)argv[4],(const char *)argv[5],(const char *)argv[6],(const char *)argv[7]);
-    MessageBoxA(0, "Error launching the Mod!\n", "Serious Sam", MB_OK|MB_ICONERROR);
+    MessageBoxA(0, "Error launching the Mod!\n", "Abnormal Day", MB_OK|MB_ICONERROR);
 #else
     execl((const char *)argv[0],(const char *)argv[1],(const char *)argv[2],(const char *)argv[3], \
        (const char *)argv[4],(const char *)argv[5],(const char *)argv[6],(const char *)argv[7], nullptr);
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
-                         "Serious Sam",
+                         "Abnormal Day",
                          "Error launching the Mod!\n",
                          NULL);
 #endif
@@ -1788,7 +1788,7 @@ void StartNewMode( enum GfxAPIType eGfxAPI, INDEX iAdapter, PIX pixSizeI, PIX pi
     if( !bSuccess) {
       FatalError(TRANS(
         "Cannot set display mode!\n"
-        "Serious Sam was unable to find display mode with hardware acceleration.\n"
+        "Abnormal Day was unable to find display mode with hardware acceleration.\n"
         "Make sure you install proper drivers for your video card as recommended\n"
         "in documentation and set your desktop to 16 bit (65536 colors).\n"
         "Please see ReadMe file for troubleshooting information.\n"));
