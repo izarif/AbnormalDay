@@ -851,24 +851,20 @@ void StartMenus(const char *str)
   if (CTString(str)=="save") {
     StartCurrentSaveMenu();
     gmLoadSaveMenu.gm_pgmParentMenu = NULL;
-    FixupBackButton(&gmLoadSaveMenu);
   }
   if (CTString(str)=="controls") {
     void StartControlsMenuFromOptions(void);
     StartControlsMenuFromOptions();
     gmControls.gm_pgmParentMenu = NULL;
-    FixupBackButton(&gmControls);
   }
   if (CTString(str)=="join") {
     void StartSelectPlayersMenuFromOpen(void);
     StartSelectPlayersMenuFromOpen();
     gmSelectPlayersMenu.gm_pgmParentMenu = &gmMainMenu;
-    FixupBackButton(&gmSelectPlayersMenu);
   }
   if (CTString(str)=="hiscore") {
     ChangeToMenu( &gmHighScoreMenu);
     gmHighScoreMenu.gm_pgmParentMenu = &gmMainMenu;
-    FixupBackButton(&gmHighScoreMenu);
   }
   bMenuActive = TRUE;
   bMenuRendering = TRUE;
@@ -3048,7 +3044,7 @@ void ChangeToMenu( CGameMenu *pgmNewMenu)
     }
     pgmNewMenu->gm_pmgSelectedByDefault->OnSetFocus();
   }
-  FixupBackButton(pgmNewMenu);
+
   pgmCurrentMenu = pgmNewMenu;
 }
 
@@ -5616,7 +5612,6 @@ void CVarMenu::EndMenu(void)
 void CVarMenu::Think(void)
 {
   mgVarApply.mg_bEnabled = _bVarChanged;
-  FixupBackButton(this);
 }
 
 // ------------------------ CServersMenu implementation
