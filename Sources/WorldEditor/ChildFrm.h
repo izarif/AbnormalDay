@@ -77,7 +77,6 @@ public:
   inline INDEX CChildFrame::GetVSplitters(void) {	return m_wndSplitter.GetRowCount();}
   CWorldEditorView *GetPerspectiveView(void);
   void TestGame( BOOL bFullScreen);
-  void SetAdjusters(float ratio);
 
 // Overrides
 	// ClassWizard generated virtual function overrides
