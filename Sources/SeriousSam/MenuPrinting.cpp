@@ -239,21 +239,21 @@ extern CFontData _fdTitle;
 void SetFontTitle(CDrawPort *pdp)
 {
   pdp->SetFont( &_fdTitle);
-  pdp->SetTextScaling( 1.25f * pdp->GetWidth() /640 *pdp->dp_fWideAdjustment);
+  pdp->SetTextScaling(1.25f * pdp->GetHeight() / 480 * pdp->dp_fWideAdjustment);
   pdp->SetTextAspect(1.0f);
 }
 extern CFontData _fdBig;
 void SetFontBig(CDrawPort *pdp)
 {
   pdp->SetFont( &_fdBig);
-  pdp->SetTextScaling( 1.0f * pdp->GetWidth() /640 *pdp->dp_fWideAdjustment);
+  pdp->SetTextScaling(1.0f * pdp->GetHeight() / 480 * pdp->dp_fWideAdjustment);
   pdp->SetTextAspect(1.0f);
 }
 extern CFontData _fdMedium;
 void SetFontMedium(CDrawPort *pdp)
 {
   pdp->SetFont( &_fdMedium);
-  pdp->SetTextScaling( 1.0f * pdp->GetWidth() /640 *pdp->dp_fWideAdjustment);
+  pdp->SetTextScaling(1.0f * pdp->GetHeight() / 480 * pdp->dp_fWideAdjustment);
   pdp->SetTextAspect(0.75f);
 }
 void SetFontSmall(CDrawPort *pdp)
