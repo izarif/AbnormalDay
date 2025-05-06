@@ -1399,9 +1399,6 @@ int SubMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int 
 
   _pInput->DisableInput();
   _pGame->StopGame();
-  
-  // invoke quit screen if needed
-  if( _bQuitScreen && _fnmModToLoad=="") QuitScreenLoop();
 
   End();
   return TRUE;
