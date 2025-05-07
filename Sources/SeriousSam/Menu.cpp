@@ -344,17 +344,11 @@ CMGButton mgConfirmNo;
 
 // -------- Main menu
 CMainMenu gmMainMenu;
-//CMGTitle mgMainTitle;
-CMGButton mgMainVersionLabel;
-CMGButton mgMainModLabel;
-CMGButton mgMainSingle;
-CMGButton mgMainNetwork;
-CMGButton mgMainSplitScreen;
-CMGButton mgMainDemo;
-CMGButton mgMainMods;
-CMGButton mgMainHighScore;
+CMGButton mgMainNewGame;
+CMGButton mgMainLoadGame;
 CMGButton mgMainOptions;
-CMGButton mgMainQuit;
+CMGButton mgMainCredits;
+CMGButton mgMainQuitGame;
 
 // -------- InGame menu
 CInGameMenu gmInGameMenu;
@@ -2337,7 +2331,7 @@ void InitializeMenus(void)
 
     gmMainMenu.Initialize_t();
     gmMainMenu.gm_strName="Main";
-    gmMainMenu.gm_pmgSelectedByDefault = &mgMainSingle;
+    gmMainMenu.gm_pmgSelectedByDefault = &mgMainNewGame;
     gmMainMenu.gm_pgmParentMenu = NULL;
 
     gmInGameMenu.Initialize_t();
@@ -3439,110 +3433,56 @@ BOOL CConfirmMenu::OnKeyDown(int iVKey)
 void CMainMenu::Initialize_t(void)
 {
   // intialize main menu
-/*
-  mgMainTitle.mg_strText = "SERIOUS SAM - BETA";  // nothing to see here, kazuya
-  mgMainTitle.mg_boxOnScreen = BoxTitle();
-  gm_lhGadgets.AddTail( mgMainTitle.mg_lnNode);
-  */
 
-  extern CTString sam_strVersion;
-  mgMainVersionLabel.mg_strText = sam_strVersion;
-  mgMainVersionLabel.mg_boxOnScreen = BoxVersion();
-  mgMainVersionLabel.mg_bfsFontSize = BFS_MEDIUM;
-  mgMainVersionLabel.mg_iCenterI = +1;
-  mgMainVersionLabel.mg_bEnabled = FALSE;
-  mgMainVersionLabel.mg_bLabel = TRUE;
-  gm_lhGadgets.AddTail( mgMainVersionLabel.mg_lnNode);
+  mgMainNewGame.mg_strText = TRANS("NEW GAME");
+  mgMainNewGame.mg_bfsFontSize = BFS_LARGE;
+  mgMainNewGame.mg_boxOnScreen = BoxBigLeft(5.5f);
+  mgMainNewGame.mg_strTip = TRANS("Start new game");
+  gm_lhGadgets.AddTail(mgMainNewGame.mg_lnNode);
+  mgMainNewGame.mg_pmgUp = &mgMainQuitGame;
+  mgMainNewGame.mg_pmgDown = &mgMainLoadGame;
+  mgMainNewGame.mg_pActivatedFunction = &StartSinglePlayerGame_Normal;
+  mgMainNewGame.mg_iCenterI = -1;
 
-  extern CTString sam_strModName;
-  mgMainModLabel.mg_strText = sam_strModName;
-  mgMainModLabel.mg_boxOnScreen = BoxMediumRow(-2.0f);
-  mgMainModLabel.mg_bfsFontSize = BFS_MEDIUM;
-  mgMainModLabel.mg_iCenterI = 0;
-  mgMainModLabel.mg_bEnabled = FALSE;
-  mgMainModLabel.mg_bLabel = TRUE;
-  gm_lhGadgets.AddTail( mgMainModLabel.mg_lnNode);
-
-  mgMainSingle.mg_strText = TRANS("SINGLE PLAYER");
-  mgMainSingle.mg_bfsFontSize = BFS_LARGE;
-  mgMainSingle.mg_boxOnScreen = BoxBigRow(0.0f);
-  mgMainSingle.mg_strTip = TRANS("single player game menus");
-  gm_lhGadgets.AddTail( mgMainSingle.mg_lnNode);
-  mgMainSingle.mg_pmgUp = &mgMainQuit;
-  mgMainSingle.mg_pmgDown = &mgMainNetwork;
-  mgMainSingle.mg_pActivatedFunction = &StartSinglePlayerMenu;
-
-  mgMainNetwork.mg_strText = TRANS("NETWORK");
-  mgMainNetwork.mg_bfsFontSize = BFS_LARGE;
-  mgMainNetwork.mg_boxOnScreen = BoxBigRow(1.0f);
-  mgMainNetwork.mg_strTip = TRANS("LAN/iNet multiplayer menus");
-  gm_lhGadgets.AddTail( mgMainNetwork.mg_lnNode);
-  mgMainNetwork.mg_pmgUp = &mgMainSingle;
-  mgMainNetwork.mg_pmgDown = &mgMainSplitScreen;
-  mgMainNetwork.mg_pActivatedFunction = StartNetworkMenu;
-
-  mgMainSplitScreen.mg_strText = TRANS("SPLIT SCREEN");
-  mgMainSplitScreen.mg_bfsFontSize = BFS_LARGE;
-  mgMainSplitScreen.mg_boxOnScreen = BoxBigRow(2.0f);
-  mgMainSplitScreen.mg_strTip = TRANS("play with multiple players on one computer");
-  gm_lhGadgets.AddTail( mgMainSplitScreen.mg_lnNode);
-  mgMainSplitScreen.mg_pmgUp = &mgMainNetwork;
-  mgMainSplitScreen.mg_pmgDown = &mgMainDemo;
-  mgMainSplitScreen.mg_pActivatedFunction = &StartSplitScreenMenu;
-
-  mgMainDemo.mg_strText = TRANS("DEMO");
-  mgMainDemo.mg_bfsFontSize = BFS_LARGE;
-  mgMainDemo.mg_boxOnScreen = BoxBigRow(3.0f);
-  mgMainDemo.mg_strTip = TRANS("play a game demo");
-  gm_lhGadgets.AddTail( mgMainDemo.mg_lnNode);
-  mgMainDemo.mg_pmgUp = &mgMainSplitScreen;
-  mgMainDemo.mg_pmgDown = &mgMainMods;
-  mgMainDemo.mg_pActivatedFunction = &StartDemoLoadMenu;
-
-  mgMainMods.mg_strText = TRANS("MODS");
-  mgMainMods.mg_bfsFontSize = BFS_LARGE;
-  mgMainMods.mg_boxOnScreen = BoxBigRow(4.0f);
-  mgMainMods.mg_strTip = TRANS("run one of installed game modifications");
-  gm_lhGadgets.AddTail( mgMainMods.mg_lnNode);
-  mgMainMods.mg_pmgUp = &mgMainDemo;
-  mgMainMods.mg_pmgDown = &mgMainHighScore;
-
-    mgMainMods.mg_pActivatedFunction = &StartModsLoadMenu;
-
-  mgMainHighScore.mg_strText = TRANS("HIGH SCORES");
-  mgMainHighScore.mg_bfsFontSize = BFS_LARGE;
-  mgMainHighScore.mg_boxOnScreen = BoxBigRow(5.0f);
-  mgMainHighScore.mg_strTip = TRANS("view list of top ten best scores");
-  gm_lhGadgets.AddTail( mgMainHighScore.mg_lnNode);
-  mgMainHighScore.mg_pmgUp = &mgMainMods;
-  mgMainHighScore.mg_pmgDown = &mgMainOptions;
-  mgMainHighScore.mg_pActivatedFunction = &StartHighScoreMenu;
+  mgMainLoadGame.mg_strText = TRANS("LOAD GAME");
+  mgMainLoadGame.mg_bfsFontSize = BFS_LARGE;
+  mgMainLoadGame.mg_boxOnScreen = BoxBigLeft(6.5f);
+  mgMainLoadGame.mg_strTip = TRANS("Load a saved game");
+  gm_lhGadgets.AddTail(mgMainLoadGame.mg_lnNode);
+  mgMainLoadGame.mg_pmgUp = &mgMainNewGame;
+  mgMainLoadGame.mg_pmgDown = &mgMainOptions;
+  mgMainLoadGame.mg_pActivatedFunction = &StartSinglePlayerLoadMenu;
+  mgMainLoadGame.mg_iCenterI = -1;
 
   mgMainOptions.mg_strText = TRANS("OPTIONS");
   mgMainOptions.mg_bfsFontSize = BFS_LARGE;
-  mgMainOptions.mg_boxOnScreen = BoxBigRow(6.0f);
-  mgMainOptions.mg_strTip = TRANS("adjust video, audio and input options");
-  gm_lhGadgets.AddTail( mgMainOptions.mg_lnNode);
-  mgMainOptions.mg_pmgUp = &mgMainHighScore;
-  mgMainOptions.mg_pmgDown = &mgMainQuit;
+  mgMainOptions.mg_boxOnScreen = BoxBigLeft(7.5f);
+  mgMainOptions.mg_strTip = TRANS("Change video, audio and input settings");
+  gm_lhGadgets.AddTail(mgMainOptions.mg_lnNode);
+  mgMainOptions.mg_pmgUp = &mgMainLoadGame;
+  mgMainOptions.mg_pmgDown = &mgMainCredits;
   mgMainOptions.mg_pActivatedFunction = &StartOptionsMenu;
+  mgMainOptions.mg_iCenterI = -1;
 
-  mgMainQuit.mg_strText = TRANS("QUIT");
-  mgMainQuit.mg_bfsFontSize = BFS_LARGE;
-  mgMainQuit.mg_boxOnScreen = BoxBigRow(7.0f);
-  mgMainQuit.mg_strTip = TRANS("exit game immediately");
-  gm_lhGadgets.AddTail( mgMainQuit.mg_lnNode);
-  mgMainQuit.mg_pmgUp = &mgMainOptions;
-  mgMainQuit.mg_pmgDown = &mgMainSingle;
-  mgMainQuit.mg_pActivatedFunction = &ExitConfirm;
-}
-void CMainMenu::StartMenu(void)
-{
-  mgMainSingle.mg_bEnabled      = IsMenuEnabled("Single Player");
-  mgMainNetwork.mg_bEnabled     = IsMenuEnabled("Network");
-  mgMainSplitScreen.mg_bEnabled = IsMenuEnabled("Split Screen");
-  mgMainHighScore.mg_bEnabled   = IsMenuEnabled("High Score");
-  CGameMenu::StartMenu();
+  mgMainCredits.mg_strText = TRANS("CREDITS");
+  mgMainCredits.mg_bfsFontSize = BFS_LARGE;
+  mgMainCredits.mg_boxOnScreen = BoxBigLeft(8.5f);
+  mgMainCredits.mg_strTip = TRANS("Show the list of authors");
+  gm_lhGadgets.AddTail(mgMainCredits.mg_lnNode);
+  mgMainCredits.mg_pmgUp = &mgMainOptions;
+  mgMainCredits.mg_pmgDown = &mgMainQuitGame;
+  mgMainCredits.mg_pActivatedFunction = NULL;
+  mgMainCredits.mg_iCenterI = -1;
+
+  mgMainQuitGame.mg_strText = TRANS("QUIT GAME");
+  mgMainQuitGame.mg_bfsFontSize = BFS_LARGE;
+  mgMainQuitGame.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgMainQuitGame.mg_strTip = TRANS("Quit game");
+  gm_lhGadgets.AddTail(mgMainQuitGame.mg_lnNode);
+  mgMainQuitGame.mg_pmgUp = &mgMainCredits;
+  mgMainQuitGame.mg_pmgDown = &mgMainNewGame;
+  mgMainQuitGame.mg_pActivatedFunction = &ExitGame;
+  mgMainQuitGame.mg_iCenterI = -1;
 }
 
 // ------------------------ CMainMenu implementation
