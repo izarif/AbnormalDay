@@ -86,7 +86,6 @@ public:
 class CMainMenu : public CGameMenu {
 public:
   void Initialize_t(void);
-  void StartMenu(void);
 };
 
 class CInGameMenu : public CGameMenu {
