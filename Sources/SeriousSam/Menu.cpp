@@ -353,17 +353,11 @@ CMGButton mgMainQuitGame;
 // -------- InGame menu
 CInGameMenu gmInGameMenu;
 CMGTitle mgInGameTitle;
-CMGButton mgInGameLabel1;
-CMGButton mgInGameLabel2;
-CMGButton mgInGameQuickLoad;
-CMGButton mgInGameQuickSave;
-CMGButton mgInGameLoad;
-CMGButton mgInGameSave;
-CMGButton mgInGameDemoRec;
-CMGButton mgInGameHighScore;
+CMGButton mgInGameResumeGame;
+CMGButton mgInGameLoadGame;
+CMGButton mgInGameSaveGame;
 CMGButton mgInGameOptions;
-CMGButton mgInGameStop;
-CMGButton mgInGameQuit;
+CMGButton mgInGameQuitGame;
 
 // -------- Single player menu
 CSinglePlayerMenu gmSinglePlayerMenu;
@@ -1970,8 +1964,6 @@ void StartCustomizeAxisMenu(void)
 void StopRecordingDemo(void)
 {
   _pNetwork->StopDemoRec();
-  void SetDemoStartStopRecText(void);
-  SetDemoStartStopRecText();
 }
 void StartOptionsMenu(void)
 {
@@ -2336,7 +2328,7 @@ void InitializeMenus(void)
 
     gmInGameMenu.Initialize_t();
     gmInGameMenu.gm_strName="InGame";
-    gmInGameMenu.gm_pmgSelectedByDefault = &mgInGameQuickLoad;
+    gmInGameMenu.gm_pmgSelectedByDefault = &mgInGameResumeGame;
     gmInGameMenu.gm_pgmParentMenu = NULL;
 
     gmSinglePlayerMenu.Initialize_t();
@@ -3489,166 +3481,65 @@ void CMainMenu::Initialize_t(void)
 void CInGameMenu::Initialize_t(void)
 {
   // intialize main menu
-  mgInGameTitle.mg_strText = TRANS("GAME");
+  mgInGameTitle.mg_strText = TRANS("# GAME");
   mgInGameTitle.mg_boxOnScreen = BoxTitle();
-  gm_lhGadgets.AddTail( mgInGameTitle.mg_lnNode);
+  gm_lhGadgets.AddTail(mgInGameTitle.mg_lnNode);
 
-  mgInGameLabel1.mg_strText = "";
-  //mgInGameLabel1.mg_boxOnScreen = BoxMediumRow(-2.0f, _fGlobalButtonAdjuster);
-  mgInGameLabel1.mg_boxOnScreen = BoxMediumRow(-9.0f);
-  mgInGameLabel1.mg_bfsFontSize = BFS_MEDIUM;
-  mgInGameLabel1.mg_iCenterI = -1;
-  mgInGameLabel1.mg_bEnabled = FALSE;
-  mgInGameLabel1.mg_bLabel = TRUE;
-  gm_lhGadgets.AddTail( mgInGameLabel1.mg_lnNode);
+  mgInGameResumeGame.mg_strText = TRANS("RESUME GAME");
+  mgInGameResumeGame.mg_bfsFontSize = BFS_LARGE;
+  mgInGameResumeGame.mg_boxOnScreen = BoxBigLeft(5.5f);
+  mgInGameResumeGame.mg_strTip = TRANS("Return to game");
+  gm_lhGadgets.AddTail(mgInGameResumeGame.mg_lnNode);
+  mgInGameResumeGame.mg_pmgUp = &mgInGameQuitGame;
+  mgInGameResumeGame.mg_pmgDown = &mgInGameLoadGame;
+  mgInGameResumeGame.mg_pActivatedFunction = &MenuBack;
+  mgInGameResumeGame.mg_iCenterI = -1;
 
-  mgInGameLabel2.mg_strText = "";
-  //mgInGameLabel2.mg_boxOnScreen = BoxMediumRow(-1.0f, _fGlobalButtonAdjuster);
-  mgInGameLabel2.mg_boxOnScreen = BoxMediumRow(-8.0f);
-  mgInGameLabel2.mg_bfsFontSize = BFS_MEDIUM;
-  mgInGameLabel2.mg_iCenterI = -1;
-  mgInGameLabel2.mg_bEnabled = FALSE;
-  mgInGameLabel2.mg_bLabel = TRUE;
-  gm_lhGadgets.AddTail( mgInGameLabel2.mg_lnNode);
+  mgInGameLoadGame.mg_strText = TRANS("LOAD GAME");
+  mgInGameLoadGame.mg_bfsFontSize = BFS_LARGE;
+  mgInGameLoadGame.mg_boxOnScreen = BoxBigLeft(6.5f);
+  mgInGameLoadGame.mg_strTip = TRANS("Load a saved game");
+  gm_lhGadgets.AddTail(mgInGameLoadGame.mg_lnNode);
+  mgInGameLoadGame.mg_pmgUp = &mgInGameResumeGame;
+  mgInGameLoadGame.mg_pmgDown = &mgInGameSaveGame;
+  mgInGameLoadGame.mg_pActivatedFunction = &StartSinglePlayerLoadMenu;
+  mgInGameLoadGame.mg_iCenterI = -1;
 
-  mgInGameQuickLoad.mg_strText = TRANS("QUICK LOAD");
-  mgInGameQuickLoad.mg_bfsFontSize = BFS_LARGE;
-  mgInGameQuickLoad.mg_boxOnScreen = BoxBigRow(-1.0f);
-  mgInGameQuickLoad.mg_strTip = TRANS("load a quick-saved game (F9)");
-  gm_lhGadgets.AddTail( mgInGameQuickLoad.mg_lnNode);
-  mgInGameQuickLoad.mg_pmgUp = &mgInGameQuit;
-  mgInGameQuickLoad.mg_pmgDown = &mgInGameQuickSave;
-  mgInGameQuickLoad.mg_pActivatedFunction = &StartCurrentQuickLoadMenu;
-
-  mgInGameQuickSave.mg_strText = TRANS("QUICK SAVE");
-  mgInGameQuickSave.mg_bfsFontSize = BFS_LARGE;
-  mgInGameQuickSave.mg_boxOnScreen = BoxBigRow(0.0f);
-  mgInGameQuickSave.mg_strTip = TRANS("quick-save current game (F6)");
-  gm_lhGadgets.AddTail( mgInGameQuickSave.mg_lnNode);
-  mgInGameQuickSave.mg_pmgUp = &mgInGameQuickLoad;
-  mgInGameQuickSave.mg_pmgDown = &mgInGameLoad;
-  mgInGameQuickSave.mg_pActivatedFunction = &QuickSaveFromMenu;
-
-  mgInGameLoad.mg_strText = TRANS("LOAD");
-  mgInGameLoad.mg_bfsFontSize = BFS_LARGE;
-  mgInGameLoad.mg_boxOnScreen = BoxBigRow(1.0f);
-  mgInGameLoad.mg_strTip = TRANS("load a saved game");
-  gm_lhGadgets.AddTail( mgInGameLoad.mg_lnNode);
-  mgInGameLoad.mg_pmgUp = &mgInGameQuickSave;
-  mgInGameLoad.mg_pmgDown = &mgInGameSave;
-  mgInGameLoad.mg_pActivatedFunction = &StartCurrentLoadMenu;
-
-  mgInGameSave.mg_strText = TRANS("SAVE");
-  mgInGameSave.mg_bfsFontSize = BFS_LARGE;
-  mgInGameSave.mg_boxOnScreen = BoxBigRow(2.0f);
-  mgInGameSave.mg_strTip = TRANS("save current game (each player has own slots!)");
-  gm_lhGadgets.AddTail( mgInGameSave.mg_lnNode);
-  mgInGameSave.mg_pmgUp = &mgInGameLoad;
-  mgInGameSave.mg_pmgDown = &mgInGameDemoRec;
-  mgInGameSave.mg_pActivatedFunction = &StartCurrentSaveMenu;
-
-  mgInGameDemoRec.mg_boxOnScreen = BoxBigRow(3.0f);
-  mgInGameDemoRec.mg_bfsFontSize = BFS_LARGE;
-  mgInGameDemoRec.mg_pmgUp = &mgInGameSave;
-  mgInGameDemoRec.mg_pmgDown = &mgInGameHighScore;
-  mgInGameDemoRec.mg_strText = "Text not set";
-  gm_lhGadgets.AddTail( mgInGameDemoRec.mg_lnNode);
-  mgInGameDemoRec.mg_pActivatedFunction = NULL; // !!! must be set on start menu
-
-  mgInGameHighScore.mg_strText = TRANS("HIGH SCORES");
-  mgInGameHighScore.mg_bfsFontSize = BFS_LARGE;
-  mgInGameHighScore.mg_boxOnScreen = BoxBigRow(4.0f);
-  mgInGameHighScore.mg_strTip = TRANS("view list of top ten best scores");
-  gm_lhGadgets.AddTail( mgInGameHighScore.mg_lnNode);
-  mgInGameHighScore.mg_pmgUp = &mgInGameDemoRec;
-  mgInGameHighScore.mg_pmgDown = &mgInGameOptions;
-  mgInGameHighScore.mg_pActivatedFunction = &StartHighScoreMenu;
+  mgInGameSaveGame.mg_strText = TRANS("SAVE GAME");
+  mgInGameSaveGame.mg_bfsFontSize = BFS_LARGE;
+  mgInGameSaveGame.mg_boxOnScreen = BoxBigLeft(7.5f);
+  mgInGameSaveGame.mg_strTip = TRANS("Save current game");
+  gm_lhGadgets.AddTail(mgInGameSaveGame.mg_lnNode);
+  mgInGameSaveGame.mg_pmgUp = &mgInGameLoadGame;
+  mgInGameSaveGame.mg_pmgDown = &mgInGameOptions;
+  mgInGameSaveGame.mg_pActivatedFunction = &StartSinglePlayerSaveMenu;
+  mgInGameSaveGame.mg_iCenterI = -1;
 
   mgInGameOptions.mg_strText = TRANS("OPTIONS");
   mgInGameOptions.mg_bfsFontSize = BFS_LARGE;
-  mgInGameOptions.mg_boxOnScreen = BoxBigRow(5.0f);
-  mgInGameOptions.mg_strTip = TRANS("adjust video, audio and input options");
-  gm_lhGadgets.AddTail( mgInGameOptions.mg_lnNode);
-  mgInGameOptions.mg_pmgUp = &mgInGameHighScore;
-  mgInGameOptions.mg_pmgDown = &mgInGameStop;
+  mgInGameOptions.mg_boxOnScreen = BoxBigLeft(8.5f);
+  mgInGameOptions.mg_strTip = TRANS("Change video, audio and input settings");
+  gm_lhGadgets.AddTail(mgInGameOptions.mg_lnNode);
+  mgInGameOptions.mg_pmgUp = &mgInGameSaveGame;
+  mgInGameOptions.mg_pmgDown = &mgInGameQuitGame;
   mgInGameOptions.mg_pActivatedFunction = &StartOptionsMenu;
+  mgInGameOptions.mg_iCenterI = -1;
 
-  mgInGameStop.mg_strText = TRANS("STOP GAME");
-  mgInGameStop.mg_bfsFontSize = BFS_LARGE;
-  mgInGameStop.mg_boxOnScreen = BoxBigRow(6.0f);
-  mgInGameStop.mg_strTip = TRANS("stop currently running game");
-  gm_lhGadgets.AddTail( mgInGameStop.mg_lnNode);
-  mgInGameStop.mg_pmgUp = &mgInGameOptions;
-  mgInGameStop.mg_pmgDown = &mgInGameQuit;
-  mgInGameStop.mg_pActivatedFunction = &StopConfirm;
-
-  mgInGameQuit.mg_strText = TRANS("QUIT");
-  mgInGameQuit.mg_bfsFontSize = BFS_LARGE;
-  mgInGameQuit.mg_boxOnScreen = BoxBigRow(7.0f);
-  mgInGameQuit.mg_strTip = TRANS("exit game immediately");
-  gm_lhGadgets.AddTail( mgInGameQuit.mg_lnNode);
-  mgInGameQuit.mg_pmgUp = &mgInGameStop;
-  mgInGameQuit.mg_pmgDown = &mgInGameQuickLoad;
-  mgInGameQuit.mg_pActivatedFunction = &ExitConfirm;
-}
-void SetDemoStartStopRecText(void)
-{
-  if( _pNetwork->IsRecordingDemo())
-  {
-    mgInGameDemoRec.SetText( TRANS("STOP RECORDING"));
-    mgInGameDemoRec.mg_strTip = TRANS("stop current recording");
-    mgInGameDemoRec.mg_pActivatedFunction = &StopRecordingDemo;
-  }
-  else
-  {
-    mgInGameDemoRec.SetText( TRANS("RECORD DEMO"));
-    mgInGameDemoRec.mg_strTip = TRANS("start recording current game");
-    mgInGameDemoRec.mg_pActivatedFunction = &StartDemoSaveMenu;
-  }
+  mgInGameQuitGame.mg_strText = TRANS("QUIT GAME");
+  mgInGameQuitGame.mg_bfsFontSize = BFS_LARGE;
+  mgInGameQuitGame.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgInGameQuitGame.mg_strTip = TRANS("Return to main menu");
+  gm_lhGadgets.AddTail(mgInGameQuitGame.mg_lnNode);
+  mgInGameQuitGame.mg_pmgUp = &mgInGameOptions;
+  mgInGameQuitGame.mg_pmgDown = &mgInGameResumeGame;
+  mgInGameQuitGame.mg_pActivatedFunction = &StopConfirm;
+  mgInGameQuitGame.mg_iCenterI = -1;
 }
 
 void CInGameMenu::StartMenu(void)
 {
-  mgInGameQuickLoad.mg_bEnabled = _pNetwork->IsServer();
-  mgInGameQuickSave.mg_bEnabled = _pNetwork->IsServer();
-  mgInGameLoad.mg_bEnabled      = _pNetwork->IsServer();
-  mgInGameSave.mg_bEnabled      = _pNetwork->IsServer();
-  mgInGameDemoRec.mg_bEnabled   = TRUE;//_pNetwork->IsServer();
-  SetDemoStartStopRecText();
-
-
-  if (_gmRunningGameMode==GM_SINGLE_PLAYER) {
-    CPlayerCharacter &pc = _pGame->gm_apcPlayers[ _pGame->gm_iSinglePlayer];
-    mgInGameLabel1.mg_strText.PrintF( TRANS("Player: %s"), (const char *) pc.GetNameForPrinting());
-    mgInGameLabel2.mg_strText = "";
-
-  } else {
-    if (_pNetwork->IsServer()) {
-
-      CTString strHost, strAddress;
-      CTString strHostName;
-      _pNetwork->GetHostName(strHost, strAddress);
-      if (strHost=="") {
-        strHostName = TRANS("<not started yet>");
-      } else {
-        strHostName = strHost + " ("+strAddress+")";
-      }
-
-      mgInGameLabel1.mg_strText = TRANS("Address: ")+strHostName;
-      mgInGameLabel2.mg_strText = "";
-    } else {
-
-      CTString strConfig;
-      strConfig = TRANS("<not adjusted>");
-      if (sam_strNetworkSettings!="") {
-        LoadStringVar(CTFileName(sam_strNetworkSettings).NoExt()+".des", strConfig);
-        strConfig.OnlyFirstLine();
-      }
-
-      mgInGameLabel1.mg_strText = TRANS("Connected to: ")+_pGame->gam_strJoinAddress;
-      mgInGameLabel2.mg_strText = TRANS("Connection: ")+strConfig;
-    }
-  }
+  mgInGameLoadGame.mg_bEnabled = _pNetwork->IsServer();
+  mgInGameSaveGame.mg_bEnabled = _pNetwork->IsServer();
 
   CGameMenu::StartMenu();
 }
