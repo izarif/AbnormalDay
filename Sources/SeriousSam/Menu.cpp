@@ -530,12 +530,14 @@ CMGTitle mgAudioOptionsTitle;
 CMGTrigger mgAudioAutoTrigger;
 CMGTrigger mgAudioAPITrigger;
 CMGTrigger mgFrequencyTrigger;
+
 CTString astrFrequencyRadioTexts[] = {
   RADIOTRANS( "No sound"),
   RADIOTRANS( "11kHz"),
   RADIOTRANS( "22kHz"),
   RADIOTRANS( "44kHz"),
 };
+
 CTString astrSoundAPIRadioTexts[] = {
 #ifdef PLATFORM_WIN32
   RADIOTRANS( "WaveOut"),
@@ -545,9 +547,11 @@ CTString astrSoundAPIRadioTexts[] = {
   RADIOTRANS( "Simple Directmedia Layer" ),
 #endif
 };
+
 CMGSlider mgWaveVolume;
 CMGSlider mgMPEGVolume;
 CMGButton mgAudioOptionsApply;
+CMGButton mgAudioOptionsBack;
 
 // -------- Network menu
 CNetworkMenu gmNetworkMenu;
@@ -5180,51 +5184,88 @@ static void OnMPEGVolumeChange(INDEX iCurPos)
 
 void CAudioOptionsMenu::Initialize_t(void)
 {
-  // intialize Audio options menu
+  // intialize audio options menu
   mgAudioOptionsTitle.mg_boxOnScreen = BoxTitle();
-  mgAudioOptionsTitle.mg_strText = TRANS("AUDIO");
-  gm_lhGadgets.AddTail( mgAudioOptionsTitle.mg_lnNode);
+  mgAudioOptionsTitle.mg_strText = TRANS("# AUDIO");
+  gm_lhGadgets.AddTail(mgAudioOptionsTitle.mg_lnNode);
 
-  TRIGGER_MG(mgAudioAutoTrigger, 0,
-          mgAudioOptionsApply, mgFrequencyTrigger, TRANS("AUTO-ADJUST"), astrNoYes);
-  mgAudioAutoTrigger.mg_strTip = TRANS("adjust quality to fit your system");
+  mgAudioAutoTrigger.mg_pmgUp = &mgAudioOptionsBack;
+  mgAudioAutoTrigger.mg_pmgDown = &mgFrequencyTrigger;
+  mgAudioAutoTrigger.mg_boxOnScreen = BoxMediumLeft(9.1f);
+  gm_lhGadgets.AddTail(mgAudioAutoTrigger.mg_lnNode);
+  mgAudioAutoTrigger.mg_astrTexts = astrNoYes;
+  mgAudioAutoTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgAudioAutoTrigger.mg_iSelected = 0;
+  mgAudioAutoTrigger.mg_strLabel = TRANS("AUTO-ADJUST");
+  mgAudioAutoTrigger.mg_strValue = astrNoYes[0];
+  mgAudioAutoTrigger.mg_strTip = TRANS("Adjust quality to fit your system");
+  mgAudioAutoTrigger.mg_iCenterI = -1;
   
-  TRIGGER_MG(mgFrequencyTrigger, 1,
-          mgAudioAutoTrigger, mgAudioAPITrigger, TRANS("FREQUENCY"), astrFrequencyRadioTexts);
-  mgFrequencyTrigger.mg_strTip = TRANS("select sound quality or turn sound off");
+  mgFrequencyTrigger.mg_pmgUp = &mgAudioAutoTrigger;
+  mgFrequencyTrigger.mg_pmgDown = &mgAudioAPITrigger;
+  mgFrequencyTrigger.mg_boxOnScreen = BoxMediumLeft(10.1f);
+  gm_lhGadgets.AddTail(mgFrequencyTrigger.mg_lnNode);
+  mgFrequencyTrigger.mg_astrTexts = astrFrequencyRadioTexts;
+  mgFrequencyTrigger.mg_ctTexts = ARRAYCOUNT(astrFrequencyRadioTexts);
+  mgFrequencyTrigger.mg_iSelected = 0;
+  mgFrequencyTrigger.mg_strLabel = TRANS("FREQUENCY");
+  mgFrequencyTrigger.mg_strValue = astrFrequencyRadioTexts[0];
+  mgFrequencyTrigger.mg_strTip = TRANS("Select sound quality or turn sound off");
   mgFrequencyTrigger.mg_pOnTriggerChange = FrequencyTriggerChange;
+  mgFrequencyTrigger.mg_iCenterI = -1;
 
-  TRIGGER_MG(mgAudioAPITrigger, 2,
-          mgFrequencyTrigger, mgWaveVolume, TRANS("SOUND SYSTEM"), astrSoundAPIRadioTexts);
-  mgAudioAPITrigger.mg_strTip = TRANS("choose sound system (API) to use");
+  mgAudioAPITrigger.mg_pmgUp = &mgFrequencyTrigger;
+  mgAudioAPITrigger.mg_pmgDown = &mgWaveVolume;
+  mgAudioAPITrigger.mg_boxOnScreen = BoxMediumLeft(11.1f);
+  gm_lhGadgets.AddTail(mgAudioAPITrigger.mg_lnNode);
+  mgAudioAPITrigger.mg_astrTexts = astrSoundAPIRadioTexts;
+  mgAudioAPITrigger.mg_ctTexts = ARRAYCOUNT(astrSoundAPIRadioTexts);
+  mgAudioAPITrigger.mg_iSelected = 0;
+  mgAudioAPITrigger.mg_strLabel = TRANS("SOUND SYSTEM");
+  mgAudioAPITrigger.mg_strValue = astrSoundAPIRadioTexts[0];
+  mgAudioAPITrigger.mg_strTip = TRANS("Select sound system to use");
   mgAudioAPITrigger.mg_pOnTriggerChange = FrequencyTriggerChange;
+  mgAudioAPITrigger.mg_iCenterI = -1;
 
-  mgWaveVolume.mg_boxOnScreen = BoxMediumRow(3);
+  mgWaveVolume.mg_boxOnScreen = BoxMediumLeft(12.1f);
   mgWaveVolume.mg_strText = TRANS("SOUND EFFECTS VOLUME");
-  mgWaveVolume.mg_strTip = TRANS("adjust volume of in-game sound effects");
+  mgWaveVolume.mg_strTip = TRANS("Change volume of in-game sound effects");
   mgWaveVolume.mg_pmgUp = &mgAudioAPITrigger;
   mgWaveVolume.mg_pmgDown = &mgMPEGVolume;
   mgWaveVolume.mg_pOnSliderChange = &OnWaveVolumeChange;
   mgWaveVolume.mg_pActivatedFunction = WaveSliderChange;
-  gm_lhGadgets.AddTail( mgWaveVolume.mg_lnNode);
+  gm_lhGadgets.AddTail(mgWaveVolume.mg_lnNode);
+  mgWaveVolume.mg_iCenterI = -1;
 
-  mgMPEGVolume.mg_boxOnScreen = BoxMediumRow(4);
+  mgMPEGVolume.mg_boxOnScreen = BoxMediumLeft(13.1f);
   mgMPEGVolume.mg_strText = TRANS("MUSIC VOLUME");
-  mgMPEGVolume.mg_strTip = TRANS("adjust volume of in-game music");
+  mgMPEGVolume.mg_strTip = TRANS("Change volume of in-game music");
   mgMPEGVolume.mg_pmgUp = &mgWaveVolume;
   mgMPEGVolume.mg_pmgDown = &mgAudioOptionsApply;
   mgMPEGVolume.mg_pOnSliderChange = &OnMPEGVolumeChange;
   mgMPEGVolume.mg_pActivatedFunction = MPEGSliderChange;
-  gm_lhGadgets.AddTail( mgMPEGVolume.mg_lnNode);
+  gm_lhGadgets.AddTail(mgMPEGVolume.mg_lnNode);
+  mgMPEGVolume.mg_iCenterI = -1;
 
   mgAudioOptionsApply.mg_bfsFontSize = BFS_LARGE;
-  mgAudioOptionsApply.mg_boxOnScreen = BoxBigRow(4);
+  mgAudioOptionsApply.mg_boxOnScreen = BoxBigLeft(8.5f);
   mgAudioOptionsApply.mg_strText = TRANS("APPLY");
-  mgAudioOptionsApply.mg_strTip = TRANS("activate selected options");
+  mgAudioOptionsApply.mg_strTip = TRANS("Apply audio settings");
   gm_lhGadgets.AddTail( mgAudioOptionsApply.mg_lnNode);
   mgAudioOptionsApply.mg_pmgUp = &mgMPEGVolume;
-  mgAudioOptionsApply.mg_pmgDown = &mgAudioAutoTrigger;
+  mgAudioOptionsApply.mg_pmgDown = &mgAudioOptionsBack;
   mgAudioOptionsApply.mg_pActivatedFunction = &ApplyAudioOptions;
+  mgAudioOptionsApply.mg_iCenterI = -1;
+
+  mgAudioOptionsBack.mg_bfsFontSize = BFS_LARGE;
+  mgAudioOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgAudioOptionsBack.mg_strText = TRANS("BACK");
+  mgAudioOptionsBack.mg_strTip = TRANS("Return to options menu");
+  gm_lhGadgets.AddTail(mgAudioOptionsBack.mg_lnNode);
+  mgAudioOptionsBack.mg_pmgUp = &mgAudioOptionsApply;
+  mgAudioOptionsBack.mg_pmgDown = &mgAudioAutoTrigger;
+  mgAudioOptionsBack.mg_pActivatedFunction = &MenuBack;
+  mgAudioOptionsBack.mg_iCenterI = -1;
 }
 
 void CAudioOptionsMenu::StartMenu(void)
