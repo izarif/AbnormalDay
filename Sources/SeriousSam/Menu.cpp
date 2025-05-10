@@ -475,12 +475,10 @@ CMGTrigger mgAxisSmoothTrigger;
 // -------- Options menu
 COptionsMenu gmOptionsMenu;
 CMGTitle mgOptionsTitle;
+CMGButton mgGameOptions;
 CMGButton mgVideoOptions;
 CMGButton mgAudioOptions;
-CMGButton mgPlayerProfileOptions;
-CMGButton mgNetworkOptions;
-CMGButton mgCustomOptions;
-CMGButton mgAddonOptions;
+CMGButton mgOptionsBack;
 
 // -------- Video options menu
 CVideoOptionsMenu gmVideoOptionsMenu;
@@ -2376,7 +2374,7 @@ void InitializeMenus(void)
 
     gmOptionsMenu.Initialize_t();
     gmOptionsMenu.gm_strName="Options";
-    gmOptionsMenu.gm_pmgSelectedByDefault = &mgVideoOptions;
+    gmOptionsMenu.gm_pmgSelectedByDefault = &mgGameOptions;
     gmOptionsMenu.gm_pgmParentMenu = &gmMainMenu;
 
     gmVideoOptionsMenu.Initialize_t();
@@ -4768,62 +4766,48 @@ void COptionsMenu::Initialize_t(void)
 {
   // intialize options menu
   mgOptionsTitle.mg_boxOnScreen = BoxTitle();
-  mgOptionsTitle.mg_strText = TRANS("OPTIONS");
-  gm_lhGadgets.AddTail( mgOptionsTitle.mg_lnNode);
+  mgOptionsTitle.mg_strText = TRANS("[OPTIONS]");
+  gm_lhGadgets.AddTail(mgOptionsTitle.mg_lnNode);
+
+  mgGameOptions.mg_bfsFontSize = BFS_LARGE;
+  mgGameOptions.mg_boxOnScreen = BoxBigLeft(6.5f);
+  mgGameOptions.mg_pmgUp = &mgOptionsBack;
+  mgGameOptions.mg_pmgDown = &mgVideoOptions;
+  mgGameOptions.mg_strText = TRANS("GAME OPTIONS");
+  mgGameOptions.mg_strTip = TRANS("Change gameplay options");
+  gm_lhGadgets.AddTail(mgGameOptions.mg_lnNode);
+  mgGameOptions.mg_pActivatedFunction = NULL;
+  mgGameOptions.mg_iCenterI = -1;
 
   mgVideoOptions.mg_bfsFontSize = BFS_LARGE;
-  mgVideoOptions.mg_boxOnScreen = BoxBigRow(0.0f);
-  mgVideoOptions.mg_pmgUp = &mgAddonOptions;
+  mgVideoOptions.mg_boxOnScreen = BoxBigLeft(7.5f);
+  mgVideoOptions.mg_pmgUp = &mgGameOptions;
   mgVideoOptions.mg_pmgDown = &mgAudioOptions;
   mgVideoOptions.mg_strText = TRANS("VIDEO OPTIONS");
-  mgVideoOptions.mg_strTip = TRANS("set video mode and driver");
-  gm_lhGadgets.AddTail( mgVideoOptions.mg_lnNode);
+  mgVideoOptions.mg_strTip = TRANS("Set video mode and driver");
+  gm_lhGadgets.AddTail(mgVideoOptions.mg_lnNode);
   mgVideoOptions.mg_pActivatedFunction = &StartVideoOptionsMenu;
+  mgVideoOptions.mg_iCenterI = -1;
 
   mgAudioOptions.mg_bfsFontSize = BFS_LARGE;
-  mgAudioOptions.mg_boxOnScreen = BoxBigRow(1.0f);
+  mgAudioOptions.mg_boxOnScreen = BoxBigLeft(8.5f);
   mgAudioOptions.mg_pmgUp = &mgVideoOptions;
-  mgAudioOptions.mg_pmgDown = &mgPlayerProfileOptions;
+  mgAudioOptions.mg_pmgDown = &mgOptionsBack;
   mgAudioOptions.mg_strText = TRANS("AUDIO OPTIONS");
-  mgAudioOptions.mg_strTip = TRANS("set audio quality and volume");
-  gm_lhGadgets.AddTail( mgAudioOptions.mg_lnNode);
+  mgAudioOptions.mg_strTip = TRANS("Set audio quality and volume");
+  gm_lhGadgets.AddTail(mgAudioOptions.mg_lnNode);
   mgAudioOptions.mg_pActivatedFunction = &StartAudioOptionsMenu;
+  mgAudioOptions.mg_iCenterI = -1;
 
-  mgPlayerProfileOptions.mg_bfsFontSize = BFS_LARGE;
-  mgPlayerProfileOptions.mg_boxOnScreen = BoxBigRow(2.0f);
-  mgPlayerProfileOptions.mg_pmgUp = &mgAudioOptions;
-  mgPlayerProfileOptions.mg_pmgDown = &mgNetworkOptions;
-  mgPlayerProfileOptions.mg_strText = TRANS("PLAYERS AND CONTROLS");
-  mgPlayerProfileOptions.mg_strTip = TRANS("change currently active player or adjust controls");
-  gm_lhGadgets.AddTail( mgPlayerProfileOptions.mg_lnNode);
-  mgPlayerProfileOptions.mg_pActivatedFunction = &StartChangePlayerMenuFromOptions;
-
-  mgNetworkOptions.mg_bfsFontSize = BFS_LARGE;
-  mgNetworkOptions.mg_boxOnScreen = BoxBigRow(3);
-  mgNetworkOptions.mg_pmgUp = &mgPlayerProfileOptions;
-  mgNetworkOptions.mg_pmgDown = &mgCustomOptions;
-  mgNetworkOptions.mg_strText = TRANS("NETWORK CONNECTION");
-  mgNetworkOptions.mg_strTip = TRANS("choose your connection parameters");
-  gm_lhGadgets.AddTail( mgNetworkOptions.mg_lnNode);
-  mgNetworkOptions.mg_pActivatedFunction = &StartNetworkSettingsMenu;
-
-  mgCustomOptions.mg_bfsFontSize = BFS_LARGE;
-  mgCustomOptions.mg_boxOnScreen = BoxBigRow(4);
-  mgCustomOptions.mg_pmgUp = &mgNetworkOptions;
-  mgCustomOptions.mg_pmgDown = &mgAddonOptions;
-  mgCustomOptions.mg_strText = TRANS("ADVANCED OPTIONS");
-  mgCustomOptions.mg_strTip = TRANS("for advanced users only");
-  gm_lhGadgets.AddTail( mgCustomOptions.mg_lnNode);
-  mgCustomOptions.mg_pActivatedFunction = &StartCustomLoadMenu;
-
-  mgAddonOptions.mg_bfsFontSize = BFS_LARGE;
-  mgAddonOptions.mg_boxOnScreen = BoxBigRow(5);
-  mgAddonOptions.mg_pmgUp = &mgCustomOptions;
-  mgAddonOptions.mg_pmgDown = &mgVideoOptions;
-  mgAddonOptions.mg_strText = TRANS("EXECUTE ADDON");
-  mgAddonOptions.mg_strTip = TRANS("choose from list of addons to execute");
-  gm_lhGadgets.AddTail( mgAddonOptions.mg_lnNode);
-  mgAddonOptions.mg_pActivatedFunction = &StartAddonsLoadMenu;
+  mgOptionsBack.mg_bfsFontSize = BFS_LARGE;
+  mgOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgOptionsBack.mg_pmgUp = &mgAudioOptions;
+  mgOptionsBack.mg_pmgDown = &mgGameOptions;
+  mgOptionsBack.mg_strText = TRANS("BACK");
+  mgOptionsBack.mg_strTip = TRANS("Return to main menu");
+  gm_lhGadgets.AddTail(mgOptionsBack.mg_lnNode);
+  mgOptionsBack.mg_pActivatedFunction = &MenuBack;
+  mgOptionsBack.mg_iCenterI = -1;
 }
 
 
