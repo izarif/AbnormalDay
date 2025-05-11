@@ -485,6 +485,7 @@ CMGButton mgOptionsBack;
 CVideoOptionsMenu gmVideoOptionsMenu;
 CMGTitle mgVideoOptionsTitle;
 CMGTrigger mgDisplayAPITrigger;
+
 CTString astrDisplayAPIRadioTexts[] = {
   RADIOTRANS( "OpenGL"),
 #ifdef SE1_D3D
@@ -492,30 +493,34 @@ CTString astrDisplayAPIRadioTexts[] = {
 #endif 
 
 };
+
 CMGTrigger mgDisplayAdaptersTrigger;
 CMGTrigger mgFullScreenTrigger;
 CMGTrigger mgAspectRatiosTrigger;
 CMGTrigger mgBorderLessTrigger;
 CMGTrigger mgResolutionsTrigger;
 CMGTrigger mgDisplayPrefsTrigger;
+
 CTString astrDisplayPrefsRadioTexts[] = {
   RADIOTRANS( "Speed"),
   RADIOTRANS( "Normal"),
   RADIOTRANS( "Quality"),
   RADIOTRANS( "Custom"),
 };
-INDEX         _ctResolutions = 0;
-CTString     * _astrResolutionTexts = NULL;
+
+INDEX _ctResolutions = 0;
+CTString *_astrResolutionTexts = NULL;
 CDisplayMode *_admResolutionModes  = NULL;
 
-INDEX         _ctAspectRatios = 0;
-CTString     * _astrAspectRatioTexts = NULL;
+INDEX _ctAspectRatios = 0;
+CTString *_astrAspectRatioTexts = NULL;
 CDisplayMode *_admAspectRatioModes  = NULL;
 
-INDEX         _ctAdapters = 0;
-CTString     * _astrAdapterTexts = NULL;
+INDEX _ctAdapters = 0;
+CTString *_astrAdapterTexts = NULL;
 CMGButton mgVideoRendering;
 CMGTrigger mgBitsPerPixelTrigger;
+
 CTString astrBitsPerPixelRadioTexts[] = {
   RADIOTRANS( "Desktop"),
   RADIOTRANS( "16 BPP"),
@@ -523,6 +528,7 @@ CTString astrBitsPerPixelRadioTexts[] = {
 };
 
 CMGButton mgVideoOptionsApply;
+CMGButton mgVideoOptionsBack;
 
 // -------- Audio options menu
 CAudioOptionsMenu gmAudioOptionsMenu;
@@ -5073,37 +5079,107 @@ static void InitVideoOptionsButtons(void)
   mgBitsPerPixelTrigger.ApplyCurrentSelection();
 }
 
-
 void CVideoOptionsMenu::Initialize_t(void)
 {
   // intialize video options menu
   mgVideoOptionsTitle.mg_boxOnScreen = BoxTitle();
-  mgVideoOptionsTitle.mg_strText = TRANS("VIDEO");
-  gm_lhGadgets.AddTail( mgVideoOptionsTitle.mg_lnNode);
+  mgVideoOptionsTitle.mg_strText = TRANS("# VIDEO");
+  gm_lhGadgets.AddTail(mgVideoOptionsTitle.mg_lnNode);
 
-  TRIGGER_MG(mgDisplayAPITrigger, 		0, mgVideoOptionsApply, mgDisplayAdaptersTrigger, TRANS("GRAPHICS API"), astrDisplayAPIRadioTexts);
-  mgDisplayAPITrigger.mg_strTip 		= TRANS("choose graphics API to be used");
+  mgDisplayAPITrigger.mg_pmgUp = &mgVideoOptionsBack;
+  mgDisplayAPITrigger.mg_pmgDown = &mgDisplayAdaptersTrigger;
+  mgDisplayAPITrigger.mg_boxOnScreen = BoxMediumLeft(5.1f);
+  gm_lhGadgets.AddTail(mgDisplayAPITrigger.mg_lnNode);
+  mgDisplayAPITrigger.mg_astrTexts = astrDisplayAPIRadioTexts;
+  mgDisplayAPITrigger.mg_ctTexts = ARRAYCOUNT(astrDisplayAPIRadioTexts);
+  mgDisplayAPITrigger.mg_iSelected = 0;
+  mgDisplayAPITrigger.mg_strLabel = TRANS("GRAPHIC SYSTEM");
+  mgDisplayAPITrigger.mg_strValue = astrDisplayAPIRadioTexts[0];
+  mgDisplayAPITrigger.mg_strTip = TRANS("Select graphic system to use");
+  mgDisplayAPITrigger.mg_iCenterI = -1;
 
-  TRIGGER_MG(mgDisplayAdaptersTrigger, 	1, mgDisplayAPITrigger, mgDisplayPrefsTrigger, TRANS("DISPLAY ADAPTER"), astrNoYes);
-  mgDisplayAdaptersTrigger.mg_strTip 	= TRANS("choose display adapter to be used");
+  mgDisplayAdaptersTrigger.mg_pmgUp = &mgDisplayAPITrigger;
+  mgDisplayAdaptersTrigger.mg_pmgDown = &mgDisplayPrefsTrigger;
+  mgDisplayAdaptersTrigger.mg_boxOnScreen = BoxMediumLeft(6.1f);
+  gm_lhGadgets.AddTail(mgDisplayAdaptersTrigger.mg_lnNode);
+  mgDisplayAdaptersTrigger.mg_astrTexts = astrNoYes;
+  mgDisplayAdaptersTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgDisplayAdaptersTrigger.mg_iSelected = 0;
+  mgDisplayAdaptersTrigger.mg_strLabel = TRANS("DISPLAY ADAPTER");
+  mgDisplayAdaptersTrigger.mg_strValue = astrNoYes[0];
+  mgDisplayAdaptersTrigger.mg_strTip = TRANS("Select display adapter to use");
+  mgDisplayAdaptersTrigger.mg_iCenterI = -1;
 
-  TRIGGER_MG(mgDisplayPrefsTrigger, 	2, mgDisplayAdaptersTrigger, mgAspectRatiosTrigger, TRANS("PREFERENCES"), astrDisplayPrefsRadioTexts);
-  mgDisplayPrefsTrigger.mg_strTip 		= TRANS("balance between speed and rendering quality, depending on your system");
+  mgDisplayPrefsTrigger.mg_pmgUp = &mgDisplayAdaptersTrigger;
+  mgDisplayPrefsTrigger.mg_pmgDown = &mgAspectRatiosTrigger;
+  mgDisplayPrefsTrigger.mg_boxOnScreen = BoxMediumLeft(7.1f);
+  gm_lhGadgets.AddTail(mgDisplayPrefsTrigger.mg_lnNode);
+  mgDisplayPrefsTrigger.mg_astrTexts = astrDisplayPrefsRadioTexts;
+  mgDisplayPrefsTrigger.mg_ctTexts = ARRAYCOUNT(astrDisplayPrefsRadioTexts);
+  mgDisplayPrefsTrigger.mg_iSelected = 0;
+  mgDisplayPrefsTrigger.mg_strLabel = TRANS("PREFERENCES");
+  mgDisplayPrefsTrigger.mg_strValue = astrDisplayPrefsRadioTexts[0];
+  mgDisplayPrefsTrigger.mg_strTip = TRANS("Balance between speed and rendering quality");
+  mgDisplayPrefsTrigger.mg_iCenterI = -1;
 
-  TRIGGER_MG(mgAspectRatiosTrigger, 	3, mgDisplayPrefsTrigger, mgResolutionsTrigger, TRANS("ASPECT RATIO"), astrNoYes);
-  mgAspectRatiosTrigger.mg_strTip 		= TRANS("select video aspect ratio");
+  mgAspectRatiosTrigger.mg_pmgUp = &mgDisplayPrefsTrigger;
+  mgAspectRatiosTrigger.mg_pmgDown = &mgResolutionsTrigger;
+  mgAspectRatiosTrigger.mg_boxOnScreen = BoxMediumLeft(8.1f);
+  gm_lhGadgets.AddTail(mgAspectRatiosTrigger.mg_lnNode);
+  mgAspectRatiosTrigger.mg_astrTexts = astrNoYes;
+  mgAspectRatiosTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgAspectRatiosTrigger.mg_iSelected = 0;
+  mgAspectRatiosTrigger.mg_strLabel = TRANS("ASPECT RATIO");
+  mgAspectRatiosTrigger.mg_strValue = astrNoYes[0];
+  mgAspectRatiosTrigger.mg_strTip = TRANS("Select video aspect ratio");
+  mgAspectRatiosTrigger.mg_iCenterI = -1;
 
-  TRIGGER_MG(mgResolutionsTrigger, 		4, mgAspectRatiosTrigger, mgFullScreenTrigger, TRANS("RESOLUTION"), astrNoYes);
-  mgResolutionsTrigger.mg_strTip 		= TRANS("select video mode resolution");
+  mgResolutionsTrigger.mg_pmgUp = &mgAspectRatiosTrigger;
+  mgResolutionsTrigger.mg_pmgDown = &mgFullScreenTrigger;
+  mgResolutionsTrigger.mg_boxOnScreen = BoxMediumLeft(9.1f);
+  gm_lhGadgets.AddTail(mgResolutionsTrigger.mg_lnNode);
+  mgResolutionsTrigger.mg_astrTexts = astrNoYes;
+  mgResolutionsTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgResolutionsTrigger.mg_iSelected = 0;
+  mgResolutionsTrigger.mg_strLabel = TRANS("RESOLUTION");
+  mgResolutionsTrigger.mg_strValue = astrNoYes[0];
+  mgResolutionsTrigger.mg_strTip = TRANS("Select video resolution");
+  mgResolutionsTrigger.mg_iCenterI = -1;
 
-  TRIGGER_MG(mgFullScreenTrigger, 		5, mgResolutionsTrigger, mgBorderLessTrigger, TRANS("FULL SCREEN"), astrNoYes);
-  mgFullScreenTrigger.mg_strTip 		= TRANS("make game run in a window or in full screen");
+  mgFullScreenTrigger.mg_pmgUp = &mgResolutionsTrigger;
+  mgFullScreenTrigger.mg_pmgDown = &mgBorderLessTrigger;
+  mgFullScreenTrigger.mg_boxOnScreen = BoxMediumLeft(10.1f);
+  gm_lhGadgets.AddTail(mgFullScreenTrigger.mg_lnNode);
+  mgFullScreenTrigger.mg_astrTexts = astrNoYes;
+  mgFullScreenTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgFullScreenTrigger.mg_iSelected = 0;
+  mgFullScreenTrigger.mg_strLabel = TRANS("FULL SCREEN");
+  mgFullScreenTrigger.mg_strValue = astrNoYes[0];
+  mgFullScreenTrigger.mg_strTip = TRANS("Run game in a window or in full screen");
+  mgFullScreenTrigger.mg_iCenterI = -1;
 
-  TRIGGER_MG(mgBorderLessTrigger, 		6, mgFullScreenTrigger, mgBitsPerPixelTrigger, TRANS("BORDERLESS MODE"), astrNoYes);
-  mgBorderLessTrigger.mg_strTip 		= TRANS("make game run in a borderless window");
+  mgBorderLessTrigger.mg_pmgUp = &mgFullScreenTrigger; mgBorderLessTrigger.mg_pmgDown = &mgBitsPerPixelTrigger;
+  mgBorderLessTrigger.mg_boxOnScreen = BoxMediumLeft(11.1f);
+  gm_lhGadgets.AddTail(mgBorderLessTrigger.mg_lnNode);
+  mgBorderLessTrigger.mg_astrTexts = astrNoYes;
+  mgBorderLessTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgBorderLessTrigger.mg_iSelected = 0;
+  mgBorderLessTrigger.mg_strLabel = TRANS("BORDERLESS MODE");
+  mgBorderLessTrigger.mg_strValue = astrNoYes[0];
+  mgBorderLessTrigger.mg_strTip = TRANS("Run game in a borderless window");
+  mgBorderLessTrigger.mg_iCenterI = -1;
 
-  TRIGGER_MG(mgBitsPerPixelTrigger, 	7, mgBorderLessTrigger, mgVideoRendering, TRANS("BITS PER PIXEL"), astrBitsPerPixelRadioTexts);
-  mgBitsPerPixelTrigger.mg_strTip 		= TRANS("select number of colors used for display");
+  mgBitsPerPixelTrigger.mg_pmgUp = &mgBorderLessTrigger;
+  mgBitsPerPixelTrigger.mg_pmgDown = &mgVideoRendering;
+  mgBitsPerPixelTrigger.mg_boxOnScreen = BoxMediumLeft(12.1f);
+  gm_lhGadgets.AddTail(mgBitsPerPixelTrigger.mg_lnNode);
+  mgBitsPerPixelTrigger.mg_astrTexts = astrBitsPerPixelRadioTexts;
+  mgBitsPerPixelTrigger.mg_ctTexts = ARRAYCOUNT(astrBitsPerPixelRadioTexts);
+  mgBitsPerPixelTrigger.mg_iSelected = 0;
+  mgBitsPerPixelTrigger.mg_strLabel = TRANS("BITS PER PIXEL");
+  mgBitsPerPixelTrigger.mg_strValue = astrBitsPerPixelRadioTexts[0];
+  mgBitsPerPixelTrigger.mg_strTip = TRANS("Select number of colors to use for display");
+  mgBitsPerPixelTrigger.mg_iCenterI = -1;
 
   mgDisplayPrefsTrigger.mg_pOnTriggerChange = &UpdateVideoOptionsButtons;
   mgDisplayAPITrigger.mg_pOnTriggerChange = &UpdateVideoOptionsButtons;
@@ -5114,24 +5190,35 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgResolutionsTrigger.mg_pOnTriggerChange = &UpdateVideoOptionsButtons;
   mgBitsPerPixelTrigger.mg_pOnTriggerChange = &UpdateVideoOptionsButtons;
   
-
   mgVideoRendering.mg_bfsFontSize = BFS_MEDIUM;
-  mgVideoRendering.mg_boxOnScreen = BoxMediumRow(8.5f);
+  mgVideoRendering.mg_boxOnScreen = BoxMediumLeft(13.1f);
   mgVideoRendering.mg_pmgUp = &mgBitsPerPixelTrigger;
   mgVideoRendering.mg_pmgDown = &mgVideoOptionsApply;
   mgVideoRendering.mg_strText = TRANS("RENDERING OPTIONS");
-  mgVideoRendering.mg_strTip = TRANS("manually adjust rendering settings");
+  mgVideoRendering.mg_strTip = TRANS("Change rendering settings");
   gm_lhGadgets.AddTail( mgVideoRendering.mg_lnNode);
   mgVideoRendering.mg_pActivatedFunction = &StartRenderingOptionsMenu;
+  mgVideoRendering.mg_iCenterI = -1;
 
   mgVideoOptionsApply.mg_bfsFontSize = BFS_LARGE;
-  mgVideoOptionsApply.mg_boxOnScreen = BoxBigRow(7.0f);
+  mgVideoOptionsApply.mg_boxOnScreen = BoxBigRow(8.5f);
   mgVideoOptionsApply.mg_pmgUp = &mgVideoRendering;
-  mgVideoOptionsApply.mg_pmgDown = &mgDisplayAPITrigger;
+  mgVideoOptionsApply.mg_pmgDown = &mgVideoOptionsBack;
   mgVideoOptionsApply.mg_strText = TRANS("APPLY");
-  mgVideoOptionsApply.mg_strTip = TRANS("apply selected options");
-  gm_lhGadgets.AddTail( mgVideoOptionsApply.mg_lnNode);
+  mgVideoOptionsApply.mg_strTip = TRANS("Apply video settings");
+  gm_lhGadgets.AddTail(mgVideoOptionsApply.mg_lnNode);
   mgVideoOptionsApply.mg_pActivatedFunction = &ApplyVideoOptions;
+  mgVideoOptionsApply.mg_iCenterI = -1;
+
+  mgVideoOptionsBack.mg_bfsFontSize = BFS_LARGE;
+  mgVideoOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgVideoOptionsBack.mg_pmgUp = &mgVideoOptionsApply;
+  mgVideoOptionsBack.mg_pmgDown = &mgDisplayAPITrigger;
+  mgVideoOptionsBack.mg_strText = TRANS("BACK");
+  mgVideoOptionsBack.mg_strTip = TRANS("Return to options menu");
+  gm_lhGadgets.AddTail(mgVideoOptionsBack.mg_lnNode);
+  mgVideoOptionsBack.mg_pActivatedFunction = &MenuBack;
+  mgVideoOptionsBack.mg_iCenterI = -1;
 }
 
 
