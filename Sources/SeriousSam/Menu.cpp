@@ -425,7 +425,6 @@ CMGModel mgPlayerModel;
 // -------- Controls menu
 CControlsMenu gmControls;
 CMGTitle mgControlsTitle;
-CMGButton mgControlsNameLabel;
 CMGButton mgControlsButtons;
 CMGSlider mgControlsSensitivity;
 CMGTrigger mgControlsInvertTrigger;
@@ -434,6 +433,7 @@ CMGTrigger mgControlsAccelTrigger;
 CMGTrigger mgControlsIFeelTrigger;
 CMGButton mgControlsPredefined;
 CMGButton mgControlsAdvanced;
+CMGButton mgControlsBack;
 
 // -------- Load/Save menu
 CLoadSaveMenu gmLoadSaveMenu;
@@ -4157,68 +4157,107 @@ void CPlayerProfileMenu::EndMenu(void)
 // ------------------------ CControlsMenu implementation
 void CControlsMenu::Initialize_t(void)
 {
-  // intialize player and controls menu
+  // intialize controls menu
   mgControlsTitle.mg_boxOnScreen = BoxTitle();
-  mgControlsTitle.mg_strText = TRANS("CONTROLS");
-  gm_lhGadgets.AddTail( mgControlsTitle.mg_lnNode);
+  mgControlsTitle.mg_strText = TRANS("# CONTROLS");
+  gm_lhGadgets.AddTail(mgControlsTitle.mg_lnNode);
 
-  mgControlsNameLabel.mg_strText = "";
-  mgControlsNameLabel.mg_boxOnScreen = BoxMediumRow(0.0);
-  mgControlsNameLabel.mg_bfsFontSize = BFS_MEDIUM;
-  mgControlsNameLabel.mg_iCenterI = -1;
-  mgControlsNameLabel.mg_bEnabled = FALSE;
-  mgControlsNameLabel.mg_bLabel = TRUE;
-  gm_lhGadgets.AddTail( mgControlsNameLabel.mg_lnNode);
-
-  mgControlsButtons.mg_strText = TRANS("CUSTOMIZE BUTTONS");
-  mgControlsButtons.mg_boxOnScreen = BoxMediumRow(2.0);
+  mgControlsButtons.mg_strText = TRANS("CUSTOMIZE KEYS");
+  mgControlsButtons.mg_boxOnScreen = BoxMediumLeft(7.7f);
   mgControlsButtons.mg_bfsFontSize = BFS_MEDIUM;
-  mgControlsButtons.mg_iCenterI = 0;
-  gm_lhGadgets.AddTail( mgControlsButtons.mg_lnNode);
-  mgControlsButtons.mg_pmgUp = &mgControlsPredefined;
+  mgControlsButtons.mg_iCenterI = -1;
+  gm_lhGadgets.AddTail(mgControlsButtons.mg_lnNode);
+  mgControlsButtons.mg_pmgUp = &mgControlsBack;
   mgControlsButtons.mg_pmgDown = &mgControlsAdvanced;
   mgControlsButtons.mg_pActivatedFunction = &StartCustomizeKeyboardMenu;
-  mgControlsButtons.mg_strTip = TRANS("customize buttons in current controls");
+  mgControlsButtons.mg_strTip = TRANS("Customize key bindings");
 
-  mgControlsAdvanced.mg_strText = TRANS("ADVANCED JOYSTICK SETUP");
-  mgControlsAdvanced.mg_iCenterI = 0;
-  mgControlsAdvanced.mg_boxOnScreen = BoxMediumRow(3);
+  mgControlsAdvanced.mg_strText = TRANS("ADVANCED GAMEPAD SETUP");
+  mgControlsAdvanced.mg_iCenterI = -1;
+  mgControlsAdvanced.mg_boxOnScreen = BoxMediumLeft(8.7f);
   mgControlsAdvanced.mg_bfsFontSize = BFS_MEDIUM;
-  gm_lhGadgets.AddTail( mgControlsAdvanced.mg_lnNode);
+  gm_lhGadgets.AddTail(mgControlsAdvanced.mg_lnNode);
   mgControlsAdvanced.mg_pmgUp = &mgControlsButtons;
   mgControlsAdvanced.mg_pmgDown = &mgControlsSensitivity;
   mgControlsAdvanced.mg_pActivatedFunction = &StartCustomizeAxisMenu;
-  mgControlsAdvanced.mg_strTip = TRANS("adjust advanced settings for joystick axis");
+  mgControlsAdvanced.mg_strTip = TRANS("Change advanced settings for gamepad axis");
 
-  mgControlsSensitivity.mg_boxOnScreen = BoxMediumRow(4.5);
+  mgControlsSensitivity.mg_boxOnScreen = BoxMediumLeft(9.7f);
   mgControlsSensitivity.mg_strText = TRANS("SENSITIVITY");
   mgControlsSensitivity.mg_pmgUp = &mgControlsAdvanced;
   mgControlsSensitivity.mg_pmgDown = &mgControlsInvertTrigger;
-  mgControlsSensitivity.mg_strTip = TRANS("sensitivity for all axis in this control set");
+  mgControlsSensitivity.mg_strTip = TRANS("Sensitivity for all axis");
   gm_lhGadgets.AddTail( mgControlsSensitivity.mg_lnNode);
+  mgControlsSensitivity.mg_iCenterI = -1;
 
-  TRIGGER_MG( mgControlsInvertTrigger, 5.5, mgControlsSensitivity, mgControlsSmoothTrigger,
-              TRANS("INVERT LOOK"), astrNoYes);
-  mgControlsInvertTrigger.mg_strTip = TRANS("invert up/down looking");
-  TRIGGER_MG( mgControlsSmoothTrigger, 6.5, mgControlsInvertTrigger, mgControlsAccelTrigger,
-              TRANS("SMOOTH AXIS"), astrNoYes);
-  mgControlsSmoothTrigger.mg_strTip = TRANS("smooth mouse/joystick movements");
-  TRIGGER_MG( mgControlsAccelTrigger, 7.5, mgControlsSmoothTrigger, mgControlsIFeelTrigger,
-              TRANS("MOUSE ACCELERATION"), astrNoYes);
-  mgControlsAccelTrigger.mg_strTip = TRANS("allow mouse acceleration");
-  TRIGGER_MG( mgControlsIFeelTrigger, 8.5, mgControlsAccelTrigger, mgControlsPredefined,
-              TRANS("ENABLE IFEEL"), astrNoYes);
-  mgControlsIFeelTrigger.mg_strTip = TRANS("enable support for iFeel tactile feedback mouse");
+  mgControlsInvertTrigger.mg_pmgUp = &mgControlsSensitivity;
+  mgControlsInvertTrigger.mg_pmgDown = &mgControlsSmoothTrigger;
+  mgControlsInvertTrigger.mg_boxOnScreen = BoxMediumLeft(10.7f);
+  gm_lhGadgets.AddTail(mgControlsInvertTrigger.mg_lnNode);
+  mgControlsInvertTrigger.mg_astrTexts = astrNoYes;
+  mgControlsInvertTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgControlsInvertTrigger.mg_iSelected = 0;
+  mgControlsInvertTrigger.mg_strLabel = TRANS("INVERT LOOK");
+  mgControlsInvertTrigger.mg_strValue = astrNoYes[0];
+  mgControlsInvertTrigger.mg_strTip = TRANS("Invert up / down looking");
+  mgControlsInvertTrigger.mg_iCenterI = -1;
+
+  mgControlsSmoothTrigger.mg_pmgUp = &mgControlsInvertTrigger;
+  mgControlsSmoothTrigger.mg_pmgDown = &mgControlsAccelTrigger;
+  mgControlsSmoothTrigger.mg_boxOnScreen = BoxMediumLeft(11.7f);
+  gm_lhGadgets.AddTail(mgControlsSmoothTrigger.mg_lnNode);
+  mgControlsSmoothTrigger.mg_astrTexts = astrNoYes;
+  mgControlsSmoothTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgControlsSmoothTrigger.mg_iSelected = 0;
+  mgControlsSmoothTrigger.mg_strLabel = TRANS("SMOOTH AXIS");
+  mgControlsSmoothTrigger.mg_strValue = astrNoYes[0];
+  mgControlsSmoothTrigger.mg_strTip = TRANS("Smooth mouse / gamepad movements");
+  mgControlsSmoothTrigger.mg_iCenterI = -1;
+
+  mgControlsAccelTrigger.mg_pmgUp = &mgControlsSmoothTrigger;
+  mgControlsAccelTrigger.mg_pmgDown = &mgControlsIFeelTrigger;
+  mgControlsAccelTrigger.mg_boxOnScreen = BoxMediumLeft(12.7f);
+  gm_lhGadgets.AddTail(mgControlsAccelTrigger.mg_lnNode);
+  mgControlsAccelTrigger.mg_astrTexts = astrNoYes;
+  mgControlsAccelTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgControlsAccelTrigger.mg_iSelected = 0;
+  mgControlsAccelTrigger.mg_strLabel = TRANS("MOUSE ACCELERATION");
+  mgControlsAccelTrigger.mg_strValue = astrNoYes[0];
+  mgControlsAccelTrigger.mg_strTip = TRANS("Allow mouse acceleration");
+  mgControlsAccelTrigger.mg_iCenterI = -1;
+
+  mgControlsIFeelTrigger.mg_pmgUp = &mgControlsAccelTrigger;
+  mgControlsIFeelTrigger.mg_pmgDown = &mgControlsPredefined;
+  mgControlsIFeelTrigger.mg_boxOnScreen = BoxMediumLeft(13.7f);
+  gm_lhGadgets.AddTail(mgControlsIFeelTrigger.mg_lnNode);
+  mgControlsIFeelTrigger.mg_astrTexts = astrNoYes;
+  mgControlsIFeelTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgControlsIFeelTrigger.mg_iSelected = 0;
+  mgControlsIFeelTrigger.mg_strLabel = TRANS("IFEEL SUPPORT");
+  mgControlsIFeelTrigger.mg_strValue = astrNoYes[0];
+  mgControlsIFeelTrigger.mg_strTip = TRANS("Enable iFeel tactile feedback mouse support");
+  mgControlsIFeelTrigger.mg_iCenterI = -1;
 
   mgControlsPredefined.mg_strText = TRANS("LOAD PREDEFINED SETTINGS");
-  mgControlsPredefined.mg_iCenterI = 0;
-  mgControlsPredefined.mg_boxOnScreen = BoxMediumRow(10);
+  mgControlsPredefined.mg_iCenterI = -1;
+  mgControlsPredefined.mg_boxOnScreen = BoxMediumLeft(14.7f);
   mgControlsPredefined.mg_bfsFontSize = BFS_MEDIUM;
-  gm_lhGadgets.AddTail( mgControlsPredefined.mg_lnNode);
-  mgControlsPredefined.mg_pmgUp   = &mgControlsIFeelTrigger;
-  mgControlsPredefined.mg_pmgDown = &mgControlsButtons;
+  gm_lhGadgets.AddTail(mgControlsPredefined.mg_lnNode);
+  mgControlsPredefined.mg_pmgUp = &mgControlsIFeelTrigger;
+  mgControlsPredefined.mg_pmgDown = &mgControlsBack;
   mgControlsPredefined.mg_pActivatedFunction = &StartControlsLoadMenu;
-  mgControlsPredefined.mg_strTip = TRANS("load one of several predefined control settings");
+  mgControlsPredefined.mg_strTip = TRANS("Load one of predefined control settings");
+  mgControlsPredefined.mg_iCenterI = -1;
+
+  mgControlsBack.mg_bfsFontSize = BFS_LARGE;
+  mgControlsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgControlsBack.mg_pmgUp = &mgControlsPredefined;
+  mgControlsBack.mg_pmgDown = &mgControlsButtons;
+  mgControlsBack.mg_strText = TRANS("BACK");
+  mgControlsBack.mg_strTip = TRANS("Return to options menu");
+  gm_lhGadgets.AddTail(mgControlsBack.mg_lnNode);
+  mgControlsBack.mg_pActivatedFunction = &MenuBack;
+  mgControlsBack.mg_iCenterI = -1;
 }
 
 void CControlsMenu::StartMenu(void)
@@ -4231,9 +4270,6 @@ void CControlsMenu::StartMenu(void)
   _fnmControlsToCustomize.PrintF("Controls\\Controls%d.ctl", iPlayer);
 
   ControlsMenuOn();
-
-  mgControlsNameLabel.mg_strText.PrintF(TRANSV("CONTROLS FOR: %s"), (const char *) _pGame->gm_apcPlayers[iPlayer].GetNameForPrinting());
-
   ObtainActionSettings();
   CGameMenu::StartMenu();
 }
