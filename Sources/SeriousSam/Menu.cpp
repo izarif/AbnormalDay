@@ -452,6 +452,7 @@ CMGTitle mgCustomizeKeyboardTitle;
 CMGKeyDefinition mgKey[KEYS_ON_SCREEN];
 CMGArrow mgCustomizeArrowUp;
 CMGArrow mgCustomizeArrowDn;
+CMGButton mgCustomizeBack;
 
 // -------- Choose servers menu
 CServersMenu gmServersMenu;
@@ -4605,7 +4606,7 @@ void CCustomizeKeyboardMenu::FillListItems(void)
       mgKey[iInMenu].mg_strLabel = TranslateConst(itAct->ba_strName, 0);
       mgKey[iInMenu].mg_iControlNumber = iLabel;
       mgKey[iInMenu].SetBindingNames(FALSE);
-      mgKey[iInMenu].mg_strTip = TRANS("Enter - change binding, Backspace - unbind");
+      mgKey[iInMenu].mg_strTip = TRANS("[Enter] - change, [Backspace] - unbind");
       mgKey[iInMenu].mg_bEnabled = TRUE;
       mgKey[iInMenu].mg_iInList = iLabel;
     }
@@ -4620,40 +4621,56 @@ void CCustomizeKeyboardMenu::FillListItems(void)
 void CCustomizeKeyboardMenu::Initialize_t(void)
 {
   // intialize Audio options menu
-  mgCustomizeKeyboardTitle.mg_strText = TRANS("CUSTOMIZE BUTTONS");
+  mgCustomizeKeyboardTitle.mg_strText = TRANS("# CUSTOMIZE KEYS");
   mgCustomizeKeyboardTitle.mg_boxOnScreen = BoxTitle();
-  gm_lhGadgets.AddTail( mgCustomizeKeyboardTitle.mg_lnNode);
+  gm_lhGadgets.AddTail(mgCustomizeKeyboardTitle.mg_lnNode);
 
 #define KL_START 3.0f
 #define KL_STEEP -1.45f
-  for( INDEX iLabel=0; iLabel<KEYS_ON_SCREEN; iLabel++)
+
+  for (INDEX iLabel = 0; iLabel < KEYS_ON_SCREEN; iLabel++)
   {
-    INDEX iPrev = (gm_ctListVisible+iLabel-1)%KEYS_ON_SCREEN;
-    INDEX iNext = (iLabel+1)%KEYS_ON_SCREEN;
+    INDEX iPrev = (gm_ctListVisible + iLabel - 1) % KEYS_ON_SCREEN;
+    INDEX iNext = (iLabel + 1) % KEYS_ON_SCREEN;
+
     // initialize label entities
-    mgKey[iLabel].mg_boxOnScreen = BoxKeyRow(iLabel);
+    mgKey[iLabel].mg_boxOnScreen = BoxKeyRow(4.7 + iLabel);
     // initialize label gadgets
     mgKey[iLabel].mg_pmgUp = &mgKey[iPrev];
     mgKey[iLabel].mg_pmgDown = &mgKey[iNext];
     mgKey[iLabel].mg_bVisible = TRUE;
-    gm_lhGadgets.AddTail( mgKey[iLabel].mg_lnNode);
+    gm_lhGadgets.AddTail(mgKey[iLabel].mg_lnNode);
   }
+
   // arrows just exist
-  gm_lhGadgets.AddTail( mgCustomizeArrowDn.mg_lnNode);
-  gm_lhGadgets.AddTail( mgCustomizeArrowUp.mg_lnNode);
+  gm_lhGadgets.AddTail(mgCustomizeArrowDn.mg_lnNode);
+  gm_lhGadgets.AddTail(mgCustomizeArrowUp.mg_lnNode);
   mgCustomizeArrowDn.mg_adDirection = AD_DOWN;
   mgCustomizeArrowUp.mg_adDirection = AD_UP;
   mgCustomizeArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
   mgCustomizeArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
-  mgCustomizeArrowDn.mg_pmgRight = mgCustomizeArrowDn.mg_pmgUp = &mgKey[KEYS_ON_SCREEN-1];
-  mgCustomizeArrowUp.mg_pmgRight = mgCustomizeArrowUp.mg_pmgDown = &mgKey[0];
+  mgCustomizeArrowUp.mg_pmgUp = &mgCustomizeBack;
+  mgCustomizeArrowUp.mg_pmgDown = &mgKey[0];
+  mgCustomizeArrowDn.mg_pmgUp = &mgKey[KEYS_ON_SCREEN - 1];
+  mgCustomizeArrowDn.mg_pmgDown = &mgCustomizeBack;
+
+  mgCustomizeBack.mg_bfsFontSize = BFS_LARGE;
+  mgCustomizeBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgCustomizeBack.mg_pmgUp = &mgCustomizeArrowDn;
+  mgCustomizeBack.mg_pmgDown = &mgCustomizeArrowUp;
+  mgCustomizeBack.mg_strText = TRANS("BACK");
+  mgCustomizeBack.mg_strTip = TRANS("Return to controls menu");
+  gm_lhGadgets.AddTail(mgCustomizeBack.mg_lnNode);
+  mgCustomizeBack.mg_pActivatedFunction = &MenuBack;
+  mgCustomizeBack.mg_iCenterI = -1;
 
   gm_ctListVisible = KEYS_ON_SCREEN;
   gm_pmgArrowUp = &mgCustomizeArrowUp;
   gm_pmgArrowDn = &mgCustomizeArrowDn;
   gm_pmgListTop = &mgKey[0];
-  gm_pmgListBottom = &mgKey[KEYS_ON_SCREEN-1];
+  gm_pmgListBottom = &mgKey[KEYS_ON_SCREEN - 1];
 }
+
 void CCustomizeKeyboardMenu::StartMenu(void)
 {
   ControlsMenuOn();
@@ -4662,6 +4679,7 @@ void CCustomizeKeyboardMenu::StartMenu(void)
   gm_iListWantedItem = 0;
   CGameMenu::StartMenu();
 }
+
 void CCustomizeKeyboardMenu::EndMenu(void)
 {
   ControlsMenuOff();
