@@ -19,7 +19,7 @@ BOOL IsMenusInRoot(void);
 void ChangeToMenu( class CGameMenu *pgmNew);
 extern void PlayMenuSound(CSoundData *psd);
 
-#define KEYS_ON_SCREEN 14
+#define KEYS_ON_SCREEN 10
 #define LEVELS_ON_SCREEN 16
 #define SERVERS_ON_SCREEN 15
 #define VARS_ON_SCREEN 14
