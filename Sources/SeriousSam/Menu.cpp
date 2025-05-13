@@ -471,6 +471,7 @@ CMGSlider mgAxisDeadzone;
 CMGTrigger mgAxisInvertTrigger;
 CMGTrigger mgAxisRelativeTrigger;
 CMGTrigger mgAxisSmoothTrigger;
+CMGButton mgAxisBack;
 
 // -------- Options menu
 COptionsMenu gmOptionsMenu;
@@ -4685,55 +4686,117 @@ void PostChangeAxis(INDEX iDummy)
 void CCustomizeAxisMenu::Initialize_t(void)
 {
   // intialize axis menu
-  mgCustomizeAxisTitle.mg_strText = TRANS("CUSTOMIZE AXIS");
+  mgCustomizeAxisTitle.mg_strText = TRANS("# CUSTOMIZE AXIS");
   mgCustomizeAxisTitle.mg_boxOnScreen = BoxTitle();
-  gm_lhGadgets.AddTail( mgCustomizeAxisTitle.mg_lnNode);
+  gm_lhGadgets.AddTail(mgCustomizeAxisTitle.mg_lnNode);
 
-  TRIGGER_MG(mgAxisActionTrigger, 0, mgAxisSmoothTrigger, mgAxisMountedTrigger, TRANS("ACTION"), astrNoYes);
-  mgAxisActionTrigger.mg_strTip = TRANS("choose action to customize");
-  TRIGGER_MG(mgAxisMountedTrigger, 2, mgAxisActionTrigger, mgAxisSensitivity, TRANS("MOUNTED TO"), astrNoYes);
-  mgAxisMountedTrigger.mg_strTip = TRANS("choose controller axis that will perform the action");
+  mgAxisActionTrigger.mg_pmgUp = &mgAxisSmoothTrigger;
+  mgAxisActionTrigger.mg_pmgDown = &mgAxisMountedTrigger;
+  mgAxisActionTrigger.mg_boxOnScreen = BoxMediumLeft(8.7f);
+  gm_lhGadgets.AddTail(mgAxisActionTrigger.mg_lnNode);
+  mgAxisActionTrigger.mg_astrTexts = astrNoYes;
+  mgAxisActionTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgAxisActionTrigger.mg_iSelected = 0; 
+  mgAxisActionTrigger.mg_strLabel = TRANS("ACTION");
+  mgAxisActionTrigger.mg_strValue = astrNoYes[0];
+  mgAxisActionTrigger.mg_strTip = TRANS("Select action to customize");
+  mgAxisActionTrigger.mg_iCenterI = -1;
+
+  mgAxisMountedTrigger.mg_pmgUp = &mgAxisActionTrigger;
+  mgAxisMountedTrigger.mg_pmgDown = &mgAxisSensitivity;
+  mgAxisMountedTrigger.mg_boxOnScreen = BoxMediumLeft(9.7f);
+  gm_lhGadgets.AddTail(mgAxisMountedTrigger.mg_lnNode);
+  mgAxisMountedTrigger.mg_astrTexts = astrNoYes;
+  mgAxisMountedTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgAxisMountedTrigger.mg_iSelected = 0; 
+  mgAxisMountedTrigger.mg_strLabel = TRANS("MOUNTED TO");
+  mgAxisMountedTrigger.mg_strValue = astrNoYes[0];
+  mgAxisMountedTrigger.mg_strTip = TRANS("Select axis that will perform the action");
+  mgAxisMountedTrigger.mg_iCenterI = -1;
   
-  mgAxisActionTrigger.mg_astrTexts = new CTString[ AXIS_ACTIONS_CT];
+  mgAxisActionTrigger.mg_astrTexts = new CTString[AXIS_ACTIONS_CT];
   mgAxisActionTrigger.mg_ctTexts = AXIS_ACTIONS_CT;
 
   mgAxisActionTrigger.mg_pPreTriggerChange = PreChangeAxis;
   mgAxisActionTrigger.mg_pOnTriggerChange = PostChangeAxis;
 
   // for all available axis type controlers
-  for( INDEX iControler=0; iControler<AXIS_ACTIONS_CT; iControler++) {
-    mgAxisActionTrigger.mg_astrTexts[ iControler] = TranslateConst(CTString(_pGame->gm_astrAxisNames[ iControler]), 0);
+  for (INDEX iControler = 0; iControler < AXIS_ACTIONS_CT; iControler++) {
+    mgAxisActionTrigger.mg_astrTexts[iControler] = TranslateConst(CTString(_pGame->gm_astrAxisNames[iControler]), 0);
   }
+
   mgAxisActionTrigger.mg_iSelected = 3;
   
   INDEX ctAxis = _pInput->GetAvailableAxisCount();
   mgAxisMountedTrigger.mg_astrTexts = new CTString[ ctAxis];
   mgAxisMountedTrigger.mg_ctTexts = ctAxis;
+
   // for all axis actions that can be mounted
-  for( INDEX iAxis=0; iAxis<ctAxis; iAxis++) {
-    mgAxisMountedTrigger.mg_astrTexts[ iAxis] = _pInput->GetAxisTransName( iAxis);
+  for (INDEX iAxis = 0; iAxis < ctAxis; iAxis++) {
+    mgAxisMountedTrigger.mg_astrTexts[iAxis] = _pInput->GetAxisTransName(iAxis);
   }
   
-  mgAxisSensitivity.mg_boxOnScreen = BoxMediumRow(3);
+  mgAxisSensitivity.mg_boxOnScreen = BoxMediumLeft(10.7f);
   mgAxisSensitivity.mg_strText = TRANS("SENSITIVITY");
-  mgAxisSensitivity.mg_pmgUp = &mgAxisMountedTrigger;
+  mgAxisSensitivity.mg_pmgUp = &mgAxisBack;
   mgAxisSensitivity.mg_pmgDown = &mgAxisDeadzone;
-  gm_lhGadgets.AddTail( mgAxisSensitivity.mg_lnNode);
-  mgAxisSensitivity.mg_strTip = TRANS("set sensitivity for this axis");
+  gm_lhGadgets.AddTail(mgAxisSensitivity.mg_lnNode);
+  mgAxisSensitivity.mg_strTip = TRANS("Change sensitivity for this axis");
+  mgAxisSensitivity.mg_iCenterI = -1;
 
-  mgAxisDeadzone.mg_boxOnScreen = BoxMediumRow(4);
+  mgAxisDeadzone.mg_boxOnScreen = BoxMediumLeft(11.7f);
   mgAxisDeadzone.mg_strText = TRANS("DEAD ZONE");
   mgAxisDeadzone.mg_pmgUp = &mgAxisSensitivity;
   mgAxisDeadzone.mg_pmgDown = &mgAxisInvertTrigger;
-  gm_lhGadgets.AddTail( mgAxisDeadzone.mg_lnNode);
-  mgAxisDeadzone.mg_strTip = TRANS("set dead zone for this axis");
+  gm_lhGadgets.AddTail(mgAxisDeadzone.mg_lnNode);
+  mgAxisDeadzone.mg_strTip = TRANS("Change dead zone for this axis");
+  mgAxisDeadzone.mg_iCenterI = -1;
 
-  TRIGGER_MG(mgAxisInvertTrigger, 5, mgAxisDeadzone, mgAxisRelativeTrigger, TRANS("INVERTED"), astrNoYes);
-  mgAxisInvertTrigger.mg_strTip = TRANS("choose whether to invert this axis or not");
-  TRIGGER_MG(mgAxisRelativeTrigger, 6, mgAxisInvertTrigger, mgAxisSmoothTrigger, TRANS("RELATIVE"), astrNoYes);
-  mgAxisRelativeTrigger.mg_strTip = TRANS("select relative or absolute axis reading");
-  TRIGGER_MG(mgAxisSmoothTrigger, 7, mgAxisRelativeTrigger, mgAxisActionTrigger, TRANS("SMOOTH"), astrNoYes);
-  mgAxisSmoothTrigger.mg_strTip = TRANS("turn this on to filter readings on this axis");
+  mgAxisInvertTrigger.mg_pmgUp = &mgAxisDeadzone;
+  mgAxisInvertTrigger.mg_pmgDown = &mgAxisRelativeTrigger;
+  mgAxisInvertTrigger.mg_boxOnScreen = BoxMediumLeft(12.7f);
+  gm_lhGadgets.AddTail(mgAxisInvertTrigger.mg_lnNode);
+  mgAxisInvertTrigger.mg_astrTexts = astrNoYes;
+  mgAxisInvertTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgAxisInvertTrigger.mg_iSelected = 0;
+  mgAxisInvertTrigger.mg_strLabel = TRANS("INVERTED");
+  mgAxisInvertTrigger.mg_strValue = astrNoYes[0];
+  mgAxisInvertTrigger.mg_strTip = TRANS("Enable to invert this axis");
+  mgAxisInvertTrigger.mg_iCenterI = -1;
+
+  mgAxisRelativeTrigger.mg_pmgUp = &mgAxisInvertTrigger;
+  mgAxisRelativeTrigger.mg_pmgDown = &mgAxisSmoothTrigger;
+  mgAxisRelativeTrigger.mg_boxOnScreen = BoxMediumLeft(13.7f);
+  gm_lhGadgets.AddTail(mgAxisRelativeTrigger.mg_lnNode);
+  mgAxisRelativeTrigger.mg_astrTexts = astrNoYes;
+  mgAxisRelativeTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgAxisRelativeTrigger.mg_iSelected = 0;
+  mgAxisRelativeTrigger.mg_strLabel = TRANS("RELATIVE");
+  mgAxisRelativeTrigger.mg_strValue = astrNoYes[0];
+  mgAxisRelativeTrigger.mg_strTip = TRANS("Select relative or absolute axis reading");
+  mgAxisRelativeTrigger.mg_iCenterI = -1;
+
+  mgAxisSmoothTrigger.mg_pmgUp = &mgAxisRelativeTrigger;
+  mgAxisSmoothTrigger.mg_pmgDown = &mgAxisActionTrigger;
+  mgAxisSmoothTrigger.mg_boxOnScreen = BoxMediumLeft(14.7f);
+  gm_lhGadgets.AddTail(mgAxisSmoothTrigger.mg_lnNode);
+  mgAxisSmoothTrigger.mg_astrTexts = astrNoYes;
+  mgAxisSmoothTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgAxisSmoothTrigger.mg_iSelected = 0;
+  mgAxisSmoothTrigger.mg_strLabel = TRANS("SMOOTH");
+  mgAxisSmoothTrigger.mg_strValue = astrNoYes[0];
+  mgAxisSmoothTrigger.mg_strTip = TRANS("Enable to filter readings on this axis");
+  mgAxisSmoothTrigger.mg_iCenterI = -1;
+
+  mgAxisBack.mg_bfsFontSize = BFS_LARGE;
+  mgAxisBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgAxisBack.mg_pmgUp = &mgAxisSmoothTrigger;
+  mgAxisBack.mg_pmgDown = &mgAxisActionTrigger;
+  mgAxisBack.mg_strText = TRANS("BACK");
+  mgAxisBack.mg_strTip = TRANS("Return to controls menu");
+  gm_lhGadgets.AddTail(mgAxisBack.mg_lnNode);
+  mgAxisBack.mg_pActivatedFunction = &MenuBack;
+  mgAxisBack.mg_iCenterI = -1;
 }
 
 void CCustomizeAxisMenu::ObtainActionSettings(void)
