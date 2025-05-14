@@ -203,7 +203,7 @@ static CTextureObject _toLogoMenuB;
 
 // -------------- All possible menu entities
 #define BIG_BUTTONS_CT 6
-#define SAVELOAD_BUTTONS_CT 14
+#define SAVELOAD_BUTTONS_CT 10
 
 #define TRIGGER_MG(mg, y, up, down, text, astr) \
   mg.mg_pmgUp = &up;\
@@ -439,10 +439,11 @@ CMGButton mgControlsBack;
 // -------- Load/Save menu
 CLoadSaveMenu gmLoadSaveMenu;
 CMGTitle mgLoadSaveTitle;
-CMGButton mgLoadSaveNotes;
 CMGFileButton amgLSButton[SAVELOAD_BUTTONS_CT];
 CMGArrow mgLSArrowUp;
 CMGArrow mgLSArrowDn;
+CMGButton mgLSBack;
+
 // -------- High-score menu
 CHighScoreMenu gmHighScoreMenu;
 CMGTitle mgHighScoreTitle;
@@ -1595,7 +1596,6 @@ void StartPlayerModelLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = _strLastPlayerAppearance;
   gmLoadSaveMenu.gm_fnmExt = CTString(".amc");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadPlayerModel;
-  mgLoadSaveNotes.mg_strText = "";
 
   gmLoadSaveMenu.gm_pgmParentMenu = &gmPlayerProfile;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1612,7 +1612,6 @@ void StartControlsLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = CTString("");
   gmLoadSaveMenu.gm_fnmExt = CTString(".ctl");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadControls;
-  mgLoadSaveNotes.mg_strText = "";
 
   gmLoadSaveMenu.gm_pgmParentMenu = &gmControls;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1629,7 +1628,6 @@ void StartCustomLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = CTString("");
   gmLoadSaveMenu.gm_fnmExt = CTString(".cfg");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadCustom;
-  mgLoadSaveNotes.mg_strText = "";
 
   gmLoadSaveMenu.gm_pgmParentMenu = &gmOptionsMenu;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1646,7 +1644,6 @@ void StartAddonsLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = CTString("");
   gmLoadSaveMenu.gm_fnmExt = CTString(".ini");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadAddon;
-  mgLoadSaveNotes.mg_strText = "";
 
   gmLoadSaveMenu.gm_pgmParentMenu = &gmOptionsMenu;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1679,32 +1676,9 @@ void StartNetworkSettingsMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = sam_strNetworkSettings;
   gmLoadSaveMenu.gm_fnmExt = CTString(".ini");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadNetSettings;
-  if (sam_strNetworkSettings=="") {
-    mgLoadSaveNotes.mg_strText = TRANS(
-      "Before joining a network game,\n"
-      "you have to adjust your connection parameters.\n"
-      "Choose one option from the list.\n"
-      "If you have problems with connection, you can adjust\n"
-      "these parameters again from the Options menu.\n"
-      );
-  } else {
-    mgLoadSaveNotes.mg_strText = "";
-  }
 
   gmLoadSaveMenu.gm_pgmParentMenu = &gmOptionsMenu;
   ChangeToMenu( &gmLoadSaveMenu);
-}
-
-void SetQuickLoadNotes(void)
-{
-  if (_pShell->GetINDEX("gam_iQuickSaveSlots")<=8) {
-    mgLoadSaveNotes.mg_strText = TRANS(
-      "In-game QuickSave shortcuts:\n"
-      "F6 - save a new QuickSave\n"
-      "F9 - load the last QuickSave\n");
-  } else {
-    mgLoadSaveNotes.mg_strText = "";
-  }
 }
 
 void StartSinglePlayerQuickLoadMenu(void)
@@ -1720,7 +1694,6 @@ void StartSinglePlayerQuickLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = CTString("");
   gmLoadSaveMenu.gm_fnmExt = CTString(".sav");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadSinglePlayer;
-  SetQuickLoadNotes();
 
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1730,7 +1703,7 @@ void StartSinglePlayerLoadMenu(void)
 {
   _gmMenuGameMode = GM_SINGLE_PLAYER;
 
-  mgLoadSaveTitle.mg_strText = TRANS("LOAD");
+  mgLoadSaveTitle.mg_strText = TRANS("LOAD GAME");
   gmLoadSaveMenu.gm_bAllowThumbnails = TRUE;
   gmLoadSaveMenu.gm_iSortType = LSSORT_FILEDN;
   gmLoadSaveMenu.gm_bSave = FALSE;
@@ -1739,7 +1712,6 @@ void StartSinglePlayerLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = CTString("");
   gmLoadSaveMenu.gm_fnmExt = CTString(".sav");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadSinglePlayer;
-  mgLoadSaveNotes.mg_strText = "";
 
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1753,7 +1725,7 @@ void StartSinglePlayerSaveMenu(void)
     return;
   }
   _gmMenuGameMode = GM_SINGLE_PLAYER;
-  mgLoadSaveTitle.mg_strText = TRANS("SAVE");
+  mgLoadSaveTitle.mg_strText = TRANS("SAVE GAME");
   gmLoadSaveMenu.gm_bAllowThumbnails = TRUE;
   gmLoadSaveMenu.gm_iSortType = LSSORT_FILEDN;
   gmLoadSaveMenu.gm_bSave = TRUE;
@@ -1763,7 +1735,6 @@ void StartSinglePlayerSaveMenu(void)
   gmLoadSaveMenu.gm_fnmBaseName = CTString("SaveGame");
   gmLoadSaveMenu.gm_fnmExt = CTString(".sav");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSSaveAnyGame;
-  mgLoadSaveNotes.mg_strText = "";
   gmLoadSaveMenu.gm_strSaveDes = _pGame->GetDefaultGameDescription(TRUE);
 
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
@@ -1782,7 +1753,6 @@ void StartDemoLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = CTString("");
   gmLoadSaveMenu.gm_fnmExt = CTString(".dem");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadDemo;
-  mgLoadSaveNotes.mg_strText = "";
 
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1802,7 +1772,6 @@ void StartDemoSaveMenu(void)
   gmLoadSaveMenu.gm_fnmBaseName = CTString("Demo");
   gmLoadSaveMenu.gm_fnmExt = CTString(".dem");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSSaveDemo;
-  mgLoadSaveNotes.mg_strText = "";
   gmLoadSaveMenu.gm_strSaveDes = _pGame->GetDefaultGameDescription(FALSE);
 
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
@@ -1822,7 +1791,6 @@ void StartNetworkQuickLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = CTString("");
   gmLoadSaveMenu.gm_fnmExt = CTString(".sav");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadNetwork;
-  SetQuickLoadNotes();
   
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1841,7 +1809,6 @@ void StartNetworkLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = CTString("");
   gmLoadSaveMenu.gm_fnmExt = CTString(".sav");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadNetwork;
-  mgLoadSaveNotes.mg_strText = "";
   
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1862,7 +1829,6 @@ void StartNetworkSaveMenu(void)
   gmLoadSaveMenu.gm_fnmBaseName = CTString("SaveGame");
   gmLoadSaveMenu.gm_fnmExt = CTString(".sav");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSSaveAnyGame;
-  mgLoadSaveNotes.mg_strText = "";
   gmLoadSaveMenu.gm_strSaveDes = _pGame->GetDefaultGameDescription(TRUE);
   
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
@@ -1882,7 +1848,6 @@ void StartSplitScreenQuickLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = CTString("");
   gmLoadSaveMenu.gm_fnmExt = CTString(".sav");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadSplitScreen;
-  SetQuickLoadNotes();
   
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1901,7 +1866,6 @@ void StartSplitScreenLoadMenu(void)
   gmLoadSaveMenu.gm_fnmSelected = CTString("");
   gmLoadSaveMenu.gm_fnmExt = CTString(".sav");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSLoadSplitScreen;
-  mgLoadSaveNotes.mg_strText = "";
   
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
   ChangeToMenu( &gmLoadSaveMenu);
@@ -1921,7 +1885,6 @@ void StartSplitScreenSaveMenu(void)
   gmLoadSaveMenu.gm_fnmBaseName = CTString("SaveGame");
   gmLoadSaveMenu.gm_fnmExt = CTString(".sav");
   gmLoadSaveMenu.gm_pAfterFileChosen = &LSSaveAnyGame;
-  mgLoadSaveNotes.mg_strText = "";
   gmLoadSaveMenu.gm_strSaveDes = _pGame->GetDefaultGameDescription(TRUE);
   
   gmLoadSaveMenu.gm_pgmParentMenu = pgmCurrentMenu;
@@ -4339,42 +4302,48 @@ void CLoadSaveMenu::Initialize_t(void)
   gm_pgmNextMenu = NULL;
 
   mgLoadSaveTitle.mg_boxOnScreen = BoxTitle();
-  gm_lhGadgets.AddTail( mgLoadSaveTitle.mg_lnNode);
+  gm_lhGadgets.AddTail(mgLoadSaveTitle.mg_lnNode);
 
-  mgLoadSaveNotes.mg_boxOnScreen = BoxMediumRow(10.0);
-  mgLoadSaveNotes.mg_bfsFontSize = BFS_MEDIUM;
-  mgLoadSaveNotes.mg_iCenterI = -1;
-  mgLoadSaveNotes.mg_bEnabled = FALSE;
-  mgLoadSaveNotes.mg_bLabel = TRUE;
-  gm_lhGadgets.AddTail( mgLoadSaveNotes.mg_lnNode);
-
-  for( INDEX iLabel=0; iLabel<SAVELOAD_BUTTONS_CT; iLabel++)
+  for (INDEX iLabel = 0; iLabel < SAVELOAD_BUTTONS_CT; iLabel++)
   {
-    INDEX iPrev = (SAVELOAD_BUTTONS_CT+iLabel-1)%SAVELOAD_BUTTONS_CT;
-    INDEX iNext = (iLabel+1)%SAVELOAD_BUTTONS_CT;
+    INDEX iPrev = (SAVELOAD_BUTTONS_CT + iLabel - 1) % SAVELOAD_BUTTONS_CT;
+    INDEX iNext = (iLabel + 1) % SAVELOAD_BUTTONS_CT;
+  
     // initialize label gadgets
     amgLSButton[iLabel].mg_pmgUp = &amgLSButton[iPrev];
     amgLSButton[iLabel].mg_pmgDown = &amgLSButton[iNext];
-    amgLSButton[iLabel].mg_boxOnScreen = BoxSaveLoad(iLabel);
+    amgLSButton[iLabel].mg_boxOnScreen = BoxSaveLoad(3.7f + iLabel);
     amgLSButton[iLabel].mg_pActivatedFunction = NULL; // never called!
     amgLSButton[iLabel].mg_iCenterI = -1;
-    gm_lhGadgets.AddTail( amgLSButton[iLabel].mg_lnNode);
+    gm_lhGadgets.AddTail(amgLSButton[iLabel].mg_lnNode);
   }
 
-  gm_lhGadgets.AddTail( mgLSArrowUp.mg_lnNode);
-  gm_lhGadgets.AddTail( mgLSArrowDn.mg_lnNode);
+  gm_lhGadgets.AddTail(mgLSArrowUp.mg_lnNode);
+  gm_lhGadgets.AddTail(mgLSArrowDn.mg_lnNode);
   mgLSArrowUp.mg_adDirection = AD_UP;
   mgLSArrowDn.mg_adDirection = AD_DOWN;
   mgLSArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
   mgLSArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
-  mgLSArrowUp.mg_pmgRight = mgLSArrowUp.mg_pmgDown = &amgLSButton[0];
-  mgLSArrowDn.mg_pmgRight = mgLSArrowDn.mg_pmgUp =   &amgLSButton[SAVELOAD_BUTTONS_CT-1];
+  mgLSArrowUp.mg_pmgUp = &mgLSBack;
+  mgLSArrowUp.mg_pmgDown = &amgLSButton[0];
+  mgLSArrowDn.mg_pmgUp = &amgLSButton[SAVELOAD_BUTTONS_CT - 1];
+  mgLSArrowDn.mg_pmgDown = &mgLSBack;
 
   gm_ctListVisible = SAVELOAD_BUTTONS_CT;
   gm_pmgArrowUp = &mgLSArrowUp;
   gm_pmgArrowDn = &mgLSArrowDn;
   gm_pmgListTop = &amgLSButton[0];
-  gm_pmgListBottom = &amgLSButton[SAVELOAD_BUTTONS_CT-1];
+  gm_pmgListBottom = &amgLSButton[SAVELOAD_BUTTONS_CT - 1];
+
+  mgLSBack.mg_bfsFontSize = BFS_LARGE;
+  mgLSBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgLSBack.mg_pmgUp = &mgLSArrowDn;
+  mgLSBack.mg_pmgDown = &mgLSArrowUp;
+  mgLSBack.mg_strText = TRANS("BACK");
+  mgLSBack.mg_strTip = TRANS("Return to main menu");
+  gm_lhGadgets.AddTail(mgLSBack.mg_lnNode);
+  mgLSBack.mg_pActivatedFunction = &MenuBack;
+  mgLSBack.mg_iCenterI = -1;
 }
 
 int qsort_CompareFileInfos_NameUp(const void *elem1, const void *elem2 )
@@ -4383,18 +4352,21 @@ int qsort_CompareFileInfos_NameUp(const void *elem1, const void *elem2 )
   const CFileInfo &fi2 = **(CFileInfo **)elem2;
   return strcmp(fi1.fi_strName, fi2.fi_strName);
 }
+
 int qsort_CompareFileInfos_NameDn(const void *elem1, const void *elem2 )
 {
   const CFileInfo &fi1 = **(CFileInfo **)elem1;
   const CFileInfo &fi2 = **(CFileInfo **)elem2;
   return -strcmp(fi1.fi_strName, fi2.fi_strName);
 }
+
 int qsort_CompareFileInfos_FileUp(const void *elem1, const void *elem2 )
 {
   const CFileInfo &fi1 = **(CFileInfo **)elem1;
   const CFileInfo &fi2 = **(CFileInfo **)elem2;
   return strcmp(fi1.fi_fnFile, fi2.fi_fnFile);
 }
+
 int qsort_CompareFileInfos_FileDn(const void *elem1, const void *elem2 )
 {
   const CFileInfo &fi1 = **(CFileInfo **)elem1;
@@ -4482,6 +4454,7 @@ void CLoadSaveMenu::StartMenu(void)
 
   CGameMenu::StartMenu();
 }
+
 void CLoadSaveMenu::EndMenu(void)
 {
   // delete all file infos
