@@ -304,3 +304,8 @@ public:
   void ApplyActionSettings(void);
 };
 
+class CGameOptionsMenu : public CGameMenu {
+public:
+  void Initialize_t(void);
+  void StartMenu(void);
+};

@@ -632,6 +632,20 @@ CMGButton mgSelectPlayersNotes;
 
 CMGButton mgSelectPlayersStart;
 
+// -------- Game options menu
+CGameOptionsMenu gmGameOptionsMenu;
+CMGTitle mgGameOptionsTitle;
+CMGTrigger mgGameOptionsBlood;
+CMGTrigger mgGameOptionsGibs;
+CMGButton mgGameOptionsBack;
+
+CTString astrBloodTexts[] = {
+  RADIOTRANS("None"),
+  RADIOTRANS("Green"),
+  RADIOTRANS("Red"),
+  RADIOTRANS("Hippie"),
+};
+
 extern void PlayMenuSound(CSoundData *psd)
 {
   if (_psoMenuSound!=NULL && !_psoMenuSound->IsPlaying()) {
@@ -1897,14 +1911,11 @@ void StartVarGameOptions(void)
   gmVarMenu.gm_fnmMenuCFG = CTFILENAME("Scripts\\Menu\\GameOptions.cfg");
   ChangeToMenu( &gmVarMenu);
 }
+
 void StartSinglePlayerGameOptions(void)
 {
-  mgVarTitle.mg_strText = TRANS("GAME OPTIONS");
-  gmVarMenu.gm_fnmMenuCFG = CTFILENAME("Scripts\\Menu\\SPOptions.cfg");
-  ChangeToMenu( &gmVarMenu);
-  gmVarMenu.gm_pgmParentMenu = &gmSinglePlayerMenu;
+  ChangeToMenu(&gmGameOptionsMenu);
 }
-
 
 void StartGameOptionsFromNetwork(void)
 {
@@ -2285,6 +2296,7 @@ void InitializeMenus(void)
     TRANSLATERADIOARRAY(astrMaxPlayersRadioTexts);
     TRANSLATERADIOARRAY(astrWeapon);
     TRANSLATERADIOARRAY(astrSplitScreenRadioTexts);
+    TRANSLATERADIOARRAY(astrBloodTexts);
 
     // initialize game type strings table
     InitGameTypes();
@@ -2413,6 +2425,11 @@ void InitializeMenus(void)
     gmSplitStartMenu.gm_strName="SplitStart";
     gmSplitStartMenu.gm_pmgSelectedByDefault = &mgSplitStartStart;
     gmSplitStartMenu.gm_pgmParentMenu = &gmSplitScreenMenu;
+
+    gmGameOptionsMenu.Initialize_t();
+    gmGameOptionsMenu.gm_strName = "GameOptions";
+    gmGameOptionsMenu.gm_pmgSelectedByDefault = &mgGameOptionsBlood;
+    gmGameOptionsMenu.gm_pgmParentMenu = &gmOptionsMenu;
   }
   catch (const char *strError)
   {
@@ -2448,6 +2465,7 @@ void ReInitializeMenus(void)
     gmNetworkOpenMenu.gm_lhGadgets.Clear();
     gmSplitScreenMenu.gm_lhGadgets.Clear();
     gmSplitStartMenu.gm_lhGadgets.Clear();
+    gmGameOptionsMenu.gm_lhGadgets.Clear();
 
     // ------------------- Initialize menus
     gmConfirmMenu.Initialize_t();
@@ -2475,6 +2493,7 @@ void ReInitializeMenus(void)
     gmNetworkOpenMenu.Initialize_t();
     gmSplitScreenMenu.Initialize_t();
     gmSplitStartMenu.Initialize_t();
+    gmGameOptionsMenu.Initialize_t();
 }
 
 void DestroyMenus( void)
@@ -4878,7 +4897,7 @@ void COptionsMenu::Initialize_t(void)
   mgOptionsGame.mg_strText = TRANS("GAME OPTIONS");
   mgOptionsGame.mg_strTip = TRANS("Change gameplay options");
   gm_lhGadgets.AddTail(mgOptionsGame.mg_lnNode);
-  mgOptionsGame.mg_pActivatedFunction = NULL;
+  mgOptionsGame.mg_pActivatedFunction = StartSinglePlayerGameOptions;
   mgOptionsGame.mg_iCenterI = -1;
 
   mgOptionsVideo.mg_bfsFontSize = BFS_LARGE;
@@ -6442,4 +6461,75 @@ void CSplitStartMenu::EndMenu(void)
   _pShell->SetINDEX("gam_iStartMode", mgSplitGameType.mg_iSelected);
 
   CGameMenu::EndMenu();
+}
+
+// ------------------------ CGameOptionsMenu implementation
+void ChangeBloodColor(INDEX iNew)
+{
+  _pShell->SetINDEX("gam_iBlood", iNew);
+}
+
+void ChangeGibbing(INDEX iNew)
+{
+  _pShell->SetINDEX("gam_bGibs", iNew);
+}
+
+void CGameOptionsMenu::Initialize_t(void)
+{
+  // intialize game options menu
+  mgGameOptionsTitle.mg_boxOnScreen = BoxTitle();
+  mgGameOptionsTitle.mg_strText = TRANS("# GAME OPTIONS");
+  gm_lhGadgets.AddTail(mgGameOptionsTitle.mg_lnNode);
+
+  mgGameOptionsBlood.mg_pmgUp = &mgGameOptionsBack;
+  mgGameOptionsBlood.mg_pmgDown = &mgGameOptionsGibs;
+  mgGameOptionsBlood.mg_boxOnScreen = BoxMediumLeft(13.7f);
+  gm_lhGadgets.AddTail(mgGameOptionsBlood.mg_lnNode);
+  mgGameOptionsBlood.mg_astrTexts = astrBloodTexts;
+  mgGameOptionsBlood.mg_ctTexts = ARRAYCOUNT(astrBloodTexts);
+  mgGameOptionsBlood.mg_iSelected = 0;
+  mgGameOptionsBlood.mg_strLabel = TRANS("Blood and gore");
+  mgGameOptionsBlood.mg_strValue = astrNoYes[0];
+  mgGameOptionsBlood.mg_strTip = TRANS("Select appearance of blood and gore");
+  mgGameOptionsBlood.mg_iCenterI = -1;
+  mgGameOptionsBlood.mg_pOnTriggerChange = ChangeBloodColor;
+
+  mgGameOptionsGibs.mg_pmgUp = &mgGameOptionsBlood;
+  mgGameOptionsGibs.mg_pmgDown = &mgGameOptionsBack;
+  mgGameOptionsGibs.mg_boxOnScreen = BoxMediumLeft(14.7f);
+  gm_lhGadgets.AddTail(mgGameOptionsGibs.mg_lnNode);
+  mgGameOptionsGibs.mg_astrTexts = astrNoYes;
+  mgGameOptionsGibs.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgGameOptionsGibs.mg_iSelected = 0;
+  mgGameOptionsGibs.mg_strLabel = TRANS("Gibs");
+  mgGameOptionsGibs.mg_strValue = astrNoYes[0];
+  mgGameOptionsGibs.mg_strTip = TRANS("Enable gibbing of enemies");
+  mgGameOptionsGibs.mg_iCenterI = -1;
+  mgGameOptionsGibs.mg_pOnTriggerChange = ChangeGibbing;
+
+  mgGameOptionsBack.mg_bfsFontSize = BFS_LARGE;
+  mgGameOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgGameOptionsBack.mg_pmgUp = &mgGameOptionsGibs;
+  mgGameOptionsBack.mg_pmgDown = &mgGameOptionsBlood;
+  mgGameOptionsBack.mg_strText = TRANS("BACK");
+  mgGameOptionsBack.mg_strTip = TRANS("Return to options menu");
+  gm_lhGadgets.AddTail(mgGameOptionsBack.mg_lnNode);
+  mgGameOptionsBack.mg_pActivatedFunction = &MenuBack;
+  mgGameOptionsBack.mg_iCenterI = -1;
+}
+
+void GetGameSettings(void)
+{
+    mgGameOptionsBlood.mg_iSelected = _pShell->GetINDEX("gam_iBlood");
+    mgGameOptionsGibs.mg_iSelected = _pShell->GetINDEX("gam_bGibs");
+}
+
+void CGameOptionsMenu::StartMenu(void)
+{
+  GetGameSettings();
+
+  mgGameOptionsBlood.mg_bEnabled = _gmRunningGameMode == GM_NONE;
+  mgGameOptionsGibs.mg_bEnabled = _gmRunningGameMode == GM_NONE;
+
+  CGameMenu::StartMenu();
 }
