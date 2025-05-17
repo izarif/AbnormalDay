@@ -309,3 +309,9 @@ public:
   void Initialize_t(void);
   void StartMenu(void);
 };
+
+class CRenderingOptionsMenu : public CGameMenu {
+public:
+  void Initialize_t(void);
+  void StartMenu(void);
+};

@@ -647,6 +647,86 @@ CTString astrBloodRadioTexts[] = {
   RADIOTRANS("Hippie"),
 };
 
+// -------- Rendering options menu
+CRenderingOptionsMenu gmRenderingOptionsMenu;
+CMGTitle mgRenderingOptionsTitle;
+CMGTrigger mgRenderingOptionsTexturesSize;
+CMGTrigger mgRenderingOptionsTexturesQuality;
+CMGTrigger mgRenderingOptionsBumpMaps;
+CMGTrigger mgRenderingOptionsShadowMapsSize;
+CMGTrigger mgRenderingOptionsLensFlares;
+CMGTrigger mgRenderingOptionsGamma;
+CMGTrigger mgRenderingOptionsVSync;
+CMGButton mgRenderingOptionsApply;
+CMGButton mgRenderingOptionsBack;
+
+CTString astrTextureSizeTexts[] = {
+  RADIOTRANS("Tiny"),
+  RADIOTRANS("Small"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("Large"),
+  RADIOTRANS("Huge"),
+};
+
+FlOAT fTextureSizes[] = {
+  6.5f,
+  7.0f,
+  8.0f,
+  8.5f,
+  9.0f,
+};
+
+CTString astrTextureQualityTexts[] = {
+  RADIOTRANS("Optimal"),
+  RADIOTRANS("16-bit"),
+  RADIOTRANS("32-bit"),
+  RADIOTRANS("Compressed"),
+};
+
+CTString astrShadowMapsSizeTexts[] = {
+  RADIOTRANS("Tiny"),
+  RADIOTRANS("Small"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("Large"),
+  RADIOTRANS("Huge"),
+};
+
+FlOAT fShadowMapsSizes[] = {
+  5.0f,
+  6.0f,
+  7.0f,
+  7.5f,
+  8.0f,
+};
+
+CTString astrLensFlaresTexts[] = {
+  RADIOTRANS("Disabled"),
+  RADIOTRANS("Simple"),
+  RADIOTRANS("Standart"),
+};
+
+CTString astrLensFlaresTexts[] = {
+  RADIOTRANS("0.2"),
+  RADIOTRANS("0.5"),
+  RADIOTRANS("0.8"),
+  RADIOTRANS("1"),
+  RADIOTRANS("1.1"),
+  RADIOTRANS("1.3"),
+  RADIOTRANS("1.5"),
+};
+
+FlOAT fGammaValues[] = {
+  0.2f,
+  0.5f,
+  0.8f,
+  1.0f,
+  1.1f,
+  1.3f,
+  1.5f,
+};
+
+
+
 extern void PlayMenuSound(CSoundData *psd)
 {
   if (_psoMenuSound!=NULL && !_psoMenuSound->IsPlaying()) {
@@ -6527,4 +6607,28 @@ void CGameOptionsMenu::StartMenu(void)
 {
   mgGameOptionsBloodTrigger.mg_bEnabled = _gmRunningGameMode == GM_NONE;
   mgGameOptionsGibsTrigger.mg_bEnabled = _gmRunningGameMode == GM_NONE;
+}
+
+// ------------------------ CGameOptionsMenu implementation
+void CRenderingOptionsMenu::Initialize_t(void)
+{
+  
+}
+
+void CRenderingOptionsMenu::StartMenu(void)
+{
+  mgRenderingOptionsTexturesQuality.mg_bEnabled = _pShell->GetINDEX("sys_bHas32bitTextures");
+  mgRenderingOptionsGamma.mg_bEnabled = _pShell->GetINDEX("sys_bHasAdjustableGamma");
+  mgRenderingOptionsVSync.mg_bEnabled = _pShell->GetINDEX("sys_bHasSwapInterval");
+}
+
+void ApplyRenderingSettings(void)
+{
+  _pShell->SetINDEX("tex_iNormalSize", fTextureSizes[mgRenderingOptionsTexturesSize.mg_iSelected]);
+  _pShell->SetINDEX("tex_iNormalQuality", 11 * mgRenderingOptionsTexturesQuality.mg_iSelected);
+  _pShell->SetINDEX("wld_bTextureLayers", 110 + mgRenderingOptionsBumpMaps.mg_iSelected);
+  _pShell->SetINDEX("shd_iStaticSize", fShadowMapsSizes[mgRenderingOptionsShadowMapsSize.mg_iSelected]);
+  _pShell->SetINDEX("gfx_iLensFlareQuality", mgRenderingOptionsLensFlares.mg_iSelected);
+  _pShell->SetFLOAT("gfx_fGamma", mgRenderingOptionsGamma.mg_iSelected);
+  _pShell->SetINDEX("gap_iSwapInterval", mgRenderingOptionsVSync.mg_iSelected);
 }
