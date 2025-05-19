@@ -838,10 +838,6 @@ void DoGame(void)
     Credits_Off();
     sam_iStartCredits = 0;
   }
-  if( _gmRunningGameMode==GM_NONE) {
-    Credits_Off();
-    sam_iStartCredits = 0;
-  }
 
   // redraw the view
   if( !IsIconic(_hwndMain) && pdp!=NULL && pdp->Lock())

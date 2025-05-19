@@ -18,6 +18,7 @@
 #include "MenuPrinting.h"
 #include "LevelInfo.h"
 #include "VarList.h"
+#include "Credits.h"
 
 // macros for translating radio button text arrays
 #define RADIOTRANS(str) ("ETRS" str)
@@ -713,6 +714,10 @@ FLOAT fGammaValues[] = {
   1.3f,
   1.5f,
 };
+
+// -------- Credits menu
+CCreditsMenu gmCreditsMenu;
+CMGButton mgCreditsBack;
 
 extern void PlayMenuSound(CSoundData *psd)
 {
@@ -2019,6 +2024,12 @@ void StartOptionsMenu(void)
   gmOptionsMenu.gm_pgmParentMenu = pgmCurrentMenu;
   ChangeToMenu( &gmOptionsMenu);
 }
+
+void StartCreditsMenu(void)
+{
+  ChangeToMenu(&gmCreditsMenu);
+}
+
 static void ResolutionToSize(INDEX iRes, PIX &pixSizeI, PIX &pixSizeJ)
 {
     //ASSERT(iRes>=0 && iRes<_ctResolutions);
@@ -2503,6 +2514,11 @@ void InitializeMenus(void)
     gmRenderingOptionsMenu.gm_strName = "RenderingOptions";
     gmRenderingOptionsMenu.gm_pmgSelectedByDefault = &mgRenderingOptionsTexturesSize;
     gmRenderingOptionsMenu.gm_pgmParentMenu = &gmVideoOptionsMenu;
+
+    gmCreditsMenu.Initialize_t();
+    gmCreditsMenu.gm_strName = "Credits";
+    gmCreditsMenu.gm_pmgSelectedByDefault = &mgCreditsBack;
+    gmCreditsMenu.gm_pgmParentMenu = &gmMainMenu;
   }
   catch (const char *strError)
   {
@@ -2540,6 +2556,7 @@ void ReInitializeMenus(void)
     gmSplitStartMenu.gm_lhGadgets.Clear();
     gmGameOptionsMenu.gm_lhGadgets.Clear();
     gmRenderingOptionsMenu.gm_lhGadgets.Clear();
+    gmCreditsMenu.gm_lhGadgets.Clear();
 
     // ------------------- Initialize menus
     gmConfirmMenu.Initialize_t();
@@ -2569,6 +2586,7 @@ void ReInitializeMenus(void)
     gmSplitStartMenu.Initialize_t();
     gmGameOptionsMenu.Initialize_t();
     gmRenderingOptionsMenu.Initialize_t();
+    gmCreditsMenu.Initialize_t();
 }
 
 void DestroyMenus( void)
@@ -2772,7 +2790,6 @@ void RenderMouseCursor(CDrawPort *pdp)
   _pGame->LCDDrawPointer(_pixCursorPosI, _pixCursorPosJ);
 }
 
-
 BOOL DoMenu( CDrawPort *pdp)
 {
   pdp->Unlock();
@@ -2954,6 +2971,11 @@ BOOL DoMenu( CDrawPort *pdp)
 
   BOOL bStillInMenus = FALSE;
   _pGame->MenuPreRenderMenu(pgmCurrentMenu->gm_strName);
+
+  if (pgmCurrentMenu == &gmCreditsMenu) {
+    Credits_Render(&dpMenu);
+  }
+
   // for each menu gadget
   FOREACHINLIST( CMenuGadget, mg_lnNode, pgmCurrentMenu->gm_lhGadgets, itmg) {
     // if gadget is visible
@@ -3531,7 +3553,7 @@ void CMainMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(mgMainCredits.mg_lnNode);
   mgMainCredits.mg_pmgUp = &mgMainOptions;
   mgMainCredits.mg_pmgDown = &mgMainQuitGame;
-  mgMainCredits.mg_pActivatedFunction = NULL;
+  mgMainCredits.mg_pActivatedFunction = &StartCreditsMenu;
   mgMainCredits.mg_iCenterI = -1;
 
   mgMainQuitGame.mg_strText = TRANS("QUIT GAME");
@@ -6774,4 +6796,51 @@ void CRenderingOptionsMenu::StartMenu(void)
   mgRenderingOptionsVSync.mg_bEnabled = _pShell->GetINDEX("sys_bHasSwapInterval");
 
   CGameMenu::StartMenu();
+}
+
+// ------------------------ CCreditsMenu implementation
+void CCreditsMenu::Initialize_t(void)
+{
+  // intialize credits menu
+  mgCreditsBack.mg_bfsFontSize = BFS_LARGE;
+  mgCreditsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgCreditsBack.mg_pmgUp = &mgCreditsBack;
+  mgCreditsBack.mg_pmgDown = &mgCreditsBack;
+  mgCreditsBack.mg_strText = TRANS("BACK");
+  mgCreditsBack.mg_strTip = TRANS("Return to main menu");
+  gm_lhGadgets.AddTail(mgCreditsBack.mg_lnNode);
+  mgCreditsBack.mg_pActivatedFunction = &MenuBack;
+  mgCreditsBack.mg_iCenterI = -1;
+}
+
+extern FLOAT fCreditsStartTime;
+extern FLOAT fCreditsTime;
+
+void CCreditsMenu::StartMenu(void)
+{
+  try {
+    soMusic.Play_t(CTFILENAME("Music\\Credits.mp3"), SOF_NONGAME | SOF_MUSIC | SOF_LOOP);
+  }
+  catch (const char* strError) {
+    CPrintF("%s\n", (const char*)strError);
+  }
+
+  _pShell->SetINDEX("ad_iStartCredits", 3);
+  CGameMenu::StartMenu();
+}
+
+void CCreditsMenu::Think(void)
+{
+  if (fCreditsTime > (fCreditsStartTime + 18)) {
+    MenuBack();
+  }
+
+  CGameMenu::Think();
+}
+
+void CCreditsMenu::EndMenu(void)
+{
+  _pShell->SetINDEX("ad_iStartCredits", -1);
+  soMusic.Stop();
+  CGameMenu::EndMenu();
 }

@@ -32,12 +32,13 @@ static FLOAT _fSpeed = 2.0f;
 
 static BOOL _bUseRealTime = FALSE;
 static CTimerValue _tvStart;
-static FLOAT _tmStart;
+FLOAT fCreditsStartTime;
+FLOAT fCreditsTime;
 
 FLOAT GetTime(void)
 {
   if(!_bUseRealTime) {
-    return  _pTimer->GetLerpedCurrentTick()-_tmStart;
+    return  _pTimer->GetLerpedCurrentTick() - fCreditsStartTime;
   } else {
     return (_pTimer->GetHighPrecisionTimer()-_tvStart).GetSeconds();;
   }
@@ -47,7 +48,7 @@ void PrintOneLine(CDrawPort *pdp, const CTString &strText)
 {
   pdp->SetTextScaling( fResolutionScaling);
   pdp->SetTextAspect( 1.0f);
-  pdp->PutTextC( strText, pixW/2, pixJ, C_WHITE|255);
+  pdp->PutText(strText, 4.8f * fResolutionScaling, pixJ, C_WHITE | 255);
   pixJ+=pixLineHeight;
 }
 
@@ -107,7 +108,7 @@ void Credits_On(INDEX iType)
     // remember start time
     if (iType==1 || iType==2) {
       _bUseRealTime = FALSE;
-      _tmStart = _pTimer->GetLerpedCurrentTick();
+      fCreditsStartTime = _pTimer->GetLerpedCurrentTick();
     } else {
       _bUseRealTime = TRUE;
       _tvStart = _pTimer->GetHighPrecisionTimer();
@@ -137,16 +138,16 @@ FLOAT Credits_Render(CDrawPort *pdp)
   pdp->Unlock();
   dpWide.Lock();
 
-  FLOAT fTime = GetTime();
+  fCreditsTime = GetTime();
   
   pixW = dpWide.GetWidth();
   pixH = dpWide.GetHeight();
-  fResolutionScaling = (FLOAT)pixW / 640.0f;
+  fResolutionScaling = (FLOAT)pixH / 480.0f;
   dpWide.SetFont( _pfdDisplayFont);
   pixLineHeight = (PIX) (floor(20*fResolutionScaling));
 
   const FLOAT fLinesPerSecond = _fSpeed;
-  FLOAT fOffset = fTime*fLinesPerSecond;
+  FLOAT fOffset = fCreditsTime * fLinesPerSecond;
   INDEX ctLinesOnScreen = pixH/pixLineHeight;
   INDEX iLine1 = (INDEX) fOffset;
 
