@@ -646,6 +646,74 @@ CTString astrBloodTexts[] = {
   RADIOTRANS("Hippie"),
 };
 
+// -------- Rendering options menu
+CRenderingOptionsMenu gmRenderingOptionsMenu;
+CMGTitle mgRenderingOptionsTitle;
+CMGTrigger mgRenderingOptionsTexturesSize;
+CMGTrigger mgRenderingOptionsTexturesQuality;
+CMGTrigger mgRenderingOptionsBumpMaps;
+CMGTrigger mgRenderingOptionsShadowMapsSize;
+CMGTrigger mgRenderingOptionsLensFlares;
+CMGSlider mgRenderingOptionsGamma;
+CMGTrigger mgRenderingOptionsVSync;
+CMGButton mgRenderingOptionsApply;
+CMGButton mgRenderingOptionsBack;
+
+CTString astrTextureSizeTexts[] = {
+  RADIOTRANS("Tiny"),
+  RADIOTRANS("Small"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("Large"),
+  RADIOTRANS("Huge"),
+};
+
+FLOAT fTextureSizes[] = {
+  6.5f,
+  7.0f,
+  8.0f,
+  8.5f,
+  9.0f,
+};
+
+CTString astrTextureQualityTexts[] = {
+  RADIOTRANS("Optimal"),
+  RADIOTRANS("16-bit"),
+  RADIOTRANS("32-bit"),
+  RADIOTRANS("Compressed"),
+};
+
+CTString astrShadowMapSizeTexts[] = {
+  RADIOTRANS("Tiny"),
+  RADIOTRANS("Small"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("Large"),
+  RADIOTRANS("Huge"),
+};
+
+FLOAT fShadowMapsSizes[] = {
+  5.0f,
+  6.0f,
+  7.0f,
+  7.5f,
+  8.0f,
+};
+
+CTString astrLensFlaresTexts[] = {
+  RADIOTRANS("Disabled"),
+  RADIOTRANS("Simple"),
+  RADIOTRANS("Standart"),
+};
+
+FLOAT fGammaValues[] = {
+  0.2f,
+  0.5f,
+  0.8f,
+  1.0f,
+  1.1f,
+  1.3f,
+  1.5f,
+};
+
 extern void PlayMenuSound(CSoundData *psd)
 {
   if (_psoMenuSound!=NULL && !_psoMenuSound->IsPlaying()) {
@@ -1929,13 +1997,9 @@ void StartGameOptionsFromSplitScreen(void)
   gmVarMenu.gm_pgmParentMenu = &gmSplitStartMenu;
 }
 
-// rendering options var settings
 void StartRenderingOptionsMenu(void)
 {
-  mgVarTitle.mg_strText = TRANS("RENDERING OPTIONS");
-  gmVarMenu.gm_fnmMenuCFG = CTFILENAME("Scripts\\Menu\\RenderingOptions.cfg");
-  gmVarMenu.gm_pgmParentMenu = &gmVideoOptionsMenu;
-  ChangeToMenu( &gmVarMenu);
+  ChangeToMenu(&gmRenderingOptionsMenu);
 }
 
 void StartCustomizeKeyboardMenu(void)
@@ -2297,6 +2361,10 @@ void InitializeMenus(void)
     TRANSLATERADIOARRAY(astrWeapon);
     TRANSLATERADIOARRAY(astrSplitScreenRadioTexts);
     TRANSLATERADIOARRAY(astrBloodTexts);
+    TRANSLATERADIOARRAY(astrTextureSizeTexts);
+    TRANSLATERADIOARRAY(astrTextureQualityTexts);
+    TRANSLATERADIOARRAY(astrShadowMapSizeTexts);
+    TRANSLATERADIOARRAY(astrLensFlaresTexts);
 
     // initialize game type strings table
     InitGameTypes();
@@ -2430,6 +2498,11 @@ void InitializeMenus(void)
     gmGameOptionsMenu.gm_strName = "GameOptions";
     gmGameOptionsMenu.gm_pmgSelectedByDefault = &mgGameOptionsBlood;
     gmGameOptionsMenu.gm_pgmParentMenu = &gmOptionsMenu;
+
+    gmRenderingOptionsMenu.Initialize_t();
+    gmRenderingOptionsMenu.gm_strName = "RenderingOptions";
+    gmRenderingOptionsMenu.gm_pmgSelectedByDefault = &mgRenderingOptionsTexturesSize;
+    gmRenderingOptionsMenu.gm_pgmParentMenu = &gmVideoOptionsMenu;
   }
   catch (const char *strError)
   {
@@ -2466,6 +2539,7 @@ void ReInitializeMenus(void)
     gmSplitScreenMenu.gm_lhGadgets.Clear();
     gmSplitStartMenu.gm_lhGadgets.Clear();
     gmGameOptionsMenu.gm_lhGadgets.Clear();
+    gmRenderingOptionsMenu.gm_lhGadgets.Clear();
 
     // ------------------- Initialize menus
     gmConfirmMenu.Initialize_t();
@@ -2494,6 +2568,7 @@ void ReInitializeMenus(void)
     gmSplitScreenMenu.Initialize_t();
     gmSplitStartMenu.Initialize_t();
     gmGameOptionsMenu.Initialize_t();
+    gmRenderingOptionsMenu.Initialize_t();
 }
 
 void DestroyMenus( void)
@@ -6530,6 +6605,173 @@ void CGameOptionsMenu::StartMenu(void)
 
   mgGameOptionsBlood.mg_bEnabled = _gmRunningGameMode == GM_NONE;
   mgGameOptionsGibs.mg_bEnabled = _gmRunningGameMode == GM_NONE;
+
+  CGameMenu::StartMenu();
+}
+
+// ------------------------ CRenderingOptionsMenu implementation
+void ApplyRenderingSettings(void)
+{
+  _pShell->SetINDEX("tex_iNormalSize", fTextureSizes[mgRenderingOptionsTexturesSize.mg_iSelected]);
+  _pShell->SetINDEX("tex_iNormalQuality", 11 * (mgRenderingOptionsTexturesQuality.mg_iSelected + 1));
+  _pShell->SetINDEX("wld_bTextureLayers", 110 + mgRenderingOptionsBumpMaps.mg_iSelected);
+  _pShell->SetINDEX("shd_iStaticSize", fShadowMapsSizes[mgRenderingOptionsShadowMapsSize.mg_iSelected]);
+  _pShell->SetINDEX("gfx_iLensFlareQuality", mgRenderingOptionsLensFlares.mg_iSelected);
+  _pShell->SetFLOAT("gfx_fGamma", mgRenderingOptionsGamma.mg_iCurPos / 10.0f);
+  _pShell->SetINDEX("gap_iSwapInterval", mgRenderingOptionsVSync.mg_iSelected);
+
+  sam_iVideoSetup = 3;
+  _pShell->Execute("ApplyVideoMode();");
+  _pShell->Execute("RefreshTextures();");
+  _pShell->Execute("RecacheShadows();");
+}
+
+void CRenderingOptionsMenu::Initialize_t(void)
+{
+  // intialize rendering options menu
+  mgRenderingOptionsTitle.mg_boxOnScreen = BoxTitle();
+  mgRenderingOptionsTitle.mg_strText = TRANS("# RENDERING OPTIONS");
+  gm_lhGadgets.AddTail(mgRenderingOptionsTitle.mg_lnNode);
+
+  mgRenderingOptionsTexturesSize.mg_pmgUp = &mgRenderingOptionsBack;
+  mgRenderingOptionsTexturesSize.mg_pmgDown = &mgRenderingOptionsTexturesQuality;
+  mgRenderingOptionsTexturesSize.mg_boxOnScreen = BoxMediumLeft(7.1f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsTexturesSize.mg_lnNode);
+  mgRenderingOptionsTexturesSize.mg_astrTexts = astrTextureSizeTexts;
+  mgRenderingOptionsTexturesSize.mg_ctTexts = ARRAYCOUNT(astrTextureSizeTexts);
+  mgRenderingOptionsTexturesSize.mg_iSelected = 0;
+  mgRenderingOptionsTexturesSize.mg_strLabel = TRANS("Textures size");
+  mgRenderingOptionsTexturesSize.mg_strValue = astrTextureSizeTexts[0];
+  mgRenderingOptionsTexturesSize.mg_strTip = TRANS("Select textures size");
+  mgRenderingOptionsTexturesSize.mg_iCenterI = -1;
+
+  mgRenderingOptionsTexturesQuality.mg_pmgUp = &mgRenderingOptionsTexturesSize;
+  mgRenderingOptionsTexturesQuality.mg_pmgDown = &mgRenderingOptionsBumpMaps;
+  mgRenderingOptionsTexturesQuality.mg_boxOnScreen = BoxMediumLeft(0.1f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsTexturesQuality.mg_lnNode);
+  mgRenderingOptionsTexturesQuality.mg_astrTexts = astrTextureQualityTexts;
+  mgRenderingOptionsTexturesQuality.mg_ctTexts = ARRAYCOUNT(astrTextureQualityTexts);
+  mgRenderingOptionsTexturesQuality.mg_iSelected = 0;
+  mgRenderingOptionsTexturesQuality.mg_strLabel = TRANS("Textures quality");
+  mgRenderingOptionsTexturesQuality.mg_strValue = astrTextureQualityTexts[0];
+  mgRenderingOptionsTexturesQuality.mg_strTip = TRANS("Select textures quality");
+  mgRenderingOptionsTexturesQuality.mg_iCenterI = -1;
+
+  mgRenderingOptionsBumpMaps.mg_pmgUp = &mgRenderingOptionsTexturesQuality;
+  mgRenderingOptionsBumpMaps.mg_pmgDown = &mgRenderingOptionsShadowMapsSize;
+  mgRenderingOptionsBumpMaps.mg_boxOnScreen = BoxMediumLeft(9.1f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsBumpMaps.mg_lnNode);
+  mgRenderingOptionsBumpMaps.mg_astrTexts = astrNoYes;
+  mgRenderingOptionsBumpMaps.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgRenderingOptionsBumpMaps.mg_iSelected = 0;
+  mgRenderingOptionsBumpMaps.mg_strLabel = TRANS("Bump map textures");
+  mgRenderingOptionsBumpMaps.mg_strValue = astrNoYes[0];
+  mgRenderingOptionsBumpMaps.mg_strTip = TRANS("Enable bump map textures");
+  mgRenderingOptionsBumpMaps.mg_iCenterI = -1;
+
+  mgRenderingOptionsShadowMapsSize.mg_pmgUp = &mgRenderingOptionsBumpMaps;
+  mgRenderingOptionsShadowMapsSize.mg_pmgDown = &mgRenderingOptionsLensFlares;
+  mgRenderingOptionsShadowMapsSize.mg_boxOnScreen = BoxMediumLeft(10.1f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsShadowMapsSize.mg_lnNode);
+  mgRenderingOptionsShadowMapsSize.mg_astrTexts = astrShadowMapSizeTexts;
+  mgRenderingOptionsShadowMapsSize.mg_ctTexts = ARRAYCOUNT(astrShadowMapSizeTexts);
+  mgRenderingOptionsShadowMapsSize.mg_iSelected = 0;
+  mgRenderingOptionsShadowMapsSize.mg_strLabel = TRANS("Shadow map textures size");
+  mgRenderingOptionsShadowMapsSize.mg_strValue = astrShadowMapSizeTexts[0];
+  mgRenderingOptionsShadowMapsSize.mg_strTip = TRANS("Select shadow map textures size");
+  mgRenderingOptionsShadowMapsSize.mg_iCenterI = -1;
+
+  mgRenderingOptionsLensFlares.mg_pmgUp = &mgRenderingOptionsShadowMapsSize;
+  mgRenderingOptionsLensFlares.mg_pmgDown = &mgRenderingOptionsGamma;
+  mgRenderingOptionsLensFlares.mg_boxOnScreen = BoxMediumLeft(11.1f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsLensFlares.mg_lnNode);
+  mgRenderingOptionsLensFlares.mg_astrTexts = astrLensFlaresTexts;
+  mgRenderingOptionsLensFlares.mg_ctTexts = ARRAYCOUNT(astrLensFlaresTexts);
+  mgRenderingOptionsLensFlares.mg_iSelected = 0;
+  mgRenderingOptionsLensFlares.mg_strLabel = TRANS("Lens flares");
+  mgRenderingOptionsLensFlares.mg_strValue = astrLensFlaresTexts[0];
+  mgRenderingOptionsLensFlares.mg_strTip = TRANS("Select lens flares rendering type");
+  mgRenderingOptionsLensFlares.mg_iCenterI = -1;
+
+  mgRenderingOptionsGamma.mg_pmgUp = &mgRenderingOptionsLensFlares;
+  mgRenderingOptionsGamma.mg_pmgDown = &mgRenderingOptionsVSync;
+  mgRenderingOptionsGamma.mg_boxOnScreen = BoxMediumLeft(12.1f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsGamma.mg_lnNode);
+  mgRenderingOptionsGamma.mg_iMinPos = 0;
+  mgRenderingOptionsGamma.mg_iMaxPos = 15;
+  mgRenderingOptionsGamma.mg_iCurPos = 0;
+  mgRenderingOptionsGamma.mg_strLabel = TRANS("Gamma correction");
+  mgRenderingOptionsGamma.mg_strTip = TRANS("Select game gamma");
+  mgRenderingOptionsGamma.mg_iCenterI = -1;
+
+  mgRenderingOptionsVSync.mg_pmgUp = &mgRenderingOptionsGamma;
+  mgRenderingOptionsVSync.mg_pmgDown = &mgRenderingOptionsApply;
+  mgRenderingOptionsVSync.mg_boxOnScreen = BoxMediumLeft(13.1f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsVSync.mg_lnNode);
+  mgRenderingOptionsVSync.mg_astrTexts = astrNoYes;
+  mgRenderingOptionsVSync.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgRenderingOptionsVSync.mg_iSelected = 0;
+  mgRenderingOptionsVSync.mg_strLabel = TRANS("Vertical synchronization");
+  mgRenderingOptionsVSync.mg_strValue = astrNoYes[0];
+  mgRenderingOptionsVSync.mg_strTip = TRANS("Synchronize frame rate with monitor refresh rate");
+  mgRenderingOptionsVSync.mg_iCenterI = -1;
+
+  mgRenderingOptionsApply.mg_bfsFontSize = BFS_LARGE;
+  mgRenderingOptionsApply.mg_boxOnScreen = BoxBigLeft(8.5f);
+  mgRenderingOptionsApply.mg_pmgUp = &mgRenderingOptionsVSync;
+  mgRenderingOptionsApply.mg_pmgDown = &mgRenderingOptionsBack;
+  mgRenderingOptionsApply.mg_strText = TRANS("APPLY");
+  mgRenderingOptionsApply.mg_strTip = TRANS("Apply rendering settings");
+  gm_lhGadgets.AddTail(mgRenderingOptionsApply.mg_lnNode);
+  mgRenderingOptionsApply.mg_pActivatedFunction = &ApplyRenderingSettings;
+  mgRenderingOptionsApply.mg_iCenterI = -1;
+
+  mgRenderingOptionsBack.mg_bfsFontSize = BFS_LARGE;
+  mgRenderingOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgRenderingOptionsBack.mg_pmgUp = &mgRenderingOptionsApply;
+  mgRenderingOptionsBack.mg_pmgDown = &mgRenderingOptionsTexturesSize;
+  mgRenderingOptionsBack.mg_strText = TRANS("BACK");
+  mgRenderingOptionsBack.mg_strTip = TRANS("Return to video options menu");
+  gm_lhGadgets.AddTail(mgRenderingOptionsBack.mg_lnNode);
+  mgRenderingOptionsBack.mg_pActivatedFunction = &MenuBack;
+  mgRenderingOptionsBack.mg_iCenterI = -1;
+}
+
+INDEX FindFloatValueInArray(FLOAT Arr[], INDEX Len, FLOAT Val)
+{
+  BOOL found = FALSE;
+  INDEX i;
+
+  for (i = 0; i < Len; i++)
+  {
+    if (Arr[i] == Val)
+    {
+        found = TRUE;
+        break;
+    }
+  }
+
+  return i;
+}
+
+void GetRenderingSettings(void)
+{
+  mgRenderingOptionsTexturesSize.mg_iSelected = FindFloatValueInArray(fTextureSizes, ARRAYCOUNT(fTextureSizes), _pShell->GetINDEX("tex_iNormalSize"));
+  mgRenderingOptionsTexturesQuality.mg_iSelected = (_pShell->GetINDEX("tex_iNormalQuality") / 11) - 1;
+  mgRenderingOptionsBumpMaps.mg_iSelected = _pShell->GetINDEX("wld_bTextureLayers") - 110;
+  mgRenderingOptionsShadowMapsSize.mg_iSelected = FindFloatValueInArray(fShadowMapsSizes, ARRAYCOUNT(fShadowMapsSizes), _pShell->GetINDEX("shd_iStaticSize"));
+  mgRenderingOptionsLensFlares.mg_iSelected = _pShell->GetINDEX("gfx_iLensFlareQuality");
+  mgRenderingOptionsGamma.mg_iCurPos = _pShell->GetFLOAT("gfx_fGamma") * 10.0f;
+  mgRenderingOptionsVSync.mg_iSelected = _pShell->GetINDEX("gap_iSwapInterval");
+}
+
+void CRenderingOptionsMenu::StartMenu(void)
+{
+  GetRenderingSettings();
+
+  mgRenderingOptionsTexturesQuality.mg_bEnabled = _pShell->GetINDEX("sys_bHas32bitTextures");
+  mgRenderingOptionsGamma.mg_bEnabled = _pShell->GetINDEX("sys_bHasAdjustableGamma");
+  mgRenderingOptionsVSync.mg_bEnabled = _pShell->GetINDEX("sys_bHasSwapInterval");
 
   CGameMenu::StartMenu();
 }

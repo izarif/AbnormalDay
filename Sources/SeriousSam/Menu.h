@@ -276,7 +276,6 @@ public:
 class CRenderingOptionsMenu : public CGameMenu {
 public:
   void StartMenu(void);
-  void EndMenu(void);
   void Initialize_t(void);
 };
 
