@@ -15,17 +15,6 @@ extern CSoundData *_psdSelect;
 
 CMenuGadget *_pmgLastActivatedGadget = NULL;
 
-//##############################################################################################################################3
-//##############################################################################################################################3
-//##############################################################################################################################3
-__extern FLOAT _fGlobalTopAdjuster = 0.15f;
-__extern FLOAT _fGlobalInfoAdjuster = 0.05f;
-__extern FLOAT _fGlobalProfileFOVAdjuster = 90.0f;
-ENGINE_API extern FLOAT _fWeaponFOVAdjuster;
-//##############################################################################################################################3
-//##############################################################################################################################3
-//##############################################################################################################################3
-
 extern CSoundData *_psdPress;
 extern PIX  _pixCursorPosI;
 extern PIX  _pixCursorPosJ;
@@ -350,8 +339,7 @@ void CMGModel::Render( CDrawPort *pdp)
   // prepare projection
   CRenderModel rmRenderModel;
   CPerspectiveProjection3D pr;
-  //pr.FOVL() = sam_bWideScreen ? AngleDeg(45.0f) : AngleDeg(30.0f);
-  pr.FOVL() = AngleDeg(_fGlobalProfileFOVAdjuster);
+  pr.FOVL() = sam_bWideScreen ? AngleDeg(45.0f) : AngleDeg(30.0f);
 
   pr.ScreenBBoxL() = FLOATaabbox2D(
     FLOAT2D(0.0f, 0.0f),
@@ -1279,7 +1267,7 @@ void CMGFileButton::Render( CDrawPort *pdp)
     PIX pixJ = box.Min()(2);
 
     COLOR col = _pGame->LCDGetColor(C_mlGREEN|255, "file info");
-    pdp->PutText( mg_strInfo, pixI, pixJ * _fGlobalInfoAdjuster, col);
+    pdp->PutText( mg_strInfo, pixI, pixJ, col);
   }
 }
 
@@ -1452,7 +1440,7 @@ void CMGServerList::Render(CDrawPort *pdp)
   apixSeparatorI[1] = apixSeparatorI[2]-pixSizeMapName-pixLineSize;
   //PIX pixSizeServerName = apixSeparatorI[1]-apixSeparatorI[0]-pixLineSize;
 
-  PIX pixTopJ = (PIX) (pixDPSizeJ * _fGlobalTopAdjuster);
+  PIX pixTopJ = (PIX) (pixDPSizeJ*0.15f);
   PIX pixBottomJ = (PIX) (pixDPSizeJ*0.82f);
 
   PIX pixFilterTopJ = (PIX) (pixTopJ+pixLineSize*3+pixCharSizeJ+pixLineSize*3);
