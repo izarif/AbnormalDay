@@ -30,27 +30,7 @@ extern BOOL bMenuRendering;
 extern CTextureObject *_ptoLogoCT;
 extern CTextureObject *_ptoLogoODI;
 extern CTextureObject *_ptoLogoEAX;
-//##############################################################################################################################3
-__extern FLOAT _fMenuPlayerProfileAdjuster = 0.35f;
 
-__extern FLOAT _fGlobalListAdjuster = 0.7f;
-__extern FLOAT _fGlobalTipAdjuster  = 0.90f;
-__extern FLOAT _fGlobalProfileAdjuster = 0.95f;
-__extern FLOAT _fGlobalModAdjuster = 0.75f;
-__extern FLOAT _fGlobalOptionsAdjuster = 0.75f;
-__extern FLOAT _fGlobalButtonAdjuster  = 1.0f;
-
-
-extern FLOAT _fBigStartJ; 			//Position of contents below large font title
-extern FLOAT _fNoUpStartJ;			//Postiion of contents without large font title
-extern FLOAT _fNoDownStartJ;
-
-extern FLOAT _fBigSizeJ;
-extern FLOAT _fMediumSizeJ;
-
-//##############################################################################################################################3
-//##############################################################################################################################3
-//##############################################################################################################################3
 INDEX _iLocalPlayer = -1;
 BOOL  _bPlayerMenuFromSinglePlayer = FALSE;
 
@@ -2526,69 +2506,6 @@ void InitializeMenus(void)
   }
 }
 
-void ReInitializeMenus(void)
-{
-    // ------------------- Initialize menus
-    gmConfirmMenu.gm_lhGadgets.Clear();
-    gmMainMenu.gm_lhGadgets.Clear();
-    gmInGameMenu.gm_lhGadgets.Clear();
-    gmSinglePlayerMenu.gm_lhGadgets.Clear();
-    gmSinglePlayerNewMenu.gm_lhGadgets.Clear();
-    gmDisabledFunction.gm_lhGadgets.Clear();
-    gmPlayerProfile.gm_lhGadgets.Clear();
-    gmControls.gm_lhGadgets.Clear();
-    gmLoadSaveMenu.gm_lhGadgets.Clear();
-    gmHighScoreMenu.gm_lhGadgets.Clear();
-    gmCustomizeKeyboardMenu.gm_lhGadgets.Clear();
-    gmCustomizeAxisMenu.gm_lhGadgets.Clear();
-    gmOptionsMenu.gm_lhGadgets.Clear();
-    gmVideoOptionsMenu.gm_lhGadgets.Clear();
-    gmAudioOptionsMenu.gm_lhGadgets.Clear();
-    gmLevelsMenu.gm_lhGadgets.Clear();
-    gmVarMenu.gm_lhGadgets.Clear();
-    gmServersMenu.gm_lhGadgets.Clear();
-    gmNetworkMenu.gm_lhGadgets.Clear();
-    gmNetworkStartMenu.gm_lhGadgets.Clear();
-    gmNetworkJoinMenu.gm_lhGadgets.Clear();
-    gmSelectPlayersMenu.gm_lhGadgets.Clear();
-    gmNetworkOpenMenu.gm_lhGadgets.Clear();
-    gmSplitScreenMenu.gm_lhGadgets.Clear();
-    gmSplitStartMenu.gm_lhGadgets.Clear();
-    gmGameOptionsMenu.gm_lhGadgets.Clear();
-    gmRenderingOptionsMenu.gm_lhGadgets.Clear();
-    gmCreditsMenu.gm_lhGadgets.Clear();
-
-    // ------------------- Initialize menus
-    gmConfirmMenu.Initialize_t();
-    gmMainMenu.Initialize_t();
-    gmInGameMenu.Initialize_t();
-    gmSinglePlayerMenu.Initialize_t();
-    gmSinglePlayerNewMenu.Initialize_t();
-    gmDisabledFunction.Initialize_t();
-    gmPlayerProfile.Initialize_t();
-    gmControls.Initialize_t();
-    gmLoadSaveMenu.Initialize_t();
-    gmHighScoreMenu.Initialize_t();
-    gmCustomizeKeyboardMenu.Initialize_t();
-    gmCustomizeAxisMenu.Initialize_t();
-    gmOptionsMenu.Initialize_t();
-    gmVideoOptionsMenu.Initialize_t();
-    gmAudioOptionsMenu.Initialize_t();
-    gmLevelsMenu.Initialize_t();
-    gmVarMenu.Initialize_t();
-    gmServersMenu.Initialize_t();
-    gmNetworkMenu.Initialize_t();
-    gmNetworkStartMenu.Initialize_t();
-    gmNetworkJoinMenu.Initialize_t();
-    gmSelectPlayersMenu.Initialize_t();
-    gmNetworkOpenMenu.Initialize_t();
-    gmSplitScreenMenu.Initialize_t();
-    gmSplitStartMenu.Initialize_t();
-    gmGameOptionsMenu.Initialize_t();
-    gmRenderingOptionsMenu.Initialize_t();
-    gmCreditsMenu.Initialize_t();
-}
-
 void DestroyMenus( void)
 {
   gmMainMenu.Destroy();
@@ -3964,7 +3881,7 @@ void CPlayerProfileMenu::Initialize_t(void)
 #define ADD_SELECT_PLAYER_MG( index, mg, mgprev, mgnext, me)\
   mg.mg_iIndex = index;\
   mg.mg_bfsFontSize = BFS_MEDIUM;\
-  mg.mg_boxOnScreen = BoxNoUp(index, _fGlobalProfileAdjuster + _fMenuPlayerProfileAdjuster );\
+  mg.mg_boxOnScreen = BoxNoUp(index);\
   mg.mg_bRectangle = TRUE;\
   mg.mg_pmgLeft = &mgprev;\
   mg.mg_pmgRight = &mgnext;\
@@ -6338,7 +6255,7 @@ void CSelectPlayersMenu::Initialize_t(void)
 
   /*  // options button
   mgSplitOptions.mg_strText = TRANS("Game options");
-  mgSplitOptions.mg_boxOnScreen = BoxMediumRow(3, _fGlobalModAdjuster);
+  mgSplitOptions.mg_boxOnScreen = BoxMediumRow(3);
   mgSplitOptions.mg_bfsFontSize = BFS_MEDIUM;
   mgSplitOptions.mg_iCenterI = 0;
   mgSplitOptions.mg_pmgUp = &mgSplitLevel;
@@ -6349,7 +6266,7 @@ void CSelectPlayersMenu::Initialize_t(void)
 
 /*  // start button
   mgSplitStartStart.mg_bfsFontSize = BFS_LARGE;
-  mgSplitStartStart.mg_boxOnScreen = BoxBigRow(4, _fGlobalButtonAdjuster);
+  mgSplitStartStart.mg_boxOnScreen = BoxBigRow(4);
   mgSplitStartStart.mg_pmgUp = &mgSplitOptions;
   mgSplitStartStart.mg_pmgDown = &mgSplitGameType;
   mgSplitStartStart.mg_strText = TRANS("START");
