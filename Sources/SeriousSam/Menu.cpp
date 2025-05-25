@@ -1005,7 +1005,7 @@ void StopConfirm(void)
   extern void StopCurrentGame(void);
   _pConfimedYes = &StopCurrentGame;
   _pConfimedNo = NULL;
-  mgConfirmLabel.mg_strText = TRANS("ARE YOU SERIOUS?");
+  mgConfirmLabel.mg_strText = TRANS("ARE YOU SURE?");
   gmConfirmMenu.gm_pgmParentMenu = pgmCurrentMenu;
   gmConfirmMenu.BeLarge();
   ChangeToMenu( &gmConfirmMenu);
@@ -1082,7 +1082,7 @@ void VideoConfirm(void)
   void RevertVideoSettings(void);
   _pConfimedNo = RevertVideoSettings;
 
-  mgConfirmLabel.mg_strText = TRANS("KEEP THIS SETTING?");
+  mgConfirmLabel.mg_strText = TRANS("KEEP THIS SETTINGS?");
   gmConfirmMenu.gm_pgmParentMenu = pgmCurrentMenu;
   gmConfirmMenu.BeLarge();
   ChangeToMenu( &gmConfirmMenu);
@@ -3376,7 +3376,7 @@ void CConfirmMenu::Initialize_t(void)
   mgConfirmLabel.mg_strText = "";
   gm_lhGadgets.AddTail(mgConfirmLabel.mg_lnNode);
   mgConfirmLabel.mg_boxOnScreen = BoxPopupLabel();
-  mgConfirmLabel.mg_iCenterI = 0;
+  mgConfirmLabel.mg_iCenterI = -1;
   mgConfirmLabel.mg_bfsFontSize = BFS_LARGE;
   
   mgConfirmYes.mg_strText = TRANS("YES");
@@ -3385,7 +3385,7 @@ void CConfirmMenu::Initialize_t(void)
   mgConfirmYes.mg_pActivatedFunction = &ConfirmYes;
   mgConfirmYes.mg_pmgLeft =
   mgConfirmYes.mg_pmgRight = &mgConfirmNo;
-  mgConfirmYes.mg_iCenterI = 1;
+  mgConfirmYes.mg_iCenterI = -1;
   mgConfirmYes.mg_bfsFontSize = BFS_LARGE;
 
   mgConfirmNo.mg_strText = TRANS("NO");
