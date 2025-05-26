@@ -3489,7 +3489,7 @@ void CInGameMenu::Initialize_t(void)
 {
   // intialize main menu
   mgInGameTitle.mg_strText = TRANS("# GAME");
-  mgInGameTitle.mg_boxOnScreen = BoxTitle();
+  mgInGameTitle.mg_boxOnScreen = BoxTitle(3.65f);
   gm_lhGadgets.AddTail(mgInGameTitle.mg_lnNode);
 
   mgInGameResumeGame.mg_strText = TRANS("RESUME GAME");
@@ -3557,7 +3557,7 @@ void CSinglePlayerMenu::Initialize_t(void)
 {
   // intialize single player menu
   mgSingleTitle.mg_strText = TRANS("SINGLE PLAYER");
-  mgSingleTitle.mg_boxOnScreen = BoxTitle();
+  mgSingleTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail( mgSingleTitle.mg_lnNode);
 
   mgSinglePlayerLabel.mg_boxOnScreen = BoxBigRow(0.0f);
@@ -3693,7 +3693,7 @@ void CSinglePlayerNewMenu::Initialize_t(void)
 {
   // intialize single player new menu
   mgSingleNewTitle.mg_strText = TRANS("NEW GAME");
-  mgSingleNewTitle.mg_boxOnScreen = BoxTitle();
+  mgSingleNewTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail( mgSingleNewTitle.mg_lnNode);
 
   mgSingleNewTourist.mg_strText = TRANS("TOURIST");
@@ -3768,7 +3768,7 @@ void CSinglePlayerNewMenu::StartMenu(void)
 
 void CDisabledMenu::Initialize_t(void)
 {
-  mgDisabledTitle.mg_boxOnScreen = BoxTitle();
+  mgDisabledTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail( mgDisabledTitle.mg_lnNode);
 
   mgDisabledMenuButton.mg_bfsFontSize = BFS_MEDIUM;
@@ -3867,7 +3867,7 @@ void CPlayerProfileMenu::Initialize_t(void)
 {
   // intialize player and controls menu
   _bPlayerMenuFromSinglePlayer = FALSE;
-  mgPlayerProfileTitle.mg_boxOnScreen = BoxTitle();
+  mgPlayerProfileTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgPlayerProfileTitle.mg_strText = TRANS("PLAYER PROFILE");
   gm_lhGadgets.AddTail( mgPlayerProfileTitle.mg_lnNode);
 
@@ -4156,7 +4156,7 @@ void CPlayerProfileMenu::EndMenu(void)
 void CControlsMenu::Initialize_t(void)
 {
   // intialize controls menu
-  mgControlsTitle.mg_boxOnScreen = BoxTitle();
+  mgControlsTitle.mg_boxOnScreen = BoxTitle(2.93f);
   mgControlsTitle.mg_strText = TRANS("# CONTROLS");
   gm_lhGadgets.AddTail(mgControlsTitle.mg_lnNode);
 
@@ -4330,7 +4330,7 @@ void CLoadSaveMenu::Initialize_t(void)
 {
   gm_pgmNextMenu = NULL;
 
-  mgLoadSaveTitle.mg_boxOnScreen = BoxTitle();
+  mgLoadSaveTitle.mg_boxOnScreen = BoxTitle(0.9f);
   gm_lhGadgets.AddTail(mgLoadSaveTitle.mg_lnNode);
 
   for (INDEX iLabel = 0; iLabel < SAVELOAD_BUTTONS_CT; iLabel++)
@@ -4577,7 +4577,7 @@ void CHighScoreMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgHScore.mg_lnNode);
 
   mgHighScoreTitle.mg_strText = TRANS("HIGH SCORE TABLE");
-  mgHighScoreTitle.mg_boxOnScreen = BoxTitle();
+  mgHighScoreTitle.mg_boxOnScreen = BoxTitle(0.0f);
   gm_lhGadgets.AddTail( mgHighScoreTitle.mg_lnNode);
 }
 
@@ -4628,7 +4628,7 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
 {
   // intialize Audio options menu
   mgCustomizeKeyboardTitle.mg_strText = TRANS("# CUSTOMIZE KEYS");
-  mgCustomizeKeyboardTitle.mg_boxOnScreen = BoxTitle();
+  mgCustomizeKeyboardTitle.mg_boxOnScreen = BoxTitle(0.9f);
   gm_lhGadgets.AddTail(mgCustomizeKeyboardTitle.mg_lnNode);
 
 #define KL_START 3.0f
@@ -4711,7 +4711,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
 {
   // intialize axis menu
   mgCustomizeAxisTitle.mg_strText = TRANS("# CUSTOMIZE AXIS");
-  mgCustomizeAxisTitle.mg_boxOnScreen = BoxTitle();
+  mgCustomizeAxisTitle.mg_boxOnScreen = BoxTitle(3.47f);
   gm_lhGadgets.AddTail(mgCustomizeAxisTitle.mg_lnNode);
 
   mgAxisActionTrigger.mg_pmgUp = &mgAxisSmoothTrigger;
@@ -4900,7 +4900,7 @@ void CCustomizeAxisMenu::EndMenu(void)
 void COptionsMenu::Initialize_t(void)
 {
   // intialize options menu
-  mgOptionsTitle.mg_boxOnScreen = BoxTitle();
+  mgOptionsTitle.mg_boxOnScreen = BoxTitle(3.65f);
   mgOptionsTitle.mg_strText = TRANS("# OPTIONS");
   gm_lhGadgets.AddTail(mgOptionsTitle.mg_lnNode);
 
@@ -5205,7 +5205,7 @@ static void InitVideoOptionsButtons(void)
 void CVideoOptionsMenu::Initialize_t(void)
 {
   // intialize video options menu
-  mgVideoOptionsTitle.mg_boxOnScreen = BoxTitle();
+  mgVideoOptionsTitle.mg_boxOnScreen = BoxTitle(1.6f);
   mgVideoOptionsTitle.mg_strText = TRANS("# VIDEO");
   gm_lhGadgets.AddTail(mgVideoOptionsTitle.mg_lnNode);
 
@@ -5395,7 +5395,7 @@ static void OnMPEGVolumeChange(INDEX iCurPos)
 void CAudioOptionsMenu::Initialize_t(void)
 {
   // intialize audio options menu
-  mgAudioOptionsTitle.mg_boxOnScreen = BoxTitle();
+  mgAudioOptionsTitle.mg_boxOnScreen = BoxTitle(3.65f);
   mgAudioOptionsTitle.mg_strText = TRANS("# AUDIO");
   gm_lhGadgets.AddTail(mgAudioOptionsTitle.mg_lnNode);
 
@@ -5521,7 +5521,7 @@ void CLevelsMenu::FillListItems(void)
 
 void CLevelsMenu::Initialize_t(void)
 {
-  mgLevelsTitle.mg_boxOnScreen = BoxTitle();
+  mgLevelsTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgLevelsTitle.mg_strText = TRANS("CHOOSE LEVEL");
   gm_lhGadgets.AddTail( mgLevelsTitle.mg_lnNode);
 
@@ -5584,7 +5584,7 @@ void VarApply(void)
 
 void CVarMenu::Initialize_t(void)
 {
-  mgVarTitle.mg_boxOnScreen = BoxTitle();
+  mgVarTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgVarTitle.mg_strText = "";
   gm_lhGadgets.AddTail( mgVarTitle.mg_lnNode);
 
@@ -5732,7 +5732,7 @@ void SortByVer(void)    { SortByColumn(6); }
 
 void CServersMenu::Initialize_t(void)
 {
-  mgServersTitle.mg_boxOnScreen = BoxTitle();
+  mgServersTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgServersTitle.mg_strText = TRANS("CHOOSE SERVER");
   gm_lhGadgets.AddTail( mgServersTitle.mg_lnNode);
 
@@ -5812,7 +5812,7 @@ void CServersMenu::StartMenu(void)
 void CNetworkMenu::Initialize_t(void)
 {
   // intialize network menu
-  mgNetworkTitle.mg_boxOnScreen = BoxTitle();
+  mgNetworkTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgNetworkTitle.mg_strText = TRANS("NETWORK");
   gm_lhGadgets.AddTail( mgNetworkTitle.mg_lnNode);
 
@@ -5869,7 +5869,7 @@ void UpdateNetworkLevel(INDEX iDummy)
 void CNetworkJoinMenu::Initialize_t(void)
 {
   // title
-  mgNetworkJoinTitle.mg_boxOnScreen = BoxTitle();
+  mgNetworkJoinTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgNetworkJoinTitle.mg_strText = TRANS("JOIN GAME");
   gm_lhGadgets.AddTail( mgNetworkJoinTitle.mg_lnNode);
 
@@ -5905,7 +5905,7 @@ void CNetworkJoinMenu::Initialize_t(void)
 void CNetworkStartMenu::Initialize_t(void)
 {
   // title
-  mgNetworkStartTitle.mg_boxOnScreen = BoxTitle();
+  mgNetworkStartTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgNetworkStartTitle.mg_strText = TRANS("START SERVER");
   gm_lhGadgets.AddTail( mgNetworkStartTitle.mg_lnNode);
 
@@ -6211,7 +6211,7 @@ void UpdateSelectPlayers(INDEX i)
 void CSelectPlayersMenu::Initialize_t(void)
 {
   // intialize split screen menu
-  mgSelectPlayerTitle.mg_boxOnScreen = BoxTitle();
+  mgSelectPlayerTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgSelectPlayerTitle.mg_strText = TRANS("SELECT PLAYERS");
   gm_lhGadgets.AddTail( mgSelectPlayerTitle.mg_lnNode);
 
@@ -6297,7 +6297,7 @@ CTString _strPort;
 void CNetworkOpenMenu::Initialize_t(void)
 {
   // intialize network join menu
-  mgNetworkOpenTitle.mg_boxOnScreen = BoxTitle();
+  mgNetworkOpenTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgNetworkOpenTitle.mg_strText = TRANS("JOIN");
   gm_lhGadgets.AddTail( mgNetworkOpenTitle.mg_lnNode);
 
@@ -6356,7 +6356,7 @@ void CNetworkOpenMenu::EndMenu(void)
 void CSplitScreenMenu::Initialize_t(void)
 {
   // intialize split screen menu
-  mgSplitScreenTitle.mg_boxOnScreen = BoxTitle();
+  mgSplitScreenTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgSplitScreenTitle.mg_strText = TRANS("SPLIT SCREEN");
   gm_lhGadgets.AddTail( mgSplitScreenTitle.mg_lnNode);
 
@@ -6405,7 +6405,7 @@ void UpdateSplitLevel(INDEX iDummy)
 void CSplitStartMenu::Initialize_t(void)
 {
   // intialize split screen menu
-  mgSplitStartTitle.mg_boxOnScreen = BoxTitle();
+  mgSplitStartTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgSplitStartTitle.mg_strText = TRANS("START SPLIT SCREEN");
   gm_lhGadgets.AddTail( mgSplitStartTitle.mg_lnNode);
 
@@ -6491,7 +6491,7 @@ void ChangeGibbing(INDEX iNew)
 void CGameOptionsMenu::Initialize_t(void)
 {
   // intialize game options menu
-  mgGameOptionsTitle.mg_boxOnScreen = BoxTitle();
+  mgGameOptionsTitle.mg_boxOnScreen = BoxTitle(6.03f);
   mgGameOptionsTitle.mg_strText = TRANS("# GAME OPTIONS");
   gm_lhGadgets.AddTail(mgGameOptionsTitle.mg_lnNode);
 
@@ -6568,7 +6568,7 @@ void ApplyRenderingSettings(void)
 void CRenderingOptionsMenu::Initialize_t(void)
 {
   // intialize rendering options menu
-  mgRenderingOptionsTitle.mg_boxOnScreen = BoxTitle();
+  mgRenderingOptionsTitle.mg_boxOnScreen = BoxTitle(0.0f);
   mgRenderingOptionsTitle.mg_strText = TRANS("# RENDERING OPTIONS");
   gm_lhGadgets.AddTail(mgRenderingOptionsTitle.mg_lnNode);
 
