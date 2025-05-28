@@ -16,6 +16,8 @@ static const FLOAT _fNoUpStartJ = 0.24f;
 static const FLOAT _fNoDownStartJ = 0.44f;
 static const FLOAT _fNoSizeJ = 0.04f;
 
+static const FLOAT _fPadding = 0.01f;
+
 FLOATaabbox2D BoxTitle(FLOAT fRow)
 {
   return FLOATaabbox2D(
@@ -41,12 +43,14 @@ FLOATaabbox2D BoxBigRow(FLOAT fRow)
     FLOAT2D(0.1f, _fBigStartJ+fRow*_fBigSizeJ),
     FLOAT2D(0.9f, _fBigStartJ+(fRow+1)*_fBigSizeJ));
 }
+
 FLOATaabbox2D BoxBigLeft(FLOAT fRow)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.1f, _fBigStartJ+fRow*_fBigSizeJ),
-    FLOAT2D(0.45f, _fBigStartJ+(fRow+1)*_fBigSizeJ));
+    FLOAT2D(_fPadding, _fBigStartJ + fRow * _fBigSizeJ),
+    FLOAT2D(1 - _fPadding, _fBigStartJ + (fRow + 1) * _fBigSizeJ));
 }
+
 FLOATaabbox2D BoxBigRight(FLOAT fRow)
 {
   return FLOATaabbox2D(
