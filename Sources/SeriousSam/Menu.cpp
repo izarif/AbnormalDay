@@ -2325,7 +2325,7 @@ void InitializeMenus(void)
 
     // initialize and load menu textures
     _toPointer.SetData_t( CTFILENAME( "Textures\\General\\Pointer.tex"));
-    _toLogoMenuA.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256a.tex"));
+    _toLogoMenuA.SetData_t(CTFILENAME("Textures\\Logo\\Menu.tex"));
     _toLogoMenuB.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256b.tex"));
   }
   catch (const char *strError) {
@@ -2799,15 +2799,13 @@ BOOL DoMenu( CDrawPort *pdp)
       } 
       
       {
-        FLOAT fResize = Min(dpMenu.GetWidth()/640.0f, dpMenu.GetHeight()/480.0f);
-        PIX pixSizeI = (PIX) (256*fResize);
-        PIX pixSizeJ = (PIX) (64*fResize);
-        PIX pixCenterI = (PIX) (dpMenu.GetWidth()/2);
-        PIX pixHeightJ = (PIX) (10*fResize);
-        dpMenu.PutTexture(&_toLogoMenuA, PIXaabbox2D( 
-          PIX2D( pixCenterI-pixSizeI, pixHeightJ),PIX2D( pixCenterI, pixHeightJ+pixSizeJ)));
-        dpMenu.PutTexture(&_toLogoMenuB, PIXaabbox2D( 
-          PIX2D( pixCenterI, pixHeightJ),PIX2D( pixCenterI+pixSizeI, pixHeightJ+pixSizeJ)));
+        FLOAT fResize = Min(dpMenu.GetWidth() / 640.0f, dpMenu.GetHeight() / 480.0f);
+        PIX pixSizeI = (PIX)(256 * fResize);
+        PIX pixSizeJ = (PIX)(128 * fResize);
+        PIX pixWidthI = (PIX)(6 * fResize);
+        PIX pixHeightJ = (PIX)(190 * fResize);
+        dpMenu.PutTexture(&_toLogoMenuA, PIXaabbox2D(
+          PIX2D(pixWidthI, pixHeightJ), PIX2D(pixWidthI + pixSizeI, pixHeightJ + pixSizeJ)));
       }
 
     } else if (pgmCurrentMenu==&gmAudioOptionsMenu) {
