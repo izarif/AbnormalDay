@@ -330,6 +330,7 @@ CMGButton mgConfirmNo;
 
 // -------- Main menu
 CMainMenu gmMainMenu;
+CMGButton mgMainVersionLabel;
 CMGButton mgMainNewGame;
 CMGButton mgMainLoadGame;
 CMGButton mgMainOptions;
@@ -3456,6 +3457,14 @@ BOOL CConfirmMenu::OnKeyDown(int iVKey)
 void CMainMenu::Initialize_t(void)
 {
   // intialize main menu
+  extern CTString sam_strVersion;
+  mgMainVersionLabel.mg_strText = sam_strVersion;
+  mgMainVersionLabel.mg_boxOnScreen = BoxVersion();
+  mgMainVersionLabel.mg_bfsFontSize = BFS_MEDIUM;
+  mgMainVersionLabel.mg_iCenterI = -1;
+  mgMainVersionLabel.mg_bEnabled = FALSE;
+  mgMainVersionLabel.mg_bLabel = TRUE;
+  gm_lhGadgets.AddTail(mgMainVersionLabel.mg_lnNode);
 
   mgMainNewGame.mg_strText = TRANS("NEW GAME");
   mgMainNewGame.mg_bfsFontSize = BFS_LARGE;
