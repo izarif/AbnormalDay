@@ -182,6 +182,11 @@ static CTextureObject _toPointer;
 static CTextureObject _toLogoMenuA;
 static CTextureObject _toLogoMenuB;
 
+static CTextureObject _toDefaultMenuBack;
+static CTextureObject _toMainMenuBack;
+static CTextureObject _toCreditsMenuBack;
+static CTextureObject *_ptoMenuBack;
+
 // -------------- All possible menu entities
 #define BIG_BUTTONS_CT 6
 #define SAVELOAD_BUTTONS_CT 10
@@ -2327,6 +2332,10 @@ void InitializeMenus(void)
     _toPointer.SetData_t( CTFILENAME( "Textures\\General\\Pointer.tex"));
     _toLogoMenuA.SetData_t(CTFILENAME("Textures\\Logo\\Menu.tex"));
     _toLogoMenuB.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256b.tex"));
+
+    _toDefaultMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MenuBack.tex"));
+    _toMainMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MainMenuBack.tex"));
+    _toCreditsMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\CreditsMenuBack.tex"));
   }
   catch (const char *strError) {
     FatalError( strError);
@@ -2334,6 +2343,10 @@ void InitializeMenus(void)
   // force logo textures to be of maximal size
   ((CTextureData*)_toLogoMenuA.GetData())->Force(TEX_CONSTANT);
   ((CTextureData*)_toLogoMenuB.GetData())->Force(TEX_CONSTANT);
+
+  ((CTextureData*)_toDefaultMenuBack.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)_toMainMenuBack.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)_toCreditsMenuBack.GetData())->Force(TEX_CONSTANT);
 
   // menu's relative placement
   //CPlacement3D plRelative = CPlacement3D( FLOAT3D( 0.0f, 0.0f, -9.0f),
@@ -2763,13 +2776,26 @@ BOOL DoMenu( CDrawPort *pdp)
     _pGame->LCDSetDrawport(&dpMenu);
     // do not allow game to show through
     dpMenu.Fill(C_BLACK|255);
-    _pGame->LCDRenderClouds1();
-    _pGame->LCDRenderGrid();
-    _pGame->LCDRenderClouds2();
 
     FLOAT fScaleW = (FLOAT)pixW / 640.0f;
     FLOAT fScaleH = (FLOAT)pixH / 480.0f;
     PIX   pixI0, pixJ0, pixI1, pixJ1;
+
+    if (pgmCurrentMenu == &gmMainMenu)
+    {
+      _ptoMenuBack = &_toMainMenuBack;
+    }
+    else if (pgmCurrentMenu == &gmCreditsMenu)
+    {
+      _ptoMenuBack = &_toCreditsMenuBack;
+    }
+    else
+    {
+      _ptoMenuBack = &_toDefaultMenuBack;
+    }
+
+    dpMenu.PutTexture(_ptoMenuBack, PIXaabbox2D(PIX2D(0, 0), PIX2D(pixW, pixH)));
+
     // put logo(s) to main menu (if logos exist)
     if( pgmCurrentMenu==&gmMainMenu)
     {
