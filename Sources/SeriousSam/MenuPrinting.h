@@ -41,7 +41,7 @@ void SetFontTitle(CDrawPort *pdp);
 void SetFontBig(CDrawPort *pdp);
 void SetFontMedium(CDrawPort *pdp);
 void SetFontSmall(CDrawPort *pdp);
-
+FLOATaabbox2D BoxKeyLeft(FLOAT fRow);
 
 #endif  /* include-once check. */
 

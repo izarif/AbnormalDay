@@ -269,3 +269,10 @@ void SetFontSmall(CDrawPort *pdp)
   pdp->SetTextScaling( 1.0f);
   pdp->SetTextAspect(1.0f);
 }
+
+FLOATaabbox2D BoxKeyLeft(FLOAT fRow)
+{
+  return FLOATaabbox2D(
+    FLOAT2D(_fPadding, _fBigStartJ + fRow * _fMediumSizeJ),
+    FLOAT2D(1 - _fPadding, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
+}
