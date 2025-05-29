@@ -68,9 +68,10 @@ FLOATaabbox2D BoxSaveLoad(FLOAT fRow)
 FLOATaabbox2D BoxVersion(void)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.05f, _fBigStartJ+-5.5f*_fMediumSizeJ),
-    FLOAT2D(0.97f, _fBigStartJ+(-5.5f+1)*_fMediumSizeJ));
+    FLOAT2D(_fPadding, _fBigStartJ + -5.9f * _fMediumSizeJ),
+    FLOAT2D(1 - _fPadding, _fBigStartJ + (-5.9f + 1) * _fMediumSizeJ));
 }
+
 FLOATaabbox2D BoxMediumRow(FLOAT fRow)
 {
   return FLOATaabbox2D(
