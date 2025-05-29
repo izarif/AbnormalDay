@@ -183,12 +183,12 @@ FLOATaabbox2D BoxArrow(enum ArrowDir ad)
     ASSERT(FALSE);
   case AD_UP:
     return FLOATaabbox2D(
-      FLOAT2D(0.02f, _fBigStartJ+0*_fMediumSizeJ),
-      FLOAT2D(0.15f, _fBigStartJ+(0+1)*_fMediumSizeJ));
+      FLOAT2D(_fPadding, _fBigStartJ + 3.7f * _fMediumSizeJ),
+      FLOAT2D(1 - _fPadding, _fBigStartJ + (3.7f + 1) * _fMediumSizeJ));
   case AD_DOWN:
     return FLOATaabbox2D(
-      FLOAT2D(0.02f, _fBigStartJ+15*_fMediumSizeJ),
-      FLOAT2D(0.15f, _fBigStartJ+(15+1)*_fMediumSizeJ));
+      FLOAT2D(_fPadding, _fBigStartJ + 14.7f * _fMediumSizeJ),
+      FLOAT2D(1 - _fPadding, _fBigStartJ + (14.7f + 1) * _fMediumSizeJ));
   }
 }
 
