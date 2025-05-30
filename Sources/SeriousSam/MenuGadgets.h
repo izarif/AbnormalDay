@@ -279,3 +279,12 @@ public:
   void SetPlayerText(void);
   void OnActivate( void);
 };
+
+class CMGLabel : public CMenuGadget {
+public:
+  CTString mg_strText;
+  INDEX mg_iCenterI;
+  enum  ButtonFontSize mg_bfsFontSize;
+  void Render(CDrawPort* pdp);
+  void SetText(CTString strNew);
+};

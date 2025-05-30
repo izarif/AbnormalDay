@@ -1921,3 +1921,44 @@ void CMGKeyDefinition::Render( CDrawPort *pdp)
   pdp->PutTextR( mg_strLabel, pixIL, pixJ, col);
   pdp->PutText( mg_strBinding, pixIR, pixJ, col);
 }
+
+void CMGLabel::Render(CDrawPort* pdp)
+{
+  if (mg_bfsFontSize == BFS_LARGE)
+  {
+    SetFontBig(pdp);
+  }
+  else if (mg_bfsFontSize == BFS_MEDIUM)
+  {
+    SetFontMedium(pdp);
+  }
+  else
+  {
+    SetFontSmall(pdp);
+  }
+
+  PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
+  PIX pixIL = (PIX)(box.Min()(1));
+  PIX pixIR = (PIX)(box.Max()(1));
+  PIX pixIC = (PIX)(box.Center()(1));
+  PIX pixJ = (PIX)(box.Min()(2));
+  COLOR col = _pGame->LCDGetColor(C_WHITE | CT_OPAQUE, "label");
+
+  if (mg_iCenterI == -1)
+  {
+    pdp->PutText(mg_strText, pixIL, pixJ, col);
+  }
+  else if (mg_iCenterI == 1)
+  {
+    pdp->PutTextR(mg_strText, pixIR, pixJ, col);
+  }
+  else
+  {
+    pdp->PutTextC(mg_strText, pixIC, pixJ, col);
+  }
+}
+
+void CMGLabel::SetText(CTString strNew)
+{
+  mg_strText = strNew;
+}
