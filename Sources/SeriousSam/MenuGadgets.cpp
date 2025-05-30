@@ -767,22 +767,49 @@ void CMGTrigger::Render( CDrawPort *pdp)
   SetFontMedium(pdp);
 
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixIL = (PIX) (box.Min()(1)+box.Size()(1)*0.45f);
-  PIX pixIR = (PIX) (box.Min()(1)+box.Size()(1)*0.55f);
-  PIX pixJ  = (PIX) (box.Min()(2));
-
+  PIX pixJ = (PIX)(box.Min()(2));
   COLOR col = GetCurrentColor();
+  PIX pixLabelW = pdp->GetTextWidth(mg_strLabel);
+  PIX pixIL;
+  PIX pixIR;
+
+  if (mg_iCenterI == -1 || mg_iCenterI == 1)
+  {
+    pixIL = (PIX)(box.Min()(1));
+    pixIR = (PIX)(box.Min()(1) + box.Size()(1));
+  }
+  else
+  {
+    pixIL = (PIX)((box.Min()(1) + box.Size()(1) * 0.45f));
+    pixIR = (PIX)((box.Min()(1) + box.Size()(1) * 0.55f));
+  }
+
   if (!mg_bVisual || mg_strValue=="") {
     CTString strValue = mg_strValue;
     if (mg_bVisual) {
       strValue = TRANS("none");
     }
-    if (mg_iCenterI==-1) {
-      pdp->PutText( mg_strLabel, box.Min()(1), pixJ, col);
-      pdp->PutTextR( strValue, box.Max()(1), pixJ, col);
-    } else {
-      pdp->PutTextR( mg_strLabel, pixIL, pixJ, col);
-      pdp->PutText( strValue, pixIR, pixJ, col);
+
+    if (mg_iCenterI == -1)
+    {
+      pdp->PutText(mg_strLabel, pixIL, pixJ, col);
+
+      pixIL += pixLabelW + (box.Size()(1) * 0.04f);
+
+      pdp->PutText(strValue, pixIL, pixJ, col);
+    }
+    else if (mg_iCenterI == 1)
+    {
+      pdp->PutTextR(mg_strLabel, pixIR, pixJ, col);
+
+      pixIR -= pixLabelW + (box.Size()(1) * 0.04f);
+
+      pdp->PutTextR(strValue, pixIR, pixJ, col);
+    }
+    else
+    {
+      pdp->PutTextR(mg_strLabel, pixIL, pixJ, col);
+      pdp->PutText(strValue, pixIR, pixJ, col);
     }
   } else {
     CTString strLabel = mg_strLabel+": ";
