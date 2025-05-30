@@ -49,6 +49,8 @@ class CMGTitle : public CMenuGadget {
 public:
   CTString mg_strText;
   void Render( CDrawPort *pdp);
+
+  INDEX mg_iCenterI;
 };
 
 class CMGHighScore : public CMenuGadget {

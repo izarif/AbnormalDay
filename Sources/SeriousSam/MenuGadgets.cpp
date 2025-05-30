@@ -136,10 +136,24 @@ void CMGTitle::Render( CDrawPort *pdp)
   SetFontTitle(pdp);
 
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixI = box.Center()(1);
-  PIX pixJ = box.Min()(2);
+  PIX pixIL = (PIX)(box.Min()(1));
+  PIX pixIR = (PIX)(box.Max()(1));
+  PIX pixIC = (PIX)(box.Center()(1));
+  PIX pixJ = (PIX)(box.Min()(2));
+  COLOR col = _pGame->LCDGetColor(C_WHITE | CT_OPAQUE, "title");
 
-  pdp->PutTextC( mg_strText, pixI, pixJ, _pGame->LCDGetColor(C_WHITE|CT_OPAQUE, "title"));
+  if (mg_iCenterI == -1)
+  {
+    pdp->PutText(mg_strText, pixIL, pixJ, col);
+  }
+  else if (mg_iCenterI == 1)
+  {
+    pdp->PutTextR(mg_strText, pixIR, pixJ, col);
+  }
+  else
+  {
+    pdp->PutTextC(mg_strText, pixIC, pixJ, col);
+  }
 }
 
 CMGButton::CMGButton( void)
