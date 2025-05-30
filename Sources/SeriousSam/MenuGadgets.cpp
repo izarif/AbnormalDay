@@ -1927,13 +1927,45 @@ void CMGKeyDefinition::Render( CDrawPort *pdp)
   SetFontMedium(pdp);
 
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixIL = (PIX) (box.Min()(1)+box.Size()(1)*0.45f);
-  PIX pixIR = (PIX) (box.Min()(1)+box.Size()(1)*0.55f);
-  PIX pixJ = (PIX) (box.Min()(2));
+  PIX pixLabelW = pdp->GetTextWidth(mg_strLabel);
+  PIX pixIL;
+  PIX pixIR;
+  
+  if (mg_iCenterI == -1 || mg_iCenterI == 1)
+  {
+    pixIL = (PIX)(box.Min()(1));
+    pixIR = (PIX)(box.Min()(1) + box.Size()(1));
+  }
+  else
+  {
+    pixIL = (PIX)((box.Min()(1) + box.Size()(1) * 0.45f));
+    pixIR = (PIX)((box.Min()(1) + box.Size()(1) * 0.55f));
+  }
 
+  PIX pixJ = (PIX)(box.Min()(2));
   COLOR col = GetCurrentColor();
-  pdp->PutTextR( mg_strLabel, pixIL, pixJ, col);
-  pdp->PutText( mg_strBinding, pixIR, pixJ, col);
+
+  if (mg_iCenterI == -1)
+  {
+    pdp->PutText(mg_strLabel, pixIL, pixJ, col);
+
+    pixIL += pixLabelW + (box.Size()(1) * 0.04f);
+
+    pdp->PutText(mg_strBinding, pixIL, pixJ, col);
+  }
+  else if (mg_iCenterI == 1) 
+  {
+    pdp->PutTextR(mg_strLabel, pixIR, pixJ, col);
+
+    pixIR -= pixLabelW + (box.Size()(1) * 0.04f);
+
+    pdp->PutTextR(mg_strBinding, pixIR, pixJ, col);
+  }
+  else
+  {
+    pdp->PutTextR(mg_strLabel, pixIL, pixJ, col);
+    pdp->PutText(mg_strBinding, pixIR, pixJ, col);
+  }
 }
 
 void CMGLabel::Render(CDrawPort* pdp)

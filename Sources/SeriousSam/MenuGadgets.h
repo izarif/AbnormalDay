@@ -141,6 +141,8 @@ public:
   void SetBindingNames(BOOL bDefining);
   void DefineKey(INDEX iDik);
   void Render( CDrawPort *pdp);
+
+  INDEX mg_iCenterI;
 };
 
 class CMGTrigger : public CMenuGadget {
