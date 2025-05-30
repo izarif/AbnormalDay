@@ -4680,6 +4680,7 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
     mgKey[iLabel].mg_pmgDown = &mgKey[iNext];
     mgKey[iLabel].mg_bVisible = TRUE;
     gm_lhGadgets.AddTail(mgKey[iLabel].mg_lnNode);
+    mgKey[iLabel].mg_iCenterI = -1;
   }
 
   // arrows just exist
