@@ -182,11 +182,6 @@ static CTextureObject _toPointer;
 static CTextureObject _toLogoMenuA;
 static CTextureObject _toLogoMenuB;
 
-static CTextureObject _toDefaultMenuBack;
-static CTextureObject _toMainMenuBack;
-static CTextureObject _toCreditsMenuBack;
-static CTextureObject *_ptoMenuBack;
-
 // -------------- All possible menu entities
 #define BIG_BUTTONS_CT 6
 #define SAVELOAD_BUTTONS_CT 10
@@ -2303,6 +2298,10 @@ void InitGameTypes(void)
   }
 }
 
+static CTextureObject _toDefaultMenuBack;
+static CTextureObject _toMainMenuBack;
+static CTextureObject _toCreditsMenuBack;
+static CTextureObject* _ptoMenuBack;
 
 // ------------------------ Global menu function implementation
 void InitializeMenus(void)

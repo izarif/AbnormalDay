@@ -7,7 +7,6 @@
 static const FLOAT _fBigStartJ = 0.25f;
 static const FLOAT _fBigSizeJ = 0.066f;
 static const FLOAT _fMediumSizeJ = 0.04f;
-static const FLOAT _fTitleSizeJ = 0.078f;
 
 static const FLOAT _fNoStartI = 0.25f;
 static const FLOAT _fNoSizeI = 0.04f;
@@ -17,6 +16,7 @@ static const FLOAT _fNoDownStartJ = 0.44f;
 static const FLOAT _fNoSizeJ = 0.04f;
 
 static const FLOAT _fPadding = 0.01f;
+static const FLOAT _fTitleSizeJ = 0.078f;
 
 FLOATaabbox2D BoxTitle(FLOAT fRow)
 {

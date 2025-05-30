@@ -33,7 +33,6 @@ static FLOAT _fSpeed = 2.0f;
 static BOOL _bUseRealTime = FALSE;
 static CTimerValue _tvStart;
 FLOAT fCreditsStartTime;
-FLOAT fCreditsTime;
 
 FLOAT GetTime(void)
 {
@@ -125,6 +124,8 @@ void Credits_Off(void)
   _bCreditsOn = FALSE;
   _astrCredits.Clear();
 }
+
+FLOAT fCreditsTime;
 
 // render credits to given drawport
 FLOAT Credits_Render(CDrawPort *pdp)
