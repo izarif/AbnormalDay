@@ -1297,19 +1297,6 @@ void CMGFileButton::Render( CDrawPort *pdp)
 {
   // render original gadget first
   CMGEdit::Render(pdp);
-
-  // if currently selected
-  if (mg_bFocused && mg_bEnabled) {
-    // add info at the bottom if screen
-    SetFontMedium(pdp);
-
-    PIXaabbox2D box = FloatBoxToPixBox(pdp, BoxSaveLoad(15.0));
-    PIX pixI = box.Min()(1);
-    PIX pixJ = box.Min()(2);
-
-    COLOR col = _pGame->LCDGetColor(C_mlGREEN|255, "file info");
-    pdp->PutText( mg_strInfo, pixI, pixJ, col);
-  }
 }
 
 FLOATaabbox2D GetBoxPartHoriz(const FLOATaabbox2D &box, FLOAT fMin, FLOAT fMax)
