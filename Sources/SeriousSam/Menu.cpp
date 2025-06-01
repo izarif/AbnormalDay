@@ -5361,7 +5361,7 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgVideoRendering.mg_iCenterI = -1;
 
   mgVideoOptionsApply.mg_bfsFontSize = BFS_LARGE;
-  mgVideoOptionsApply.mg_boxOnScreen = BoxBigRow(8.5f);
+  mgVideoOptionsApply.mg_boxOnScreen = BoxBigLeft(8.5f);
   mgVideoOptionsApply.mg_pmgUp = &mgVideoRendering;
   mgVideoOptionsApply.mg_pmgDown = &mgVideoOptionsBack;
   mgVideoOptionsApply.mg_strText = TRANS("APPLY");
