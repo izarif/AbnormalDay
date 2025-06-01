@@ -45,9 +45,11 @@ FLOAT GetTime(void)
 
 void PrintOneLine(CDrawPort *pdp, const CTString &strText) 
 {
+  COLOR col = _pGame->LCDGetColor(C_WHITE, "credits line");
+
   pdp->SetTextScaling( fResolutionScaling);
   pdp->SetTextAspect( 1.0f);
-  pdp->PutText(strText, 4.8f * fResolutionScaling, pixJ, C_WHITE | 255);
+  pdp->PutText(strText, 4.8f * fResolutionScaling, pixJ, col);
   pixJ+=pixLineHeight;
 }
 
