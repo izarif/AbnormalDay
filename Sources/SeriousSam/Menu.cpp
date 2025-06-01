@@ -2825,11 +2825,10 @@ BOOL DoMenu( CDrawPort *pdp)
       } 
       
       {
-        FLOAT fResize = Min(dpMenu.GetWidth() / 640.0f, dpMenu.GetHeight() / 480.0f);
-        PIX pixSizeI = (PIX)(256 * fResize);
-        PIX pixSizeJ = (PIX)(128 * fResize);
-        PIX pixWidthI = (PIX)(6 * fResize);
-        PIX pixHeightJ = (PIX)(190 * fResize);
+        PIX pixSizeI = (PIX)(256 * fScaleW);
+        PIX pixSizeJ = (PIX)(128 * fScaleH);
+        PIX pixWidthI = (PIX)(6 * fScaleW);
+        PIX pixHeightJ = (PIX)(190 * fScaleH);
         dpMenu.PutTexture(&_toLogoMenuA, PIXaabbox2D(
           PIX2D(pixWidthI, pixHeightJ), PIX2D(pixWidthI + pixSizeI, pixHeightJ + pixSizeJ)));
       }
