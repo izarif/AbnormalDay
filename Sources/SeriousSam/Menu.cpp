@@ -2298,10 +2298,10 @@ void InitGameTypes(void)
   }
 }
 
-static CTextureObject _toDefaultMenuBack;
 static CTextureObject _toMainMenuBack;
 static CTextureObject _toCreditsMenuBack;
-static CTextureObject* _ptoMenuBack;
+static CTextureObject _toDefaultMenuBack;
+static CTextureObject* _ptoCurrentMenuBack;
 
 // ------------------------ Global menu function implementation
 void InitializeMenus(void)
@@ -2783,18 +2783,18 @@ BOOL DoMenu( CDrawPort *pdp)
 
     if (pgmCurrentMenu == &gmMainMenu)
     {
-      _ptoMenuBack = &_toMainMenuBack;
+      _ptoCurrentMenuBack = &_toMainMenuBack;
     }
     else if (pgmCurrentMenu == &gmCreditsMenu)
     {
-      _ptoMenuBack = &_toCreditsMenuBack;
+      _ptoCurrentMenuBack = &_toCreditsMenuBack;
     }
     else
     {
-      _ptoMenuBack = &_toDefaultMenuBack;
+      _ptoCurrentMenuBack = &_toDefaultMenuBack;
     }
 
-    dpMenu.PutTexture(_ptoMenuBack, PIXaabbox2D(PIX2D(0, 0), PIX2D(pixW, pixH)));
+    dpMenu.PutTexture(_ptoCurrentMenuBack, PIXaabbox2D(PIX2D(0, 0), PIX2D(pixW, pixH)));
 
     // put logo(s) to main menu (if logos exist)
     if( pgmCurrentMenu==&gmMainMenu)
