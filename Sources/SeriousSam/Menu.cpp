@@ -617,8 +617,11 @@ CMGButton mgSelectPlayersStart;
 // -------- Game options menu
 CGameOptionsMenu gmGameOptionsMenu;
 CMGTitle mgGameOptionsTitle;
+CMGTrigger mgGameOptions3rdPerson;
+CMGTrigger mgGameOptionsAutoSave;
+CMGTrigger mgGameOptionsSharpTurning;
+CMGTrigger mgGameOptionsViewBobbing;
 CMGTrigger mgGameOptionsBlood;
-CMGTrigger mgGameOptionsGibs;
 CMGButton mgGameOptionsBack;
 
 CTString astrBloodTexts[] = {
@@ -6521,49 +6524,83 @@ void ChangeBloodColor(INDEX iNew)
   _pShell->SetINDEX("gam_iBlood", iNew);
 }
 
-void ChangeGibbing(INDEX iNew)
-{
-  _pShell->SetINDEX("gam_bGibs", iNew);
-}
-
 void CGameOptionsMenu::Initialize_t(void)
 {
   // intialize game options menu
-  mgGameOptionsTitle.mg_boxOnScreen = BoxTitle(6.03f);
+  mgGameOptionsTitle.mg_boxOnScreen = BoxTitle(4.48f);
   mgGameOptionsTitle.mg_strText = TRANS("# GAME OPTIONS");
   gm_lhGadgets.AddTail(mgGameOptionsTitle.mg_lnNode);
   mgGameOptionsTitle.mg_iCenterI = -1;
 
-  mgGameOptionsBlood.mg_pmgUp = &mgGameOptionsBack;
-  mgGameOptionsBlood.mg_pmgDown = &mgGameOptionsGibs;
-  mgGameOptionsBlood.mg_boxOnScreen = BoxMediumLeft(13.7f);
+  mgGameOptions3rdPerson.mg_pmgUp = &mgGameOptionsBack;
+  mgGameOptions3rdPerson.mg_pmgDown = &mgGameOptionsAutoSave;
+  mgGameOptions3rdPerson.mg_boxOnScreen = BoxMediumLeft(10.7f);
+  gm_lhGadgets.AddTail(mgGameOptions3rdPerson.mg_lnNode);
+  mgGameOptions3rdPerson.mg_astrTexts = astrNoYes;
+  mgGameOptions3rdPerson.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgGameOptions3rdPerson.mg_iSelected = 0;
+  mgGameOptions3rdPerson.mg_strLabel = TRANS("THIRD PERSON VIEW");
+  mgGameOptions3rdPerson.mg_strValue = astrNoYes[0];
+  mgGameOptions3rdPerson.mg_strTip = TRANS("Enable third person view");
+  mgGameOptions3rdPerson.mg_iCenterI = -1;
+  mgGameOptions3rdPerson.mg_pOnTriggerChange = Change3rdPerson;
+
+  mgGameOptionsAutoSave.mg_pmgUp = &mgGameOptions3rdPerson;
+  mgGameOptionsAutoSave.mg_pmgDown = &mgGameOptionsSharpTurning;
+  mgGameOptionsAutoSave.mg_boxOnScreen = BoxMediumLeft(11.7f);
+  gm_lhGadgets.AddTail(mgGameOptionsAutoSave.mg_lnNode);
+  mgGameOptionsAutoSave.mg_astrTexts = astrNoYes;
+  mgGameOptionsAutoSave.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgGameOptionsAutoSave.mg_iSelected = 0;
+  mgGameOptionsAutoSave.mg_strLabel = TRANS("AUTO SAVE");
+  mgGameOptionsAutoSave.mg_strValue = astrNoYes[0];
+  mgGameOptionsAutoSave.mg_strTip = TRANS("Automatically save game every few minutes");
+  mgGameOptionsAutoSave.mg_iCenterI = -1;
+  mgGameOptionsAutoSave.mg_pOnTriggerChange = Change3rdPerson;
+
+  mgGameOptionsSharpTurning.mg_pmgUp = &mgGameOptionsAutoSave;
+  mgGameOptionsSharpTurning.mg_pmgDown = &mgGameOptionsViewBobbing;
+  mgGameOptionsSharpTurning.mg_boxOnScreen = BoxMediumLeft(12.7f);
+  gm_lhGadgets.AddTail(mgGameOptionsSharpTurning.mg_lnNode);
+  mgGameOptionsSharpTurning.mg_astrTexts = astrNoYes;
+  mgGameOptionsSharpTurning.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgGameOptionsSharpTurning.mg_iSelected = 0;
+  mgGameOptionsSharpTurning.mg_strLabel = TRANS("SHARP TURNING");
+  mgGameOptionsSharpTurning.mg_strValue = astrNoYes[0];
+  mgGameOptionsSharpTurning.mg_strTip = TRANS("Makes in-game camera turning faster");
+  mgGameOptionsSharpTurning.mg_iCenterI = -1;
+  mgGameOptionsSharpTurning.mg_pOnTriggerChange = ChangeSharpTurning;
+
+  mgGameOptionsViewBobbing.mg_pmgUp = &mgGameOptionsSharpTurning;
+  mgGameOptionsViewBobbing.mg_pmgDown = &mgGameOptionsBlood;
+  mgGameOptionsViewBobbing.mg_boxOnScreen = BoxMediumLeft(13.7f);
+  gm_lhGadgets.AddTail(mgGameOptionsViewBobbing.mg_lnNode);
+  mgGameOptionsViewBobbing.mg_astrTexts = astrNoYes;
+  mgGameOptionsViewBobbing.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgGameOptionsViewBobbing.mg_iSelected = 0;
+  mgGameOptionsViewBobbing.mg_strLabel = TRANS("VIEW BOBBING");
+  mgGameOptionsViewBobbing.mg_strValue = astrNoYes[0];
+  mgGameOptionsViewBobbing.mg_strTip = TRANS("Enable view bobbing");
+  mgGameOptionsViewBobbing.mg_iCenterI = -1;
+  mgGameOptionsViewBobbing.mg_pOnTriggerChange = ChangeViewBobbing;
+
+  mgGameOptionsBlood.mg_pmgUp = &mgGameOptionsViewBobbing;
+  mgGameOptionsBlood.mg_pmgDown = &mgGameOptionsBack;
+  mgGameOptionsBlood.mg_boxOnScreen = BoxMediumLeft(14.7f);
   gm_lhGadgets.AddTail(mgGameOptionsBlood.mg_lnNode);
   mgGameOptionsBlood.mg_astrTexts = astrBloodTexts;
   mgGameOptionsBlood.mg_ctTexts = ARRAYCOUNT(astrBloodTexts);
   mgGameOptionsBlood.mg_iSelected = 0;
-  mgGameOptionsBlood.mg_strLabel = TRANS("Blood and gore");
-  mgGameOptionsBlood.mg_strValue = astrNoYes[0];
-  mgGameOptionsBlood.mg_strTip = TRANS("Select appearance of blood and gore");
+  mgGameOptionsBlood.mg_strLabel = TRANS("BLOOD AND GORE");
+  mgGameOptionsBlood.mg_strValue = astrBloodTexts[0];
+  mgGameOptionsBlood.mg_strTip = TRANS("Select blood and gore appearance");
   mgGameOptionsBlood.mg_iCenterI = -1;
   mgGameOptionsBlood.mg_pOnTriggerChange = ChangeBloodColor;
 
-  mgGameOptionsGibs.mg_pmgUp = &mgGameOptionsBlood;
-  mgGameOptionsGibs.mg_pmgDown = &mgGameOptionsBack;
-  mgGameOptionsGibs.mg_boxOnScreen = BoxMediumLeft(14.7f);
-  gm_lhGadgets.AddTail(mgGameOptionsGibs.mg_lnNode);
-  mgGameOptionsGibs.mg_astrTexts = astrNoYes;
-  mgGameOptionsGibs.mg_ctTexts = ARRAYCOUNT(astrNoYes);
-  mgGameOptionsGibs.mg_iSelected = 0;
-  mgGameOptionsGibs.mg_strLabel = TRANS("Gibs");
-  mgGameOptionsGibs.mg_strValue = astrNoYes[0];
-  mgGameOptionsGibs.mg_strTip = TRANS("Enable gibbing of enemies");
-  mgGameOptionsGibs.mg_iCenterI = -1;
-  mgGameOptionsGibs.mg_pOnTriggerChange = ChangeGibbing;
-
   mgGameOptionsBack.mg_bfsFontSize = BFS_LARGE;
   mgGameOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
-  mgGameOptionsBack.mg_pmgUp = &mgGameOptionsGibs;
-  mgGameOptionsBack.mg_pmgDown = &mgGameOptionsBlood;
+  mgGameOptionsBack.mg_pmgUp = &mgGameOptionsBlood;
+  mgGameOptionsBack.mg_pmgDown = &mgGameOptions3rdPerson;
   mgGameOptionsBack.mg_strText = TRANS("BACK");
   mgGameOptionsBack.mg_strTip = TRANS("Return to options menu");
   gm_lhGadgets.AddTail(mgGameOptionsBack.mg_lnNode);
@@ -6573,8 +6610,23 @@ void CGameOptionsMenu::Initialize_t(void)
 
 void GetGameSettings(void)
 {
-    mgGameOptionsBlood.mg_iSelected = _pShell->GetINDEX("gam_iBlood");
-    mgGameOptionsGibs.mg_iSelected = _pShell->GetINDEX("gam_bGibs");
+  CPlayerCharacter& pc = _pGame->gm_apcPlayers[0];
+  CPlayerSettings* pps = (CPlayerSettings*)pc.pc_aubAppearance;
+
+  mgGameOptions3rdPerson.mg_iSelected = (pps->ps_ulFlags & PSF_PREFER3RDPERSON) ? 1 : 0;
+  mgGameOptions3rdPerson.ApplyCurrentSelection();
+
+  mgGameOptionsAutoSave.mg_iSelected = (pps->ps_ulFlags & PSF_AUTOSAVE) ? 1 : 0;
+  mgGameOptionsAutoSave.ApplyCurrentSelection();
+
+  mgGameOptionsViewBobbing.mg_iSelected = (pps->ps_ulFlags & PSF_NOBOBBING) ? 0 : 1;
+  mgGameOptionsViewBobbing.ApplyCurrentSelection();
+
+  mgGameOptionsSharpTurning.mg_iSelected = (pps->ps_ulFlags & PSF_SHARPTURNING) ? 1 : 0;
+  mgGameOptionsSharpTurning.ApplyCurrentSelection();
+
+  mgGameOptionsBlood.mg_iSelected = _pShell->GetINDEX("gam_iBlood");
+  mgGameOptionsBlood.ApplyCurrentSelection();
 }
 
 void CGameOptionsMenu::StartMenu(void)
@@ -6582,7 +6634,6 @@ void CGameOptionsMenu::StartMenu(void)
   GetGameSettings();
 
   mgGameOptionsBlood.mg_bEnabled = _gmRunningGameMode == GM_NONE;
-  mgGameOptionsGibs.mg_bEnabled = _gmRunningGameMode == GM_NONE;
 
   CGameMenu::StartMenu();
 }
