@@ -3521,7 +3521,7 @@ void CInGameMenu::Initialize_t(void)
 {
   // intialize main menu
   mgInGameTitle.mg_strText = TRANS("# GAME");
-  mgInGameTitle.mg_boxOnScreen = BoxTitle(3.65f);
+  mgInGameTitle.mg_boxOnScreen = BoxTitle(3.44f);
   gm_lhGadgets.AddTail(mgInGameTitle.mg_lnNode);
   mgInGameTitle.mg_iCenterI = -1;
 
@@ -4189,7 +4189,7 @@ void CPlayerProfileMenu::EndMenu(void)
 void CControlsMenu::Initialize_t(void)
 {
   // intialize controls menu
-  mgControlsTitle.mg_boxOnScreen = BoxTitle(2.93f);
+  mgControlsTitle.mg_boxOnScreen = BoxTitle(2.74f);
   mgControlsTitle.mg_strText = TRANS("# CONTROLS");
   gm_lhGadgets.AddTail(mgControlsTitle.mg_lnNode);
   mgControlsTitle.mg_iCenterI = -1;
@@ -4364,7 +4364,7 @@ void CLoadSaveMenu::Initialize_t(void)
 {
   gm_pgmNextMenu = NULL;
 
-  mgLoadSaveTitle.mg_boxOnScreen = BoxTitle(0.9f);
+  mgLoadSaveTitle.mg_boxOnScreen = BoxTitle(0.82f);
   gm_lhGadgets.AddTail(mgLoadSaveTitle.mg_lnNode);
   mgLoadSaveTitle.mg_iCenterI = -1;
 
@@ -4663,7 +4663,7 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
 {
   // intialize Audio options menu
   mgCustomizeKeyboardTitle.mg_strText = TRANS("# CUSTOMIZE KEYS");
-  mgCustomizeKeyboardTitle.mg_boxOnScreen = BoxTitle(0.9f);
+  mgCustomizeKeyboardTitle.mg_boxOnScreen = BoxTitle(0.82f);
   gm_lhGadgets.AddTail(mgCustomizeKeyboardTitle.mg_lnNode);
   mgCustomizeKeyboardTitle.mg_iCenterI = -1;
 
@@ -4748,7 +4748,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
 {
   // intialize axis menu
   mgCustomizeAxisTitle.mg_strText = TRANS("# CUSTOMIZE AXIS");
-  mgCustomizeAxisTitle.mg_boxOnScreen = BoxTitle(3.47f);
+  mgCustomizeAxisTitle.mg_boxOnScreen = BoxTitle(3.26f);
   gm_lhGadgets.AddTail(mgCustomizeAxisTitle.mg_lnNode);
   mgCustomizeAxisTitle.mg_iCenterI = -1;
 
@@ -4938,7 +4938,7 @@ void CCustomizeAxisMenu::EndMenu(void)
 void COptionsMenu::Initialize_t(void)
 {
   // intialize options menu
-  mgOptionsTitle.mg_boxOnScreen = BoxTitle(3.65f);
+  mgOptionsTitle.mg_boxOnScreen = BoxTitle(3.44f);
   mgOptionsTitle.mg_strText = TRANS("# OPTIONS");
   gm_lhGadgets.AddTail(mgOptionsTitle.mg_lnNode);
   mgOptionsTitle.mg_iCenterI = -1;
@@ -5244,7 +5244,7 @@ static void InitVideoOptionsButtons(void)
 void CVideoOptionsMenu::Initialize_t(void)
 {
   // intialize video options menu
-  mgVideoOptionsTitle.mg_boxOnScreen = BoxTitle(1.6f);
+  mgVideoOptionsTitle.mg_boxOnScreen = BoxTitle(1.48f);
   mgVideoOptionsTitle.mg_strText = TRANS("# VIDEO");
   gm_lhGadgets.AddTail(mgVideoOptionsTitle.mg_lnNode);
   mgVideoOptionsTitle.mg_iCenterI = -1;
@@ -5435,7 +5435,7 @@ static void OnMPEGVolumeChange(INDEX iCurPos)
 void CAudioOptionsMenu::Initialize_t(void)
 {
   // intialize audio options menu
-  mgAudioOptionsTitle.mg_boxOnScreen = BoxTitle(3.65f);
+  mgAudioOptionsTitle.mg_boxOnScreen = BoxTitle(3.44f);
   mgAudioOptionsTitle.mg_strText = TRANS("# AUDIO");
   gm_lhGadgets.AddTail(mgAudioOptionsTitle.mg_lnNode);
   mgAudioOptionsTitle.mg_iCenterI = -1;
@@ -6527,7 +6527,7 @@ void ChangeBloodColor(INDEX iNew)
 void CGameOptionsMenu::Initialize_t(void)
 {
   // intialize game options menu
-  mgGameOptionsTitle.mg_boxOnScreen = BoxTitle(4.48f);
+  mgGameOptionsTitle.mg_boxOnScreen = BoxTitle(4.22f);
   mgGameOptionsTitle.mg_strText = TRANS("# GAME OPTIONS");
   gm_lhGadgets.AddTail(mgGameOptionsTitle.mg_lnNode);
   mgGameOptionsTitle.mg_iCenterI = -1;
@@ -6658,7 +6658,7 @@ void ApplyRenderingSettings(void)
 void CRenderingOptionsMenu::Initialize_t(void)
 {
   // intialize rendering options menu
-  mgRenderingOptionsTitle.mg_boxOnScreen = BoxTitle(2.64f);
+  mgRenderingOptionsTitle.mg_boxOnScreen = BoxTitle(2.46f);
   mgRenderingOptionsTitle.mg_strText = TRANS("# RENDERING OPTIONS");
   gm_lhGadgets.AddTail(mgRenderingOptionsTitle.mg_lnNode);
   mgRenderingOptionsTitle.mg_iCenterI = -1;
