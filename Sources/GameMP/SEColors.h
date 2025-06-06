@@ -23,15 +23,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define SE_COL_BLUE_DARK_HV     0x151c2300
 #define SE_COL_BLUE_DARK        0x2a384600
 #define SE_COL_BLUE_DARK_LT     0x43596f00
-#define SE_COL_BLUE_NEUTRAL     0x5c7a9900
+#define SE_COL_BLUE_NEUTRAL     0x0000ff00
 #define SE_COL_BLUE_NEUTRAL_LT  0x6097cc00
-#define SE_COL_BLUE_LIGHT       0x64b4ff00
+#define SE_COL_BLUE_LIGHT       0xadd8e600
 #define SE_COL_BLUEGREEN_LT     0x6cff6c00
 
 #define SE_COL_GREEN_DARK        0x00330000
 #define SE_COL_GREEN_DARK_LT     0x00660000
-#define SE_COL_GREEN_NEUTRAL     0x00993300
-#define SE_COL_GREEN_LIGHT       0x66ff6600
+#define SE_COL_GREEN_NEUTRAL     0x00800000
+#define SE_COL_GREEN_LIGHT       0x00ff0000
 #define SE_COL_GREEN_DARK_HV     0x151c2300
 
 #endif

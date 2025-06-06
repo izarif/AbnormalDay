@@ -3002,18 +3002,21 @@ void CGame::LCDSetDrawport(CDrawPort *pdp)
   
   ::_LCDSetDrawport(pdp);
 }
+
 void CGame::LCDDrawBox(PIX pixUL, PIX pixDR, const PIXaabbox2D &box, COLOR col)
 {
-    col = SE_COL_BLUE_NEUTRAL|255;
+    col = SE_COL_GREEN_LIGHT | 255;
 
   ::_LCDDrawBox(pixUL, pixDR, box, col);
 }
+
 void CGame::LCDScreenBox(COLOR col)
 {
-    col = SE_COL_BLUE_NEUTRAL|255;
+    col = SE_COL_GREEN_LIGHT | 255;
 
   ::_LCDScreenBox(col);
 }
+
 void CGame::LCDScreenBoxOpenLeft(COLOR col)
 {
     col = SE_COL_BLUE_NEUTRAL|255;
@@ -3131,58 +3134,84 @@ void CGame::LCDDrawPointer(PIX pixI, PIX pixJ)
 
   //::_LCDDrawPointer(pixI, pixJ);
 }
-COLOR CGame::LCDGetColor(COLOR colDefault, const char *strName)
+COLOR CGame::LCDGetColor(COLOR colDefault, const char* strName)
 {
-
   if (!strcmp(strName, "thumbnail border")) {
-    colDefault = SE_COL_BLUE_NEUTRAL|255;
-  } else if (!strcmp(strName, "no thumbnail")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "popup box")) {
-    colDefault = SE_COL_BLUE_NEUTRAL|255;
-  } else if (!strcmp(strName, "tool tip")) {
-    colDefault = SE_COL_ORANGE_LIGHT|255;
-  } else if (!strcmp(strName, "unselected")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "selected")) {
-    colDefault = SE_COL_ORANGE_LIGHT|255;
-  } else if (!strcmp(strName, "disabled selected")) {
-    colDefault = SE_COL_ORANGE_DARK_LT |255;
-  } else if (!strcmp(strName, "disabled unselected")) {
-    colDefault = SE_COL_ORANGE_DARK|255;
-  } else if (!strcmp(strName, "label")) {
-    colDefault = C_WHITE|255;
-  } else if (!strcmp(strName, "title")) {
-    colDefault = C_WHITE|255;
-  } else if (!strcmp(strName, "editing")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "hilited")) {
-    colDefault = SE_COL_ORANGE_LIGHT|255;
-  } else if (!strcmp(strName, "hilited rectangle")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "edit fill")) {
-    colDefault = SE_COL_BLUE_DARK_LT|75;
-  } else if (!strcmp(strName, "editing cursor")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "model box")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "hiscore header")) {
-    colDefault = SE_COL_ORANGE_LIGHT|255;
-  } else if (!strcmp(strName, "hiscore data")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "hiscore last set")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "slider box")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "file info")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "display mode")) {
-    colDefault = SE_COL_ORANGE_NEUTRAL|255;
-  } else if (!strcmp(strName, "bcg fill")) {
-    colDefault = SE_COL_BLUE_DARK|255;
+    colDefault = SE_COL_GREEN_LIGHT | 255;
   }
+  else if (!strcmp(strName, "no thumbnail")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "popup box")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "tool tip")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "unselected")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "selected")) {
+    colDefault = SE_COL_BLUE_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "disabled selected")) {
+    colDefault = SE_COL_BLUE_NEUTRAL | 255;
+  }
+  else if (!strcmp(strName, "disabled unselected")) {
+    colDefault = SE_COL_GREEN_NEUTRAL | 255;
+  }
+  else if (!strcmp(strName, "label")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "title")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "editing")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "hilited")) {
+    colDefault = SE_COL_BLUE_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "hilited rectangle")) {
+    colDefault = SE_COL_BLUE_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "edit fill")) {
+    colDefault = SE_COL_BLUE_NEUTRAL | 0;
+  }
+  else if (!strcmp(strName, "editing cursor")) {
+    colDefault = SE_COL_BLUE_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "model box")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "hiscore header")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "hiscore data")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "hiscore last set")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "slider box")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "file info")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "display mode")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+  else if (!strcmp(strName, "bcg fill")) {
+    colDefault = SE_COL_GREEN_NEUTRAL | 255;
+  }
+  else if (!strcmp(strName, "credits line")) {
+    colDefault = SE_COL_GREEN_LIGHT | 255;
+  }
+
   return ::_LCDGetColor(colDefault, strName);
 }
+
 COLOR CGame::LCDFadedColor(COLOR col)
 {
   return ::_LCDFadedColor(col);
