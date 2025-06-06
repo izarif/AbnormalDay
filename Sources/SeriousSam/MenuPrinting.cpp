@@ -115,41 +115,47 @@ FLOATaabbox2D BoxMediumRight(FLOAT fRow)
     FLOAT2D(0.55f, _fBigStartJ+fRow*_fMediumSizeJ),
     FLOAT2D(0.95f, _fBigStartJ+(fRow+1)*_fMediumSizeJ));
 }
+
 FLOATaabbox2D BoxPopup(void)
 {
-  return FLOATaabbox2D(FLOAT2D(0.2f, 0.4f), FLOAT2D(0.8f, 0.6f));
+  return FLOATaabbox2D(FLOAT2D(_fPadding, 0.838f - _fPadding), FLOAT2D(0.6f + _fPadding, 1 - _fPadding));
 }
 
 FLOATaabbox2D BoxPopupLabel(void)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.22f, 0.43f),
-    FLOAT2D(0.78f, 0.49f));
+    FLOAT2D(0.02f, 0.841f),
+    FLOAT2D(0.599f, 0.841f + _fBigSizeJ));
 }
+
 FLOATaabbox2D BoxPopupYesLarge(void)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.30f, 0.51f),
-    FLOAT2D(0.48f, 0.57f));
+    FLOAT2D(0.02f, 0.92f),
+    FLOAT2D(0.20f, 0.92f + _fBigSizeJ));
 }
+
 FLOATaabbox2D BoxPopupNoLarge(void)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.52f, 0.51f),
-    FLOAT2D(0.70f, 0.57f));
+    FLOAT2D(0.21f, 0.92f),
+    FLOAT2D(0.39f, 0.92f + _fBigSizeJ));
 }
+
 FLOATaabbox2D BoxPopupYesSmall(void)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.30f, 0.54f),
-    FLOAT2D(0.48f, 0.59f));
+    FLOAT2D(0.02f, 0.92f),
+    FLOAT2D(0.20f, 0.92f + _fMediumSizeJ));
 }
+
 FLOATaabbox2D BoxPopupNoSmall(void)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.52f, 0.54f),
-    FLOAT2D(0.70f, 0.59f));
+    FLOAT2D(0.21f, 0.92f),
+    FLOAT2D(0.39f, 0.92f + _fMediumSizeJ));
 }
+
 FLOATaabbox2D BoxChangePlayer(INDEX iTable, INDEX iButton)
 {
   return FLOATaabbox2D(

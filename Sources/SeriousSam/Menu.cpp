@@ -319,7 +319,7 @@ CMGButton mgBack;
 
 // -------- Confirm menu
 CConfirmMenu gmConfirmMenu;
-CMGButton mgConfirmLabel;
+CMGLabel mgConfirmLabel;
 CMGButton mgConfirmYes;
 CMGButton mgConfirmNo;
 
@@ -2306,6 +2306,7 @@ static CTextureObject _toInGameMenuBack;
 static CTextureObject _toCreditsMenuBack;
 static CTextureObject _toDefaultMenuBack;
 static CTextureObject* _ptoCurrentMenuBack;
+static CTextureObject _toPopupBack;
 
 // ------------------------ Global menu function implementation
 void InitializeMenus(void)
@@ -2341,6 +2342,7 @@ void InitializeMenus(void)
     _toInGameMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\InGameMenuBack.tex"));
     _toCreditsMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\CreditsMenuBack.tex"));
     _toDefaultMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MenuBack.tex"));
+    _toPopupBack.SetData_t(CTFILENAME("TexturesMP\\General\\PopupBack.tex"));
   }
   catch (const char *strError) {
     FatalError( strError);
@@ -2353,6 +2355,7 @@ void InitializeMenus(void)
   ((CTextureData*)_toInGameMenuBack.GetData())->Force(TEX_CONSTANT);
   ((CTextureData*)_toDefaultMenuBack.GetData())->Force(TEX_CONSTANT);
   ((CTextureData*)_toCreditsMenuBack.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)_toPopupBack.GetData())->Force(TEX_CONSTANT);
 
   // menu's relative placement
   //CPlacement3D plRelative = CPlacement3D( FLOAT3D( 0.0f, 0.0f, -9.0f),
@@ -2903,15 +2906,14 @@ BOOL DoMenu( CDrawPort *pdp)
 
     // clear popup box
     dpMenu.Unlock();
+
     PIXaabbox2D box = FloatBoxToPixBox(&dpMenu, BoxPopup());
-    CDrawPort dpPopup(pdp, box);
+    COLOR col = _pGame->LCDGetColor(C_GREEN | 255, "popup box");
+    CDrawPort dpPopup(pdp, TRUE);
+
     dpPopup.Lock();
-    _pGame->LCDSetDrawport(&dpPopup);
-    dpPopup.Fill(C_BLACK|255);
-    _pGame->LCDRenderClouds1();
-    _pGame->LCDRenderGrid();
-  //_pGame->LCDRenderClouds2();
-    _pGame->LCDScreenBox(_pGame->LCDGetColor(C_GREEN|255, "popup box"));
+    dpPopup.PutTexture(&_toPopupBack, box);
+    dpPopup.DrawBorder(box.Min()(1), box.Min()(2), box.Size()(1), box.Size()(2), col | 255);
     dpPopup.Unlock();
     dpMenu.Lock();
   }
@@ -3436,7 +3438,7 @@ void CConfirmMenu::BeLarge(void)
   mgConfirmLabel.mg_bfsFontSize = BFS_LARGE;
   mgConfirmYes.mg_bfsFontSize = BFS_LARGE;
   mgConfirmNo.mg_bfsFontSize = BFS_LARGE;
-  mgConfirmLabel.mg_iCenterI = 0;
+  mgConfirmLabel.mg_iCenterI = -1;
   mgConfirmYes.mg_boxOnScreen = BoxPopupYesLarge();
   mgConfirmNo.mg_boxOnScreen = BoxPopupNoLarge();
 }
