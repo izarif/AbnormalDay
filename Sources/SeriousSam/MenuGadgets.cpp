@@ -121,7 +121,7 @@ COLOR CMenuGadget::GetCurrentColor(void)
   if( mg_bFocused) {
     // oscilate towards selected color
     FLOAT tmNow = _pTimer->GetHighPrecisionTimer().GetSeconds();
-    colRet = LerpColor( (colUnselected>>1)&0x7F7F7F7F, colSelected, sin(tmNow*10.0f)*0.5f+0.5f);
+    colRet = colSelected;
   }
 
   return colRet|CT_OPAQUE;
