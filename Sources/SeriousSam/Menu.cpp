@@ -2302,6 +2302,7 @@ void InitGameTypes(void)
 }
 
 static CTextureObject _toMainMenuBack;
+static CTextureObject _toInGameMenuBack;
 static CTextureObject _toCreditsMenuBack;
 static CTextureObject _toDefaultMenuBack;
 static CTextureObject* _ptoCurrentMenuBack;
@@ -2336,9 +2337,10 @@ void InitializeMenus(void)
     _toLogoMenuA.SetData_t(CTFILENAME("Textures\\Logo\\Menu.tex"));
     _toLogoMenuB.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256b.tex"));
 
-    _toDefaultMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MenuBack.tex"));
     _toMainMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MainMenuBack.tex"));
+    _toInGameMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\InGameMenuBack.tex"));
     _toCreditsMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\CreditsMenuBack.tex"));
+    _toDefaultMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MenuBack.tex"));
   }
   catch (const char *strError) {
     FatalError( strError);
@@ -2347,8 +2349,9 @@ void InitializeMenus(void)
   ((CTextureData*)_toLogoMenuA.GetData())->Force(TEX_CONSTANT);
   ((CTextureData*)_toLogoMenuB.GetData())->Force(TEX_CONSTANT);
 
-  ((CTextureData*)_toDefaultMenuBack.GetData())->Force(TEX_CONSTANT);
   ((CTextureData*)_toMainMenuBack.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)_toInGameMenuBack.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)_toDefaultMenuBack.GetData())->Force(TEX_CONSTANT);
   ((CTextureData*)_toCreditsMenuBack.GetData())->Force(TEX_CONSTANT);
 
   // menu's relative placement
@@ -2787,6 +2790,10 @@ BOOL DoMenu( CDrawPort *pdp)
     if (pgmCurrentMenu == &gmMainMenu)
     {
       _ptoCurrentMenuBack = &_toMainMenuBack;
+    }
+    else if (pgmCurrentMenu == &gmInGameMenu)
+    {
+      _ptoCurrentMenuBack = &_toInGameMenuBack;
     }
     else if (pgmCurrentMenu == &gmCreditsMenu)
     {
