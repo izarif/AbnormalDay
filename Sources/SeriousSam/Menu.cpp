@@ -2971,7 +2971,7 @@ BOOL DoMenu( CDrawPort *pdp)
   if (pmgActive!=NULL && (pmgActive->mg_strTip!="" || _bEditingString)) {
     CTString strTip = pmgActive->mg_strTip;
     if (_bEditingString) {
-      strTip = TRANS("Enter - OK, Escape - Cancel");
+      strTip = TRANS("[Enter] - Ok, [Escape] - Cancel");
     }
     // print the tip
     SetFontMedium(&dpMenu);
@@ -4565,14 +4565,14 @@ void CLoadSaveMenu::FillListItems(void)
       amgLSButton[iInMenu].RefreshText();
       if (gm_bSave) {
         if (!FileExistsForWriting(amgLSButton[iInMenu].mg_fnm)) {
-          amgLSButton[iInMenu].mg_strTip = TRANS("[Enter] - save");
+          amgLSButton[iInMenu].mg_strTip = TRANS("[Enter] - Save");
         } else {
-          amgLSButton[iInMenu].mg_strTip = TRANS("[Enter] - save, [F2] - rename, [Del] - delete");
+          amgLSButton[iInMenu].mg_strTip = TRANS("[Enter] - Save, [F2] - Rename, [Del] - Delete");
         }
       } else if (gm_bManage) {
-        amgLSButton[iInMenu].mg_strTip = TRANS("[Enter] - load, [F2] - rename, [Del] - delete");
+        amgLSButton[iInMenu].mg_strTip = TRANS("[Enter] - Load, [F2] - Rename, [Del] - Delete");
       } else {
-        amgLSButton[iInMenu].mg_strTip = TRANS("[Enter] - load");
+        amgLSButton[iInMenu].mg_strTip = TRANS("[Enter] - Load");
       }
     }
     iLabel++;
