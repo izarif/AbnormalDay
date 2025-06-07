@@ -50,6 +50,7 @@ void PrintOneLine(CDrawPort *pdp, const CTString &strText)
   pdp->SetTextScaling( fResolutionScaling);
   pdp->SetTextAspect( 1.0f);
   pdp->PutText(strText, 4.8f * fResolutionScaling, pixJ, col | 255);
+
   pixJ+=pixLineHeight;
 }
 
@@ -145,7 +146,8 @@ FLOAT Credits_Render(CDrawPort *pdp)
   
   pixW = dpWide.GetWidth();
   pixH = dpWide.GetHeight();
-  fResolutionScaling = (FLOAT)pixH / 480.0f;
+  fResolutionScaling = pixH / 480.0f;
+
   dpWide.SetFont( _pfdDisplayFont);
   pixLineHeight = (PIX) (floor(20*fResolutionScaling));
 

@@ -2838,12 +2838,14 @@ BOOL DoMenu( CDrawPort *pdp)
       } 
       
       {
-        PIX pixSizeI = (PIX)(256 * fScaleW);
-        PIX pixSizeJ = (PIX)(128 * fScaleH);
-        PIX pixWidthI = (PIX)(6 * fScaleW);
-        PIX pixHeightJ = (PIX)(190 * fScaleH);
+        FLOAT fResize = Min(dpMenu.GetWidth()/640.0f, dpMenu.GetHeight()/480.0f);
+        PIX pixLogoI = 6 * fScaleW;
+        PIX pixLogoJ = 190 * fScaleH;
+        PIX pixLogoSizeI = 256 * fScaleW;
+        PIX pixLogoSizeJ = 128 * fScaleH;
+
         dpMenu.PutTexture(&_toLogoMenuA, PIXaabbox2D(
-          PIX2D(pixWidthI, pixHeightJ), PIX2D(pixWidthI + pixSizeI, pixHeightJ + pixSizeJ)));
+          PIX2D(pixLogoI, pixLogoJ), PIX2D(pixLogoI + pixLogoSizeI, pixLogoJ + pixLogoSizeJ)));
       }
 
     } else if (pgmCurrentMenu==&gmAudioOptionsMenu) {
@@ -6659,6 +6661,7 @@ void ApplyRenderingSettings(void)
   _pShell->SetINDEX("gap_iSwapInterval", mgRenderingOptionsVSync.mg_iSelected);
 
   sam_iVideoSetup = 3;
+
   _pShell->Execute("ApplyVideoMode();");
   _pShell->Execute("RefreshTextures();");
   _pShell->Execute("RecacheShadows();");
@@ -6796,18 +6799,22 @@ INDEX FindFloatValueInArray(FLOAT Arr[], INDEX Len, FLOAT Val)
 void GetRenderingSettings(void)
 {
   INDEX iNormalSize = _pShell->GetINDEX("tex_iNormalSize");
+
   mgRenderingOptionsTexturesSize.mg_iSelected = FindFloatValueInArray(fTextureSizes, ARRAYCOUNT(fTextureSizes), iNormalSize);
   mgRenderingOptionsTexturesSize.ApplyCurrentSelection();
 
   INDEX iNormalQuality = _pShell->GetINDEX("tex_iNormalQuality");
+
   mgRenderingOptionsTexturesQuality.mg_iSelected = (iNormalQuality / 11) - 1;
   mgRenderingOptionsTexturesQuality.ApplyCurrentSelection();
 
   INDEX iTextureLayers = _pShell->GetINDEX("wld_bTextureLayers");
+
   mgRenderingOptionsBumpMaps.mg_iSelected = iTextureLayers - 110;
   mgRenderingOptionsTexturesQuality.ApplyCurrentSelection();
 
   INDEX iStaticSize = _pShell->GetINDEX("shd_iStaticSize");
+
   mgRenderingOptionsShadowMapsSize.mg_iSelected = FindFloatValueInArray(fShadowMapsSizes, ARRAYCOUNT(fShadowMapsSizes), iStaticSize);
   mgRenderingOptionsShadowMapsSize.ApplyCurrentSelection();
 
@@ -6815,6 +6822,7 @@ void GetRenderingSettings(void)
   mgRenderingOptionsLensFlares.ApplyCurrentSelection();
 
   FLOAT fGamma = _pShell->GetFLOAT("gfx_fGamma");
+
   mgRenderingOptionsGamma.mg_iCurPos = fGamma * 10.0f;
   mgRenderingOptionsGamma.ApplyCurrentPosition();
 

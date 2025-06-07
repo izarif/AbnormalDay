@@ -136,10 +136,10 @@ void CMGTitle::Render( CDrawPort *pdp)
   SetFontTitle(pdp);
 
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixIL = (PIX)(box.Min()(1));
-  PIX pixIR = (PIX)(box.Max()(1));
-  PIX pixIC = (PIX)(box.Center()(1));
-  PIX pixJ = (PIX)(box.Min()(2));
+  PIX pixIL = box.Min()(1);
+  PIX pixIR = box.Max()(1);
+  PIX pixIC = box.Center()(1);
+  PIX pixJ = box.Min()(2);
   COLOR col = _pGame->LCDGetColor(C_WHITE | CT_OPAQUE, "title");
 
   if (mg_iCenterI == -1)
@@ -761,13 +761,12 @@ BOOL CMGTrigger::OnKeyDown( int iVKey)
   return FALSE;
 }
 
-
 void CMGTrigger::Render( CDrawPort *pdp)
 {
   SetFontMedium(pdp);
 
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixJ = (PIX)(box.Min()(2));
+  PIX pixJ = box.Min()(2);
   COLOR col = GetCurrentColor();
   PIX pixLabelW = pdp->GetTextWidth(mg_strLabel);
   PIX pixIL;
@@ -775,13 +774,13 @@ void CMGTrigger::Render( CDrawPort *pdp)
 
   if (mg_iCenterI == -1 || mg_iCenterI == 1)
   {
-    pixIL = (PIX)(box.Min()(1));
-    pixIR = (PIX)(box.Min()(1) + box.Size()(1));
+    pixIL = box.Min()(1);
+    pixIR = box.Min()(1) + box.Size()(1);
   }
   else
   {
-    pixIL = (PIX)((box.Min()(1) + box.Size()(1) * 0.45f));
-    pixIR = (PIX)((box.Min()(1) + box.Size()(1) * 0.55f));
+    pixIL = box.Min()(1) + (box.Size()(1) * 0.45f);
+    pixIR = box.Min()(1) + (box.Size()(1) * 0.55f);
   }
 
   if (!mg_bVisual || mg_strValue=="") {
@@ -895,8 +894,8 @@ PIXaabbox2D CMGSlider::GetSliderBox(void)
 {
   extern CDrawPort *pdp;
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixJ = (PIX)(box.Min()(2));
-  PIX pixJSize = (PIX)(box.Size()(2) * 0.95f);
+  PIX pixJ = box.Min()(2);
+  PIX pixJSize = box.Size()(2) * 0.95f;
   PIXaabbox2D boxSlider;
   PIX pixIL;
   PIX pixIR;
@@ -904,15 +903,15 @@ PIXaabbox2D CMGSlider::GetSliderBox(void)
 
   if (mg_iCenterI == -1 || mg_iCenterI == 1)
   {
-    pixIL = (PIX)(box.Min()(1));
-    pixIR = (PIX)(box.Min()(1) + box.Size()(1));
-    pixISizeR = (PIX)(box.Size()(1));
+    pixIL = box.Min()(1);
+    pixIR = box.Min()(1) + box.Size()(1);
+    pixISizeR = box.Size()(1);
   }
   else
   {
-    pixIL = (PIX)((box.Min()(1) + box.Size()(1) * 0.45f));
-    pixIR = (PIX)((box.Min()(1) + box.Size()(1) * 0.55f));
-    pixISizeR = (PIX)(box.Size()(1) * 0.45f);
+    pixIL = box.Min()(1) + (box.Size()(1) * 0.45f);
+    pixIR = box.Min()(1) + (box.Size()(1) * 0.55f);
+    pixISizeR = box.Size()(1) * 0.45f;
   }
 
   if (mg_iCenterI == -1 || mg_iCenterI == 1)
@@ -927,16 +926,15 @@ PIXaabbox2D CMGSlider::GetSliderBox(void)
   return boxSlider;
 }
 
-
 void CMGSlider::Render( CDrawPort *pdp)
 {
   SetFontMedium(pdp);
 
   // get geometry
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixJ = (PIX)(box.Min()(2));
+  PIX pixJ = box.Min()(2);
   COLOR col = GetCurrentColor();
-  PIX pixJSize = (PIX)(box.Size()(2) * 0.95f);
+  PIX pixJSize = box.Size()(2) * 0.95f;
   COLOR colSliderBox = _pGame->LCDGetColor(C_GREEN | 255, "slider box");
   PIX pixTextW = pdp->GetTextWidth(mg_strText);
   CTString strPercentage;
@@ -946,15 +944,15 @@ void CMGSlider::Render( CDrawPort *pdp)
 
   if (mg_iCenterI == -1 || mg_iCenterI == 1)
   {
-    pixIL = (PIX)(box.Min()(1));
-    pixIR = (PIX)(box.Min()(1) + box.Size()(1));
-    pixISizeR = (PIX)(box.Size()(1));
+    pixIL = box.Min()(1);
+    pixIR = box.Min()(1) + box.Size()(1);
+    pixISizeR = box.Size()(1);
   }
   else
   {
-    pixIL = (PIX)((box.Min()(1) + box.Size()(1) * 0.45f));
-    pixIR = (PIX)((box.Min()(1) + box.Size()(1) * 0.55f));
-    pixISizeR = (PIX)(box.Size()(1) * 0.45f);
+    pixIL = box.Min()(1) + (box.Size()(1) * 0.45f);
+    pixIR = box.Min()(1) + (box.Size()(1) * 0.55f);
+    pixISizeR = box.Size()(1) * 0.45f;
   }
 
   if (mg_iCenterI == -1)
@@ -1002,7 +1000,6 @@ void CMGSlider::Render( CDrawPort *pdp)
     pdp->PutTextC(strPercentage, pixIR + pixISizeR / 2, pixJ + 1, col);
   }
 }
-
 
 void CMGLevelButton::OnActivate(void)
 {
@@ -2011,22 +2008,21 @@ void CMGKeyDefinition::Render( CDrawPort *pdp)
 
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
   PIX pixLabelW = pdp->GetTextWidth(mg_strLabel);
+  PIX pixJ = box.Min()(2);
+  COLOR col = GetCurrentColor();
   PIX pixIL;
   PIX pixIR;
   
   if (mg_iCenterI == -1 || mg_iCenterI == 1)
   {
-    pixIL = (PIX)(box.Min()(1));
-    pixIR = (PIX)(box.Min()(1) + box.Size()(1));
+    pixIL = box.Min()(1);
+    pixIR = box.Min()(1) + box.Size()(1);
   }
   else
   {
-    pixIL = (PIX)((box.Min()(1) + box.Size()(1) * 0.45f));
-    pixIR = (PIX)((box.Min()(1) + box.Size()(1) * 0.55f));
+    pixIL = box.Min()(1) + (box.Size()(1) * 0.45f);
+    pixIR = box.Min()(1) + (box.Size()(1) * 0.55f);
   }
-
-  PIX pixJ = (PIX)(box.Min()(2));
-  COLOR col = GetCurrentColor();
 
   if (mg_iCenterI == -1)
   {
@@ -2067,10 +2063,10 @@ void CMGLabel::Render(CDrawPort* pdp)
   }
 
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixIL = (PIX)(box.Min()(1));
-  PIX pixIR = (PIX)(box.Max()(1));
-  PIX pixIC = (PIX)(box.Center()(1));
-  PIX pixJ = (PIX)(box.Min()(2));
+  PIX pixIL = box.Min()(1);
+  PIX pixIR = box.Max()(1);
+  PIX pixIC = box.Center()(1);
+  PIX pixJ = box.Min()(2);
   COLOR col = _pGame->LCDGetColor(C_WHITE | CT_OPAQUE, "label");
 
   if (mg_iCenterI == -1)
