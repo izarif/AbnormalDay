@@ -4656,7 +4656,7 @@ void CCustomizeKeyboardMenu::FillListItems(void)
       mgKey[iInMenu].mg_strLabel = TranslateConst(itAct->ba_strName, 0);
       mgKey[iInMenu].mg_iControlNumber = iLabel;
       mgKey[iInMenu].SetBindingNames(FALSE);
-      mgKey[iInMenu].mg_strTip = TRANS("[Enter] - change, [Backspace] - unbind");
+      mgKey[iInMenu].mg_strTip = TRANS("[Enter] - Change, [Backspace] - Unbind");
       mgKey[iInMenu].mg_bEnabled = TRUE;
       mgKey[iInMenu].mg_iInList = iLabel;
     }
