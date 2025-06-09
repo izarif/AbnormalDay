@@ -148,36 +148,57 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
   PIX pixSizeJ = dpHook.GetHeight();
   CFontData *pfd = _pfdConsoleFont;
   PIX pixCharSizeI = pfd->fd_pixCharWidth  + pfd->fd_pixCharSpacing;
-  PIX pixCharSizeJ = pfd->fd_pixCharHeight + pfd->fd_pixLineSpacing;
 
-  PIX pixBarSizeJ = 17;//*pixSizeJ/480;
+  FLOAT fScaleW = pixSizeI / 640.0f;
+  FLOAT fScaleH = pixSizeJ / 480.0f;
 
-  COLOR colBcg = LerpColor(C_BLACK, SE_COL_BLUE_LIGHT, 0.30f)|0xff;
-  COLOR colBar = LerpColor(C_BLACK, SE_COL_BLUE_LIGHT, 0.45f)|0xff;
+  PIX pixCharSizeJ = (pfd->GetHeight() - 1) * fScaleH;
+  PIX pixBarSizeJ = 22 * fScaleH;
+
+  COLOR colBcg = SE_COL_GREEN_DARK | 255;
+  COLOR colBar = SE_COL_GREEN_LIGHT | 255;
   COLOR colLines = colBar; //C_vdGREEN|0xff;
-  COLOR colText = LerpColor(C_BLACK, SE_COL_BLUE_LIGHT, 0.95f)|0xff;
-  COLOR colEsc = C_WHITE|0xFF;
+  COLOR colText = SE_COL_GREEN_LIGHT | 255;
+  COLOR colEsc = SE_COL_GREEN_LIGHT | 255;
 
-  dpHook.Fill(0, pixSizeJ-pixBarSizeJ, pixSizeI, pixBarSizeJ, colBcg);
-  dpHook.Fill(0, pixSizeJ-pixBarSizeJ, pixSizeI*pphi->phi_fCompleted, pixBarSizeJ, colBar);
-  dpHook.DrawBorder(0, pixSizeJ-pixBarSizeJ, pixSizeI, pixBarSizeJ, colLines);
+  PIX pixBarBorderW = 1;
+  PIX pixPaddingI = 6 * fScaleW;
+  PIX pixPaddingJ = 6 * fScaleH;
+  PIX pixBarSizeI = pixSizeI - (pixPaddingI * 2);
+  PIX pixI = pixPaddingI - (3 * fScaleW);
+  PIX pixJ = pixSizeJ - (pixPaddingJ * 2) - pixBarSizeJ - pixCharSizeJ;
 
-  dpHook.SetFont( _pfdConsoleFont);
-  dpHook.SetTextScaling( 1.0f);
-  dpHook.SetTextAspect( 1.0f);
+  dpHook.SetFont(_pfdConsoleFont);
+  dpHook.SetTextScaling(fScaleH);
+  dpHook.SetTextAspect(1.0f);
+
+  if (_bUserBreakEnabled && !_pGame->gm_bFirstLoading) {
+    dpHook.PutText(TRANS("[Esc] - Abort"), pixI, pixJ, colEsc);
+  }
+
+  pixI += (3 * fScaleW);
+  pixJ += pixCharSizeJ + pixPaddingJ;
+
+  dpHook.Fill(pixI, pixJ, pixBarSizeI, pixBarSizeJ, colBcg);
+  dpHook.Fill(pixI, pixJ, pixSizeI * pphi->phi_fCompleted, pixBarSizeJ, colBar);
+  dpHook.DrawBorder(pixI, pixJ, pixBarSizeI, pixBarSizeJ, colLines);
+
   // print status text
-  setlocale(LC_ALL, "");
   CTString strDesc(0, "%s", (const char *) pphi->phi_strDescription);
   strupr((char*)(const char*)strDesc);
-  setlocale(LC_ALL, "C");
   CTString strPerc(0, "%3.0f%%", pphi->phi_fCompleted*100);
   //dpHook.PutText(strDesc, pixCharSizeI/2, pixSizeJ-pixBarSizeJ-2-pixCharSizeJ, C_GREEN|255);
   //dpHook.PutTextCXY(strPerc, pixSizeI/2, pixSizeJ-pixBarSizeJ/2+1, C_GREEN|255);
-  dpHook.PutText(strDesc, pixCharSizeI/2, pixSizeJ-pixBarSizeJ+pixCharSizeJ/2, colText);
-  dpHook.PutTextR(strPerc, pixSizeI-pixCharSizeI/2, pixSizeJ-pixBarSizeJ+pixCharSizeJ/2, colText);
-  if (_bUserBreakEnabled && !_pGame->gm_bFirstLoading) {
-    dpHook.PutTextC( TRANS( "PRESS ESC TO ABORT"), pixSizeI/2, pixSizeJ-pixBarSizeJ-2-pixCharSizeJ, colEsc);
-  }
+
+  pixI += pixBarBorderW + pixPaddingI - (3 * fScaleW);
+  pixJ += pixBarBorderW + pixPaddingJ;
+
+  dpHook.PutText(strDesc, pixI, pixJ, colText);
+
+  PIX pixDescW = dpHook.GetTextWidth(strDesc);
+  pixI += pixDescW + (pixPaddingI * 2);
+
+  dpHook.PutText(strPerc, pixI, pixJ, colText);
 
 /*  
   //_pGame->LCDPrepare(1.0f);
