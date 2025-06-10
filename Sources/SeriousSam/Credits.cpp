@@ -24,7 +24,6 @@ static BOOL _bCreditsOn = FALSE;
 static PIX pixW = 0;
 static PIX pixH = 0;
 static PIX pixJ = 0;
-static FLOAT fResolutionScaling;
 static PIX pixLineHeight;
 
 static CTString strEmpty;
@@ -33,6 +32,9 @@ static FLOAT _fSpeed = 2.0f;
 static BOOL _bUseRealTime = FALSE;
 static CTimerValue _tvStart;
 FLOAT fCreditsStartTime;
+
+static FLOAT fScaleW;
+static FLOAT fScaleH;
 
 FLOAT GetTime(void)
 {
@@ -47,9 +49,9 @@ void PrintOneLine(CDrawPort *pdp, const CTString &strText)
 {
   COLOR col = _pGame->LCDGetColor(C_WHITE, "credits line");
 
-  pdp->SetTextScaling( fResolutionScaling);
+  pdp->SetTextScaling(fScaleH);
   pdp->SetTextAspect( 1.0f);
-  pdp->PutText(strText, 4.8f * fResolutionScaling, pixJ, col | 255);
+  pdp->PutText(strText, 6.0f * fScaleW, pixJ, col | 255);
 
   pixJ+=pixLineHeight;
 }
@@ -146,10 +148,12 @@ FLOAT Credits_Render(CDrawPort *pdp)
   
   pixW = dpWide.GetWidth();
   pixH = dpWide.GetHeight();
-  fResolutionScaling = pixH / 480.0f;
+
+  fScaleW = pixW / 640.0f;
+  fScaleH = pixH / 480.0f;
 
   dpWide.SetFont( _pfdDisplayFont);
-  pixLineHeight = (PIX) (floor(20*fResolutionScaling));
+  pixLineHeight = 20 * fScaleH;
 
   const FLOAT fLinesPerSecond = _fSpeed;
   FLOAT fOffset = fCreditsTime * fLinesPerSecond;
