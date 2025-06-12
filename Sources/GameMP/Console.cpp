@@ -84,6 +84,8 @@ BOOL GetLineCountBackward(const char *pchrStringStart, const char *pchrStringEnd
   return TRUE;
 }
 
+extern CTextureObject toConsoleBack;
+
 void CGame::ConsoleRender(CDrawPort *pdp)
 {
   if( _pGame->gm_csConsoleState==CS_OFF) {
@@ -149,22 +151,22 @@ void CGame::ConsoleRender(CDrawPort *pdp)
 
   LCDPrepare(fConsoleFadeValue);
   LCDSetDrawport(&dpConsole);
-  dpConsole.Fill(LCDFadedColor(C_BLACK|225));
 
   PIX pixSizeI = dpConsole.GetWidth();
   PIX pixSizeJ = dpConsole.GetHeight();
-  COLOR colLight = LCDFadedColor(C_WHITE|255);
-  COLOR colDark  = LCDFadedColor(SE_COL_BLUE_LIGHT|255);   
+
+  COLOR colLight = SE_COL_GREEN_LIGHT | 255;
+  COLOR colDark = SE_COL_GREEN_DARK | 255;
+  COLOR colCommandLine = SE_COL_BLUE_LIGHT | 255;
+  COLOR colBorder = SE_COL_GREEN_LIGHT | 255;
+
   INDEX iBackwardLine = con_iFirstLine;
   if( iBackwardLine>1) Swap( colLight, colDark);
   PIX pixLineSpacing = _pfdConsoleFont->fd_pixCharHeight + _pfdConsoleFont->fd_pixLineSpacing;
 
-  LCDRenderCloudsForComp();
-  //LCDRenderGrid();
-  LCDRenderClouds2();
-  dpConsole.DrawLine( 0, pixSizeJ-1, pixSizeI, pixSizeJ-1, LCDFadedColor(SE_COL_BLUE_NEUTRAL|255));    
+  dpConsole.DrawLine(0, pixSizeJ - 1, pixSizeI, pixSizeJ - 1, colBorder);
   const ULONG colFill = (colDark & ~CT_AMASK) | 0x2F;
-  dpConsole.Fill( 0, pixSizeJ-pixLineSpacing*1.6f, pixSizeI, pixLineSpacing*1.6f, colFill);
+  dpConsole.PutTexture(&toConsoleBack, PIXaabbox2D(PIX2D(0, pixSizeJ - pixLineSpacing * 1.6f), PIX2D(pixSizeI, pixLineSpacing * 1.6f)));
 
   // setup font
   PIX pixTextX = (PIX)(dpConsole.GetWidth()*0.01f);
@@ -180,7 +182,8 @@ void CGame::ConsoleRender(CDrawPort *pdp)
     strPrompt = "=> ";
   }
   CTString strLineOnScreen = strPrompt + strEditingLine;
-  dpConsole.PutText( strLineOnScreen, pixTextX, pixYLine, colLight);
+
+  dpConsole.PutText(strLineOnScreen, pixTextX, pixYLine, colCommandLine);
   dpConsole.SetTextMode(+1);
 
   // add blinking cursor
@@ -189,7 +192,8 @@ void CGame::ConsoleRender(CDrawPort *pdp)
     FLOAT fTextScalingX = dpConsole.dp_fTextScaling * dpConsole.dp_fTextAspect;
     PIX pixCellSize = (PIX) (_pfdConsoleFont->fd_pixCharWidth * fTextScalingX + dpConsole.dp_pixTextCharSpacing);
     PIX pixCursorX  = pixTextX + (iCursorPos+strlen(strPrompt))*pixCellSize;
-    dpConsole.PutText( strCursor, pixCursorX, pixYLine+2, colDark);
+
+    dpConsole.PutText(strCursor, pixCursorX, pixYLine + 2, colCommandLine);
   }
 
   // render previous outputs
@@ -198,7 +202,8 @@ void CGame::ConsoleRender(CDrawPort *pdp)
   ctConsoleLinesOnScreen = pixYLine/pixLineSpacing;
   while( pixYLine >= 0) {
     CTString strLineOnScreen = CON_GetLastLine(iBackwardLine);
-    dpConsole.PutText( strLineOnScreen, pixTextX, pixYLine, colDark);
+
+    dpConsole.PutText( strLineOnScreen, pixTextX, pixYLine, colLight);
     iBackwardLine++;
     pixYLine -= pixLineSpacing;
   }
@@ -226,7 +231,7 @@ void CGame::ConsolePrintLastLines(CDrawPort *pdp)
   // for each line
   for( INDEX iLine=0; iLine<ctLines; iLine++) {
     CTString strLine = CON_GetLastLine(iLine+1);
-    pdp->PutText( strLine, 0, pixCharHeight*(ctLines-iLine-1), SE_COL_BLUE_LIGHT|255);
+    pdp->PutText(strLine, 0, pixCharHeight * (ctLines - iLine - 1), SE_COL_GREEN_LIGHT | 255);
   }
 }
 

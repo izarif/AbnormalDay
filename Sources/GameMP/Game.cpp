@@ -2947,6 +2947,8 @@ void TiledTextureSE( PIXaabbox2D &_boxScreen, FLOAT fStretch, const MEX2D &vScre
 
 ////
 
+CTextureObject toConsoleBack;
+
 void CGame::LCDInit(void)
 {
   try {
@@ -2959,6 +2961,7 @@ void CGame::LCDInit(void)
     _toSamD.SetData_t(CTFILENAME("TexturesMP\\General\\SamD.tex"));
     _toLeftU.SetData_t(CTFILENAME("TexturesMP\\General\\LeftU.tex"));
     _toLeftD.SetData_t(CTFILENAME("TexturesMP\\General\\LeftD.tex"));
+    toConsoleBack.SetData_t(CTFILENAME("Textures\\General\\ConsoleBack.tex"));
     // force constant textures
     ((CTextureData*)_toBackdrop .GetData())->Force(TEX_CONSTANT);
     ((CTextureData*)_toSamU     .GetData())->Force(TEX_CONSTANT);
@@ -2968,8 +2971,7 @@ void CGame::LCDInit(void)
     ((CTextureData*)_toBcgClouds.GetData())->Force(TEX_CONSTANT);
     ((CTextureData*)_toPointer  .GetData())->Force(TEX_CONSTANT);
     ((CTextureData*)_toBcgGrid  .GetData())->Force(TEX_CONSTANT);
-
-
+    ((CTextureData*)toConsoleBack.GetData())->Force(TEX_CONSTANT);
   } catch (const char *strError) {
     FatalError("%s\n", strError);
   }
