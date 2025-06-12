@@ -3157,10 +3157,10 @@ COLOR CGame::LCDGetColor(COLOR colDefault, const char* strName)
     colDefault = SE_COL_BLUE_LIGHT | 255;
   }
   else if (!strcmp(strName, "disabled selected")) {
-    colDefault = SE_COL_BLUE_NEUTRAL | 255;
+    colDefault = SE_COL_BLUE_DARK | 255;
   }
   else if (!strcmp(strName, "disabled unselected")) {
-    colDefault = SE_COL_GREEN_NEUTRAL | 255;
+    colDefault = SE_COL_GREEN_DARK | 255;
   }
   else if (!strcmp(strName, "label")) {
     colDefault = SE_COL_GREEN_LIGHT | 255;
@@ -3169,7 +3169,7 @@ COLOR CGame::LCDGetColor(COLOR colDefault, const char* strName)
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
   else if (!strcmp(strName, "editing")) {
-    colDefault = SE_COL_GREEN_LIGHT | 255;
+    colDefault = SE_COL_BLUE_LIGHT | 255;
   }
   else if (!strcmp(strName, "hilited")) {
     colDefault = SE_COL_BLUE_LIGHT | 255;
@@ -3178,7 +3178,7 @@ COLOR CGame::LCDGetColor(COLOR colDefault, const char* strName)
     colDefault = SE_COL_BLUE_LIGHT | 255;
   }
   else if (!strcmp(strName, "edit fill")) {
-    colDefault = SE_COL_BLUE_NEUTRAL | 0;
+    colDefault = SE_COL_BLUE_DARK | 0;
   }
   else if (!strcmp(strName, "editing cursor")) {
     colDefault = SE_COL_BLUE_LIGHT | 255;
@@ -3205,7 +3205,7 @@ COLOR CGame::LCDGetColor(COLOR colDefault, const char* strName)
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
   else if (!strcmp(strName, "bcg fill")) {
-    colDefault = SE_COL_GREEN_NEUTRAL | 255;
+    colDefault = SE_COL_GREEN_DARK | 255;
   }
   else if (!strcmp(strName, "credits line")) {
     colDefault = SE_COL_GREEN_LIGHT | 255;
