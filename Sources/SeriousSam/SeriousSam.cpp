@@ -130,12 +130,12 @@ __extern CTextureObject *_ptoLogoEAX = NULL;
 CTString sam_strVersion = "1.00";
 CTString sam_strModName = TRANS("Abnormal Day");
 
-CTString sam_strFirstLevel = "Levels\\LevelsMP\\First.wld";
-CTString sam_strIntroLevel = "Levels\\LevelsMP\\Intro.wld";
+CTString sam_strFirstLevel = "Levels\\First.wld";
+CTString sam_strIntroLevel = "Levels\\Intro.wld";
 CTString sam_strGameName = "abnormalday";
 
-CTString sam_strTechTestLevel = "Levels\\LevelsMP\\TechTest.wld";
-CTString sam_strTrainingLevel = "Levels\\LevelsMP\\Training.wld";
+CTString sam_strTechTestLevel = "Levels\\TechTest.wld";
+CTString sam_strTrainingLevel = "Levels\\Training.wld";
 
 ENGINE_API extern INDEX snd_iFormat;
 

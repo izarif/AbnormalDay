@@ -2338,11 +2338,11 @@ void InitializeMenus(void)
     toMenuLogo.SetData_t(CTFILENAME("Textures\\Logo\\Menu.tex"));
     _toLogoMenuB.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256b.tex"));
 
-    toMainMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MainMenuBack.tex"));
-    toInGameMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\InGameMenuBack.tex"));
-    toCreditsMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\CreditsMenuBack.tex"));
-    toDefaultMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MenuBack.tex"));
-    toPopupBack.SetData_t(CTFILENAME("TexturesMP\\General\\PopupBack.tex"));
+    toMainMenuBack.SetData_t(CTFILENAME("Textures\\General\\MainMenuBack.tex"));
+    toInGameMenuBack.SetData_t(CTFILENAME("Textures\\General\\InGameMenuBack.tex"));
+    toCreditsMenuBack.SetData_t(CTFILENAME("Textures\\General\\CreditsMenuBack.tex"));
+    toDefaultMenuBack.SetData_t(CTFILENAME("Textures\\General\\MenuBack.tex"));
+    toPopupBack.SetData_t(CTFILENAME("Textures\\General\\PopupBack.tex"));
   }
   catch (const char *strError) {
     FatalError( strError);
