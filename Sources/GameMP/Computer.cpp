@@ -822,7 +822,8 @@ void RenderMessageStats(CDrawPort *pdp)
   ULONG ulLevelMask = psp->sp_ulLevelsMask;
   //INDEX iLevel = -1;
   if (psp->sp_bCooperative) {
-    extern void RenderMap( CDrawPort *pdp, ULONG ulLevelMask, CProgressHookInfo *pphi);
+    extern void RenderLoadingScreen(CDrawPort *pdp, CProgressHookInfo *pphi);
+ 
     if (pdp->Lock()) {
       // get sizes
       PIX pixSizeI = pdp->GetWidth();
@@ -832,7 +833,7 @@ void RenderMessageStats(CDrawPort *pdp)
       // render the map if not fading
       COLOR colFade = _pGame->LCDFadedColor(C_WHITE|255);
       if( (colFade&255) == 255) {
-        RenderMap( pdp, ulLevelMask, NULL);
+        RenderLoadingScreen(pdp, NULL);
       }
       pdp->Unlock();
     }
