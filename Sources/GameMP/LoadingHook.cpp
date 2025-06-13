@@ -131,8 +131,9 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
 
   if (ulLevelMask!=0 && !_pNetwork->IsPlayingDemo()) {
     // map hook
-    extern void RenderMap( CDrawPort *pdp, ULONG ulLevelMask, CProgressHookInfo *pphi);
-    RenderMap(&dpHook, ulLevelMask, pphi);
+    extern void RenderLoadingScreen(CDrawPort *pdp, CProgressHookInfo *pphi);
+
+    RenderLoadingScreen(&dpHook, pphi);
 
     // finish rendering
     dpHook.Unlock();
