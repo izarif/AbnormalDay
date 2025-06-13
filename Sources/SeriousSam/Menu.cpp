@@ -6868,17 +6868,20 @@ void CCreditsMenu::StartMenu(void)
     CPrintF("%s\n", (const char*)strError);
   }
 
+  fCreditsStartTime = 0;
+  fCreditsTime = 0;
+
   _pShell->SetINDEX("ad_iStartCredits", 3);
   CGameMenu::StartMenu();
 }
 
 void CCreditsMenu::Think(void)
 {
+   CGameMenu::Think();
+
   if (fCreditsTime > (fCreditsStartTime + 18)) {
     MenuBack();
   }
-
-  CGameMenu::Think();
 }
 
 void CCreditsMenu::EndMenu(void)
