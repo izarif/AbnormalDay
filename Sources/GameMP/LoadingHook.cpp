@@ -145,13 +145,13 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
   }
 
   // get sizes
-  PIX pixSizeI = dpHook.GetWidth();
-  PIX pixSizeJ = dpHook.GetHeight();
+  PIX pixScreenSizeI = dpHook.GetWidth();
+  PIX pixScreenSizeJ = dpHook.GetHeight();
   CFontData *pfd = _pfdConsoleFont;
   PIX pixCharSizeI = pfd->fd_pixCharWidth  + pfd->fd_pixCharSpacing;
 
-  FLOAT fScaleW = pixSizeI / 640.0f;
-  FLOAT fScaleH = pixSizeJ / 480.0f;
+  FLOAT fScaleW = pixScreenSizeI / 640.0f;
+  FLOAT fScaleH = pixScreenSizeJ / 480.0f;
 
   PIX pixCharSizeJ = (pfd->GetHeight() - 1) * fScaleH;
   PIX pixBarSizeJ = 22 * fScaleH;
@@ -165,9 +165,9 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
   PIX pixBarBorderW = 1;
   PIX pixPaddingI = 6 * fScaleW;
   PIX pixPaddingJ = 6 * fScaleH;
-  PIX pixBarSizeI = pixSizeI - (pixPaddingI * 2);
+  PIX pixBarSizeI = pixScreenSizeI - (pixPaddingI * 2);
   PIX pixI = pixPaddingI - (3 * fScaleW);
-  PIX pixJ = pixSizeJ - (pixPaddingJ * 2) - pixBarSizeJ - pixCharSizeJ;
+  PIX pixJ = pixScreenSizeJ - (pixPaddingJ * 2) - pixBarSizeJ - pixCharSizeJ;
 
   dpHook.SetFont(_pfdConsoleFont);
   dpHook.SetTextScaling(fScaleH);
@@ -181,7 +181,7 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
   pixJ += pixCharSizeJ + pixPaddingJ;
 
   dpHook.Fill(pixI, pixJ, pixBarSizeI, pixBarSizeJ, colBcg);
-  dpHook.Fill(pixI, pixJ, pixSizeI * pphi->phi_fCompleted, pixBarSizeJ, colBar);
+  dpHook.Fill(pixI, pixJ, pixScreenSizeI * pphi->phi_fCompleted, pixBarSizeJ, colBar);
   dpHook.DrawBorder(pixI, pixJ, pixBarSizeI, pixBarSizeJ, colLines);
 
   // print status text
