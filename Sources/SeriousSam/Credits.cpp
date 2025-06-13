@@ -31,6 +31,7 @@ static FLOAT _fSpeed = 2.0f;
 
 static BOOL _bUseRealTime = FALSE;
 static CTimerValue _tvStart;
+
 FLOAT fCreditsStartTime;
 
 static FLOAT fScaleW;
