@@ -179,7 +179,7 @@ CSoundData *_psdPress = NULL;
 CSoundObject *_psoMenuSound = NULL;
 
 static CTextureObject _toPointer;
-static CTextureObject _toLogoMenuA;
+static CTextureObject toMenuLogo;
 static CTextureObject _toLogoMenuB;
 
 // -------------- All possible menu entities
@@ -2301,12 +2301,12 @@ void InitGameTypes(void)
   }
 }
 
-static CTextureObject _toMainMenuBack;
-static CTextureObject _toInGameMenuBack;
-static CTextureObject _toCreditsMenuBack;
-static CTextureObject _toDefaultMenuBack;
-static CTextureObject* _ptoCurrentMenuBack;
-static CTextureObject _toPopupBack;
+static CTextureObject toMainMenuBack;
+static CTextureObject toInGameMenuBack;
+static CTextureObject toCreditsMenuBack;
+static CTextureObject toDefaultMenuBack;
+static CTextureObject *ptoCurrentMenuBack;
+static CTextureObject toPopupBack;
 
 // ------------------------ Global menu function implementation
 void InitializeMenus(void)
@@ -2335,27 +2335,27 @@ void InitializeMenus(void)
 
     // initialize and load menu textures
     _toPointer.SetData_t( CTFILENAME( "Textures\\General\\Pointer.tex"));
-    _toLogoMenuA.SetData_t(CTFILENAME("Textures\\Logo\\Menu.tex"));
+    toMenuLogo.SetData_t(CTFILENAME("Textures\\Logo\\Menu.tex"));
     _toLogoMenuB.SetData_t(  CTFILENAME( "Textures\\Logo\\sam_menulogo256b.tex"));
 
-    _toMainMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MainMenuBack.tex"));
-    _toInGameMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\InGameMenuBack.tex"));
-    _toCreditsMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\CreditsMenuBack.tex"));
-    _toDefaultMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MenuBack.tex"));
-    _toPopupBack.SetData_t(CTFILENAME("TexturesMP\\General\\PopupBack.tex"));
+    toMainMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MainMenuBack.tex"));
+    toInGameMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\InGameMenuBack.tex"));
+    toCreditsMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\CreditsMenuBack.tex"));
+    toDefaultMenuBack.SetData_t(CTFILENAME("TexturesMP\\General\\MenuBack.tex"));
+    toPopupBack.SetData_t(CTFILENAME("TexturesMP\\General\\PopupBack.tex"));
   }
   catch (const char *strError) {
     FatalError( strError);
   }
   // force logo textures to be of maximal size
-  ((CTextureData*)_toLogoMenuA.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)toMenuLogo.GetData())->Force(TEX_CONSTANT);
   ((CTextureData*)_toLogoMenuB.GetData())->Force(TEX_CONSTANT);
 
-  ((CTextureData*)_toMainMenuBack.GetData())->Force(TEX_CONSTANT);
-  ((CTextureData*)_toInGameMenuBack.GetData())->Force(TEX_CONSTANT);
-  ((CTextureData*)_toDefaultMenuBack.GetData())->Force(TEX_CONSTANT);
-  ((CTextureData*)_toCreditsMenuBack.GetData())->Force(TEX_CONSTANT);
-  ((CTextureData*)_toPopupBack.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)toMainMenuBack.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)toInGameMenuBack.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)toDefaultMenuBack.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)toCreditsMenuBack.GetData())->Force(TEX_CONSTANT);
+  ((CTextureData*)toPopupBack.GetData())->Force(TEX_CONSTANT);
 
   // menu's relative placement
   //CPlacement3D plRelative = CPlacement3D( FLOAT3D( 0.0f, 0.0f, -9.0f),
@@ -2792,22 +2792,22 @@ BOOL DoMenu( CDrawPort *pdp)
 
     if (pgmCurrentMenu == &gmMainMenu)
     {
-      _ptoCurrentMenuBack = &_toMainMenuBack;
+      ptoCurrentMenuBack = &toMainMenuBack;
     }
     else if (pgmCurrentMenu == &gmInGameMenu)
     {
-      _ptoCurrentMenuBack = &_toInGameMenuBack;
+      ptoCurrentMenuBack = &toInGameMenuBack;
     }
     else if (pgmCurrentMenu == &gmCreditsMenu)
     {
-      _ptoCurrentMenuBack = &_toCreditsMenuBack;
+      ptoCurrentMenuBack = &toCreditsMenuBack;
     }
     else
     {
-      _ptoCurrentMenuBack = &_toDefaultMenuBack;
+      ptoCurrentMenuBack = &toDefaultMenuBack;
     }
 
-    dpMenu.PutTexture(_ptoCurrentMenuBack, PIXaabbox2D(PIX2D(0, 0), PIX2D(pixW, pixH)));
+    dpMenu.PutTexture(ptoCurrentMenuBack, PIXaabbox2D(PIX2D(0, 0), PIX2D(pixW, pixH)));
 
     // put logo(s) to main menu (if logos exist)
     if( pgmCurrentMenu==&gmMainMenu)
@@ -2844,7 +2844,7 @@ BOOL DoMenu( CDrawPort *pdp)
         PIX pixLogoSizeI = 256 * fScaleW;
         PIX pixLogoSizeJ = 128 * fScaleH;
 
-        dpMenu.PutTexture(&_toLogoMenuA, PIXaabbox2D(
+        dpMenu.PutTexture(&toMenuLogo, PIXaabbox2D(
           PIX2D(pixLogoI, pixLogoJ), PIX2D(pixLogoI + pixLogoSizeI, pixLogoJ + pixLogoSizeJ)));
       }
 
@@ -2914,7 +2914,7 @@ BOOL DoMenu( CDrawPort *pdp)
     CDrawPort dpPopup(pdp, TRUE);
 
     dpPopup.Lock();
-    dpPopup.PutTexture(&_toPopupBack, box);
+    dpPopup.PutTexture(&toPopupBack, box);
     dpPopup.DrawBorder(box.Min()(1), box.Min()(2), box.Size()(1), box.Size()(2), col | 255);
     dpPopup.Unlock();
     dpMenu.Lock();
@@ -6779,14 +6779,14 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsBack.mg_iCenterI = -1;
 }
 
-INDEX FindFloatValueInArray(FLOAT Arr[], INDEX Len, FLOAT Val)
+INDEX FindFloatInArray(FLOAT a[], INDEX iLen, FLOAT fVal)
 {
   BOOL found = FALSE;
   INDEX i;
 
-  for (i = 0; i < Len; i++)
+  for (i = 0; i < iLen; i++)
   {
-    if (Arr[i] == Val)
+    if (a[i] == fVal)
     {
         found = TRUE;
         break;
@@ -6800,7 +6800,7 @@ void GetRenderingSettings(void)
 {
   INDEX iNormalSize = _pShell->GetINDEX("tex_iNormalSize");
 
-  mgRenderingOptionsTexturesSize.mg_iSelected = FindFloatValueInArray(fTextureSizes, ARRAYCOUNT(fTextureSizes), iNormalSize);
+  mgRenderingOptionsTexturesSize.mg_iSelected = FindFloatInArray(fTextureSizes, ARRAYCOUNT(fTextureSizes), iNormalSize);
   mgRenderingOptionsTexturesSize.ApplyCurrentSelection();
 
   INDEX iNormalQuality = _pShell->GetINDEX("tex_iNormalQuality");
@@ -6815,7 +6815,7 @@ void GetRenderingSettings(void)
 
   INDEX iStaticSize = _pShell->GetINDEX("shd_iStaticSize");
 
-  mgRenderingOptionsShadowMapsSize.mg_iSelected = FindFloatValueInArray(fShadowMapsSizes, ARRAYCOUNT(fShadowMapsSizes), iStaticSize);
+  mgRenderingOptionsShadowMapsSize.mg_iSelected = FindFloatInArray(fShadowMapsSizes, ARRAYCOUNT(fShadowMapsSizes), iStaticSize);
   mgRenderingOptionsShadowMapsSize.ApplyCurrentSelection();
 
   mgRenderingOptionsLensFlares.mg_iSelected = _pShell->GetINDEX("gfx_iLensFlareQuality");
@@ -6864,7 +6864,7 @@ void CCreditsMenu::StartMenu(void)
   try {
     soMusic.Play_t(CTFILENAME("Music\\Credits.mp3"), SOF_NONGAME | SOF_MUSIC | SOF_LOOP);
   }
-  catch (const char* strError) {
+  catch (const char *strError) {
     CPrintF("%s\n", (const char*)strError);
   }
 

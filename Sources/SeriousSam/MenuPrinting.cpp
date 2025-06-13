@@ -15,14 +15,14 @@ static const FLOAT _fNoUpStartJ = 0.24f;
 static const FLOAT _fNoDownStartJ = 0.44f;
 static const FLOAT _fNoSizeJ = 0.04f;
 
-static const FLOAT _fPadding = 0.01f;
-static const FLOAT _fTitleSizeJ = 0.082f;
+static const FLOAT fPadding = 0.01f;
+static const FLOAT fTitleSizeJ = 0.082f;
 
 FLOATaabbox2D BoxTitle(FLOAT fRow)
 {
   return FLOATaabbox2D(
-    FLOAT2D(0.01f, _fBigStartJ + fRow * _fTitleSizeJ),
-    FLOAT2D(0.99f, _fBigStartJ + (fRow + 1) * _fTitleSizeJ));
+    FLOAT2D(0.01f, _fBigStartJ + fRow * fTitleSizeJ),
+    FLOAT2D(0.99f, _fBigStartJ + (fRow + 1) * fTitleSizeJ));
 }
 
 FLOATaabbox2D BoxNoUp(FLOAT fRow)
@@ -47,8 +47,8 @@ FLOATaabbox2D BoxBigRow(FLOAT fRow)
 FLOATaabbox2D BoxBigLeft(FLOAT fRow)
 {
   return FLOATaabbox2D(
-    FLOAT2D(_fPadding, _fBigStartJ + fRow * _fBigSizeJ),
-    FLOAT2D(1 - _fPadding, _fBigStartJ + (fRow + 1) * _fBigSizeJ));
+    FLOAT2D(fPadding, _fBigStartJ + fRow * _fBigSizeJ),
+    FLOAT2D(1 - fPadding, _fBigStartJ + (fRow + 1) * _fBigSizeJ));
 }
 
 FLOATaabbox2D BoxBigRight(FLOAT fRow)
@@ -61,15 +61,15 @@ FLOATaabbox2D BoxBigRight(FLOAT fRow)
 FLOATaabbox2D BoxSaveLoad(FLOAT fRow)
 {
   return FLOATaabbox2D(
-    FLOAT2D(_fPadding, _fBigStartJ + fRow * _fMediumSizeJ),
-    FLOAT2D(1 - _fPadding, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
+    FLOAT2D(fPadding, _fBigStartJ + fRow * _fMediumSizeJ),
+    FLOAT2D(1 - fPadding, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
 }
 
 FLOATaabbox2D BoxVersion(void)
 {
   return FLOATaabbox2D(
-    FLOAT2D(_fPadding, _fBigStartJ + -5.9f * _fMediumSizeJ),
-    FLOAT2D(1 - _fPadding, _fBigStartJ + (-5.9f + 1) * _fMediumSizeJ));
+    FLOAT2D(fPadding, _fBigStartJ + -5.9f * _fMediumSizeJ),
+    FLOAT2D(1 - fPadding, _fBigStartJ + (-5.9f + 1) * _fMediumSizeJ));
 }
 
 FLOATaabbox2D BoxMediumRow(FLOAT fRow)
@@ -87,8 +87,8 @@ FLOATaabbox2D BoxKeyRow(FLOAT fRow)
 FLOATaabbox2D BoxMediumLeft(FLOAT fRow)
 {
   return FLOATaabbox2D(
-    FLOAT2D(_fPadding, _fBigStartJ + fRow * _fMediumSizeJ),
-    FLOAT2D(0.5f - _fPadding, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
+    FLOAT2D(fPadding, _fBigStartJ + fRow * _fMediumSizeJ),
+    FLOAT2D(0.5f - fPadding, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
 }
 
 FLOATaabbox2D BoxPlayerSwitch(FLOAT fRow)
@@ -118,7 +118,7 @@ FLOATaabbox2D BoxMediumRight(FLOAT fRow)
 
 FLOATaabbox2D BoxPopup(void)
 {
-  return FLOATaabbox2D(FLOAT2D(_fPadding, 0.838f - _fPadding), FLOAT2D(0.6f + _fPadding, 1 - _fPadding));
+  return FLOATaabbox2D(FLOAT2D(fPadding, 0.838f - fPadding), FLOAT2D(0.6f + fPadding, 1 - fPadding));
 }
 
 FLOATaabbox2D BoxPopupLabel(void)
@@ -189,12 +189,12 @@ FLOATaabbox2D BoxArrow(enum ArrowDir ad)
     ASSERT(FALSE);
   case AD_UP:
     return FLOATaabbox2D(
-      FLOAT2D(_fPadding, _fBigStartJ + 3.7f * _fMediumSizeJ),
-      FLOAT2D(1 - _fPadding, _fBigStartJ + (3.7f + 1) * _fMediumSizeJ));
+      FLOAT2D(fPadding, _fBigStartJ + 3.7f * _fMediumSizeJ),
+      FLOAT2D(1 - fPadding, _fBigStartJ + (3.7f + 1) * _fMediumSizeJ));
   case AD_DOWN:
     return FLOATaabbox2D(
-      FLOAT2D(_fPadding, _fBigStartJ + 14.7f * _fMediumSizeJ),
-      FLOAT2D(1 - _fPadding, _fBigStartJ + (14.7f + 1) * _fMediumSizeJ));
+      FLOAT2D(fPadding, _fBigStartJ + 14.7f * _fMediumSizeJ),
+      FLOAT2D(1 - fPadding, _fBigStartJ + (14.7f + 1) * _fMediumSizeJ));
   }
 }
 
@@ -280,6 +280,6 @@ void SetFontSmall(CDrawPort *pdp)
 FLOATaabbox2D BoxKeyLeft(FLOAT fRow)
 {
   return FLOATaabbox2D(
-    FLOAT2D(_fPadding, _fBigStartJ + fRow * _fMediumSizeJ),
-    FLOAT2D(1 - _fPadding, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
+    FLOAT2D(fPadding, _fBigStartJ + fRow * _fMediumSizeJ),
+    FLOAT2D(1 - fPadding, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
 }

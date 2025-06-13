@@ -3140,76 +3140,100 @@ void CGame::LCDDrawPointer(PIX pixI, PIX pixJ)
 }
 COLOR CGame::LCDGetColor(COLOR colDefault, const char* strName)
 {
-  if (!strcmp(strName, "thumbnail border")) {
+  if (!strcmp(strName, "thumbnail border"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "no thumbnail")) {
+  else if (!strcmp(strName, "no thumbnail"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "popup box")) {
+  else if (!strcmp(strName, "popup box"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "tool tip")) {
+  else if (!strcmp(strName, "tool tip"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "unselected")) {
+  else if (!strcmp(strName, "unselected"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "selected")) {
+  else if (!strcmp(strName, "selected"))
+  {
     colDefault = SE_COL_BLUE_LIGHT | 255;
   }
-  else if (!strcmp(strName, "disabled selected")) {
+  else if (!strcmp(strName, "disabled selected"))
+  {
     colDefault = SE_COL_BLUE_DARK | 255;
   }
-  else if (!strcmp(strName, "disabled unselected")) {
+  else if (!strcmp(strName, "disabled unselected"))
+  {
     colDefault = SE_COL_GREEN_DARK | 255;
   }
-  else if (!strcmp(strName, "label")) {
+  else if (!strcmp(strName, "label"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "title")) {
+  else if (!strcmp(strName, "title"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "editing")) {
+  else if (!strcmp(strName, "editing"))
+  {
     colDefault = SE_COL_BLUE_LIGHT | 255;
   }
-  else if (!strcmp(strName, "hilited")) {
+  else if (!strcmp(strName, "hilited"))
+  {
     colDefault = SE_COL_BLUE_LIGHT | 255;
   }
-  else if (!strcmp(strName, "hilited rectangle")) {
+  else if (!strcmp(strName, "hilited rectangle"))
+  {
     colDefault = SE_COL_BLUE_LIGHT | 255;
   }
-  else if (!strcmp(strName, "edit fill")) {
+  else if (!strcmp(strName, "edit fill"))
+  {
     colDefault = SE_COL_BLUE_DARK | 0;
   }
-  else if (!strcmp(strName, "editing cursor")) {
+  else if (!strcmp(strName, "editing cursor"))
+  {
     colDefault = SE_COL_BLUE_LIGHT | 255;
   }
-  else if (!strcmp(strName, "model box")) {
+  else if (!strcmp(strName, "model box"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "hiscore header")) {
+  else if (!strcmp(strName, "hiscore header"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "hiscore data")) {
+  else if (!strcmp(strName, "hiscore data"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "hiscore last set")) {
+  else if (!strcmp(strName, "hiscore last set"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "slider box")) {
+  else if (!strcmp(strName, "slider box"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "file info")) {
+  else if (!strcmp(strName, "file info"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "display mode")) {
+  else if (!strcmp(strName, "display mode"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
-  else if (!strcmp(strName, "bcg fill")) {
+  else if (!strcmp(strName, "bcg fill"))
+  {
     colDefault = SE_COL_GREEN_DARK | 255;
   }
-  else if (!strcmp(strName, "credits line")) {
+  else if (!strcmp(strName, "credits line"))
+  {
     colDefault = SE_COL_GREEN_LIGHT | 255;
   }
 
