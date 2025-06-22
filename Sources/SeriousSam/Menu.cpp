@@ -2840,7 +2840,7 @@ BOOL DoMenu( CDrawPort *pdp)
       {
         FLOAT fResize = Min(dpMenu.GetWidth()/640.0f, dpMenu.GetHeight()/480.0f);
         PIX pixLogoI = 6 * fScaleW;
-        PIX pixLogoJ = 190 * fScaleH;
+        PIX pixLogoJ = 180 * fScaleH;
         PIX pixLogoSizeI = 256 * fScaleW;
         PIX pixLogoSizeJ = 128 * fScaleH;
 
@@ -2869,7 +2869,7 @@ BOOL DoMenu( CDrawPort *pdp)
       const FLOAT fThumbScaleW = fScaleW * dpMenu.dp_fWideAdjustment;
       PIX pixOfs = (PIX) (8*fScaleW);
       pixI0 = (PIX)(243 * fScaleW);
-      pixJ0 = (PIX)(189 * fScaleH);
+      pixJ0 = (PIX)(190 * fScaleH);
       pixI1 = (PIX) (pixI0+ THUMBW*fThumbScaleW);
       pixJ1 = (PIX) (pixJ0+ THUMBH*fScaleH);
       if( _toThumbnail.GetData()!=NULL)
@@ -3478,7 +3478,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainNewGame.mg_strText = TRANS("NEW GAME");
   mgMainNewGame.mg_bfsFontSize = BFS_LARGE;
-  mgMainNewGame.mg_boxOnScreen = BoxBigLeft(5.5f);
+  mgMainNewGame.mg_boxOnScreen = BoxBigLeft(5.51f);
   mgMainNewGame.mg_strTip = TRANS("Start new game");
   gm_lhGadgets.AddTail(mgMainNewGame.mg_lnNode);
   mgMainNewGame.mg_pmgUp = &mgMainQuitGame;
@@ -3488,7 +3488,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainLoadGame.mg_strText = TRANS("LOAD GAME");
   mgMainLoadGame.mg_bfsFontSize = BFS_LARGE;
-  mgMainLoadGame.mg_boxOnScreen = BoxBigLeft(6.5f);
+  mgMainLoadGame.mg_boxOnScreen = BoxBigLeft(6.51f);
   mgMainLoadGame.mg_strTip = TRANS("Load a saved game");
   gm_lhGadgets.AddTail(mgMainLoadGame.mg_lnNode);
   mgMainLoadGame.mg_pmgUp = &mgMainNewGame;
@@ -3498,7 +3498,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainOptions.mg_strText = TRANS("OPTIONS");
   mgMainOptions.mg_bfsFontSize = BFS_LARGE;
-  mgMainOptions.mg_boxOnScreen = BoxBigLeft(7.5f);
+  mgMainOptions.mg_boxOnScreen = BoxBigLeft(7.51f);
   mgMainOptions.mg_strTip = TRANS("Change video, audio and input settings");
   gm_lhGadgets.AddTail(mgMainOptions.mg_lnNode);
   mgMainOptions.mg_pmgUp = &mgMainLoadGame;
@@ -3508,7 +3508,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainCredits.mg_strText = TRANS("CREDITS");
   mgMainCredits.mg_bfsFontSize = BFS_LARGE;
-  mgMainCredits.mg_boxOnScreen = BoxBigLeft(8.5f);
+  mgMainCredits.mg_boxOnScreen = BoxBigLeft(8.51f);
   mgMainCredits.mg_strTip = TRANS("Show the list of authors");
   gm_lhGadgets.AddTail(mgMainCredits.mg_lnNode);
   mgMainCredits.mg_pmgUp = &mgMainOptions;
@@ -3518,7 +3518,7 @@ void CMainMenu::Initialize_t(void)
 
   mgMainQuitGame.mg_strText = TRANS("QUIT GAME");
   mgMainQuitGame.mg_bfsFontSize = BFS_LARGE;
-  mgMainQuitGame.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgMainQuitGame.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgMainQuitGame.mg_strTip = TRANS("Quit game");
   gm_lhGadgets.AddTail(mgMainQuitGame.mg_lnNode);
   mgMainQuitGame.mg_pmgUp = &mgMainCredits;
@@ -3538,7 +3538,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameResumeGame.mg_strText = TRANS("RESUME GAME");
   mgInGameResumeGame.mg_bfsFontSize = BFS_LARGE;
-  mgInGameResumeGame.mg_boxOnScreen = BoxBigLeft(5.5f);
+  mgInGameResumeGame.mg_boxOnScreen = BoxBigLeft(5.51f);
   mgInGameResumeGame.mg_strTip = TRANS("Return to game");
   gm_lhGadgets.AddTail(mgInGameResumeGame.mg_lnNode);
   mgInGameResumeGame.mg_pmgUp = &mgInGameQuitGame;
@@ -3548,7 +3548,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameLoadGame.mg_strText = TRANS("LOAD GAME");
   mgInGameLoadGame.mg_bfsFontSize = BFS_LARGE;
-  mgInGameLoadGame.mg_boxOnScreen = BoxBigLeft(6.5f);
+  mgInGameLoadGame.mg_boxOnScreen = BoxBigLeft(6.51f);
   mgInGameLoadGame.mg_strTip = TRANS("Load a saved game");
   gm_lhGadgets.AddTail(mgInGameLoadGame.mg_lnNode);
   mgInGameLoadGame.mg_pmgUp = &mgInGameResumeGame;
@@ -3558,7 +3558,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameSaveGame.mg_strText = TRANS("SAVE GAME");
   mgInGameSaveGame.mg_bfsFontSize = BFS_LARGE;
-  mgInGameSaveGame.mg_boxOnScreen = BoxBigLeft(7.5f);
+  mgInGameSaveGame.mg_boxOnScreen = BoxBigLeft(7.51f);
   mgInGameSaveGame.mg_strTip = TRANS("Save current game");
   gm_lhGadgets.AddTail(mgInGameSaveGame.mg_lnNode);
   mgInGameSaveGame.mg_pmgUp = &mgInGameLoadGame;
@@ -3568,7 +3568,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameOptions.mg_strText = TRANS("OPTIONS");
   mgInGameOptions.mg_bfsFontSize = BFS_LARGE;
-  mgInGameOptions.mg_boxOnScreen = BoxBigLeft(8.5f);
+  mgInGameOptions.mg_boxOnScreen = BoxBigLeft(8.51f);
   mgInGameOptions.mg_strTip = TRANS("Change video, audio and input settings");
   gm_lhGadgets.AddTail(mgInGameOptions.mg_lnNode);
   mgInGameOptions.mg_pmgUp = &mgInGameSaveGame;
@@ -3578,7 +3578,7 @@ void CInGameMenu::Initialize_t(void)
 
   mgInGameQuitGame.mg_strText = TRANS("QUIT GAME");
   mgInGameQuitGame.mg_bfsFontSize = BFS_LARGE;
-  mgInGameQuitGame.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgInGameQuitGame.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgInGameQuitGame.mg_strTip = TRANS("Return to main menu");
   gm_lhGadgets.AddTail(mgInGameQuitGame.mg_lnNode);
   mgInGameQuitGame.mg_pmgUp = &mgInGameOptions;
@@ -4206,7 +4206,7 @@ void CControlsMenu::Initialize_t(void)
   mgControlsTitle.mg_iCenterI = -1;
 
   mgControlsButtons.mg_strText = TRANS("CUSTOMIZE KEYS");
-  mgControlsButtons.mg_boxOnScreen = BoxMediumLeft(7.7f);
+  mgControlsButtons.mg_boxOnScreen = BoxMediumLeft(7.71f);
   mgControlsButtons.mg_bfsFontSize = BFS_MEDIUM;
   mgControlsButtons.mg_iCenterI = -1;
   gm_lhGadgets.AddTail(mgControlsButtons.mg_lnNode);
@@ -4217,7 +4217,7 @@ void CControlsMenu::Initialize_t(void)
 
   mgControlsAdvanced.mg_strText = TRANS("ADVANCED GAMEPAD SETUP");
   mgControlsAdvanced.mg_iCenterI = -1;
-  mgControlsAdvanced.mg_boxOnScreen = BoxMediumLeft(8.7f);
+  mgControlsAdvanced.mg_boxOnScreen = BoxMediumLeft(8.71f);
   mgControlsAdvanced.mg_bfsFontSize = BFS_MEDIUM;
   gm_lhGadgets.AddTail(mgControlsAdvanced.mg_lnNode);
   mgControlsAdvanced.mg_pmgUp = &mgControlsButtons;
@@ -4225,7 +4225,7 @@ void CControlsMenu::Initialize_t(void)
   mgControlsAdvanced.mg_pActivatedFunction = &StartCustomizeAxisMenu;
   mgControlsAdvanced.mg_strTip = TRANS("Change advanced settings for gamepad axis");
 
-  mgControlsSensitivity.mg_boxOnScreen = BoxMediumLeft(9.7f);
+  mgControlsSensitivity.mg_boxOnScreen = BoxMediumLeft(9.71f);
   mgControlsSensitivity.mg_strText = TRANS("SENSITIVITY");
   mgControlsSensitivity.mg_pmgUp = &mgControlsAdvanced;
   mgControlsSensitivity.mg_pmgDown = &mgControlsInvertTrigger;
@@ -4235,7 +4235,7 @@ void CControlsMenu::Initialize_t(void)
 
   mgControlsInvertTrigger.mg_pmgUp = &mgControlsSensitivity;
   mgControlsInvertTrigger.mg_pmgDown = &mgControlsSmoothTrigger;
-  mgControlsInvertTrigger.mg_boxOnScreen = BoxMediumLeft(10.7f);
+  mgControlsInvertTrigger.mg_boxOnScreen = BoxMediumLeft(10.71f);
   gm_lhGadgets.AddTail(mgControlsInvertTrigger.mg_lnNode);
   mgControlsInvertTrigger.mg_astrTexts = astrNoYes;
   mgControlsInvertTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -4247,7 +4247,7 @@ void CControlsMenu::Initialize_t(void)
 
   mgControlsSmoothTrigger.mg_pmgUp = &mgControlsInvertTrigger;
   mgControlsSmoothTrigger.mg_pmgDown = &mgControlsAccelTrigger;
-  mgControlsSmoothTrigger.mg_boxOnScreen = BoxMediumLeft(11.7f);
+  mgControlsSmoothTrigger.mg_boxOnScreen = BoxMediumLeft(11.71f);
   gm_lhGadgets.AddTail(mgControlsSmoothTrigger.mg_lnNode);
   mgControlsSmoothTrigger.mg_astrTexts = astrNoYes;
   mgControlsSmoothTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -4259,7 +4259,7 @@ void CControlsMenu::Initialize_t(void)
 
   mgControlsAccelTrigger.mg_pmgUp = &mgControlsSmoothTrigger;
   mgControlsAccelTrigger.mg_pmgDown = &mgControlsIFeelTrigger;
-  mgControlsAccelTrigger.mg_boxOnScreen = BoxMediumLeft(12.7f);
+  mgControlsAccelTrigger.mg_boxOnScreen = BoxMediumLeft(12.71f);
   gm_lhGadgets.AddTail(mgControlsAccelTrigger.mg_lnNode);
   mgControlsAccelTrigger.mg_astrTexts = astrNoYes;
   mgControlsAccelTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -4271,7 +4271,7 @@ void CControlsMenu::Initialize_t(void)
 
   mgControlsIFeelTrigger.mg_pmgUp = &mgControlsAccelTrigger;
   mgControlsIFeelTrigger.mg_pmgDown = &mgControlsPredefined;
-  mgControlsIFeelTrigger.mg_boxOnScreen = BoxMediumLeft(13.7f);
+  mgControlsIFeelTrigger.mg_boxOnScreen = BoxMediumLeft(13.71f);
   gm_lhGadgets.AddTail(mgControlsIFeelTrigger.mg_lnNode);
   mgControlsIFeelTrigger.mg_astrTexts = astrNoYes;
   mgControlsIFeelTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -4283,7 +4283,7 @@ void CControlsMenu::Initialize_t(void)
 
   mgControlsPredefined.mg_strText = TRANS("LOAD PREDEFINED SETTINGS");
   mgControlsPredefined.mg_iCenterI = -1;
-  mgControlsPredefined.mg_boxOnScreen = BoxMediumLeft(14.7f);
+  mgControlsPredefined.mg_boxOnScreen = BoxMediumLeft(14.71f);
   mgControlsPredefined.mg_bfsFontSize = BFS_MEDIUM;
   gm_lhGadgets.AddTail(mgControlsPredefined.mg_lnNode);
   mgControlsPredefined.mg_pmgUp = &mgControlsIFeelTrigger;
@@ -4293,7 +4293,7 @@ void CControlsMenu::Initialize_t(void)
   mgControlsPredefined.mg_iCenterI = -1;
 
   mgControlsBack.mg_bfsFontSize = BFS_LARGE;
-  mgControlsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgControlsBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgControlsBack.mg_pmgUp = &mgControlsPredefined;
   mgControlsBack.mg_pmgDown = &mgControlsButtons;
   mgControlsBack.mg_strText = TRANS("BACK");
@@ -4387,7 +4387,7 @@ void CLoadSaveMenu::Initialize_t(void)
     // initialize label gadgets
     amgLSButton[iLabel].mg_pmgUp = &amgLSButton[iPrev];
     amgLSButton[iLabel].mg_pmgDown = &amgLSButton[iNext];
-    amgLSButton[iLabel].mg_boxOnScreen = BoxSaveLoad(4.7f + iLabel);
+    amgLSButton[iLabel].mg_boxOnScreen = BoxSaveLoad(4.71f + iLabel);
     amgLSButton[iLabel].mg_pActivatedFunction = NULL; // never called!
     amgLSButton[iLabel].mg_iCenterI = -1;
     gm_lhGadgets.AddTail(amgLSButton[iLabel].mg_lnNode);
@@ -4411,7 +4411,7 @@ void CLoadSaveMenu::Initialize_t(void)
   gm_pmgListBottom = &amgLSButton[SAVELOAD_BUTTONS_CT - 1];
 
   mgLSBack.mg_bfsFontSize = BFS_LARGE;
-  mgLSBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgLSBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgLSBack.mg_pmgUp = &mgLSArrowDn;
   mgLSBack.mg_pmgDown = &mgLSArrowUp;
   mgLSBack.mg_strText = TRANS("BACK");
@@ -4687,7 +4687,7 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
     INDEX iNext = (iLabel + 1) % KEYS_ON_SCREEN;
 
     // initialize label entities
-    mgKey[iLabel].mg_boxOnScreen = BoxKeyLeft(4.7 + iLabel);
+    mgKey[iLabel].mg_boxOnScreen = BoxKeyLeft(4.71f + iLabel);
     // initialize label gadgets
     mgKey[iLabel].mg_pmgUp = &mgKey[iPrev];
     mgKey[iLabel].mg_pmgDown = &mgKey[iNext];
@@ -4709,7 +4709,7 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
   mgCustomizeArrowDn.mg_pmgDown = &mgCustomizeBack;
 
   mgCustomizeBack.mg_bfsFontSize = BFS_LARGE;
-  mgCustomizeBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgCustomizeBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgCustomizeBack.mg_pmgUp = &mgCustomizeArrowDn;
   mgCustomizeBack.mg_pmgDown = &mgCustomizeArrowUp;
   mgCustomizeBack.mg_strText = TRANS("BACK");
@@ -4765,7 +4765,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
 
   mgAxisActionTrigger.mg_pmgUp = &mgAxisSmoothTrigger;
   mgAxisActionTrigger.mg_pmgDown = &mgAxisMountedTrigger;
-  mgAxisActionTrigger.mg_boxOnScreen = BoxMediumLeft(8.7f);
+  mgAxisActionTrigger.mg_boxOnScreen = BoxMediumLeft(8.71f);
   gm_lhGadgets.AddTail(mgAxisActionTrigger.mg_lnNode);
   mgAxisActionTrigger.mg_astrTexts = astrNoYes;
   mgAxisActionTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -4777,7 +4777,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
 
   mgAxisMountedTrigger.mg_pmgUp = &mgAxisActionTrigger;
   mgAxisMountedTrigger.mg_pmgDown = &mgAxisSensitivity;
-  mgAxisMountedTrigger.mg_boxOnScreen = BoxMediumLeft(9.7f);
+  mgAxisMountedTrigger.mg_boxOnScreen = BoxMediumLeft(9.71f);
   gm_lhGadgets.AddTail(mgAxisMountedTrigger.mg_lnNode);
   mgAxisMountedTrigger.mg_astrTexts = astrNoYes;
   mgAxisMountedTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -4809,7 +4809,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
     mgAxisMountedTrigger.mg_astrTexts[iAxis] = _pInput->GetAxisTransName(iAxis);
   }
   
-  mgAxisSensitivity.mg_boxOnScreen = BoxMediumLeft(10.7f);
+  mgAxisSensitivity.mg_boxOnScreen = BoxMediumLeft(10.71f);
   mgAxisSensitivity.mg_strText = TRANS("SENSITIVITY");
   mgAxisSensitivity.mg_pmgUp = &mgAxisBack;
   mgAxisSensitivity.mg_pmgDown = &mgAxisDeadzone;
@@ -4817,7 +4817,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
   mgAxisSensitivity.mg_strTip = TRANS("Change sensitivity for this axis");
   mgAxisSensitivity.mg_iCenterI = -1;
 
-  mgAxisDeadzone.mg_boxOnScreen = BoxMediumLeft(11.7f);
+  mgAxisDeadzone.mg_boxOnScreen = BoxMediumLeft(11.71f);
   mgAxisDeadzone.mg_strText = TRANS("DEAD ZONE");
   mgAxisDeadzone.mg_pmgUp = &mgAxisSensitivity;
   mgAxisDeadzone.mg_pmgDown = &mgAxisInvertTrigger;
@@ -4827,7 +4827,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
 
   mgAxisInvertTrigger.mg_pmgUp = &mgAxisDeadzone;
   mgAxisInvertTrigger.mg_pmgDown = &mgAxisRelativeTrigger;
-  mgAxisInvertTrigger.mg_boxOnScreen = BoxMediumLeft(12.7f);
+  mgAxisInvertTrigger.mg_boxOnScreen = BoxMediumLeft(12.71f);
   gm_lhGadgets.AddTail(mgAxisInvertTrigger.mg_lnNode);
   mgAxisInvertTrigger.mg_astrTexts = astrNoYes;
   mgAxisInvertTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -4839,7 +4839,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
 
   mgAxisRelativeTrigger.mg_pmgUp = &mgAxisInvertTrigger;
   mgAxisRelativeTrigger.mg_pmgDown = &mgAxisSmoothTrigger;
-  mgAxisRelativeTrigger.mg_boxOnScreen = BoxMediumLeft(13.7f);
+  mgAxisRelativeTrigger.mg_boxOnScreen = BoxMediumLeft(13.71f);
   gm_lhGadgets.AddTail(mgAxisRelativeTrigger.mg_lnNode);
   mgAxisRelativeTrigger.mg_astrTexts = astrNoYes;
   mgAxisRelativeTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -4851,7 +4851,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
 
   mgAxisSmoothTrigger.mg_pmgUp = &mgAxisRelativeTrigger;
   mgAxisSmoothTrigger.mg_pmgDown = &mgAxisActionTrigger;
-  mgAxisSmoothTrigger.mg_boxOnScreen = BoxMediumLeft(14.7f);
+  mgAxisSmoothTrigger.mg_boxOnScreen = BoxMediumLeft(14.71f);
   gm_lhGadgets.AddTail(mgAxisSmoothTrigger.mg_lnNode);
   mgAxisSmoothTrigger.mg_astrTexts = astrNoYes;
   mgAxisSmoothTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -4862,7 +4862,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
   mgAxisSmoothTrigger.mg_iCenterI = -1;
 
   mgAxisBack.mg_bfsFontSize = BFS_LARGE;
-  mgAxisBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgAxisBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgAxisBack.mg_pmgUp = &mgAxisSmoothTrigger;
   mgAxisBack.mg_pmgDown = &mgAxisActionTrigger;
   mgAxisBack.mg_strText = TRANS("BACK");
@@ -4955,7 +4955,7 @@ void COptionsMenu::Initialize_t(void)
   mgOptionsTitle.mg_iCenterI = -1;
 
   mgOptionsGame.mg_bfsFontSize = BFS_LARGE;
-  mgOptionsGame.mg_boxOnScreen = BoxBigLeft(5.5f);
+  mgOptionsGame.mg_boxOnScreen = BoxBigLeft(5.51f);
   mgOptionsGame.mg_pmgUp = &mgOptionsBack;
   mgOptionsGame.mg_pmgDown = &mgOptionsVideo;
   mgOptionsGame.mg_strText = TRANS("GAME OPTIONS");
@@ -4965,7 +4965,7 @@ void COptionsMenu::Initialize_t(void)
   mgOptionsGame.mg_iCenterI = -1;
 
   mgOptionsVideo.mg_bfsFontSize = BFS_LARGE;
-  mgOptionsVideo.mg_boxOnScreen = BoxBigLeft(6.5f);
+  mgOptionsVideo.mg_boxOnScreen = BoxBigLeft(6.51f);
   mgOptionsVideo.mg_pmgUp = &mgOptionsGame;
   mgOptionsVideo.mg_pmgDown = &mgOptionsAudio;
   mgOptionsVideo.mg_strText = TRANS("VIDEO OPTIONS");
@@ -4975,7 +4975,7 @@ void COptionsMenu::Initialize_t(void)
   mgOptionsVideo.mg_iCenterI = -1;
 
   mgOptionsAudio.mg_bfsFontSize = BFS_LARGE;
-  mgOptionsAudio.mg_boxOnScreen = BoxBigLeft(7.5f);
+  mgOptionsAudio.mg_boxOnScreen = BoxBigLeft(7.51f);
   mgOptionsAudio.mg_pmgUp = &mgOptionsVideo;
   mgOptionsAudio.mg_pmgDown = &mgOptionsControls;
   mgOptionsAudio.mg_strText = TRANS("AUDIO OPTIONS");
@@ -4985,7 +4985,7 @@ void COptionsMenu::Initialize_t(void)
   mgOptionsAudio.mg_iCenterI = -1;
 
   mgOptionsControls.mg_bfsFontSize = BFS_LARGE;
-  mgOptionsControls.mg_boxOnScreen = BoxBigLeft(8.5f);
+  mgOptionsControls.mg_boxOnScreen = BoxBigLeft(8.51f);
   mgOptionsControls.mg_pmgUp = &mgOptionsAudio;
   mgOptionsControls.mg_pmgDown = &mgOptionsBack;
   mgOptionsControls.mg_strText = TRANS("CONTROLS");
@@ -4995,7 +4995,7 @@ void COptionsMenu::Initialize_t(void)
   mgOptionsControls.mg_iCenterI = -1;
 
   mgOptionsBack.mg_bfsFontSize = BFS_LARGE;
-  mgOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgOptionsBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgOptionsBack.mg_pmgUp = &mgOptionsControls;
   mgOptionsBack.mg_pmgDown = &mgOptionsGame;
   mgOptionsBack.mg_strText = TRANS("BACK");
@@ -5262,7 +5262,7 @@ void CVideoOptionsMenu::Initialize_t(void)
 
   mgDisplayAPITrigger.mg_pmgUp = &mgVideoOptionsBack;
   mgDisplayAPITrigger.mg_pmgDown = &mgDisplayAdaptersTrigger;
-  mgDisplayAPITrigger.mg_boxOnScreen = BoxMediumLeft(5.1f);
+  mgDisplayAPITrigger.mg_boxOnScreen = BoxMediumLeft(5.11f);
   gm_lhGadgets.AddTail(mgDisplayAPITrigger.mg_lnNode);
   mgDisplayAPITrigger.mg_astrTexts = astrDisplayAPIRadioTexts;
   mgDisplayAPITrigger.mg_ctTexts = ARRAYCOUNT(astrDisplayAPIRadioTexts);
@@ -5274,7 +5274,7 @@ void CVideoOptionsMenu::Initialize_t(void)
 
   mgDisplayAdaptersTrigger.mg_pmgUp = &mgDisplayAPITrigger;
   mgDisplayAdaptersTrigger.mg_pmgDown = &mgDisplayPrefsTrigger;
-  mgDisplayAdaptersTrigger.mg_boxOnScreen = BoxMediumLeft(6.1f);
+  mgDisplayAdaptersTrigger.mg_boxOnScreen = BoxMediumLeft(6.11f);
   gm_lhGadgets.AddTail(mgDisplayAdaptersTrigger.mg_lnNode);
   mgDisplayAdaptersTrigger.mg_astrTexts = astrNoYes;
   mgDisplayAdaptersTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -5286,7 +5286,7 @@ void CVideoOptionsMenu::Initialize_t(void)
 
   mgDisplayPrefsTrigger.mg_pmgUp = &mgDisplayAdaptersTrigger;
   mgDisplayPrefsTrigger.mg_pmgDown = &mgAspectRatiosTrigger;
-  mgDisplayPrefsTrigger.mg_boxOnScreen = BoxMediumLeft(7.1f);
+  mgDisplayPrefsTrigger.mg_boxOnScreen = BoxMediumLeft(7.11f);
   gm_lhGadgets.AddTail(mgDisplayPrefsTrigger.mg_lnNode);
   mgDisplayPrefsTrigger.mg_astrTexts = astrDisplayPrefsRadioTexts;
   mgDisplayPrefsTrigger.mg_ctTexts = ARRAYCOUNT(astrDisplayPrefsRadioTexts);
@@ -5298,7 +5298,7 @@ void CVideoOptionsMenu::Initialize_t(void)
 
   mgAspectRatiosTrigger.mg_pmgUp = &mgDisplayPrefsTrigger;
   mgAspectRatiosTrigger.mg_pmgDown = &mgResolutionsTrigger;
-  mgAspectRatiosTrigger.mg_boxOnScreen = BoxMediumLeft(8.1f);
+  mgAspectRatiosTrigger.mg_boxOnScreen = BoxMediumLeft(8.11f);
   gm_lhGadgets.AddTail(mgAspectRatiosTrigger.mg_lnNode);
   mgAspectRatiosTrigger.mg_astrTexts = astrNoYes;
   mgAspectRatiosTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -5310,7 +5310,7 @@ void CVideoOptionsMenu::Initialize_t(void)
 
   mgResolutionsTrigger.mg_pmgUp = &mgAspectRatiosTrigger;
   mgResolutionsTrigger.mg_pmgDown = &mgFullScreenTrigger;
-  mgResolutionsTrigger.mg_boxOnScreen = BoxMediumLeft(9.1f);
+  mgResolutionsTrigger.mg_boxOnScreen = BoxMediumLeft(9.11f);
   gm_lhGadgets.AddTail(mgResolutionsTrigger.mg_lnNode);
   mgResolutionsTrigger.mg_astrTexts = astrNoYes;
   mgResolutionsTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -5322,7 +5322,7 @@ void CVideoOptionsMenu::Initialize_t(void)
 
   mgFullScreenTrigger.mg_pmgUp = &mgResolutionsTrigger;
   mgFullScreenTrigger.mg_pmgDown = &mgBorderLessTrigger;
-  mgFullScreenTrigger.mg_boxOnScreen = BoxMediumLeft(10.1f);
+  mgFullScreenTrigger.mg_boxOnScreen = BoxMediumLeft(10.11f);
   gm_lhGadgets.AddTail(mgFullScreenTrigger.mg_lnNode);
   mgFullScreenTrigger.mg_astrTexts = astrNoYes;
   mgFullScreenTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -5333,7 +5333,7 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgFullScreenTrigger.mg_iCenterI = -1;
 
   mgBorderLessTrigger.mg_pmgUp = &mgFullScreenTrigger; mgBorderLessTrigger.mg_pmgDown = &mgBitsPerPixelTrigger;
-  mgBorderLessTrigger.mg_boxOnScreen = BoxMediumLeft(11.1f);
+  mgBorderLessTrigger.mg_boxOnScreen = BoxMediumLeft(11.11f);
   gm_lhGadgets.AddTail(mgBorderLessTrigger.mg_lnNode);
   mgBorderLessTrigger.mg_astrTexts = astrNoYes;
   mgBorderLessTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -5345,7 +5345,7 @@ void CVideoOptionsMenu::Initialize_t(void)
 
   mgBitsPerPixelTrigger.mg_pmgUp = &mgBorderLessTrigger;
   mgBitsPerPixelTrigger.mg_pmgDown = &mgVideoRendering;
-  mgBitsPerPixelTrigger.mg_boxOnScreen = BoxMediumLeft(12.1f);
+  mgBitsPerPixelTrigger.mg_boxOnScreen = BoxMediumLeft(12.11f);
   gm_lhGadgets.AddTail(mgBitsPerPixelTrigger.mg_lnNode);
   mgBitsPerPixelTrigger.mg_astrTexts = astrBitsPerPixelRadioTexts;
   mgBitsPerPixelTrigger.mg_ctTexts = ARRAYCOUNT(astrBitsPerPixelRadioTexts);
@@ -5375,7 +5375,7 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgVideoRendering.mg_iCenterI = -1;
 
   mgVideoOptionsApply.mg_bfsFontSize = BFS_LARGE;
-  mgVideoOptionsApply.mg_boxOnScreen = BoxBigLeft(8.5f);
+  mgVideoOptionsApply.mg_boxOnScreen = BoxBigLeft(8.51f);
   mgVideoOptionsApply.mg_pmgUp = &mgVideoRendering;
   mgVideoOptionsApply.mg_pmgDown = &mgVideoOptionsBack;
   mgVideoOptionsApply.mg_strText = TRANS("APPLY");
@@ -5385,7 +5385,7 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgVideoOptionsApply.mg_iCenterI = -1;
 
   mgVideoOptionsBack.mg_bfsFontSize = BFS_LARGE;
-  mgVideoOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgVideoOptionsBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgVideoOptionsBack.mg_pmgUp = &mgVideoOptionsApply;
   mgVideoOptionsBack.mg_pmgDown = &mgDisplayAPITrigger;
   mgVideoOptionsBack.mg_strText = TRANS("BACK");
@@ -5453,7 +5453,7 @@ void CAudioOptionsMenu::Initialize_t(void)
 
   mgAudioAutoTrigger.mg_pmgUp = &mgAudioOptionsBack;
   mgAudioAutoTrigger.mg_pmgDown = &mgFrequencyTrigger;
-  mgAudioAutoTrigger.mg_boxOnScreen = BoxMediumLeft(9.1f);
+  mgAudioAutoTrigger.mg_boxOnScreen = BoxMediumLeft(9.11f);
   gm_lhGadgets.AddTail(mgAudioAutoTrigger.mg_lnNode);
   mgAudioAutoTrigger.mg_astrTexts = astrNoYes;
   mgAudioAutoTrigger.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -5465,7 +5465,7 @@ void CAudioOptionsMenu::Initialize_t(void)
   
   mgFrequencyTrigger.mg_pmgUp = &mgAudioAutoTrigger;
   mgFrequencyTrigger.mg_pmgDown = &mgAudioAPITrigger;
-  mgFrequencyTrigger.mg_boxOnScreen = BoxMediumLeft(10.1f);
+  mgFrequencyTrigger.mg_boxOnScreen = BoxMediumLeft(10.11f);
   gm_lhGadgets.AddTail(mgFrequencyTrigger.mg_lnNode);
   mgFrequencyTrigger.mg_astrTexts = astrFrequencyRadioTexts;
   mgFrequencyTrigger.mg_ctTexts = ARRAYCOUNT(astrFrequencyRadioTexts);
@@ -5478,7 +5478,7 @@ void CAudioOptionsMenu::Initialize_t(void)
 
   mgAudioAPITrigger.mg_pmgUp = &mgFrequencyTrigger;
   mgAudioAPITrigger.mg_pmgDown = &mgWaveVolume;
-  mgAudioAPITrigger.mg_boxOnScreen = BoxMediumLeft(11.1f);
+  mgAudioAPITrigger.mg_boxOnScreen = BoxMediumLeft(11.11f);
   gm_lhGadgets.AddTail(mgAudioAPITrigger.mg_lnNode);
   mgAudioAPITrigger.mg_astrTexts = astrSoundAPIRadioTexts;
   mgAudioAPITrigger.mg_ctTexts = ARRAYCOUNT(astrSoundAPIRadioTexts);
@@ -5489,7 +5489,7 @@ void CAudioOptionsMenu::Initialize_t(void)
   mgAudioAPITrigger.mg_pOnTriggerChange = FrequencyTriggerChange;
   mgAudioAPITrigger.mg_iCenterI = -1;
 
-  mgWaveVolume.mg_boxOnScreen = BoxMediumLeft(12.1f);
+  mgWaveVolume.mg_boxOnScreen = BoxMediumLeft(12.11f);
   mgWaveVolume.mg_strText = TRANS("SOUND EFFECTS VOLUME");
   mgWaveVolume.mg_strTip = TRANS("Change volume of in-game sound effects");
   mgWaveVolume.mg_pmgUp = &mgAudioAPITrigger;
@@ -5499,7 +5499,7 @@ void CAudioOptionsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(mgWaveVolume.mg_lnNode);
   mgWaveVolume.mg_iCenterI = -1;
 
-  mgMPEGVolume.mg_boxOnScreen = BoxMediumLeft(13.1f);
+  mgMPEGVolume.mg_boxOnScreen = BoxMediumLeft(13.11f);
   mgMPEGVolume.mg_strText = TRANS("MUSIC VOLUME");
   mgMPEGVolume.mg_strTip = TRANS("Change volume of in-game music");
   mgMPEGVolume.mg_pmgUp = &mgWaveVolume;
@@ -5510,7 +5510,7 @@ void CAudioOptionsMenu::Initialize_t(void)
   mgMPEGVolume.mg_iCenterI = -1;
 
   mgAudioOptionsApply.mg_bfsFontSize = BFS_LARGE;
-  mgAudioOptionsApply.mg_boxOnScreen = BoxBigLeft(8.5f);
+  mgAudioOptionsApply.mg_boxOnScreen = BoxBigLeft(8.51f);
   mgAudioOptionsApply.mg_strText = TRANS("APPLY");
   mgAudioOptionsApply.mg_strTip = TRANS("Apply audio settings");
   gm_lhGadgets.AddTail( mgAudioOptionsApply.mg_lnNode);
@@ -5520,7 +5520,7 @@ void CAudioOptionsMenu::Initialize_t(void)
   mgAudioOptionsApply.mg_iCenterI = -1;
 
   mgAudioOptionsBack.mg_bfsFontSize = BFS_LARGE;
-  mgAudioOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgAudioOptionsBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgAudioOptionsBack.mg_strText = TRANS("BACK");
   mgAudioOptionsBack.mg_strTip = TRANS("Return to options menu");
   gm_lhGadgets.AddTail(mgAudioOptionsBack.mg_lnNode);
@@ -6545,7 +6545,7 @@ void CGameOptionsMenu::Initialize_t(void)
 
   mgGameOptions3rdPerson.mg_pmgUp = &mgGameOptionsBack;
   mgGameOptions3rdPerson.mg_pmgDown = &mgGameOptionsAutoSave;
-  mgGameOptions3rdPerson.mg_boxOnScreen = BoxMediumLeft(10.7f);
+  mgGameOptions3rdPerson.mg_boxOnScreen = BoxMediumLeft(10.71f);
   gm_lhGadgets.AddTail(mgGameOptions3rdPerson.mg_lnNode);
   mgGameOptions3rdPerson.mg_astrTexts = astrNoYes;
   mgGameOptions3rdPerson.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -6558,7 +6558,7 @@ void CGameOptionsMenu::Initialize_t(void)
 
   mgGameOptionsAutoSave.mg_pmgUp = &mgGameOptions3rdPerson;
   mgGameOptionsAutoSave.mg_pmgDown = &mgGameOptionsSharpTurning;
-  mgGameOptionsAutoSave.mg_boxOnScreen = BoxMediumLeft(11.7f);
+  mgGameOptionsAutoSave.mg_boxOnScreen = BoxMediumLeft(11.71f);
   gm_lhGadgets.AddTail(mgGameOptionsAutoSave.mg_lnNode);
   mgGameOptionsAutoSave.mg_astrTexts = astrNoYes;
   mgGameOptionsAutoSave.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -6571,7 +6571,7 @@ void CGameOptionsMenu::Initialize_t(void)
 
   mgGameOptionsSharpTurning.mg_pmgUp = &mgGameOptionsAutoSave;
   mgGameOptionsSharpTurning.mg_pmgDown = &mgGameOptionsViewBobbing;
-  mgGameOptionsSharpTurning.mg_boxOnScreen = BoxMediumLeft(12.7f);
+  mgGameOptionsSharpTurning.mg_boxOnScreen = BoxMediumLeft(12.71f);
   gm_lhGadgets.AddTail(mgGameOptionsSharpTurning.mg_lnNode);
   mgGameOptionsSharpTurning.mg_astrTexts = astrNoYes;
   mgGameOptionsSharpTurning.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -6584,7 +6584,7 @@ void CGameOptionsMenu::Initialize_t(void)
 
   mgGameOptionsViewBobbing.mg_pmgUp = &mgGameOptionsSharpTurning;
   mgGameOptionsViewBobbing.mg_pmgDown = &mgGameOptionsBlood;
-  mgGameOptionsViewBobbing.mg_boxOnScreen = BoxMediumLeft(13.7f);
+  mgGameOptionsViewBobbing.mg_boxOnScreen = BoxMediumLeft(13.71f);
   gm_lhGadgets.AddTail(mgGameOptionsViewBobbing.mg_lnNode);
   mgGameOptionsViewBobbing.mg_astrTexts = astrNoYes;
   mgGameOptionsViewBobbing.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -6597,7 +6597,7 @@ void CGameOptionsMenu::Initialize_t(void)
 
   mgGameOptionsBlood.mg_pmgUp = &mgGameOptionsViewBobbing;
   mgGameOptionsBlood.mg_pmgDown = &mgGameOptionsBack;
-  mgGameOptionsBlood.mg_boxOnScreen = BoxMediumLeft(14.7f);
+  mgGameOptionsBlood.mg_boxOnScreen = BoxMediumLeft(14.71f);
   gm_lhGadgets.AddTail(mgGameOptionsBlood.mg_lnNode);
   mgGameOptionsBlood.mg_astrTexts = astrBloodTexts;
   mgGameOptionsBlood.mg_ctTexts = ARRAYCOUNT(astrBloodTexts);
@@ -6609,7 +6609,7 @@ void CGameOptionsMenu::Initialize_t(void)
   mgGameOptionsBlood.mg_pOnTriggerChange = ChangeBloodColor;
 
   mgGameOptionsBack.mg_bfsFontSize = BFS_LARGE;
-  mgGameOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgGameOptionsBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgGameOptionsBack.mg_pmgUp = &mgGameOptionsBlood;
   mgGameOptionsBack.mg_pmgDown = &mgGameOptions3rdPerson;
   mgGameOptionsBack.mg_strText = TRANS("BACK");
@@ -6677,7 +6677,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
 
   mgRenderingOptionsTexturesSize.mg_pmgUp = &mgRenderingOptionsBack;
   mgRenderingOptionsTexturesSize.mg_pmgDown = &mgRenderingOptionsTexturesQuality;
-  mgRenderingOptionsTexturesSize.mg_boxOnScreen = BoxMediumLeft(7.1f);
+  mgRenderingOptionsTexturesSize.mg_boxOnScreen = BoxMediumLeft(7.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsTexturesSize.mg_lnNode);
   mgRenderingOptionsTexturesSize.mg_astrTexts = astrTextureSizeTexts;
   mgRenderingOptionsTexturesSize.mg_ctTexts = ARRAYCOUNT(astrTextureSizeTexts);
@@ -6689,7 +6689,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
 
   mgRenderingOptionsTexturesQuality.mg_pmgUp = &mgRenderingOptionsTexturesSize;
   mgRenderingOptionsTexturesQuality.mg_pmgDown = &mgRenderingOptionsBumpMaps;
-  mgRenderingOptionsTexturesQuality.mg_boxOnScreen = BoxMediumLeft(8.1f);
+  mgRenderingOptionsTexturesQuality.mg_boxOnScreen = BoxMediumLeft(8.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsTexturesQuality.mg_lnNode);
   mgRenderingOptionsTexturesQuality.mg_astrTexts = astrTextureQualityTexts;
   mgRenderingOptionsTexturesQuality.mg_ctTexts = ARRAYCOUNT(astrTextureQualityTexts);
@@ -6701,7 +6701,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
 
   mgRenderingOptionsBumpMaps.mg_pmgUp = &mgRenderingOptionsTexturesQuality;
   mgRenderingOptionsBumpMaps.mg_pmgDown = &mgRenderingOptionsShadowMapsSize;
-  mgRenderingOptionsBumpMaps.mg_boxOnScreen = BoxMediumLeft(9.1f);
+  mgRenderingOptionsBumpMaps.mg_boxOnScreen = BoxMediumLeft(9.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsBumpMaps.mg_lnNode);
   mgRenderingOptionsBumpMaps.mg_astrTexts = astrNoYes;
   mgRenderingOptionsBumpMaps.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -6713,7 +6713,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
 
   mgRenderingOptionsShadowMapsSize.mg_pmgUp = &mgRenderingOptionsBumpMaps;
   mgRenderingOptionsShadowMapsSize.mg_pmgDown = &mgRenderingOptionsLensFlares;
-  mgRenderingOptionsShadowMapsSize.mg_boxOnScreen = BoxMediumLeft(10.1f);
+  mgRenderingOptionsShadowMapsSize.mg_boxOnScreen = BoxMediumLeft(10.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsShadowMapsSize.mg_lnNode);
   mgRenderingOptionsShadowMapsSize.mg_astrTexts = astrShadowMapSizeTexts;
   mgRenderingOptionsShadowMapsSize.mg_ctTexts = ARRAYCOUNT(astrShadowMapSizeTexts);
@@ -6725,7 +6725,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
 
   mgRenderingOptionsLensFlares.mg_pmgUp = &mgRenderingOptionsShadowMapsSize;
   mgRenderingOptionsLensFlares.mg_pmgDown = &mgRenderingOptionsGamma;
-  mgRenderingOptionsLensFlares.mg_boxOnScreen = BoxMediumLeft(11.1f);
+  mgRenderingOptionsLensFlares.mg_boxOnScreen = BoxMediumLeft(11.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsLensFlares.mg_lnNode);
   mgRenderingOptionsLensFlares.mg_astrTexts = astrLensFlaresTexts;
   mgRenderingOptionsLensFlares.mg_ctTexts = ARRAYCOUNT(astrLensFlaresTexts);
@@ -6737,7 +6737,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
 
   mgRenderingOptionsGamma.mg_pmgUp = &mgRenderingOptionsLensFlares;
   mgRenderingOptionsGamma.mg_pmgDown = &mgRenderingOptionsVSync;
-  mgRenderingOptionsGamma.mg_boxOnScreen = BoxMediumLeft(12.1f);
+  mgRenderingOptionsGamma.mg_boxOnScreen = BoxMediumLeft(12.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsGamma.mg_lnNode);
   mgRenderingOptionsGamma.mg_iMinPos = 0;
   mgRenderingOptionsGamma.mg_iMaxPos = 15;
@@ -6748,7 +6748,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
 
   mgRenderingOptionsVSync.mg_pmgUp = &mgRenderingOptionsGamma;
   mgRenderingOptionsVSync.mg_pmgDown = &mgRenderingOptionsApply;
-  mgRenderingOptionsVSync.mg_boxOnScreen = BoxMediumLeft(13.1f);
+  mgRenderingOptionsVSync.mg_boxOnScreen = BoxMediumLeft(13.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsVSync.mg_lnNode);
   mgRenderingOptionsVSync.mg_astrTexts = astrNoYes;
   mgRenderingOptionsVSync.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -6759,7 +6759,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsVSync.mg_iCenterI = -1;
 
   mgRenderingOptionsApply.mg_bfsFontSize = BFS_LARGE;
-  mgRenderingOptionsApply.mg_boxOnScreen = BoxBigLeft(8.5f);
+  mgRenderingOptionsApply.mg_boxOnScreen = BoxBigLeft(8.51f);
   mgRenderingOptionsApply.mg_pmgUp = &mgRenderingOptionsVSync;
   mgRenderingOptionsApply.mg_pmgDown = &mgRenderingOptionsBack;
   mgRenderingOptionsApply.mg_strText = TRANS("APPLY");
@@ -6769,7 +6769,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsApply.mg_iCenterI = -1;
 
   mgRenderingOptionsBack.mg_bfsFontSize = BFS_LARGE;
-  mgRenderingOptionsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgRenderingOptionsBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgRenderingOptionsBack.mg_pmgUp = &mgRenderingOptionsApply;
   mgRenderingOptionsBack.mg_pmgDown = &mgRenderingOptionsTexturesSize;
   mgRenderingOptionsBack.mg_strText = TRANS("BACK");
@@ -6846,7 +6846,7 @@ void CCreditsMenu::Initialize_t(void)
 {
   // intialize credits menu
   mgCreditsBack.mg_bfsFontSize = BFS_LARGE;
-  mgCreditsBack.mg_boxOnScreen = BoxBigLeft(9.5f);
+  mgCreditsBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgCreditsBack.mg_pmgUp = &mgCreditsBack;
   mgCreditsBack.mg_pmgDown = &mgCreditsBack;
   mgCreditsBack.mg_strText = TRANS("BACK");
