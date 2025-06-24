@@ -227,7 +227,7 @@ void CGame::ConsolePrintLastLines(CDrawPort *pdp)
   pdp->SetFont( _pfdConsoleFont);
   PIX pixCharHeight = _pfdConsoleFont->GetHeight() -1;
   // put some filter underneath for easier reading
-  pdp->Fill( 0, 0, pdp->GetWidth(), pixCharHeight*ctLines, C_BLACK|128);
+  pdp->Fill(0, 0, pdp->GetWidth(), pixCharHeight * ctLines, SE_COL_GREEN_DARK | 128);
   // for each line
   for( INDEX iLine=0; iLine<ctLines; iLine++) {
     CTString strLine = CON_GetLastLine(iLine+1);
