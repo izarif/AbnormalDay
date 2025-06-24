@@ -2866,21 +2866,18 @@ BOOL DoMenu( CDrawPort *pdp)
 #define THUMBH 96
     // if there is a thumbnail
     if( _bThumbnailOn) {
-      const FLOAT fThumbScaleW = fScaleW * dpMenu.dp_fWideAdjustment;
-      PIX pixOfs = (PIX) (8*fScaleW);
-      pixI0 = (PIX)(243 * fScaleW);
-      pixJ0 = (PIX)(190 * fScaleH);
-      pixI1 = (PIX) (pixI0+ THUMBW*fThumbScaleW);
-      pixJ1 = (PIX) (pixJ0+ THUMBH*fScaleH);
+      pixI0 = 243 * fScaleW;
+      pixJ0 = 190 * fScaleH;
+      pixI1 = pixI0 + THUMBW * fScaleW;
+      pixJ1 = pixJ0 + THUMBH * fScaleH;
       if( _toThumbnail.GetData()!=NULL)
-      { // show thumbnail with shadow and border
-        dpMenu.Fill( pixI0+pixOfs, pixJ0+pixOfs, THUMBW*fThumbScaleW, THUMBH*fScaleH, C_BLACK|128);
-        dpMenu.PutTexture( &_toThumbnail, PIXaabbox2D( PIX2D( pixI0, pixJ0), PIX2D( pixI1, pixJ1)), C_WHITE|255);
-        dpMenu.DrawBorder( pixI0,pixJ0, THUMBW*fThumbScaleW,THUMBH*fScaleH, _pGame->LCDGetColor(C_mdGREEN|255, "thumbnail border"));
+      { // show thumbnail with border
+        dpMenu.PutTexture(&_toThumbnail, PIXaabbox2D(PIX2D(pixI0, pixJ0), PIX2D(pixI1, pixJ1)), C_WHITE | 255);
+        dpMenu.DrawBorder(pixI0, pixJ0, THUMBW * fScaleW, THUMBH * fScaleH, _pGame->LCDGetColor(C_mdGREEN | 255, "thumbnail border"));
       } else {
-        dpMenu.SetFont( _pfdDisplayFont);
-        dpMenu.SetTextScaling( fScaleW);
-        dpMenu.SetTextAspect( 1.0f);
+        dpMenu.SetFont(_pfdDisplayFont);
+        dpMenu.SetTextScaling(fScaleH);
+        dpMenu.SetTextAspect(1.0f);
         dpMenu.PutTextCXY(TRANS("<no thumbnail>"), (pixI0 + pixI1) / 2, (pixJ0 + pixJ1) / 2, _pGame->LCDGetColor(C_GREEN | 255, "no thumbnail"));
       }
     }
