@@ -21,8 +21,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 static CStaticStackArray<CTString> _astrCredits;
 static BOOL _bCreditsOn = FALSE;
 
-static PIX pixW = 0;
-static PIX pixH = 0;
+static PIX pixScreenSizeI = 0;
+static PIX pixScreenSizeJ = 0;
 static PIX pixJ = 0;
 static PIX pixLineHeight;
 
@@ -139,26 +139,26 @@ FLOAT Credits_Render(CDrawPort *pdp)
   if (!_bCreditsOn) {
     return 0;
   }
-  CDrawPort dpWide;
-  pdp->MakeWideScreen(&dpWide);
+
+  CDrawPort dpCredits(pdp, TRUE);
 
   pdp->Unlock();
-  dpWide.Lock();
+  dpCredits.Lock();
 
   fCreditsTime = GetTime();
-  
-  pixW = dpWide.GetWidth();
-  pixH = dpWide.GetHeight();
 
-  fScaleW = pixW / 640.0f;
-  fScaleH = pixH / 480.0f;
+  pixScreenSizeI = dpCredits.GetWidth();
+  pixScreenSizeJ = dpCredits.GetHeight();
 
-  dpWide.SetFont( _pfdDisplayFont);
+  fScaleW = pixScreenSizeI / 640.0f;
+  fScaleH = pixScreenSizeJ / 480.0f;
+
+  dpCredits.SetFont( _pfdDisplayFont);
   pixLineHeight = 20 * fScaleH;
 
   const FLOAT fLinesPerSecond = _fSpeed;
   FLOAT fOffset = fCreditsTime * fLinesPerSecond;
-  INDEX ctLinesOnScreen = pixH/pixLineHeight;
+  INDEX ctLinesOnScreen = pixScreenSizeJ / pixLineHeight;
   INDEX iLine1 = (INDEX) fOffset;
 
   pixJ = (PIX) (iLine1*pixLineHeight-fOffset*pixLineHeight);
@@ -174,10 +174,14 @@ FLOAT Credits_Render(CDrawPort *pdp)
       pstr = &_astrCredits[iLine];
       bOver = FALSE;
     }
-    PrintOneLine(&dpWide, *pstr);
+
+    PrintOneLine(&dpCredits, *pstr);
   }
 
-  dpWide.Unlock();
+  PIX pixBarJ = 60 * fScaleH;
+  dpCredits.Fill(0, pixScreenSizeJ - pixBarJ, pixScreenSizeI, pixBarJ, C_BLACK | 255);
+
+  dpCredits.Unlock();
   pdp->Lock();
 
   if (bOver) {
