@@ -304,6 +304,13 @@ public:
   void Initialize_t(void);
 };
 
+class CAdvRenderingOptionsMenu : public CGameMenu {
+public:
+  void StartMenu(void);
+  void Initialize_t(void);
+  void FillListItems(void);
+};
+
 class CCreditsMenu : public CGameMenu {
 public:
   CSoundObject soMusic;
