@@ -100,15 +100,6 @@ public:
   void StartMenu(void);
 };
 
-class CCreditsMenu : public CGameMenu {
-public:
-  CSoundObject soMusic;
-  void Initialize_t(void);
-  void StartMenu(void);
-  void Think(void);
-  void EndMenu(void);
-};
-
 class CDisabledMenu : public CGameMenu {
 public:
   void Initialize_t(void);
@@ -277,12 +268,6 @@ public:
   void Initialize_t(void);
 };
 
-class CRenderingOptionsMenu : public CGameMenu {
-public:
-  void StartMenu(void);
-  void Initialize_t(void);
-};
-
 class CAudioOptionsMenu : public CGameMenu {
 public:
   void StartMenu(void);
@@ -311,4 +296,19 @@ class CGameOptionsMenu : public CGameMenu {
 public:
   void Initialize_t(void);
   void StartMenu(void);
+};
+
+class CRenderingOptionsMenu : public CGameMenu {
+public:
+  void StartMenu(void);
+  void Initialize_t(void);
+};
+
+class CCreditsMenu : public CGameMenu {
+public:
+  CSoundObject soMusic;
+  void Initialize_t(void);
+  void StartMenu(void);
+  void Think(void);
+  void EndMenu(void);
 };

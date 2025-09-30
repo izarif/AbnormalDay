@@ -1959,11 +1959,6 @@ void StartVarGameOptions(void)
   ChangeToMenu( &gmVarMenu);
 }
 
-void StartSinglePlayerGameOptions(void)
-{
-  ChangeToMenu(&gmGameOptionsMenu);
-}
-
 void StartGameOptionsFromNetwork(void)
 {
   StartVarGameOptions();
@@ -1974,11 +1969,6 @@ void StartGameOptionsFromSplitScreen(void)
 {
   StartVarGameOptions();
   gmVarMenu.gm_pgmParentMenu = &gmSplitStartMenu;
-}
-
-void StartRenderingOptionsMenu(void)
-{
-  ChangeToMenu(&gmRenderingOptionsMenu);
 }
 
 void StartCustomizeKeyboardMenu(void)
@@ -1997,6 +1987,16 @@ void StartOptionsMenu(void)
 {
   gmOptionsMenu.gm_pgmParentMenu = pgmCurrentMenu;
   ChangeToMenu( &gmOptionsMenu);
+}
+
+void StartSinglePlayerGameOptions(void)
+{
+  ChangeToMenu(&gmGameOptionsMenu);
+}
+
+void StartRenderingOptionsMenu(void)
+{
+  ChangeToMenu(&gmRenderingOptionsMenu);
 }
 
 void StartCreditsMenu(void)
@@ -6522,6 +6522,27 @@ void ChangeBloodColor(INDEX iNew)
   _pShell->SetINDEX("gam_iBlood", iNew);
 }
 
+void GetGameSettings(void)
+{
+  CPlayerCharacter& pc = _pGame->gm_apcPlayers[0];
+  CPlayerSettings* pps = (CPlayerSettings*)pc.pc_aubAppearance;
+
+  mgGameOptions3rdPerson.mg_iSelected = (pps->ps_ulFlags & PSF_PREFER3RDPERSON) ? 1 : 0;
+  mgGameOptions3rdPerson.ApplyCurrentSelection();
+
+  mgGameOptionsAutoSave.mg_iSelected = (pps->ps_ulFlags & PSF_AUTOSAVE) ? 1 : 0;
+  mgGameOptionsAutoSave.ApplyCurrentSelection();
+
+  mgGameOptionsViewBobbing.mg_iSelected = (pps->ps_ulFlags & PSF_NOBOBBING) ? 0 : 1;
+  mgGameOptionsViewBobbing.ApplyCurrentSelection();
+
+  mgGameOptionsSharpTurning.mg_iSelected = (pps->ps_ulFlags & PSF_SHARPTURNING) ? 1 : 0;
+  mgGameOptionsSharpTurning.ApplyCurrentSelection();
+
+  mgGameOptionsBlood.mg_iSelected = _pShell->GetINDEX("gam_iBlood");
+  mgGameOptionsBlood.ApplyCurrentSelection();
+}
+
 void CGameOptionsMenu::Initialize_t(void)
 {
   // intialize game options menu
@@ -6606,27 +6627,6 @@ void CGameOptionsMenu::Initialize_t(void)
   mgGameOptionsBack.mg_iCenterI = -1;
 }
 
-void GetGameSettings(void)
-{
-  CPlayerCharacter& pc = _pGame->gm_apcPlayers[0];
-  CPlayerSettings* pps = (CPlayerSettings*)pc.pc_aubAppearance;
-
-  mgGameOptions3rdPerson.mg_iSelected = (pps->ps_ulFlags & PSF_PREFER3RDPERSON) ? 1 : 0;
-  mgGameOptions3rdPerson.ApplyCurrentSelection();
-
-  mgGameOptionsAutoSave.mg_iSelected = (pps->ps_ulFlags & PSF_AUTOSAVE) ? 1 : 0;
-  mgGameOptionsAutoSave.ApplyCurrentSelection();
-
-  mgGameOptionsViewBobbing.mg_iSelected = (pps->ps_ulFlags & PSF_NOBOBBING) ? 0 : 1;
-  mgGameOptionsViewBobbing.ApplyCurrentSelection();
-
-  mgGameOptionsSharpTurning.mg_iSelected = (pps->ps_ulFlags & PSF_SHARPTURNING) ? 1 : 0;
-  mgGameOptionsSharpTurning.ApplyCurrentSelection();
-
-  mgGameOptionsBlood.mg_iSelected = _pShell->GetINDEX("gam_iBlood");
-  mgGameOptionsBlood.ApplyCurrentSelection();
-}
-
 void CGameOptionsMenu::StartMenu(void)
 {
   GetGameSettings();
@@ -6637,6 +6637,57 @@ void CGameOptionsMenu::StartMenu(void)
 }
 
 // ------------------------ CRenderingOptionsMenu implementation
+INDEX FindFloatInArray(FLOAT a[], INDEX iLen, FLOAT fVal)
+{
+  BOOL found = FALSE;
+  INDEX i;
+
+  for (i = 0; i < iLen; i++)
+  {
+    if (a[i] == fVal)
+    {
+        found = TRUE;
+        break;
+    }
+  }
+
+  return i;
+}
+
+void GetRenderingSettings(void)
+{
+  INDEX iNormalSize = _pShell->GetINDEX("tex_iNormalSize");
+
+  mgRenderingOptionsTextureSize.mg_iSelected = FindFloatInArray(afTextureSizes, ARRAYCOUNT(afTextureSizes), iNormalSize);
+  mgRenderingOptionsTextureSize.ApplyCurrentSelection();
+
+  INDEX iNormalQuality = _pShell->GetINDEX("tex_iNormalQuality");
+
+  mgRenderingOptionsTextureQuality.mg_iSelected = (iNormalQuality / 11) - 1;
+  mgRenderingOptionsTextureQuality.ApplyCurrentSelection();
+
+  INDEX iTextureLayers = _pShell->GetINDEX("wld_bTextureLayers");
+
+  mgRenderingOptionsDetailTextures.mg_iSelected = iTextureLayers - 110;
+  mgRenderingOptionsTextureQuality.ApplyCurrentSelection();
+
+  INDEX iStaticSize = _pShell->GetINDEX("shd_iStaticSize");
+
+  mgRenderingOptionsShadowMapSize.mg_iSelected = FindFloatInArray(afShadowMapSizes, ARRAYCOUNT(afShadowMapSizes), iStaticSize);
+  mgRenderingOptionsShadowMapSize.ApplyCurrentSelection();
+
+  mgRenderingOptionsLensFlares.mg_iSelected = _pShell->GetINDEX("gfx_iLensFlareQuality");
+  mgRenderingOptionsLensFlares.ApplyCurrentSelection();
+
+  FLOAT fGamma = _pShell->GetFLOAT("gfx_fGamma");
+
+  mgRenderingOptionsGamma.mg_iCurPos = fGamma * 10.0f;
+  mgRenderingOptionsGamma.ApplyCurrentPosition();
+
+  mgRenderingOptionsVerticalRetrace.mg_iSelected = _pShell->GetINDEX("gap_iSwapInterval");
+  mgRenderingOptionsVerticalRetrace.ApplyCurrentSelection();
+}
+
 void ApplyRenderingSettings(void)
 {
   _pShell->SetINDEX("tex_iNormalSize", afTextureSizes[mgRenderingOptionsTextureSize.mg_iSelected]);
@@ -6764,57 +6815,6 @@ void CRenderingOptionsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(mgRenderingOptionsBack.mg_lnNode);
   mgRenderingOptionsBack.mg_pActivatedFunction = &MenuBack;
   mgRenderingOptionsBack.mg_iCenterI = -1;
-}
-
-INDEX FindFloatInArray(FLOAT a[], INDEX iLen, FLOAT fVal)
-{
-  BOOL found = FALSE;
-  INDEX i;
-
-  for (i = 0; i < iLen; i++)
-  {
-    if (a[i] == fVal)
-    {
-        found = TRUE;
-        break;
-    }
-  }
-
-  return i;
-}
-
-void GetRenderingSettings(void)
-{
-  INDEX iNormalSize = _pShell->GetINDEX("tex_iNormalSize");
-
-  mgRenderingOptionsTextureSize.mg_iSelected = FindFloatInArray(afTextureSizes, ARRAYCOUNT(afTextureSizes), iNormalSize);
-  mgRenderingOptionsTextureSize.ApplyCurrentSelection();
-
-  INDEX iNormalQuality = _pShell->GetINDEX("tex_iNormalQuality");
-
-  mgRenderingOptionsTextureQuality.mg_iSelected = (iNormalQuality / 11) - 1;
-  mgRenderingOptionsTextureQuality.ApplyCurrentSelection();
-
-  INDEX iTextureLayers = _pShell->GetINDEX("wld_bTextureLayers");
-
-  mgRenderingOptionsDetailTextures.mg_iSelected = iTextureLayers - 110;
-  mgRenderingOptionsTextureQuality.ApplyCurrentSelection();
-
-  INDEX iStaticSize = _pShell->GetINDEX("shd_iStaticSize");
-
-  mgRenderingOptionsShadowMapSize.mg_iSelected = FindFloatInArray(afShadowMapSizes, ARRAYCOUNT(afShadowMapSizes), iStaticSize);
-  mgRenderingOptionsShadowMapSize.ApplyCurrentSelection();
-
-  mgRenderingOptionsLensFlares.mg_iSelected = _pShell->GetINDEX("gfx_iLensFlareQuality");
-  mgRenderingOptionsLensFlares.ApplyCurrentSelection();
-
-  FLOAT fGamma = _pShell->GetFLOAT("gfx_fGamma");
-
-  mgRenderingOptionsGamma.mg_iCurPos = fGamma * 10.0f;
-  mgRenderingOptionsGamma.ApplyCurrentPosition();
-
-  mgRenderingOptionsVerticalRetrace.mg_iSelected = _pShell->GetINDEX("gap_iSwapInterval");
-  mgRenderingOptionsVerticalRetrace.ApplyCurrentSelection();
 }
 
 void CRenderingOptionsMenu::StartMenu(void)
