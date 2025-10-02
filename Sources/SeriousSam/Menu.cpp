@@ -6724,14 +6724,13 @@ void ApplyRenderingSettings(void)
 
   sam_iVideoSetup = 3;
 
-  _pShell->Execute("ApplyVideoMode();");
   _pShell->Execute("RefreshTextures();");
   _pShell->Execute("RecacheShadows();");
+  _pShell->Execute("ApplyVideoMode();");
 }
 
 void CRenderingOptionsMenu::Initialize_t(void)
 {
-  // intialize rendering options menu
   mgRenderingOptionsTitle.mg_boxOnScreen = BoxTitle(1.98f);
   mgRenderingOptionsTitle.mg_strText = TRANS("# RENDERING OPTIONS");
   gm_lhGadgets.AddTail(mgRenderingOptionsTitle.mg_lnNode);
@@ -6805,7 +6804,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsGamma.mg_iMaxPos = 15;
   mgRenderingOptionsGamma.mg_iCurPos = 0;
   mgRenderingOptionsGamma.mg_strText = TRANS("GAMMA");
-  mgRenderingOptionsGamma.mg_strTip = TRANS("Select game gamma");
+  mgRenderingOptionsGamma.mg_strTip = TRANS("Set game gamma");
   mgRenderingOptionsGamma.mg_iCenterI = -1;
 
   mgRenderingOptionsVerticalRetrace.mg_pmgUp = &mgRenderingOptionsGamma;
@@ -6815,7 +6814,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsVerticalRetrace.mg_astrTexts = astrNoYes;
   mgRenderingOptionsVerticalRetrace.mg_ctTexts = ARRAYCOUNT(astrNoYes);
   mgRenderingOptionsVerticalRetrace.mg_iSelected = 0;
-  mgRenderingOptionsVerticalRetrace.mg_strLabel = TRANS("VERTICAL SYNCHRONIZATION");
+  mgRenderingOptionsVerticalRetrace.mg_strLabel = TRANS("VERTICAL RETRACE");
   mgRenderingOptionsVerticalRetrace.mg_strValue = astrNoYes[0];
   mgRenderingOptionsVerticalRetrace.mg_strTip = TRANS("Synchronize frame rate with monitor refresh rate");
   mgRenderingOptionsVerticalRetrace.mg_iCenterI = -1;
