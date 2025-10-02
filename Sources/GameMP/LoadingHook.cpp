@@ -156,9 +156,9 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
   PIX pixCharSizeJ = (pfd->GetHeight() - 1) * fScaleH;
   PIX pixBarSizeJ = 22 * fScaleH;
 
-  COLOR colBcg = SE_COL_GREEN_DARK | 255;
+  COLOR colBcg = C_BLACK | 255;
   COLOR colBar = SE_COL_GREEN_LIGHT | 255;
-  COLOR colLines = colBar; //C_vdGREEN|0xff;
+  COLOR colLines = SE_COL_GREEN_LIGHT | 255;
   COLOR colText = SE_COL_GREEN_LIGHT | 255;
   COLOR colEsc = SE_COL_GREEN_LIGHT | 255;
 
