@@ -691,17 +691,25 @@ CTString astrLensFlaresTexts[] = {
 };
 
 // -------- Advanced rendering options menu
-#define ADV_RENDERING_OPTIONS_ON_SCREEN 10
+#define ADV_RENDERING_OPTIONS_ON_SCREEN 1
 
 CAdvRenderingOptionsMenu gmAdvRenderingOptionsMenu;
-CListHead lhAdvRenderingOptionsGadgets;
+CListHead lhAdvRenderingOptionsVars;
 CMGTitle mgAdvRenderingOptionsTitle;
-CMGTrigger mgAdvRenderingOptionsTextureSize;
-CMenuGadget amgAdvRenderingOptionsGadgets[ADV_RENDERING_OPTIONS_ON_SCREEN];
+CMGVarButton mgAdvRenderingOptionsTextureSize;
+CMGVarButton amgAdvRenderingOptionsButtons[ADV_RENDERING_OPTIONS_ON_SCREEN];
 CMGArrow mgAdvRenderingOptionsArrowUp;
 CMGArrow mgAdvRenderingOptionsArrowDn;
 CMGButton mgAdvRenderingOptionsApply;
 CMGButton mgAdvRenderingOptionsBack;
+
+CTString astrTextureSizes[] = {
+  RADIOTRANS("6.5"),
+  RADIOTRANS("7"),
+  RADIOTRANS("8"),
+  RADIOTRANS("8.5"),
+  RADIOTRANS("9"),
+};
 
 // -------- Credits menu
 CCreditsMenu gmCreditsMenu;
@@ -6861,23 +6869,9 @@ void CRenderingOptionsMenu::StartMenu(void)
 }
 
 // ------------------------ CAdvRenderingOptionsMenu implementation
-void GetAdvRenderingSettings(void)
-{
-  INDEX iNormalSize = _pShell->GetINDEX("tex_iNormalSize");
-
-  mgAdvRenderingOptionsTextureSize.mg_iSelected = FindFloatInArray(afTextureSizes, ARRAYCOUNT(afTextureSizes), iNormalSize);
-  mgAdvRenderingOptionsTextureSize.ApplyCurrentSelection();
-}
-
 void ApplyAdvRenderingSettings(void)
 {
-  _pShell->SetINDEX("tex_iNormalSize", afTextureSizes[mgAdvRenderingOptionsTextureSize.mg_iSelected]);
-
-  sam_iVideoSetup = 3;
-
-  _pShell->Execute("RefreshTextures();");
-  _pShell->Execute("RecacheShadows();");
-  _pShell->Execute("ApplyVideoMode();");
+  FlushVarSettings2(lhAdvRenderingOptionsVars);
 }
 
 void CAdvRenderingOptionsMenu::Initialize_t(void)
@@ -6887,42 +6881,73 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(mgAdvRenderingOptionsTitle.mg_lnNode);
   mgAdvRenderingOptionsTitle.mg_iCenterI = -1;
 
-  mgAdvRenderingOptionsTextureSize.mg_astrTexts = astrTextureSizeTexts;
-  mgAdvRenderingOptionsTextureSize.mg_ctTexts = ARRAYCOUNT(astrTextureSizeTexts);
-  mgAdvRenderingOptionsTextureSize.mg_iSelected = 0;
-  mgAdvRenderingOptionsTextureSize.mg_strLabel = TRANS("TEXTURE SIZE");
-  mgAdvRenderingOptionsTextureSize.mg_strValue = astrTextureSizeTexts[0];
-  mgAdvRenderingOptionsTextureSize.mg_strTip = TRANS("Select texture size");
-  mgAdvRenderingOptionsTextureSize.mg_iCenterI = -1;
+  mgAdvRenderingOptionsTextureSize.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_strName = TRANS("TEXTURE SIZE");
+  mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_strTip = TRANS("Select texture size");
+  mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_strVar = "tex_iNormalSize";
+  mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_iSlider = 1;
+  mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
+  mgAdvRenderingOptionsTextureSize.mg_strTip = mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_strTip;
 
-  lhAdvRenderingOptionsGadgets.AddTail(mgAdvRenderingOptionsTextureSize.mg_lnNode);
+  INDEX ctTexts = ARRAYCOUNT(astrTextureSizeTexts);
+
+  mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_astrTexts[i] = astrTextureSizeTexts[i];
+	mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_astrValues[i] = astrTextureSizes[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTextureSize.mg_pvsVar->vs_lnNode);
+
+  FOREACHINLIST(CVarSetting, vs_lnNode, lhAdvRenderingOptionsVars, itvs)
+  {
+    if (itvs->vs_bSeparator)
+    {
+      continue;
+    }
+
+    INDEX ctValues = itvs->vs_ctValues;
+    CTString strValue = _pShell->GetValue(itvs->vs_strVar);
+    itvs->vs_bCustom = TRUE;
+    itvs->vs_iOrgValue = itvs->vs_iValue = -1;
+
+    for (INDEX iValue = 0; iValue < ctValues; iValue++)
+    {
+      if (strValue == itvs->vs_astrValues[iValue])
+      {
+        itvs->vs_iOrgValue = itvs->vs_iValue = iValue;
+        itvs->vs_bCustom = FALSE;
+
+        break;
+      }
+    }
+  }
 
   for (INDEX iLabel = 0; iLabel < ADV_RENDERING_OPTIONS_ON_SCREEN; iLabel++)
   {
     INDEX iPrev = (ADV_RENDERING_OPTIONS_ON_SCREEN + iLabel - 1) % ADV_RENDERING_OPTIONS_ON_SCREEN;
     INDEX iNext = (iLabel + 1) % ADV_RENDERING_OPTIONS_ON_SCREEN;
 
-    amgAdvRenderingOptionsGadgets[iLabel].mg_pmgUp = &amgAdvRenderingOptionsGadgets[iPrev];
-    amgAdvRenderingOptionsGadgets[iLabel].mg_pmgDown = &amgAdvRenderingOptionsGadgets[iNext];
-    amgAdvRenderingOptionsGadgets[iLabel].mg_boxOnScreen = BoxMediumLeft(4.71f + iLabel);
-    gm_lhGadgets.AddTail(amgAdvRenderingOptionsGadgets[iLabel].mg_lnNode);
+    amgAdvRenderingOptionsButtons[iLabel].mg_pmgUp = &amgAdvRenderingOptionsButtons[iPrev];
+    amgAdvRenderingOptionsButtons[iLabel].mg_pmgDown = &amgAdvRenderingOptionsButtons[iNext];
+    amgAdvRenderingOptionsButtons[iLabel].mg_boxOnScreen = BoxMediumLeft(4.71f + iLabel);
+    amgAdvRenderingOptionsButtons[iLabel].mg_pActivatedFunction = NULL;
+    gm_lhGadgets.AddTail(amgAdvRenderingOptionsButtons[iLabel].mg_lnNode);
   }
-
-  gm_ctListVisible = ADV_RENDERING_OPTIONS_ON_SCREEN;
-  gm_pmgArrowUp = &mgAdvRenderingOptionsArrowUp;
-  gm_pmgArrowDn = &mgAdvRenderingOptionsArrowDn;
-  gm_pmgListTop = &amgAdvRenderingOptionsGadgets[0];
-  gm_pmgListBottom = &amgAdvRenderingOptionsGadgets[ADV_RENDERING_OPTIONS_ON_SCREEN - 1];
 
   mgAdvRenderingOptionsArrowUp.mg_adDirection = AD_UP;
   mgAdvRenderingOptionsArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
   mgAdvRenderingOptionsArrowUp.mg_pmgUp = &mgAdvRenderingOptionsBack;
-  mgAdvRenderingOptionsArrowUp.mg_pmgDown = &amgAdvRenderingOptionsGadgets[0];
+  mgAdvRenderingOptionsArrowUp.mg_pmgDown = &amgAdvRenderingOptionsButtons[0];
   gm_lhGadgets.AddTail(mgAdvRenderingOptionsArrowUp.mg_lnNode);
 
   mgAdvRenderingOptionsArrowDn.mg_adDirection = AD_DOWN;
   mgAdvRenderingOptionsArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
-  mgAdvRenderingOptionsArrowDn.mg_pmgUp = &amgAdvRenderingOptionsGadgets[ADV_RENDERING_OPTIONS_ON_SCREEN - 1];
+  mgAdvRenderingOptionsArrowDn.mg_pmgUp = &amgAdvRenderingOptionsButtons[ADV_RENDERING_OPTIONS_ON_SCREEN - 1];
   mgAdvRenderingOptionsArrowDn.mg_pmgDown = &mgAdvRenderingOptionsApply;
   gm_lhGadgets.AddTail(mgAdvRenderingOptionsArrowDn.mg_lnNode);
 
@@ -6945,27 +6970,30 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(mgAdvRenderingOptionsBack.mg_lnNode);
   mgAdvRenderingOptionsBack.mg_pActivatedFunction = &MenuBack;
   mgAdvRenderingOptionsBack.mg_iCenterI = -1;
-}
 
-void CAdvRenderingOptionsMenu::StartMenu(void)
-{
-  GetAdvRenderingSettings();
-  CGameMenu::StartMenu();
+  gm_ctListVisible = ADV_RENDERING_OPTIONS_ON_SCREEN;
+  gm_pmgArrowUp = &mgAdvRenderingOptionsArrowUp;
+  gm_pmgArrowDn = &mgAdvRenderingOptionsArrowDn;
+  gm_pmgListTop = &amgAdvRenderingOptionsButtons[0];
+  gm_pmgListBottom = &amgAdvRenderingOptionsButtons[ADV_RENDERING_OPTIONS_ON_SCREEN - 1];
 }
 
 void CAdvRenderingOptionsMenu::FillListItems(void)
 {
-  for (INDEX i = 0; i < ADV_RENDERING_OPTIONS_ON_SCREEN; i++) {
-    amgAdvRenderingOptionsGadgets[i].mg_bEnabled = FALSE;
-    amgAdvRenderingOptionsGadgets[i].mg_iInList = -2;
+  for (INDEX i = 0; i < ADV_RENDERING_OPTIONS_ON_SCREEN; i++)
+  {
+    amgAdvRenderingOptionsButtons[i].mg_bEnabled = FALSE;
+    amgAdvRenderingOptionsButtons[i].mg_pvsVar = NULL;
+    amgAdvRenderingOptionsButtons[i].mg_iInList = -2;
   }
 
   BOOL bHasFirst = FALSE;
   BOOL bHasLast = FALSE;
-  INDEX ctLabels = lhAdvRenderingOptionsGadgets.Count();
+  INDEX ctLabels = lhAdvRenderingOptionsVars.Count();
   INDEX iLabel = 0;
 
-  FOREACHINLIST(CMenuGadget, mg_lnNode, lhAdvRenderingOptionsGadgets, itmg) {
+  FOREACHINLIST(CVarSetting, vs_lnNode, lhAdvRenderingOptionsVars, itvs)
+  {
     INDEX iInMenu = iLabel - gm_iListOffset;
 
 	if ((iLabel >= gm_iListOffset) &&
@@ -6973,9 +7001,9 @@ void CAdvRenderingOptionsMenu::FillListItems(void)
     {
       bHasFirst |= (iLabel == 0);
       bHasLast |= (iLabel == ctLabels - 1);
-      amgAdvRenderingOptionsGadgets[iInMenu] = *itmg;
-      amgAdvRenderingOptionsGadgets[iInMenu].mg_bEnabled = TRUE;
-      amgAdvRenderingOptionsGadgets[iInMenu].mg_iInList = iLabel;
+      amgAdvRenderingOptionsButtons[iInMenu].mg_pvsVar = itvs;
+	  amgAdvRenderingOptionsButtons[iInMenu].mg_bEnabled = amgAdvRenderingOptionsButtons[iInMenu].IsEnabled();
+      amgAdvRenderingOptionsButtons[iInMenu].mg_iInList = iLabel;
     }
 
     iLabel++;
@@ -6983,6 +7011,38 @@ void CAdvRenderingOptionsMenu::FillListItems(void)
 
   mgAdvRenderingOptionsArrowUp.mg_bEnabled = !bHasFirst && ctLabels > 0;
   mgAdvRenderingOptionsArrowDn.mg_bEnabled = !bHasLast && ctLabels > 0;
+}
+
+void CAdvRenderingOptionsMenu::StartMenu(void)
+{
+  gm_iListOffset = 0;
+
+  CGameMenu::StartMenu();
+}
+
+void CAdvRenderingOptionsMenu::EndMenu(void)
+{
+  for (INDEX i = 0; i < ADV_RENDERING_OPTIONS_ON_SCREEN; i++)
+  {
+    amgAdvRenderingOptionsButtons[i].mg_bEnabled = FALSE;
+    amgAdvRenderingOptionsButtons[i].mg_pvsVar = NULL;
+    amgAdvRenderingOptionsButtons[i].mg_iInList = -2;
+  }
+
+  _bVarChanged = FALSE;
+}
+
+void CAdvRenderingOptionsMenu::Think(void)
+{
+  mgAdvRenderingOptionsApply.mg_bEnabled = _bVarChanged;
+}
+
+void CAdvRenderingOptionsMenu::Destroy(void)
+{
+  FORDELETELIST(CVarSetting, vs_lnNode, lhAdvRenderingOptionsVars, itvs)
+  {
+    delete itvs;
+  }
 }
 
 // ------------------------ CCreditsMenu implementation

@@ -306,9 +306,12 @@ public:
 
 class CAdvRenderingOptionsMenu : public CGameMenu {
 public:
-  void StartMenu(void);
   void Initialize_t(void);
+  void StartMenu(void);
+  void Think(void);
+  void EndMenu(void);
   void FillListItems(void);
+  void Destroy(void);
 };
 
 class CCreditsMenu : public CGameMenu {

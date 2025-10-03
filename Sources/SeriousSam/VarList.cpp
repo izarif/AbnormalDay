@@ -262,3 +262,45 @@ BOOL CVarSetting::Validate(void)
   }
   return TRUE;
 }
+
+void FlushVarSettings2(CListHead lh)
+{
+  CStaticStackArray<CTString> astrScheduled;
+
+  FOREACHINLIST(CVarSetting, vs_lnNode, lh, itvs)
+  {
+    if (itvs->vs_iValue != itvs->vs_iOrgValue)
+    {
+      CTString strCmd;
+
+      _pShell->SetValue(itvs->vs_strVar, itvs->vs_astrValues[itvs->vs_iValue]);
+
+      if (itvs->vs_strSchedule != "")
+      {
+        BOOL bSheduled = FALSE;
+
+        for (INDEX i = 0; i < astrScheduled.Count(); i++)
+        {
+          if (astrScheduled[i] == itvs->vs_strSchedule)
+          {
+            bSheduled = TRUE;
+            break;
+          }
+        }
+
+        if (!bSheduled)
+        {
+          astrScheduled.Push() = itvs->vs_strSchedule;
+        }
+      }
+    }
+  }
+
+  for (INDEX i = 0; i < astrScheduled.Count(); i++)
+  {
+    CTString strCmd;
+
+    strCmd.PrintF("include \"%s\"", (const char *) astrScheduled[i]);
+    _pShell->Execute(strCmd);
+  }
+}
