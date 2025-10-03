@@ -46,7 +46,7 @@ extern CListHead _lhVarSettings;
 
 void LoadVarSettings(const CTFileName &fnmCfg);
 void FlushVarSettings(BOOL bApply);
-
+void FlushVarSettings2(CListHead &lh);
 
 #endif  /* include-once check. */
 

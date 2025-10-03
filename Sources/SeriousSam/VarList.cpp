@@ -262,3 +262,16 @@ BOOL CVarSetting::Validate(void)
   }
   return TRUE;
 }
+
+void FlushVarSettings2(CListHead& lh)
+{
+  FOREACHINLIST(CVarSetting, vs_lnNode, lh, itvs)
+  {
+    if (itvs->vs_iValue != itvs->vs_iOrgValue)
+    {
+      CTString strCmd;
+
+      _pShell->SetValue(itvs->vs_strVar, itvs->vs_astrValues[itvs->vs_iValue]);
+    }
+  }
+}
