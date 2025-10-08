@@ -4765,8 +4765,8 @@ void CLoadSaveMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(mgLSArrowDn.mg_lnNode);
   mgLSArrowUp.mg_adDirection = AD_UP;
   mgLSArrowDn.mg_adDirection = AD_DOWN;
-  mgLSArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
-  mgLSArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
+  mgLSArrowUp.mg_boxOnScreen = BoxArrow(3.71f);
+  mgLSArrowDn.mg_boxOnScreen = BoxArrow(14.71f);
   mgLSArrowUp.mg_pmgUp = &mgLSBack;
   mgLSArrowUp.mg_pmgDown = &amgLSButton[0];
   mgLSArrowDn.mg_pmgUp = &amgLSButton[SAVELOAD_BUTTONS_CT - 1];
@@ -5069,8 +5069,8 @@ void CCustomizeKeyboardMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(mgCustomizeArrowUp.mg_lnNode);
   mgCustomizeArrowDn.mg_adDirection = AD_DOWN;
   mgCustomizeArrowUp.mg_adDirection = AD_UP;
-  mgCustomizeArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
-  mgCustomizeArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
+  mgCustomizeArrowDn.mg_boxOnScreen = BoxArrow(3.71f);
+  mgCustomizeArrowUp.mg_boxOnScreen = BoxArrow(14.71f);
   mgCustomizeArrowUp.mg_pmgUp = &mgCustomizeBack;
   mgCustomizeArrowUp.mg_pmgDown = &mgKey[0];
   mgCustomizeArrowDn.mg_pmgUp = &mgKey[KEYS_ON_SCREEN - 1];
@@ -5961,8 +5961,8 @@ void CLevelsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgLevelsArrowDn.mg_lnNode);
   mgLevelsArrowUp.mg_adDirection = AD_UP;
   mgLevelsArrowDn.mg_adDirection = AD_DOWN;
-  mgLevelsArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
-  mgLevelsArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
+  mgLevelsArrowUp.mg_boxOnScreen = BoxArrow(3.71f);
+  mgLevelsArrowDn.mg_boxOnScreen = BoxArrow(14.71f);
   mgLevelsArrowUp.mg_pmgRight = mgLevelsArrowUp.mg_pmgDown = 
     &mgManualLevel[0];
   mgLevelsArrowDn.mg_pmgRight = mgLevelsArrowDn.mg_pmgUp = 
@@ -6037,8 +6037,8 @@ void CVarMenu::Initialize_t(void)
   gm_lhGadgets.AddTail( mgVarArrowDn.mg_lnNode);
   mgVarArrowUp.mg_adDirection = AD_UP;
   mgVarArrowDn.mg_adDirection = AD_DOWN;
-  mgVarArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
-  mgVarArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
+  mgVarArrowUp.mg_boxOnScreen = BoxArrow(3.71f);
+  mgVarArrowDn.mg_boxOnScreen = BoxArrow(14.71f);
   mgVarArrowUp.mg_pmgRight = mgVarArrowUp.mg_pmgDown = 
     &mgVar[0];
   mgVarArrowDn.mg_pmgRight = mgVarArrowDn.mg_pmgUp = 
@@ -7601,13 +7601,13 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   }
 
   mgAdvRenderingOptionsArrowUp.mg_adDirection = AD_UP;
-  mgAdvRenderingOptionsArrowUp.mg_boxOnScreen = BoxArrow(AD_UP);
+  mgAdvRenderingOptionsArrowUp.mg_boxOnScreen = BoxArrow(3.71f);
   mgAdvRenderingOptionsArrowUp.mg_pmgUp = &mgAdvRenderingOptionsBack;
   mgAdvRenderingOptionsArrowUp.mg_pmgDown = &amgAdvRenderingOptionsButtons[0];
   gm_lhGadgets.AddTail(mgAdvRenderingOptionsArrowUp.mg_lnNode);
 
   mgAdvRenderingOptionsArrowDn.mg_adDirection = AD_DOWN;
-  mgAdvRenderingOptionsArrowDn.mg_boxOnScreen = BoxArrow(AD_DOWN);
+  mgAdvRenderingOptionsArrowDn.mg_boxOnScreen = BoxArrow(13.11f);
   mgAdvRenderingOptionsArrowDn.mg_pmgUp = &amgAdvRenderingOptionsButtons[ADV_RENDERING_OPTIONS_ON_SCREEN - 1];
   mgAdvRenderingOptionsArrowDn.mg_pmgDown = &mgAdvRenderingOptionsApply;
   gm_lhGadgets.AddTail(mgAdvRenderingOptionsArrowDn.mg_lnNode);

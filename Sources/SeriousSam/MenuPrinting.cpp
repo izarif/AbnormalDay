@@ -182,20 +182,11 @@ FLOATaabbox2D BoxInfoTable(INDEX iTable)
   }
 }
 
-FLOATaabbox2D BoxArrow(enum ArrowDir ad)
+FLOATaabbox2D BoxArrow(FLOAT fRow)
 {
-  switch(ad) {
-  default:
-    ASSERT(FALSE);
-  case AD_UP:
-    return FLOATaabbox2D(
-      FLOAT2D(fPadding, _fBigStartJ + 3.71f * _fMediumSizeJ),
-      FLOAT2D(1 - fPadding, _fBigStartJ + (3.71f + 1) * _fMediumSizeJ));
-  case AD_DOWN:
-    return FLOATaabbox2D(
-      FLOAT2D(fPadding, _fBigStartJ + 14.71f * _fMediumSizeJ),
-      FLOAT2D(1 - fPadding, _fBigStartJ + (14.71f + 1) * _fMediumSizeJ));
-  }
+  return FLOATaabbox2D(
+    FLOAT2D(fPadding, _fBigStartJ + fRow * _fMediumSizeJ),
+    FLOAT2D(0.5f - fPadding, _fBigStartJ + (fRow + 1) * _fMediumSizeJ));
 }
 
 FLOATaabbox2D BoxBack(void)
