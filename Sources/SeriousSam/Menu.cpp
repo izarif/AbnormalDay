@@ -621,45 +621,44 @@ CMGTrigger mgGameOptions3rdPerson;
 CMGTrigger mgGameOptionsAutoSave;
 CMGTrigger mgGameOptionsSharpTurning;
 CMGTrigger mgGameOptionsViewBobbing;
-CMGTrigger mgGameOptionsBlood;
-CMGButton mgGameOptionsBack;
 
-CTString astrBloodTexts[] = {
+CMGTrigger mgGameOptionsBlood;
+
+CTString astrBloodTexts[] =
+{
   RADIOTRANS("None"),
   RADIOTRANS("Green"),
   RADIOTRANS("Red"),
   RADIOTRANS("Hippie"),
 };
 
+CMGButton mgGameOptionsBack;
+
 // -------- Rendering options menu
 CRenderingOptionsMenu gmRenderingOptionsMenu;
 CMGTitle mgRenderingOptionsTitle;
-CMGTrigger mgRenderingOptionsTextureSize;
-CMGTrigger mgRenderingOptionsTextureQuality;
-CMGTrigger mgRenderingOptionsDetailTextures;
-CMGTrigger mgRenderingOptionsShadowMapSize;
-CMGTrigger mgRenderingOptionsLensFlares;
-CMGSlider mgRenderingOptionsGamma;
-CMGTrigger mgRenderingOptionsVerticalRetrace;
-CMGButton mgRenderingOptionsAdvanced;
-CMGButton mgRenderingOptionsApply;
-CMGButton mgRenderingOptionsBack;
+CMGTrigger mgRenderingOptionsTexturesSize;
 
-CTString astrTextureSizeTexts[] = {
+CTString astrTextureSizeTexts[] =
+{
   RADIOTRANS("Tiny"),
   RADIOTRANS("Small"),
   RADIOTRANS("Normal"),
   RADIOTRANS("Large"),
 };
 
-FLOAT afTextureSizes[] = {
+FLOAT afTextureSizes[] =
+{
   6.0f,
   7.0f,
   8.0f,
   9.0f,
 };
 
-CTString astrTextureQualityTexts[] = {
+CMGTrigger mgRenderingOptionsTextureQuality;
+
+CTString astrTextureQualityTexts[] =
+{
   RADIOTRANS("Optimal"),
   RADIOTRANS("16-bit / Optimal"),
   RADIOTRANS("32-bit / Optimal"),
@@ -678,7 +677,8 @@ CTString astrTextureQualityTexts[] = {
   RADIOTRANS("Compressed"),
 };
 
-FLOAT afTextureQualityValues[] = {
+FLOAT afTextureQualityValues[] =
+{
   0.0f,
   10.0f,
   20.0f,
@@ -697,37 +697,51 @@ FLOAT afTextureQualityValues[] = {
   33.0f,
 };
 
-CTString astrShadowMapSizeTexts[] = {
+CMGTrigger mgRenderingOptionsDetailTextures;
+CMGTrigger mgRenderingOptionsShadowMapsSize;
+
+CTString astrShadowMapSizeTexts[] =
+{
   RADIOTRANS("Tiny"),
   RADIOTRANS("Small"),
   RADIOTRANS("Normal"),
   RADIOTRANS("Large"),
 };
 
-FLOAT afShadowMapSizes[] = {
+FLOAT afShadowMapSizes[] =
+{
   5.0f,
   6.0f,
   7.0f,
   8.0f,
 };
 
-CTString astrLensFlaresTexts[] = {
+CMGTrigger mgRenderingOptionsLensFlares;
+
+CTString astrLensFlaresTexts[] =
+{
   RADIOTRANS("None"),
   RADIOTRANS("Low"),
   RADIOTRANS("Normal"),
 };
 
+CMGSlider mgRenderingOptionsGamma;
+CMGTrigger mgRenderingOptionsVerticalRetrace;
+CMGButton mgRenderingOptionsAdvanced;
+CMGButton mgRenderingOptionsApply;
+CMGButton mgRenderingOptionsBack;
+
 // -------- Advanced rendering options menu
 #define ADV_RENDERING_OPTIONS_ON_SCREEN 4
 
 CAdvRenderingOptionsMenu gmAdvRenderingOptionsMenu;
+CListHead lhAdvRenderingOptionsVars;
 CMGTitle mgAdvRenderingOptionsTitle;
 CMGArrow mgAdvRenderingOptionsArrowUp;
+CMGVarButton amgAdvRenderingOptionsButtons[ADV_RENDERING_OPTIONS_ON_SCREEN];
 CMGArrow mgAdvRenderingOptionsArrowDn;
 CMGButton mgAdvRenderingOptionsApply;
 CMGButton mgAdvRenderingOptionsBack;
-CListHead lhAdvRenderingOptionsVars;
-CMGVarButton amgAdvRenderingOptionsButtons[ADV_RENDERING_OPTIONS_ON_SCREEN];
 CMGVarButton mgAdvRenderingOptionsTexturesSize;
 
 CTString astrTextureSizes[] =
@@ -1047,6 +1061,7 @@ CMGVarButton mgAdvRenderingOptionsPrecacheShadowMaps;
 
 // -------- Credits menu
 CCreditsMenu gmCreditsMenu;
+CSoundObject soCreditsMusic;
 CMGButton mgCreditsBack;
 
 extern void PlayMenuSound(CSoundData *psd)
@@ -2865,7 +2880,7 @@ void InitializeMenus(void)
 
     gmRenderingOptionsMenu.Initialize_t();
     gmRenderingOptionsMenu.gm_strName = "RenderingOptions";
-    gmRenderingOptionsMenu.gm_pmgSelectedByDefault = &mgRenderingOptionsTextureSize;
+    gmRenderingOptionsMenu.gm_pmgSelectedByDefault = &mgRenderingOptionsTexturesSize;
     gmRenderingOptionsMenu.gm_pgmParentMenu = &gmVideoOptionsMenu;
 
     gmAdvRenderingOptionsMenu.Initialize_t();
@@ -6911,7 +6926,6 @@ void GetGameSettings(void)
 
 void CGameOptionsMenu::Initialize_t(void)
 {
-  // intialize game options menu
   mgGameOptionsTitle.mg_boxOnScreen = BoxTitle(4.22f);
   mgGameOptionsTitle.mg_strText = TRANS("# GAME OPTIONS");
   gm_lhGadgets.AddTail(mgGameOptionsTitle.mg_lnNode);
@@ -7024,8 +7038,8 @@ void GetRenderingSettings(void)
 {
   INDEX iNormalSize = _pShell->GetINDEX("tex_iNormalSize");
 
-  mgRenderingOptionsTextureSize.mg_iSelected = FindFloatInArray(afTextureSizes, ARRAYCOUNT(afTextureSizes), iNormalSize);
-  mgRenderingOptionsTextureSize.ApplyCurrentSelection();
+  mgRenderingOptionsTexturesSize.mg_iSelected = FindFloatInArray(afTextureSizes, ARRAYCOUNT(afTextureSizes), iNormalSize);
+  mgRenderingOptionsTexturesSize.ApplyCurrentSelection();
 
   INDEX iNormalQuality = _pShell->GetINDEX("tex_iNormalQuality");
 
@@ -7039,8 +7053,8 @@ void GetRenderingSettings(void)
 
   INDEX iStaticSize = _pShell->GetINDEX("shd_iStaticSize");
 
-  mgRenderingOptionsShadowMapSize.mg_iSelected = FindFloatInArray(afShadowMapSizes, ARRAYCOUNT(afShadowMapSizes), iStaticSize);
-  mgRenderingOptionsShadowMapSize.ApplyCurrentSelection();
+  mgRenderingOptionsShadowMapsSize.mg_iSelected = FindFloatInArray(afShadowMapSizes, ARRAYCOUNT(afShadowMapSizes), iStaticSize);
+  mgRenderingOptionsShadowMapsSize.ApplyCurrentSelection();
 
   mgRenderingOptionsLensFlares.mg_iSelected = _pShell->GetINDEX("gfx_iLensFlareQuality");
   mgRenderingOptionsLensFlares.ApplyCurrentSelection();
@@ -7056,10 +7070,10 @@ void GetRenderingSettings(void)
 
 void ApplyRenderingSettings(void)
 {
-  _pShell->SetINDEX("tex_iNormalSize", afTextureSizes[mgRenderingOptionsTextureSize.mg_iSelected]);
+  _pShell->SetINDEX("tex_iNormalSize", afTextureSizes[mgRenderingOptionsTexturesSize.mg_iSelected]);
   _pShell->SetINDEX("tex_iNormalQuality", afTextureQualityValues[mgRenderingOptionsTextureQuality.mg_iSelected]);
   _pShell->SetINDEX("wld_bTextureLayers", 110 + mgRenderingOptionsDetailTextures.mg_iSelected);
-  _pShell->SetINDEX("shd_iStaticSize", afShadowMapSizes[mgRenderingOptionsShadowMapSize.mg_iSelected]);
+  _pShell->SetINDEX("shd_iStaticSize", afShadowMapSizes[mgRenderingOptionsShadowMapsSize.mg_iSelected]);
   _pShell->SetINDEX("gfx_iLensFlareQuality", mgRenderingOptionsLensFlares.mg_iSelected);
   _pShell->SetFLOAT("gfx_fGamma", mgRenderingOptionsGamma.mg_iCurPos / 10.0f);
   _pShell->SetINDEX("gap_iSwapInterval", mgRenderingOptionsVerticalRetrace.mg_iSelected);
@@ -7078,19 +7092,19 @@ void CRenderingOptionsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(mgRenderingOptionsTitle.mg_lnNode);
   mgRenderingOptionsTitle.mg_iCenterI = -1;
 
-  mgRenderingOptionsTextureSize.mg_pmgUp = &mgRenderingOptionsBack;
-  mgRenderingOptionsTextureSize.mg_pmgDown = &mgRenderingOptionsTextureQuality;
-  mgRenderingOptionsTextureSize.mg_boxOnScreen = BoxMediumLeft(6.11f);
-  gm_lhGadgets.AddTail(mgRenderingOptionsTextureSize.mg_lnNode);
-  mgRenderingOptionsTextureSize.mg_astrTexts = astrTextureSizeTexts;
-  mgRenderingOptionsTextureSize.mg_ctTexts = ARRAYCOUNT(astrTextureSizeTexts);
-  mgRenderingOptionsTextureSize.mg_iSelected = 0;
-  mgRenderingOptionsTextureSize.mg_strLabel = TRANS("TEXTURE SIZE");
-  mgRenderingOptionsTextureSize.mg_strValue = astrTextureSizeTexts[0];
-  mgRenderingOptionsTextureSize.mg_strTip = TRANS("Select texture size");
-  mgRenderingOptionsTextureSize.mg_iCenterI = -1;
+  mgRenderingOptionsTexturesSize.mg_pmgUp = &mgRenderingOptionsBack;
+  mgRenderingOptionsTexturesSize.mg_pmgDown = &mgRenderingOptionsTextureQuality;
+  mgRenderingOptionsTexturesSize.mg_boxOnScreen = BoxMediumLeft(6.11f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsTexturesSize.mg_lnNode);
+  mgRenderingOptionsTexturesSize.mg_astrTexts = astrTextureSizeTexts;
+  mgRenderingOptionsTexturesSize.mg_ctTexts = ARRAYCOUNT(astrTextureSizeTexts);
+  mgRenderingOptionsTexturesSize.mg_iSelected = 0;
+  mgRenderingOptionsTexturesSize.mg_strLabel = TRANS("TEXTURES SIZE");
+  mgRenderingOptionsTexturesSize.mg_strValue = astrTextureSizeTexts[0];
+  mgRenderingOptionsTexturesSize.mg_strTip = TRANS("Select textures size");
+  mgRenderingOptionsTexturesSize.mg_iCenterI = -1;
 
-  mgRenderingOptionsTextureQuality.mg_pmgUp = &mgRenderingOptionsTextureSize;
+  mgRenderingOptionsTextureQuality.mg_pmgUp = &mgRenderingOptionsTexturesSize;
   mgRenderingOptionsTextureQuality.mg_pmgDown = &mgRenderingOptionsDetailTextures;
   mgRenderingOptionsTextureQuality.mg_boxOnScreen = BoxMediumLeft(7.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsTextureQuality.mg_lnNode);
@@ -7103,7 +7117,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsTextureQuality.mg_iCenterI = -1;
 
   mgRenderingOptionsDetailTextures.mg_pmgUp = &mgRenderingOptionsTextureQuality;
-  mgRenderingOptionsDetailTextures.mg_pmgDown = &mgRenderingOptionsShadowMapSize;
+  mgRenderingOptionsDetailTextures.mg_pmgDown = &mgRenderingOptionsShadowMapsSize;
   mgRenderingOptionsDetailTextures.mg_boxOnScreen = BoxMediumLeft(8.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsDetailTextures.mg_lnNode);
   mgRenderingOptionsDetailTextures.mg_astrTexts = astrNoYes;
@@ -7114,19 +7128,19 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsDetailTextures.mg_strTip = TRANS("Enable detail textures");
   mgRenderingOptionsDetailTextures.mg_iCenterI = -1;
 
-  mgRenderingOptionsShadowMapSize.mg_pmgUp = &mgRenderingOptionsDetailTextures;
-  mgRenderingOptionsShadowMapSize.mg_pmgDown = &mgRenderingOptionsLensFlares;
-  mgRenderingOptionsShadowMapSize.mg_boxOnScreen = BoxMediumLeft(9.11f);
-  gm_lhGadgets.AddTail(mgRenderingOptionsShadowMapSize.mg_lnNode);
-  mgRenderingOptionsShadowMapSize.mg_astrTexts = astrShadowMapSizeTexts;
-  mgRenderingOptionsShadowMapSize.mg_ctTexts = ARRAYCOUNT(astrShadowMapSizeTexts);
-  mgRenderingOptionsShadowMapSize.mg_iSelected = 0;
-  mgRenderingOptionsShadowMapSize.mg_strLabel = TRANS("SHADOW MAP TEXTURE SIZE");
-  mgRenderingOptionsShadowMapSize.mg_strValue = astrShadowMapSizeTexts[0];
-  mgRenderingOptionsShadowMapSize.mg_strTip = TRANS("Select shadow map texture size");
-  mgRenderingOptionsShadowMapSize.mg_iCenterI = -1;
+  mgRenderingOptionsShadowMapsSize.mg_pmgUp = &mgRenderingOptionsDetailTextures;
+  mgRenderingOptionsShadowMapsSize.mg_pmgDown = &mgRenderingOptionsLensFlares;
+  mgRenderingOptionsShadowMapsSize.mg_boxOnScreen = BoxMediumLeft(9.11f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsShadowMapsSize.mg_lnNode);
+  mgRenderingOptionsShadowMapsSize.mg_astrTexts = astrShadowMapSizeTexts;
+  mgRenderingOptionsShadowMapsSize.mg_ctTexts = ARRAYCOUNT(astrShadowMapSizeTexts);
+  mgRenderingOptionsShadowMapsSize.mg_iSelected = 0;
+  mgRenderingOptionsShadowMapsSize.mg_strLabel = TRANS("SHADOW MAPS SIZE");
+  mgRenderingOptionsShadowMapsSize.mg_strValue = astrShadowMapSizeTexts[0];
+  mgRenderingOptionsShadowMapsSize.mg_strTip = TRANS("Select shadow maps size");
+  mgRenderingOptionsShadowMapsSize.mg_iCenterI = -1;
 
-  mgRenderingOptionsLensFlares.mg_pmgUp = &mgRenderingOptionsShadowMapSize;
+  mgRenderingOptionsLensFlares.mg_pmgUp = &mgRenderingOptionsShadowMapsSize;
   mgRenderingOptionsLensFlares.mg_pmgDown = &mgRenderingOptionsGamma;
   mgRenderingOptionsLensFlares.mg_boxOnScreen = BoxMediumLeft(10.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsLensFlares.mg_lnNode);
@@ -7183,7 +7197,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsBack.mg_bfsFontSize = BFS_LARGE;
   mgRenderingOptionsBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgRenderingOptionsBack.mg_pmgUp = &mgRenderingOptionsApply;
-  mgRenderingOptionsBack.mg_pmgDown = &mgRenderingOptionsTextureSize;
+  mgRenderingOptionsBack.mg_pmgDown = &mgRenderingOptionsTexturesSize;
   mgRenderingOptionsBack.mg_strText = TRANS("BACK");
   mgRenderingOptionsBack.mg_strTip = TRANS("Return to video options menu");
   gm_lhGadgets.AddTail(mgRenderingOptionsBack.mg_lnNode);
@@ -7683,7 +7697,6 @@ void CAdvRenderingOptionsMenu::Destroy(void)
 // ------------------------ CCreditsMenu implementation
 void CCreditsMenu::Initialize_t(void)
 {
-  // intialize credits menu
   mgCreditsBack.mg_bfsFontSize = BFS_LARGE;
   mgCreditsBack.mg_boxOnScreen = BoxBigLeft(9.51f);
   mgCreditsBack.mg_pmgUp = &mgCreditsBack;
@@ -7701,7 +7714,7 @@ extern FLOAT fCreditsTime;
 void CCreditsMenu::StartMenu(void)
 {
   try {
-    soMusic.Play_t(CTFILENAME("Music\\Credits.mp3"), SOF_NONGAME | SOF_MUSIC | SOF_LOOP);
+    soCreditsMusic.Play_t(CTFILENAME("Music\\Credits.mp3"), SOF_NONGAME | SOF_MUSIC | SOF_LOOP);
   }
   catch (const char *strError) {
     CPrintF("%s\n", (const char*)strError);
@@ -7726,6 +7739,6 @@ void CCreditsMenu::Think(void)
 void CCreditsMenu::EndMenu(void)
 {
   _pShell->SetINDEX("ad_iStartCredits", -1);
-  soMusic.Stop();
+  soCreditsMusic.Stop();
   CGameMenu::EndMenu();
 }

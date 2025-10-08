@@ -315,7 +315,6 @@ public:
 
 class CCreditsMenu : public CGameMenu {
 public:
-  CSoundObject soMusic;
   void Initialize_t(void);
   void StartMenu(void);
   void Think(void);
