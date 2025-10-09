@@ -716,13 +716,14 @@ FLOAT afShadowMapSizes[] =
   8.0f,
 };
 
-CMGTrigger mgRenderingOptionsLensFlares;
+CMGTrigger mgRenderingOptionsLensFlaresQuality;
 
-CTString astrLensFlaresTexts[] =
+CTString astrLensFlareQualityTexts[] =
 {
   RADIOTRANS("None"),
-  RADIOTRANS("Low"),
-  RADIOTRANS("Normal"),
+  RADIOTRANS("Corona"),
+  RADIOTRANS("Reflections"),
+  RADIOTRANS("Complete"),
 };
 
 CMGSlider mgRenderingOptionsGamma;
@@ -732,7 +733,7 @@ CMGButton mgRenderingOptionsApply;
 CMGButton mgRenderingOptionsBack;
 
 // -------- Advanced rendering options menu
-#define ADV_RENDERING_OPTIONS_ON_SCREEN 4
+#define ADV_RENDERING_OPTIONS_ON_SCREEN 10
 
 CAdvRenderingOptionsMenu gmAdvRenderingOptionsMenu;
 CListHead lhAdvRenderingOptionsVars;
@@ -746,10 +747,10 @@ CMGVarButton mgAdvRenderingOptionsTexturesSize;
 
 CTString astrTextureSizes[] =
 {
-  RADIOTRANS("6"),
-  RADIOTRANS("7"),
-  RADIOTRANS("8"),
-  RADIOTRANS("9"),
+  "6"
+  "7",
+  "8",
+  "9",
 };
 
 CMGVarButton mgAdvRenderingOptionsAnimTexturesSize;
@@ -764,10 +765,10 @@ CTString astrAnimTextureSizeTexts[] =
 
 CTString astrAnimTextureSizes[] =
 {
-  RADIOTRANS("6"),
-  RADIOTRANS("7"),
-  RADIOTRANS("8"),
-  RADIOTRANS("9"),
+  "5",
+  "6",
+  "7",
+  "8",
 };
 
 CMGVarButton mgAdvRenderingOptionsEffectTexturesSize;
@@ -782,32 +783,32 @@ CTString astrEffectTextureSizeTexts[] =
 
 CTString astrEffectTextureSizes[] =
 {
-  RADIOTRANS("6"),
-  RADIOTRANS("7"),
-  RADIOTRANS("8"),
-  RADIOTRANS("9"),
+  "5",
+  "6",
+  "7",
+  "8",
 };
 
 CMGVarButton mgAdvRenderingOptionsTexturesQuality;
 
 CTString astrTextureQualityValues[] =
 {
-  RADIOTRANS("0"),
-  RADIOTRANS("10"),
-  RADIOTRANS("20"),
-  RADIOTRANS("30"),
-  RADIOTRANS("1"),
-  RADIOTRANS("11"),
-  RADIOTRANS("21"),
-  RADIOTRANS("31"),
-  RADIOTRANS("2"),
-  RADIOTRANS("12"),
-  RADIOTRANS("22"),
-  RADIOTRANS("32"),
-  RADIOTRANS("3"),
-  RADIOTRANS("13"),
-  RADIOTRANS("23"),
-  RADIOTRANS("33"),
+  "0",
+  "10",
+  "20",
+  "30",
+  "1",
+  "11",
+  "21",
+  "31",
+  "2",
+  "12",
+  "22",
+  "32",
+  "3",
+  "13",
+  "23",
+  "33",
 };
 
 CMGVarButton mgAdvRenderingOptionsEffectTexturesQuality;
@@ -820,8 +821,8 @@ CTString astrEffectTextureQualityTexts[] =
 
 CTString astrEffectTextureQualityValues[] =
 {
-  RADIOTRANS("0"),
-  RADIOTRANS("1"),
+  "0",
+  "1",
 };
 
 CMGVarButton mgAdvRenderingOptionsTexturesFilteringStrength;
@@ -843,17 +844,17 @@ CTString astrTextureFilteringStrengthTexts[] =
 
 CTString astrTextureFilteringStrengthValues[] =
 {
-  RADIOTRANS("5"),
-  RADIOTRANS("4"),
-  RADIOTRANS("3"),
-  RADIOTRANS("2"),
-  RADIOTRANS("1"),
-  RADIOTRANS("0"),
-  RADIOTRANS("-1"),
-  RADIOTRANS("-2"),
-  RADIOTRANS("-3"),
-  RADIOTRANS("-4"),
-  RADIOTRANS("-5"),
+  "5",
+  "4",
+  "3",
+  "2",
+  "1",
+  "0",
+  "-1",
+  "-2",
+  "-3",
+  "-4",
+  "-5",
 };
 CMGVarButton mgAdvRenderingOptionsEffectTexturesFilteringStrength;
 
@@ -869,25 +870,25 @@ CTString astrEffectTextureFilteringStrengthTexts[] =
 
 CTString astrEffectTextureFilteringStrengthValues[] =
 {
-  RADIOTRANS("0"),
-  RADIOTRANS("1"),
-  RADIOTRANS("2"),
-  RADIOTRANS("3"),
-  RADIOTRANS("4"),
-  RADIOTRANS("5"),
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
 };
 
 CMGVarButton mgAdvRenderingOptionsTexturesFilteringBooster;
 
 CTString astrNoYesValues[] =
 {
-  RADIOTRANS("0"),
-  RADIOTRANS("1"),
+  "0",
+  "1",
 };
 
-CMGVarButton mgAdvRenderingOptionsTexturesDitheringMethod;
+CMGVarButton mgAdvRenderingOptionsTexturesDitheringType;
 
-CTString astrTextureDitheringMethods[] =
+CTString astrTextureDitheringTypeTexts[] =
 {
   RADIOTRANS("None"),
   RADIOTRANS("Low"),
@@ -902,29 +903,29 @@ CTString astrTextureDitheringMethods[] =
   RADIOTRANS("High diffusion"),
 };
 
-CTString astrTextureDitheringMethodValues[] =
+CTString astrTextureDitheringTypes[] =
 {
-  RADIOTRANS("0"),
-  RADIOTRANS("1"),
-  RADIOTRANS("2"),
-  RADIOTRANS("3"),
-  RADIOTRANS("4"),
-  RADIOTRANS("5"),
-  RADIOTRANS("6"),
-  RADIOTRANS("7"),
-  RADIOTRANS("8"),
-  RADIOTRANS("9"),
-  RADIOTRANS("10"),
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
 };
 
 CMGVarButton mgAdvRenderingOptionsShadowMapsSize;
 
 CTString astrShadowMapSizes[] =
 {
-  RADIOTRANS("6"),
-  RADIOTRANS("7"),
-  RADIOTRANS("8"),
-  RADIOTRANS("9"),
+  "5",
+  "6",
+  "7",
+  "8",
 };
 
 CMGVarButton mgAdvRenderingOptionsShadowMapsQuality;
@@ -937,8 +938,8 @@ CTString astrShadowMapQualityTexts[] =
 
 CTString astrShadowMapQualityValues[] =
 {
-  RADIOTRANS("0"),
-  RADIOTRANS("1"),
+  "0",
+  "1",
 };
 
 CMGVarButton mgAdvRenderingOptionsShadowMapsFilteringStrength;
@@ -955,12 +956,12 @@ CTString astrShadowMapFilteringStrengthTexts[] =
 
 CTString astrShadowMapFilteringStrengthValues[] =
 {
-  RADIOTRANS("0"),
-  RADIOTRANS("1"),
-  RADIOTRANS("2"),
-  RADIOTRANS("3"),
-  RADIOTRANS("4"),
-  RADIOTRANS("5"),
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
 };
 
 CMGVarButton mgAdvRenderingOptionsShadowMapsDitheringStrength;
@@ -977,12 +978,12 @@ CTString astrShadowMapDitheringStrengthTexts[] =
 
 CTString astrShadowMapDitheringStrengthValues[] =
 {
-  RADIOTRANS("0"),
-  RADIOTRANS("1"),
-  RADIOTRANS("2"),
-  RADIOTRANS("3"),
-  RADIOTRANS("4"),
-  RADIOTRANS("5"),
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
 };
 
 CMGVarButton mgAdvRenderingOptionsShadowMapsCacheSize;
@@ -998,13 +999,14 @@ CTString astrShadowMapCacheSizeTexts[] =
 
 CTString astrShadowMapCacheSizes[] =
 {
-  RADIOTRANS("2"),
-  RADIOTRANS("4"),
-  RADIOTRANS("8"),
-  RADIOTRANS("16"),
-  RADIOTRANS("24"),
+  "2",
+  "4",
+  "8",
+  "16",
+  "24",
 };
 
+CMGVarButton mgAdvRenderingOptionsPrecacheShadowMaps;
 CMGVarButton mgAdvRenderingOptionsLODModelsQuality;
 
 CTString astrLODModelQualityTexts[] =
@@ -1018,11 +1020,11 @@ CTString astrLODModelQualityTexts[] =
 
 CTString astrLODModelQualityValues[] =
 {
-  RADIOTRANS("1.6"),
-  RADIOTRANS("1.3"),
-  RADIOTRANS("1"),
-  RADIOTRANS("0.8"),
-  RADIOTRANS("0.5"),
+  "1.6",
+  "1.3",
+  "1",
+  "0.8",
+  "0.5",
 };
 
 CMGVarButton mgAdvRenderingOptionsModelsShadowQuality;
@@ -1030,17 +1032,17 @@ CMGVarButton mgAdvRenderingOptionsModelsShadowQuality;
 CTString astrModelShadowQualityTexts[] =
 {
   RADIOTRANS("None"),
-  RADIOTRANS("Low"),
-  RADIOTRANS("Normal"),
-  RADIOTRANS("High"),
+  RADIOTRANS("Simple"),
+  RADIOTRANS("One light"),
+  RADIOTRANS("Multiple lights"),
 };
 
 CTString astrModelShadowQualityValues[] =
 {
-  RADIOTRANS("0"),
-  RADIOTRANS("1"),
-  RADIOTRANS("2"),
-  RADIOTRANS("3"),
+  "0",
+  "1",
+  "2",
+  "3",
 };
 
 CMGVarButton mgAdvRenderingOptionsModelsQuality;
@@ -1057,7 +1059,679 @@ CTString astrModelQualityValues[] =
   RADIOTRANS("Normal"),
 };
 
-CMGVarButton mgAdvRenderingOptionsPrecacheShadowMaps;
+CMGVarButton mgAdvRenderingOptionsModelDetailTextures;
+CMGVarButton mgAdvRenderingOptionsModelSpecularMaps;
+CMGVarButton mgAdvRenderingOptionsModelReflectionMaps;
+CMGVarButton mgAdvRenderingOptionsMultiTexturingMode;
+
+CTString astrMultiTexturingModeTexts[] =
+{
+  RADIOTRANS("None"),
+  RADIOTRANS("Dual"),
+  RADIOTRANS("Triple"),
+  RADIOTRANS("Quad"),
+};
+
+CTString astrMultiTexturingModes[] =
+{
+  "1",
+  "2",
+  "3",
+  "4",
+};
+
+CMGVarButton mgAdvRenderingOptionsTexturesFilteringType;
+
+CTString astrTextureFilteringTypeTexts[] =
+{
+  RADIOTRANS("Nearest-neighbour"),
+  RADIOTRANS("Bilinear"),
+  RADIOTRANS("Trilinear"),
+  RADIOTRANS("Trilinear (Sharp)"),
+};
+
+CTString astrTextureFilteringTypes[] =
+{
+  "11",
+  "21",
+  "22",
+  "212",
+};
+
+CMGVarButton mgAdvRenderingOptionsTexturesAnisotropyStrength;
+
+CTString astrTextureAnisotropyStrengthTexts[] =
+{
+  RADIOTRANS("None"),
+  RADIOTRANS("2"),
+  RADIOTRANS("4"),
+  RADIOTRANS("8"),
+  RADIOTRANS("16"),
+  RADIOTRANS("32"),
+  RADIOTRANS("64"),
+  RADIOTRANS("128"),
+};
+
+CTString astrTextureAnisotropyStrengthValues[] =
+{
+  "1",
+  "2",
+  "4",
+  "8",
+  "16",
+  "32",
+  "64",
+  "128",
+};
+
+CMGVarButton mgAdvRenderingOptionsMIPMapsSwitchDist;
+
+CTString astrMIPMapSwitchDistTexts[] =
+{
+  RADIOTRANS("Blur 1"),
+  RADIOTRANS("Blur 0.75"),
+  RADIOTRANS("Blur 0.5"),
+  RADIOTRANS("Blur 0.25"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("Sharp 0.25"),
+  RADIOTRANS("Sharp 0.5"),
+  RADIOTRANS("Sharp 0.75"),
+  RADIOTRANS("Sharp 1"),
+};
+
+CTString astrMIPMapSwitchDistValues[] =
+{
+  "1",
+  "0.75",
+  "0.5",
+  "0.25",
+  "0",
+  "-0.25",
+  "-0.5",
+  "-0.75",
+  "-1",
+};
+
+CMGVarButton mgAdvRenderingOptionsDitheringStrength;
+
+CTString astrDitheringStrengthTexts[] =
+{
+  RADIOTRANS("None"),
+  RADIOTRANS("Low"),
+  RADIOTRANS("High"),
+};
+
+CTString astrDitheringStrengthValues[] =
+{
+  "0",
+  "1",
+  "2",
+};
+
+CMGVarButton mgAdvRenderingOptionsTruformLevel;
+
+CTString astrTruformLevelTexts[] =
+{
+  RADIOTRANS("None"),
+  RADIOTRANS("Low"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("High"),
+  RADIOTRANS("Very high"),
+};
+
+CTString astrTruformLevels[] =
+{
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+};
+
+CMGVarButton mgAdvRenderingOptionsTruform;
+
+CTString astrTruformTexts[] =
+{
+  RADIOTRANS("For truform-ready models"),
+  RADIOTRANS("For all models"),
+};
+
+CTString astrTruformValues[] =
+{
+  "0",
+  "1",
+};
+
+CMGVarButton mgAdvRenderingOptionsTexturesCompressionType;
+
+CTString astrTextureCompressionTypeTexts[] =
+{
+  RADIOTRANS("None"),
+  RADIOTRANS("OpenGL wrapper"),
+  RADIOTRANS("S3TC"),
+  RADIOTRANS("FXT1"),
+  RADIOTRANS("S3TC (Legacy)"),
+};
+
+CTString astrTextureCompressionTypes[] =
+{
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+};
+
+CMGVarButton mgAdvRenderingOptionsCVAs;
+
+CTString astrCVATexts[] =
+{
+  RADIOTRANS("None"),
+  RADIOTRANS("Models"),
+  RADIOTRANS("World"),
+  RADIOTRANS("Particles"),
+  RADIOTRANS("Models and world"),
+  RADIOTRANS("Models and particles"),
+  RADIOTRANS("World and particles"),
+  RADIOTRANS("For everything"),
+};
+
+CTString astrCVAValues[] =
+{
+  "0",
+  "1",
+  "10",
+  "100",
+  "11",
+  "101",
+  "110",
+  "111",
+};
+
+CMGVarButton mgAdvRenderingOptionsFullscreenExclusiveMode;
+
+CTString astrFullscreenExclusiveModeTexts[] =
+{
+  RADIOTRANS("Compatibility"),
+  RADIOTRANS("Performance"),
+};
+
+CTString astrFullscreenExclusiveModes[] =
+{
+  "0",
+  "1",
+};
+
+CMGVarButton mgAdvRenderingOptionsTnLType;
+
+CTString astrTnLTypeTexts[] =
+{
+  RADIOTRANS("Software"),
+  RADIOTRANS("Hardware"),
+};
+
+CTString astrTnLTypes[] =
+{
+  "0",
+  "1",
+};
+
+CMGVarButton mgAdvRenderingOptionsTnLBuffersSize;
+
+CTString astrTnLBufferSizeTexts[] =
+{
+  RADIOTRANS("Tiny"),
+  RADIOTRANS("Small"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("Large"),
+  RADIOTRANS("Huge"),
+};
+
+CTString astrTnLBufferSizes[] =
+{
+  "128",
+  "256",
+  "512",
+  "1024",
+  "2048",
+};
+
+CMGVarButton mgAdvRenderingOptionsFasterLensFlares;
+CMGVarButton mgAdvRenderingOptionsHUDSize;
+
+CTString astrHUDSizeTexts[] =
+{
+  RADIOTRANS("Tiny"),
+  RADIOTRANS("Small"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("Large"),
+  RADIOTRANS("Huge"),
+};
+
+CTString astrHUDSizes[] =
+{
+  "0.5",
+  "0.75",
+  "1",
+  "1.1",
+  "1.25",
+};
+
+CMGVarButton mgAdvRenderingOptionsHUDOpacity;
+
+CTString astrHUDOpacityTexts[] =
+{
+  RADIOTRANS("25%"),
+  RADIOTRANS("50%"),
+  RADIOTRANS("75%"),
+  RADIOTRANS("90%"),
+  RADIOTRANS("100%"),
+};
+
+CTString astrHUDOpacityValues[] =
+{
+  "0.25",
+  "0.5",
+  "0.75",
+  "0.9",
+  "1",
+};
+
+CMGVarButton mgAdvRenderingOptionsCrosshairOpacity;
+
+CTString astrCrosshairOpacityTexts[] =
+{
+  RADIOTRANS("Low"),
+  RADIOTRANS("Medium"),
+  RADIOTRANS("High"),
+};
+
+CTString astrCrosshairOpacityValues[] =
+{
+  "0.5",
+  "0.75",
+  "1",
+};
+
+CMGVarButton mgAdvRenderingOptionsColorsSaturation;
+
+CTString astrColorSaturationTexts[] =
+{
+  RADIOTRANS("Grayscale"),
+  RADIOTRANS("Gray 75%"),
+  RADIOTRANS("Gray 50%"),
+  RADIOTRANS("Gray 25%"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("Color 25%"),
+  RADIOTRANS("Color 50%"),
+  RADIOTRANS("Color 75%"),
+  RADIOTRANS("Colorful"),
+  RADIOTRANS("Twisted"),
+  RADIOTRANS("Weirdo"),
+  RADIOTRANS("Psychedelic"),
+};
+
+CTString astrColorSaturationValues[] =
+{
+  "0",
+  "0.25",
+  "0.5",
+  "0.75",
+  "1",
+  "1.25",
+  "1.5",
+  "1.75",
+  "2",
+  "5",
+  "10",
+  "20",
+};
+
+CMGVarButton mgAdvRenderingOptionsBrightness;
+
+CTString astrBrightnessTexts[] =
+{
+  RADIOTRANS("Dark 0.8"),
+  RADIOTRANS("Dark 0.6"),
+  RADIOTRANS("Dark 0.4"),
+  RADIOTRANS("Dark 0.2"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("Bright 0.1"),
+  RADIOTRANS("Bright 0.3"),
+  RADIOTRANS("Bright 0.5"),
+  RADIOTRANS("Bright 0.7"),
+};
+
+CTString astrBrightnessValues[] =
+{
+  "-0.8",
+  "-0.6",
+  "-0.4",
+  "-0.2",
+  "0",
+  "0.1",
+  "0.3",
+  "0.5",
+  "0.7",
+};
+
+CMGVarButton mgAdvRenderingOptionsContrast;
+
+CTString astrContrastTexts[] =
+{
+  RADIOTRANS("Low 0.2"),
+  RADIOTRANS("Low 0.4"),
+  RADIOTRANS("Low 0.6"),
+  RADIOTRANS("Low 0.8"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("High 1.1"),
+  RADIOTRANS("High 1.3"),
+  RADIOTRANS("High 1.5"),
+  RADIOTRANS("High 1.8"),
+};
+
+CTString astrContrastValues[] =
+{
+  "0.2",
+  "0.4",
+  "0.6",
+  "0.8",
+  "1",
+  "1.1",
+  "1.3",
+  "1.5",
+  "1.8",
+};
+
+CMGVarButton mgAdvRenderingOptionsGamma;
+
+CTString astrGammaTexts[] =
+{
+  RADIOTRANS("Low 0.2"),
+  RADIOTRANS("Low 0.4"),
+  RADIOTRANS("Low 0.6"),
+  RADIOTRANS("Low 0.8"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("High 1.1"),
+  RADIOTRANS("High 1.3"),
+  RADIOTRANS("High 1.5"),
+  RADIOTRANS("High 1.8"),
+};
+
+CTString astrGammaValues[] =
+{
+  "0.2",
+  "0.4",
+  "0.6",
+  "0.8",
+  "1",
+  "1.1",
+  "1.3",
+  "1.5",
+  "1.8",
+};
+
+CMGVarButton mgAdvRenderingOptionsRedColorBias;
+
+CTString astrRedColorBiasTexts[] =
+{
+  RADIOTRANS("Low 0.2"),
+  RADIOTRANS("Low 0.4"),
+  RADIOTRANS("Low 0.6"),
+  RADIOTRANS("Low 0.8"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("High 1.25"),
+  RADIOTRANS("High 1.5"),
+  RADIOTRANS("High 1.75"),
+  RADIOTRANS("High 2"),
+};
+
+CTString astrRedColorBiasValues[] =
+{
+  "0.2",
+  "0.4",
+  "0.6",
+  "0.8",
+  "1",
+  "1.25",
+  "1.5",
+  "1.75",
+  "2",
+};
+
+CMGVarButton mgAdvRenderingOptionsGreenColorBias;
+
+CTString astrGreenColorBiasTexts[] =
+{
+  RADIOTRANS("Low 0.2"),
+  RADIOTRANS("Low 0.4"),
+  RADIOTRANS("Low 0.6"),
+  RADIOTRANS("Low 0.8"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("High 1.25"),
+  RADIOTRANS("High 1.5"),
+  RADIOTRANS("High 1.75"),
+  RADIOTRANS("High 2"),
+};
+CTString astrGreenColorBiasValues[] =
+{
+  "0.2",
+  "0.4",
+  "0.6",
+  "0.8",
+  "1",
+  "1.25",
+  "1.5",
+  "1.75",
+  "2",
+};
+
+CMGVarButton mgAdvRenderingOptionsBlueColorBias;
+
+CTString astrBlueColorBiasTexts[] =
+{
+  RADIOTRANS("Low 0.2"),
+  RADIOTRANS("Low 0.4"),
+  RADIOTRANS("Low 0.6"),
+  RADIOTRANS("Low 0.8"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("High 1.25"),
+  RADIOTRANS("High 1.5"),
+  RADIOTRANS("High 1.75"),
+  RADIOTRANS("High 2"),
+};
+
+CTString astrBlueColorBiasValues[] =
+{
+  "0.2",
+  "0.4",
+  "0.6",
+  "0.8",
+  "1",
+  "1.25",
+  "1.5",
+  "1.75",
+  "2",
+};
+
+CMGVarButton mgAdvRenderingOptionsColorsNumber;
+
+CTString astrColorNumberTexts[] =
+{
+  RADIOTRANS("2"),
+  RADIOTRANS("4"),
+  RADIOTRANS("6"),
+  RADIOTRANS("8"),
+  RADIOTRANS("12"),
+  RADIOTRANS("16"),
+  RADIOTRANS("24"),
+  RADIOTRANS("32"),
+  RADIOTRANS("48"),
+  RADIOTRANS("64"),
+  RADIOTRANS("96"),
+  RADIOTRANS("128"),
+  RADIOTRANS("256"),
+};
+
+CTString astrColorNumberValues[] =
+{
+  "2",
+  "4",
+  "6",
+  "8",
+  "12",
+  "16",
+  "20",
+  "32",
+  "48",
+  "64",
+  "96",
+  "128",
+  "256",
+};
+
+CMGVarButton mgAdvRenderingOptionsStereoViewType;
+
+CTString astrStereoViewTypeTexts[] =
+{
+  RADIOTRANS("None"),
+  RADIOTRANS("Red / Cyan"),
+};
+
+CTString astrStereoViewTypes[] =
+{
+  "0",
+  "1",
+};
+
+CMGVarButton mgAdvRenderingOptionsInvertStereoView;
+CMGVarButton mgAdvRenderingOptionsStereoViewSeparation;
+
+CTString astrStereoViewSeparationTexts[] =
+{
+  RADIOTRANS("Very low"),
+  RADIOTRANS("Low"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("High"),
+  RADIOTRANS("Very high"),
+  RADIOTRANS("Weirdo"),
+  RADIOTRANS("Headache"),
+};
+
+CTString astrStereoViewSeparationValues[] =
+{
+  "0.05",
+  "0.15",
+  "0.25",
+  "0.4",
+  "0.5",
+  "0.75",
+  "1",
+};
+
+CMGVarButton mgAdvRenderingOptionsStereoViewOffset;
+
+CTString astrStereoViewOffsetTexts[] =
+{
+  RADIOTRANS("Very low"),
+  RADIOTRANS("Low"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("High"),
+  RADIOTRANS("Very high"),
+  RADIOTRANS("Weirdo"),
+  RADIOTRANS("Headache"),
+};
+
+CTString astrStereoViewOffsetValues[] =
+{
+  "0",
+  "5",
+  "10",
+  "15",
+  "20",
+  "30",
+  "40",
+  "50",
+};
+
+CMGVarButton mgAdvRenderingOptionsEnvParticlesDensity;
+
+CTString astrEnvParticleDensityTexts[] =
+{
+  RADIOTRANS("Very low"),
+  RADIOTRANS("Low"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("High"),
+  RADIOTRANS("Very high"),
+};
+
+CTString astrEnvParticleDensityValues[] =
+{
+  "0.6",
+  "0.7",
+  "0.8",
+  "0.9",
+  "1",
+};
+
+CMGVarButton mgAdvRenderingOptionsEnvParticlesRange;
+
+CTString astrEnvParticleRangeTexts[] =
+{
+  RADIOTRANS("Very low"),
+  RADIOTRANS("Low"),
+  RADIOTRANS("Normal"),
+  RADIOTRANS("High"),
+  RADIOTRANS("Very high"),
+};
+
+CTString astrEnvParticleRanges[] =
+{
+  "0.6",
+  "0.8",
+  "1",
+  "1.1",
+  "1.2",
+};
+
+CMGVarButton mgAdvRenderingOptionsLensFlaresQuality;
+
+CTString astrLensFlareQualityValues[] =
+{
+  "0",
+  "1",
+  "2",
+  "3",
+};
+
+CMGVarButton mgAdvRenderingOptionsRefreshRate;
+
+CTString astrRefreshRateTexts[] =
+{
+  RADIOTRANS("Default"),
+  RADIOTRANS("60 Hz"),
+  RADIOTRANS("72 Hz"),
+  RADIOTRANS("75 Hz"),
+  RADIOTRANS("85 Hz"),
+  RADIOTRANS("90 Hz"),
+  RADIOTRANS("100 Hz"),
+  RADIOTRANS("120 Hz"),
+};
+
+CTString astrRefreshRates[] =
+{
+  "0",
+  "60",
+  "72",
+  "75",
+  "85",
+  "90",
+  "100",
+  "120",
+};
+
+CMGVarButton mgAdvRenderingOptionsScreenshotZBuffer;
+CMGVarButton mgAdvRenderingOptionsPretouchMemory;
 
 // -------- Credits menu
 CCreditsMenu gmCreditsMenu;
@@ -2743,7 +3417,49 @@ void InitializeMenus(void)
     TRANSLATERADIOARRAY(astrTextureSizeTexts);
     TRANSLATERADIOARRAY(astrTextureQualityTexts);
     TRANSLATERADIOARRAY(astrShadowMapSizeTexts);
-    TRANSLATERADIOARRAY(astrLensFlaresTexts);
+    TRANSLATERADIOARRAY(astrLensFlareQualityTexts);
+    TRANSLATERADIOARRAY(astrAnimTextureSizeTexts);
+    TRANSLATERADIOARRAY(astrEffectTextureSizeTexts);
+    TRANSLATERADIOARRAY(astrEffectTextureQualityTexts);
+    TRANSLATERADIOARRAY(astrTextureFilteringStrengthTexts);
+    TRANSLATERADIOARRAY(astrEffectTextureFilteringStrengthTexts);
+    TRANSLATERADIOARRAY(astrTextureDitheringTypeTexts);
+    TRANSLATERADIOARRAY(astrShadowMapQualityTexts);
+    TRANSLATERADIOARRAY(astrShadowMapFilteringStrengthTexts);
+    TRANSLATERADIOARRAY(astrShadowMapDitheringStrengthTexts);
+    TRANSLATERADIOARRAY(astrShadowMapCacheSizeTexts);
+    TRANSLATERADIOARRAY(astrLODModelQualityTexts);
+    TRANSLATERADIOARRAY(astrModelShadowQualityTexts);
+    TRANSLATERADIOARRAY(astrModelQualityTexts);
+    TRANSLATERADIOARRAY(astrMultiTexturingModeTexts);
+    TRANSLATERADIOARRAY(astrTextureFilteringTypeTexts);
+    TRANSLATERADIOARRAY(astrTextureAnisotropyStrengthTexts);
+    TRANSLATERADIOARRAY(astrMIPMapSwitchDistTexts);
+    TRANSLATERADIOARRAY(astrDitheringStrengthTexts);
+    TRANSLATERADIOARRAY(astrTruformLevelTexts);
+    TRANSLATERADIOARRAY(astrTruformTexts);
+    TRANSLATERADIOARRAY(astrTextureCompressionTypeTexts);
+    TRANSLATERADIOARRAY(astrCVATexts);
+    TRANSLATERADIOARRAY(astrFullscreenExclusiveModeTexts);
+    TRANSLATERADIOARRAY(astrTnLTypeTexts);
+    TRANSLATERADIOARRAY(astrTnLBufferSizeTexts);
+    TRANSLATERADIOARRAY(astrHUDSizeTexts);
+    TRANSLATERADIOARRAY(astrHUDOpacityTexts);
+    TRANSLATERADIOARRAY(astrCrosshairOpacityTexts);
+    TRANSLATERADIOARRAY(astrColorSaturationTexts);
+    TRANSLATERADIOARRAY(astrBrightnessTexts);
+    TRANSLATERADIOARRAY(astrContrastTexts);
+    TRANSLATERADIOARRAY(astrGammaTexts);
+    TRANSLATERADIOARRAY(astrRedColorBiasTexts);
+    TRANSLATERADIOARRAY(astrGreenColorBiasTexts);
+    TRANSLATERADIOARRAY(astrBlueColorBiasTexts);
+    TRANSLATERADIOARRAY(astrColorNumberTexts);
+    TRANSLATERADIOARRAY(astrStereoViewTypeTexts);
+    TRANSLATERADIOARRAY(astrStereoViewSeparationTexts);
+    TRANSLATERADIOARRAY(astrStereoViewOffsetTexts);
+    TRANSLATERADIOARRAY(astrEnvParticleDensityTexts);
+    TRANSLATERADIOARRAY(astrEnvParticleRangeTexts);
+    TRANSLATERADIOARRAY(astrRefreshRateTexts);
 
     // initialize game type strings table
     InitGameTypes();
@@ -7056,8 +7772,8 @@ void GetRenderingSettings(void)
   mgRenderingOptionsShadowMapsSize.mg_iSelected = FindFloatInArray(afShadowMapSizes, ARRAYCOUNT(afShadowMapSizes), iStaticSize);
   mgRenderingOptionsShadowMapsSize.ApplyCurrentSelection();
 
-  mgRenderingOptionsLensFlares.mg_iSelected = _pShell->GetINDEX("gfx_iLensFlareQuality");
-  mgRenderingOptionsLensFlares.ApplyCurrentSelection();
+  mgRenderingOptionsLensFlaresQuality.mg_iSelected = _pShell->GetINDEX("gfx_iLensFlareQuality");
+  mgRenderingOptionsLensFlaresQuality.ApplyCurrentSelection();
 
   FLOAT fGamma = _pShell->GetFLOAT("gfx_fGamma");
 
@@ -7074,7 +7790,7 @@ void ApplyRenderingSettings(void)
   _pShell->SetINDEX("tex_iNormalQuality", afTextureQualityValues[mgRenderingOptionsTextureQuality.mg_iSelected]);
   _pShell->SetINDEX("wld_bTextureLayers", 110 + mgRenderingOptionsDetailTextures.mg_iSelected);
   _pShell->SetINDEX("shd_iStaticSize", afShadowMapSizes[mgRenderingOptionsShadowMapsSize.mg_iSelected]);
-  _pShell->SetINDEX("gfx_iLensFlareQuality", mgRenderingOptionsLensFlares.mg_iSelected);
+  _pShell->SetINDEX("gfx_iLensFlareQuality", mgRenderingOptionsLensFlaresQuality.mg_iSelected);
   _pShell->SetFLOAT("gfx_fGamma", mgRenderingOptionsGamma.mg_iCurPos / 10.0f);
   _pShell->SetINDEX("gap_iSwapInterval", mgRenderingOptionsVerticalRetrace.mg_iSelected);
 
@@ -7129,7 +7845,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsDetailTextures.mg_iCenterI = -1;
 
   mgRenderingOptionsShadowMapsSize.mg_pmgUp = &mgRenderingOptionsDetailTextures;
-  mgRenderingOptionsShadowMapsSize.mg_pmgDown = &mgRenderingOptionsLensFlares;
+  mgRenderingOptionsShadowMapsSize.mg_pmgDown = &mgRenderingOptionsLensFlaresQuality;
   mgRenderingOptionsShadowMapsSize.mg_boxOnScreen = BoxMediumLeft(9.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsShadowMapsSize.mg_lnNode);
   mgRenderingOptionsShadowMapsSize.mg_astrTexts = astrShadowMapSizeTexts;
@@ -7140,19 +7856,19 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsShadowMapsSize.mg_strTip = TRANS("Select shadow maps size");
   mgRenderingOptionsShadowMapsSize.mg_iCenterI = -1;
 
-  mgRenderingOptionsLensFlares.mg_pmgUp = &mgRenderingOptionsShadowMapsSize;
-  mgRenderingOptionsLensFlares.mg_pmgDown = &mgRenderingOptionsGamma;
-  mgRenderingOptionsLensFlares.mg_boxOnScreen = BoxMediumLeft(10.11f);
-  gm_lhGadgets.AddTail(mgRenderingOptionsLensFlares.mg_lnNode);
-  mgRenderingOptionsLensFlares.mg_astrTexts = astrLensFlaresTexts;
-  mgRenderingOptionsLensFlares.mg_ctTexts = ARRAYCOUNT(astrLensFlaresTexts);
-  mgRenderingOptionsLensFlares.mg_iSelected = 0;
-  mgRenderingOptionsLensFlares.mg_strLabel = TRANS("LENS FLARES");
-  mgRenderingOptionsLensFlares.mg_strValue = astrLensFlaresTexts[0];
-  mgRenderingOptionsLensFlares.mg_strTip = TRANS("Select lens flares rendering type");
-  mgRenderingOptionsLensFlares.mg_iCenterI = -1;
+  mgRenderingOptionsLensFlaresQuality.mg_pmgUp = &mgRenderingOptionsShadowMapsSize;
+  mgRenderingOptionsLensFlaresQuality.mg_pmgDown = &mgRenderingOptionsGamma;
+  mgRenderingOptionsLensFlaresQuality.mg_boxOnScreen = BoxMediumLeft(10.11f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsLensFlaresQuality.mg_lnNode);
+  mgRenderingOptionsLensFlaresQuality.mg_astrTexts = astrLensFlareQualityTexts;
+  mgRenderingOptionsLensFlaresQuality.mg_ctTexts = ARRAYCOUNT(astrLensFlareQualityTexts);
+  mgRenderingOptionsLensFlaresQuality.mg_iSelected = 0;
+  mgRenderingOptionsLensFlaresQuality.mg_strLabel = TRANS("LENS FLARES QUALITY");
+  mgRenderingOptionsLensFlaresQuality.mg_strValue = astrLensFlareQualityTexts[0];
+  mgRenderingOptionsLensFlaresQuality.mg_strTip = TRANS("Select lens flares quality");
+  mgRenderingOptionsLensFlaresQuality.mg_iCenterI = -1;
 
-  mgRenderingOptionsGamma.mg_pmgUp = &mgRenderingOptionsLensFlares;
+  mgRenderingOptionsGamma.mg_pmgUp = &mgRenderingOptionsLensFlaresQuality;
   mgRenderingOptionsGamma.mg_pmgDown = &mgRenderingOptionsVerticalRetrace;
   mgRenderingOptionsGamma.mg_boxOnScreen = BoxMediumLeft(11.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsGamma.mg_lnNode);
@@ -7232,7 +7948,7 @@ void ApplyAdvRenderingSettings(void)
 
 void CAdvRenderingOptionsMenu::Initialize_t(void)
 {
-  mgAdvRenderingOptionsTitle.mg_boxOnScreen = BoxTitle(0.82f);
+  mgAdvRenderingOptionsTitle.mg_boxOnScreen = BoxTitle(0.02f);
   mgAdvRenderingOptionsTitle.mg_strText = TRANS("# ADVANCED RENDERING OPTIONS");
   gm_lhGadgets.AddTail(mgAdvRenderingOptionsTitle.mg_lnNode);
   mgAdvRenderingOptionsTitle.mg_iCenterI = -1;
@@ -7341,8 +8057,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_astrTexts[i] = astrEffectTextureQualityTexts[i];
-      mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_astrValues[i] = astrEffectTextureQualityValues[i];
+    mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_astrTexts[i] = astrEffectTextureQualityTexts[i];
+    mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_astrValues[i] = astrEffectTextureQualityValues[i];
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_lnNode);
@@ -7363,8 +8079,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_astrTexts[i] = astrTextureFilteringStrengthTexts[i];
-      mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_astrValues[i] = astrTextureFilteringStrengthValues[i];
+    mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_astrTexts[i] = astrTextureFilteringStrengthTexts[i];
+    mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_astrValues[i] = astrTextureFilteringStrengthValues[i];
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_lnNode);
@@ -7385,15 +8101,15 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_astrTexts[i] = astrEffectTextureFilteringStrengthTexts[i];
-      mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_astrValues[i] = astrEffectTextureFilteringStrengthValues[i];
+    mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_astrTexts[i] = astrEffectTextureFilteringStrengthTexts[i];
+    mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_astrValues[i] = astrEffectTextureFilteringStrengthValues[i];
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_lnNode);
 
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strName = TRANS("TEXTURES FILTERING BOOSTER");
-  mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strTip = TRANS("Increase textures filtering strength");
+  mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strTip = TRANS("Enable to boost textures filtering strength");
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strVar = "tex_bProgressiveFilter";
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
@@ -7406,32 +8122,32 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
-      mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
+    mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
+    mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_lnNode);
 
-  mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar = new CVarSetting;
-  mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_strName = TRANS("TEXTURES DITHERING METHOD");
-  mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_strTip = TRANS("Select 16-bit textures dithering method");
-  mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_bSeparator = FALSE;
-  mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_strVar = "tex_bProgressiveFilter";
-  mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsTexturesDitheringMethod.mg_strTip = mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_strName = TRANS("TEXTURES DITHERING TYPE");
+  mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_strTip = TRANS("Select 16-bit textures dithering type");
+  mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_strVar = "tex_bProgressiveFilter";
+  mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
+  mgAdvRenderingOptionsTexturesDitheringType.mg_strTip = mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_strTip;
 
-  ctTexts = ARRAYCOUNT(astrTextureDitheringMethods);
+  ctTexts = ARRAYCOUNT(astrTextureDitheringTypeTexts);
 
-  mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_astrTexts.Push(ctTexts);
-  mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_astrValues.Push(ctTexts);
+  mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_astrValues.Push(ctTexts);
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_astrTexts[i] = astrTextureDitheringMethods[i];
-      mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_astrValues[i] = astrTextureDitheringMethodValues[i];
+    mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_astrTexts[i] = astrTextureDitheringTypeTexts[i];
+    mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_astrValues[i] = astrTextureDitheringTypes[i];
   }
 
-  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTexturesDitheringMethod.mg_pvsVar->vs_lnNode);
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_lnNode);
 
   mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_strName = TRANS("SHADOW MAPS SIZE");
@@ -7449,8 +8165,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_astrTexts[i] = astrShadowMapSizeTexts[i];
-      mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_astrValues[i] = astrShadowMapSizes[i];
+    mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_astrTexts[i] = astrShadowMapSizeTexts[i];
+    mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_astrValues[i] = astrShadowMapSizes[i];
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_lnNode);
@@ -7471,8 +8187,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_astrTexts[i] = astrShadowMapQualityTexts[i];
-      mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_astrValues[i] = astrShadowMapQualityValues[i];
+    mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_astrTexts[i] = astrShadowMapQualityTexts[i];
+    mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_astrValues[i] = astrShadowMapQualityValues[i];
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_lnNode);
@@ -7493,8 +8209,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_astrTexts[i] = astrShadowMapFilteringStrengthTexts[i];
-      mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_astrValues[i] = astrShadowMapFilteringStrengthValues[i];
+    mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_astrTexts[i] = astrShadowMapFilteringStrengthTexts[i];
+    mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_astrValues[i] = astrShadowMapFilteringStrengthValues[i];
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_lnNode);
@@ -7515,8 +8231,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_astrTexts[i] = astrShadowMapDitheringStrengthTexts[i];
-      mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_astrValues[i] = astrShadowMapDitheringStrengthValues[i];
+    mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_astrTexts[i] = astrShadowMapDitheringStrengthTexts[i];
+    mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_astrValues[i] = astrShadowMapDitheringStrengthValues[i];
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_lnNode);
@@ -7537,15 +8253,15 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_astrTexts[i] = astrShadowMapCacheSizeTexts[i];
-      mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_astrValues[i] = astrShadowMapCacheSizes[i];
+    mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_astrTexts[i] = astrShadowMapCacheSizeTexts[i];
+    mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_astrValues[i] = astrShadowMapCacheSizes[i];
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_lnNode);
 
   mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_strName = TRANS("PRECACHE SHADOW MAPS");
-  mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_strTip = TRANS("Cache all shadow maps when loading level");
+  mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_strTip = TRANS("Cache all shadow maps when loading a level");
   mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_strVar = "shd_bCacheAll";
   mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyShadowMaps.ini";
@@ -7558,11 +8274,829 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-      mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
-      mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
+    mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
+    mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_lnNode);
+  
+  mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_strName = TRANS("LOD MODELS QUALITY");
+  mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_strTip = TRANS("Select LOD models quality");
+  mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_strVar = "mdl_fLODMul";
+  mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_iSlider = 2;
+  mgAdvRenderingOptionsLODModelsQuality.mg_strTip = mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrLODModelQualityTexts);
+
+  mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_astrTexts[i] = astrLODModelQualityTexts[i];
+    mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_astrValues[i] = astrLODModelQualityValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_strName = TRANS("MODELS SHADOW QUALITY");
+  mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_strTip = TRANS("Select models shadow quality");
+  mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_strVar = "mdl_iShadowQuality";
+  mgAdvRenderingOptionsModelsShadowQuality.mg_strTip = mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrModelShadowQualityTexts);
+
+  mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_astrTexts[i] = astrModelShadowQualityTexts[i];
+    mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_astrValues[i] = astrModelShadowQualityValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsModelsQuality.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_strName = TRANS("MODELS QUALITY");
+  mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_strTip = TRANS("Select models quality");
+  mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_strVar = "mdl_bFineQuality";
+  mgAdvRenderingOptionsModelsQuality.mg_strTip = mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrModelQualityTexts);
+
+  mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_astrTexts[i] = astrModelQualityTexts[i];
+    mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_astrValues[i] = astrModelQualityValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strName = TRANS("MODEL DETAIL TEXTURES");
+  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strTip = TRANS("Enable model detail textures rendering");
+  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strVar = "mdl_bRenderDetail";
+  mgAdvRenderingOptionsModelDetailTextures.mg_strTip = mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrNoYes);
+
+  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
+	mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_strName = TRANS("MODEL SPECULAR MAPS");
+  mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_strTip = TRANS("Enable model specular maps rendering");
+  mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_strVar = "tex_bRenderSpecular";
+  mgAdvRenderingOptionsModelSpecularMaps.mg_strTip = mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrNoYes);
+
+  mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
+    mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_strName = TRANS("MODEL REFLECTION MAPS");
+  mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_strTip = TRANS("Enable model reflection maps rendering");
+  mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_strVar = "mdl_bRenderReflection";
+  mgAdvRenderingOptionsModelReflectionMaps.mg_strTip = mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrNoYes);
+
+  mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
+    mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_strName = TRANS("MULTI-TEXTURING MODE");
+  mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_strTip = TRANS("Select textures number to render in one pass");
+  mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_strVar = "gap_iUseTextureUnits";
+  mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_strFilter = "sys_bHasMultitexturing";
+  mgAdvRenderingOptionsMultiTexturingMode.mg_strTip = mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrMultiTexturingModeTexts);
+
+  mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_astrTexts[i] = astrMultiTexturingModeTexts[i];
+    mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_astrValues[i] = astrMultiTexturingModes[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_strName = TRANS("TEXTURES FILTERING TYPE");
+  mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_strTip = TRANS("Select textures filtering type");
+  mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_strVar = "gap_iTextureFiltering";
+  mgAdvRenderingOptionsTexturesFilteringType.mg_strTip = mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrTextureFilteringTypeTexts);
+
+  mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_astrTexts[i] = astrTextureFilteringTypeTexts[i];
+    mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_astrValues[i] = astrTextureFilteringTypes[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_strName = TRANS("TEXTURES ANISOTROPY");
+  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_strTip = TRANS("Select textures anisotropy strength");
+  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_strVar = "gap_iTextureAnisotropy";
+  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_strFilter = "sys_bHasTextureAnisotropy";
+  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_strTip = mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrTextureAnisotropyStrengthTexts);
+
+  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_astrTexts[i] = astrTextureAnisotropyStrengthTexts[i];
+    mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_astrValues[i] = astrTextureAnisotropyStrengthValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_strName = TRANS("MIP MAPS BIAS");
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_strTip = TRANS("Select mip maps switch distance");
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_strVar = "gap_fTextureLODBias";
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_iSlider = 2;
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_strFilter = "sys_bHasTextureLODBias";
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_strTip = mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrMIPMapSwitchDistTexts);
+
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_astrTexts[i] = astrMIPMapSwitchDistTexts[i];
+    mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_astrValues[i] = astrMIPMapSwitchDistValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsDitheringStrength.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_strName = TRANS("DITHERING STRENGTH");
+  mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_strTip = TRANS("Select dithering strength for 16-bit display modes");
+  mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_strVar = "gap_iDithering";
+  mgAdvRenderingOptionsDitheringStrength.mg_strTip = mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrDitheringStrengthTexts);
+
+  mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_astrTexts[i] = astrDitheringStrengthTexts[i];
+    mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_astrValues[i] = astrDitheringStrengthValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsTruformLevel.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strName = TRANS("TRUFORM LEVEL");
+  mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strTip = TRANS("Select truform tessellation level");
+  mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strVar = "gap_iTruformLevel";
+  mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_iSlider = 1;
+  mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strFilter = "sys_bHasTruform";
+  mgAdvRenderingOptionsTruformLevel.mg_strTip = mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrTruformLevelTexts);
+
+  mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_astrTexts[i] = astrTruformLevelTexts[i];
+    mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_astrValues[i] = astrTruformLevels[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsTruform.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strName = TRANS("TRUFORM");
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strTip = TRANS("Enable truform");
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strVar = "gap_bForceTruform";
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strFilter = "sys_bHasTruform";
+  mgAdvRenderingOptionsTruform.mg_strTip = mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrTruformTexts);
+
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrTexts[i] = astrTruformTexts[i];
+    mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrValues[i] = astrTruformValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTruform.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strName = TRANS("TEXTURES COMPRESSION TYPE");
+  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strTip = TRANS("Select textures compression type");
+  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strVar = "ogl_iTextureCompressionType";
+  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strFilter = "sys_bHasTextureCompression";
+  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
+  mgAdvRenderingOptionsTexturesCompressionType.mg_strTip = mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrTextureCompressionTypeTexts);
+
+  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_astrTexts[i] = astrTextureCompressionTypeTexts[i];
+    mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_astrValues[i] = astrTextureCompressionTypes[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsCVAs.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_strName = TRANS("COMPILED VERTEX ARRAYS");
+  mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_strTip = TRANS("Enable compiled vertex arrays extension");
+  mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_strVar = "ogl_bUseCompiledVertexArrays";
+  mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_strFilter = "sys_bHasCVAs";
+  mgAdvRenderingOptionsCVAs.mg_strTip = mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrCVATexts);
+
+  mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_astrTexts[i] = astrCVATexts[i];
+    mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_astrValues[i] = astrCVAValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_strName = TRANS("FULLSCREEN EXCLUSIVE MODE");
+  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_strTip = TRANS("Select fullscreen exclusive mode");
+  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_strVar = "ogl_bExclusive";
+  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_strTip = mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrFullscreenExclusiveModeTexts);
+
+  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_astrTexts[i] = astrFullscreenExclusiveModeTexts[i];
+    mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_astrValues[i] = astrFullscreenExclusiveModes[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_lnNode);
+  
+  mgAdvRenderingOptionsTnLType.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strName = TRANS("T&L type");
+  mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strTip = TRANS("Select T&L type");
+  mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strVar = "d3d_bUseHardwareTnL";
+  mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strFilter = "sys_bHasHardwareTnL";
+  mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyVideo.ini";
+  mgAdvRenderingOptionsTnLType.mg_strTip = mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrTnLTypeTexts);
+
+  mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_astrTexts[i] = astrTnLTypeTexts[i];
+    mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_astrValues[i] = astrTnLTypes[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_strName = TRANS("T&L buffers size");
+  mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_strTip = TRANS("Select vertex buffers size");
+  mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_strVar = "d3d_iVertexBuffersSize";
+  mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_iSlider = 1;
+  mgAdvRenderingOptionsTnLBuffersSize.mg_strTip = mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrTnLBufferSizeTexts);
+
+  mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_astrTexts[i] = astrTnLBufferSizeTexts[i];
+    mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_astrValues[i] = astrTnLBufferSizes[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strName = TRANS("FASTER LENS FLARES");
+  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strTip = TRANS("Enable to sppeed-up lens flares rendering");
+  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strVar = "d3d_bAlternateDepthReads";
+  mgAdvRenderingOptionsFasterLensFlares.mg_strTip = mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrNoYes);
+
+  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
+    mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsHUDSize.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_strName = TRANS("HUD SIZE");
+  mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_strTip = TRANS("Select HUD size");
+  mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_strVar = "hud_fScaling";
+  mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_iSlider = 1;
+  mgAdvRenderingOptionsHUDSize.mg_strTip = mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrHUDSizeTexts);
+
+  mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_astrTexts[i] = astrHUDSizeTexts[i];
+    mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_astrValues[i] = astrHUDSizes[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsHUDOpacity.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_strName = TRANS("HUD OPACITY");
+  mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_strTip = TRANS("Select HUD opacity");
+  mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_strVar = "hud_fOpacity";
+  mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_iSlider = 1;
+  mgAdvRenderingOptionsHUDOpacity.mg_strTip = mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrHUDOpacityTexts);
+
+  mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_astrTexts[i] = astrHUDOpacityTexts[i];
+    mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_astrValues[i] = astrHUDOpacityValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_strName = TRANS("CROSSHAIR OPACITY");
+  mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_strTip = TRANS("Select crosshair opacity");
+  mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_strVar = "hud_fCrosshairOpacity";
+  mgAdvRenderingOptionsCrosshairOpacity.mg_strTip = mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrCrosshairOpacityTexts);
+
+  mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_astrTexts[i] = astrCrosshairOpacityTexts[i];
+    mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_astrValues[i] = astrCrosshairOpacityValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsColorsSaturation.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_strName = TRANS("COLORS SATURATION");
+  mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_strTip = TRANS("Select colors saturation");
+  mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_strVar = "gfx_fSaturation";
+  mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
+  mgAdvRenderingOptionsColorsSaturation.mg_strTip = mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrColorSaturationTexts);
+
+  mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_astrTexts[i] = astrColorSaturationTexts[i];
+    mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_astrValues[i] = astrColorSaturationValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsBrightness.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_strName = TRANS("BRIGHTNESS");
+  mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_strTip = TRANS("Select game brightness");
+  mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_bSeparator = FALSE;
+  mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_strVar = "gfx_fBrightness";
+  mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
+  mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_iSlider = 2;
+  mgAdvRenderingOptionsBrightness.mg_strTip = mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrBrightnessTexts);
+
+  mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_astrTexts[i] = astrBrightnessTexts[i];
+    mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_astrValues[i] = astrBrightnessValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsContrast.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsContrast.mg_pvsVar->vs_strName = "CONTRAST";
+  mgAdvRenderingOptionsContrast.mg_pvsVar->vs_strTip = "Select game contrast";
+  mgAdvRenderingOptionsContrast.mg_pvsVar->vs_strVar = "gfx_fContrast";
+  mgAdvRenderingOptionsContrast.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
+  mgAdvRenderingOptionsContrast.mg_pvsVar->vs_iSlider = 2;
+  mgAdvRenderingOptionsContrast.mg_strTip = mgAdvRenderingOptionsContrast.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrContrastTexts);
+
+  mgAdvRenderingOptionsContrast.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsContrast.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsContrast.mg_pvsVar->vs_astrTexts[i] = astrContrastTexts[i];
+    mgAdvRenderingOptionsContrast.mg_pvsVar->vs_astrValues[i] = astrContrastValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsContrast.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsGamma.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsGamma.mg_pvsVar->vs_strName = "GAMMA";
+  mgAdvRenderingOptionsGamma.mg_pvsVar->vs_strTip = "Select game gamma";
+  mgAdvRenderingOptionsGamma.mg_pvsVar->vs_strVar = "gfx_fGamma";
+  mgAdvRenderingOptionsGamma.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
+  mgAdvRenderingOptionsGamma.mg_pvsVar->vs_iSlider = 2;
+  mgAdvRenderingOptionsGamma.mg_strTip = mgAdvRenderingOptionsGamma.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrGammaTexts);
+
+  mgAdvRenderingOptionsGamma.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsGamma.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsGamma.mg_pvsVar->vs_astrTexts[i] = astrGammaTexts[i];
+    mgAdvRenderingOptionsGamma.mg_pvsVar->vs_astrValues[i] = astrGammaValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsGamma.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsRedColorBias.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_strName = "RED COLOR BIAS";
+  mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_strTip = "Select red color bias";
+  mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_strVar = "gfx_fBiasR";
+  mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
+  mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_iSlider = 2;
+  mgAdvRenderingOptionsRedColorBias.mg_strTip = mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrRedColorBiasTexts);
+
+  mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_astrTexts[i] = astrRedColorBiasTexts[i];
+    mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_astrValues[i] = astrRedColorBiasValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsGreenColorBias.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_strName = "GREEN COLOR BIAS";
+  mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_strTip = "Select green color bias";
+  mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_strVar = "gfx_fBiasG";
+  mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
+  mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_iSlider = 2;
+  mgAdvRenderingOptionsGreenColorBias.mg_strTip = mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrGreenColorBiasTexts);
+
+  mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_astrTexts[i] = astrGreenColorBiasTexts[i];
+    mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_astrValues[i] = astrGreenColorBiasValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsBlueColorBias.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_strName = "BLUE COLOR BIAS";
+  mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_strTip = "Select blue color bias";
+  mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_strVar = "gfx_fBiasB";
+  mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
+  mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_iSlider = 2;
+  mgAdvRenderingOptionsBlueColorBias.mg_strTip = mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrBlueColorBiasTexts);
+
+  mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_astrTexts[i] = astrBlueColorBiasTexts[i];
+    mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_astrValues[i] = astrBlueColorBiasValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsColorsNumber.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_strName = "COLORS NUMBER";
+  mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_strTip = "Select colors number to use";
+  mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_strVar = "gfx_iLevels";
+  mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
+  mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_iSlider = 1;
+  mgAdvRenderingOptionsColorsNumber.mg_strTip = mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrColorNumberTexts);
+
+  mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_astrTexts[i] = astrColorNumberTexts[i];
+    mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_astrValues[i] = astrColorNumberValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsStereoViewType.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_strName = "STEREO VIEW TYPE";
+  mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_strTip = "Select stereoscopy type";
+  mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_strVar = "gfx_iStereo";
+  mgAdvRenderingOptionsStereoViewType.mg_strTip = mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrStereoViewTypeTexts);
+
+  mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_astrTexts[i] = astrStereoViewTypeTexts[i];
+    mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_astrValues[i] = astrStereoViewTypes[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsInvertStereoView.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strName = "INVERT STEREO VIEW";
+  mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strTip = "Enable to swap eye masks";
+  mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strVar = "gfx_bStereoInvert";
+  mgAdvRenderingOptionsInvertStereoView.mg_strTip = mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrNoYes);
+
+  mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
+    mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_strName = "STEREO VIEW SEPARATION";
+  mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_strTip = "Select virtual distance between eyes";
+  mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_strVar = "gfx_fStereoSeparation";
+  mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_iSlider = 1;
+  mgAdvRenderingOptionsStereoViewSeparation.mg_strTip = mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrStereoViewSeparationTexts);
+
+  mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_astrTexts[i] = astrStereoViewSeparationTexts[i];
+    mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_astrValues[i] = astrStereoViewSeparationValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_strName = "STEREO VIEW OFFSET";
+  mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_strTip = "Select stereo view separation boost strength";
+  mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_strVar = "gfx_iStereoOffset";
+  mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_iSlider = 1;
+  mgAdvRenderingOptionsStereoViewOffset.mg_strTip = mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrStereoViewOffsetTexts);
+
+  mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_astrTexts[i] = astrStereoViewOffsetTexts[i];
+    mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_astrValues[i] = astrStereoViewOffsetValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_strName = "ENVIRONMENT PARTICLES DENSITY";
+  mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_strTip = "Select environment particles density";
+  mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_strVar = "gfx_fEnvParticlesDensity";
+  mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_iSlider = 1;
+  mgAdvRenderingOptionsEnvParticlesDensity.mg_strTip = mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrEnvParticleDensityTexts);
+
+  mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_astrTexts[i] = astrEnvParticleDensityTexts[i];
+    mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_astrValues[i] = astrEnvParticleDensityValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_strName = "ENVIRONMENT PARTICLES RANGE";
+  mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_strTip = "Select environment particles view range";
+  mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_strVar = "gfx_fEnvParticlesRange";
+  mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_iSlider = 1;
+  mgAdvRenderingOptionsEnvParticlesRange.mg_strTip = mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrEnvParticleRangeTexts);
+
+  mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_astrTexts[i] = astrEnvParticleRangeTexts[i];
+    mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_astrValues[i] = astrEnvParticleRanges[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_strName = "LENS FLARES QUALITY";
+  mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_strTip = "Select lens flares quality";
+  mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_strVar = "gfx_iLensFlareQuality";
+  mgAdvRenderingOptionsLensFlaresQuality.mg_strTip = mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrLensFlareQualityTexts);
+
+  mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_astrTexts[i] = astrLensFlareQualityTexts[i];
+    mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_astrValues[i] = astrLensFlareQualityValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsRefreshRate.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_strName = "SCREEN REFRESH RATE";
+  mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_strTip = "Select screen refresh rate";
+  mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_strVar = "gap_iRefreshRate";
+  mgAdvRenderingOptionsRefreshRate.mg_strTip = mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrRefreshRateTexts);
+
+  mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_astrTexts[i] = astrRefreshRateTexts[i];
+    mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_astrValues[i] = astrRefreshRates[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strName = "SCREENSHOT Z-BUFFER";
+  mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strTip = "Enable to put z-buffer to alpha channel of a screenshot";
+  mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strVar = "ogl_bGrabDepthBuffer";
+  mgAdvRenderingOptionsScreenshotZBuffer.mg_strTip = mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strTip;
+
+  ctTexts = ARRAYCOUNT(astrNoYes);
+
+  mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
+    mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_lnNode);
+
+  mgAdvRenderingOptionsPretouchMemory.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_strName = "PRETOUCH MEMORY";
+  mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_strTip = "Enable pretouch all memory when loading a level";
+  mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_strVar = "gam_bPretouch";
+  
+  ctTexts = ARRAYCOUNT(astrNoYes);
+
+  mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
+    mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_lnNode);
 
   FOREACHINLIST(CVarSetting, vs_lnNode, lhAdvRenderingOptionsVars, itvs)
   {
@@ -7595,13 +9129,13 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
     amgAdvRenderingOptionsButtons[iLabel].mg_pmgUp = &amgAdvRenderingOptionsButtons[iPrev];
     amgAdvRenderingOptionsButtons[iLabel].mg_pmgDown = &amgAdvRenderingOptionsButtons[iNext];
-    amgAdvRenderingOptionsButtons[iLabel].mg_boxOnScreen = BoxMediumLeft(4.71f + iLabel);
+    amgAdvRenderingOptionsButtons[iLabel].mg_boxOnScreen = BoxMediumLeft(3.11f + iLabel);
     amgAdvRenderingOptionsButtons[iLabel].mg_pActivatedFunction = NULL;
     gm_lhGadgets.AddTail(amgAdvRenderingOptionsButtons[iLabel].mg_lnNode);
   }
 
   mgAdvRenderingOptionsArrowUp.mg_adDirection = AD_UP;
-  mgAdvRenderingOptionsArrowUp.mg_boxOnScreen = BoxArrow(3.71f);
+  mgAdvRenderingOptionsArrowUp.mg_boxOnScreen = BoxArrow(2.11f);
   mgAdvRenderingOptionsArrowUp.mg_pmgUp = &mgAdvRenderingOptionsBack;
   mgAdvRenderingOptionsArrowUp.mg_pmgDown = &amgAdvRenderingOptionsButtons[0];
   gm_lhGadgets.AddTail(mgAdvRenderingOptionsArrowUp.mg_lnNode);
@@ -7632,6 +9166,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsBack.mg_pActivatedFunction = &MenuBack;
   mgAdvRenderingOptionsBack.mg_iCenterI = -1;
 
+  gm_ctListTotal = lhAdvRenderingOptionsVars.Count();
   gm_ctListVisible = ADV_RENDERING_OPTIONS_ON_SCREEN;
   gm_pmgArrowUp = &mgAdvRenderingOptionsArrowUp;
   gm_pmgArrowDn = &mgAdvRenderingOptionsArrowDn;
