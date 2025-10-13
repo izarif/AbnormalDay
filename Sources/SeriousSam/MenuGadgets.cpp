@@ -1024,11 +1024,44 @@ PIXaabbox2D CMGVarButton::GetSliderBox(void)
 { 
   extern CDrawPort *pdp;
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixIR = (PIX) (box.Min()(1)+box.Size()(1)*0.55f);
-  PIX pixJ  = (PIX) (box.Min()(2));
-  PIX pixISize = (PIX) (box.Size()(1)*0.13f);
-  PIX pixJSize = (PIX) (box.Size()(2));
-  return PIXaabbox2D( PIX2D(pixIR, pixJ+1), PIX2D(pixIR+pixISize-4, pixJ+pixJSize-6));
+  PIX pixBoxIL = box.Min()(1);
+  PIX pixBoxSizeI = box.Size()(1);
+  PIX pixBoxIR = box.Min()(1) + pixBoxSizeI;
+  PIX pixBoxJ = box.Min()(2);
+  PIX pixBoxSizeJ = box.Size()(2);
+  PIX pixSliderBoxSizeI = pixBoxSizeI * 0.13f - 4;
+  PIX pixSpacingI = pixBoxSizeI * 0.04f;
+
+  CTString strName = mg_pvsVar->vs_strName;
+  PIX pixNameSizeI = 0;
+
+  if (strName.Length() != 0)
+  {
+    pixNameSizeI = pdp->GetTextWidth(strName);
+  }
+
+  CTString strText = mg_pvsVar->vs_astrTexts[mg_pvsVar->vs_iValue];
+  PIX pixTextSizeI = 0;
+
+  if (strText.Length() != 0)
+  {
+    pixTextSizeI = pdp->GetTextWidth(strText);
+  }
+
+  PIX pixI = pixBoxIL + pixNameSizeI + pixSpacingI;
+
+  if (mg_pvsVar->vs_iCenterI == 0)
+  {
+      pixI = ((pixBoxSizeI - pixSliderBoxSizeI - pixTextSizeI - pixSpacingI) / 2);
+  }
+  else if (mg_pvsVar->vs_iCenterI == 1)
+  {
+      pixI = pixBoxIR - pixTextSizeI - pixSpacingI - pixSliderBoxSizeI;
+  }
+
+  PIXaabbox2D boxSlider = PIXaabbox2D(PIX2D(pixI, pixBoxJ + 1), PIX2D(pixI + pixSliderBoxSizeI, pixBoxJ + pixBoxSizeJ - 6));
+
+  return boxSlider;
 }
 
 extern BOOL _bVarChanged;
@@ -1055,13 +1088,6 @@ BOOL CMGVarButton::OnKeyDown(int iVKey)
       // handled
       return TRUE;
     }
-  }
-
-  if( iVKey==VK_RETURN) {
-    FlushVarSettings(TRUE);
-    void MenuGoToParent(void);
-    MenuGoToParent();
-    return TRUE;
   }
 
   if( iVKey==VK_LBUTTON || iVKey==VK_RIGHT) {
@@ -1107,60 +1133,116 @@ BOOL CMGVarButton::OnKeyDown(int iVKey)
 
 void CMGVarButton::Render( CDrawPort *pdp)
 {
-  if (mg_pvsVar==NULL) {
+  if (mg_pvsVar == NULL)
+  {
     return;
   }
 
   SetFontMedium(pdp);
 
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixIL = (PIX) (box.Min()(1)+box.Size()(1)*0.45f);
-  PIX pixIR = (PIX) (box.Min()(1)+box.Size()(1)*0.55f);
-  PIX pixIC = (PIX) (box.Center()(1));
-  PIX pixJ  = (PIX) (box.Min()(2));
+  PIX pixBoxIL = box.Min()(1);
+  PIX pixBoxSizeI = box.Size()(1);
+  PIX pixBoxIR = box.Min()(1) + pixBoxSizeI;
+  PIX pixBoxJ = box.Min()(2);
+  PIX pixBoxSizeJ = box.Size()(2);
+  PIX pixSliderBoxSizeI = pixBoxSizeI * 0.13f - 4;
+  PIX pixSpacingI = pixBoxSizeI * 0.04f;
+
+  PIX pixNameSizeI = pdp->GetTextWidth(mg_pvsVar->vs_strName);
+  CTString strText = TRANS("Custom");
+
+  if (!mg_pvsVar->vs_bCustom)
+  {
+    strText = mg_pvsVar->vs_astrTexts[mg_pvsVar->vs_iValue];
+  }
+
+  PIX pixTextSizeI = pdp->GetTextWidth(strText);
+  PIX pixI = pixBoxIL;
+
+  if (mg_pvsVar->vs_bSeparator)
+  {
+    if (mg_pvsVar->vs_iCenterI == 0)
+    {
+      pixI = ((pixBoxSizeI - pixTextSizeI) / 2);
+    }
+    else if (mg_pvsVar->vs_iCenterI == 1)
+    {
+      pixI = pixBoxIR - pixTextSizeI;
+    }
+  }
+  else if (mg_pvsVar->vs_bCustom || mg_pvsVar->vs_iSlider == 0)
+  {
+    if (mg_pvsVar->vs_iCenterI == 0)
+    {
+      pixI = ((pixBoxSizeI - pixNameSizeI - pixTextSizeI - pixSpacingI) / 2);
+    }
+    else if (mg_pvsVar->vs_iCenterI == 1)
+    {
+      pixI = pixBoxIR - pixNameSizeI - pixTextSizeI - pixSpacingI;
+    }
+  }
+  else if (mg_pvsVar->vs_iSlider > 0)
+  {
+    if (mg_pvsVar->vs_iCenterI == 0)
+    {
+      pixI = ((pixBoxSizeI - pixNameSizeI - pixSliderBoxSizeI - pixTextSizeI - pixSpacingI * 2) / 2);
+    }
+    else if (mg_pvsVar->vs_iCenterI == 1)
+    {
+      pixI = pixBoxIR - pixNameSizeI - pixSliderBoxSizeI - pixTextSizeI - pixSpacingI * 2;
+    }
+  }
 
   if (mg_pvsVar->vs_bSeparator)
   {
     mg_bEnabled = FALSE;
-    COLOR col = _pGame->LCDGetColor(C_WHITE|255, "separator");
-    CTString strText = mg_pvsVar->vs_strName;
-    pdp->PutTextC(strText, pixIC, pixJ, col);
+    COLOR col = _pGame->LCDGetColor(C_WHITE | 255, "separator");
+
+    pdp->PutText(mg_pvsVar->vs_strName, pixI, pixBoxJ, col);
   }
   else if (mg_pvsVar->Validate())
   {
     // check whether the variable is disabled
-    if( mg_pvsVar->vs_strFilter!="") mg_bEnabled = _pShell->GetINDEX(mg_pvsVar->vs_strFilter);
+    if (mg_pvsVar->vs_strFilter!="") mg_bEnabled = _pShell->GetINDEX(mg_pvsVar->vs_strFilter);
+
     COLOR col = GetCurrentColor();
-    pdp->PutTextR( mg_pvsVar->vs_strName, pixIL, pixJ, col);
-    // custom is by default
-    CTString strText = TRANS("Custom");
-    if( !mg_pvsVar->vs_bCustom)
-    { // not custom!
-      strText = mg_pvsVar->vs_astrTexts[mg_pvsVar->vs_iValue];
+
+    pdp->PutText(mg_pvsVar->vs_strName, pixI, pixBoxJ, col);
+
+    pixI += pixNameSizeI + pixSpacingI;
+
+    if (!mg_pvsVar->vs_bCustom)
+    {
       // need slider?
-      if( mg_pvsVar->vs_iSlider>0) {
+      if (mg_pvsVar->vs_iSlider > 0)
+      {
         // draw box around slider
-        PIX pixISize = (PIX) (box.Size()(1)*0.13f);
-        PIX pixJSize = (PIX) (box.Size()(2));
-        PIXaabbox2D aabbox( PIX2D(pixIR, pixJ+1), PIX2D(pixIR+pixISize-4, pixJ+pixJSize-6));
-        _pGame->LCDDrawBox( 0, -1, aabbox, _pGame->LCDGetColor(C_GREEN|255, "slider box"));
+        PIXaabbox2D boxSlider = PIXaabbox2D(PIX2D(pixI, pixBoxJ + 1), PIX2D(pixI + pixSliderBoxSizeI, pixBoxJ + pixBoxSizeJ - 6));
+
+        _pGame->LCDDrawBox(0, -1, boxSlider, _pGame->LCDGetColor(C_GREEN | 255, "slider box"));
+
         // draw filled part of slider
-        if( mg_pvsVar->vs_iSlider==1) {
+        if (mg_pvsVar->vs_iSlider == 1)
+        {
           // fill slider
-          FLOAT fFactor = (FLOAT)(mg_pvsVar->vs_iValue+1) / mg_pvsVar->vs_ctValues;
-          pdp->Fill( pixIR+1, pixJ+2, (pixISize-6)*fFactor, pixJSize-9, col);
+          FLOAT fFactor = (FLOAT)(mg_pvsVar->vs_iValue + 1) / mg_pvsVar->vs_ctValues;
+
+          pdp->Fill(pixI + 1, pixBoxJ + 2, (pixSliderBoxSizeI - 2) * fFactor, pixBoxSizeJ - 9, col);
         } else {
           // ratio slider
-          ASSERT( mg_pvsVar->vs_iSlider==2);
-          FLOAT fUnitWidth = (FLOAT)(pixISize-5) / mg_pvsVar->vs_ctValues;
-          pdp->Fill( pixIR+1+(mg_pvsVar->vs_iValue*fUnitWidth), pixJ+2, fUnitWidth, pixJSize-9, col);
+          ASSERT(mg_pvsVar->vs_iSlider == 2);
+
+          FLOAT fUnitWidth = (FLOAT)(pixSliderBoxSizeI - 1) / mg_pvsVar->vs_ctValues;
+
+          pdp->Fill(pixI + 1 + (mg_pvsVar->vs_iValue * fUnitWidth), pixBoxJ + 2, fUnitWidth, pixBoxSizeJ - 9, col);
         }
-        // move text printout to the right of slider
-        pixIR += (PIX) (box.Size()(1)*0.15f);
+
+        pixI += pixSliderBoxSizeI + pixSpacingI;
       }
     }
-    // write right text
-    pdp->PutText(strText, pixIR, pixJ, col);
+
+    pdp->PutText(strText, pixI, pixBoxJ, col);
   }
 }
 

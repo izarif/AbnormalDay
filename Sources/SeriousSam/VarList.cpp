@@ -244,6 +244,7 @@ void CVarSetting::Clear()
   vs_strFilter.Clear();
   vs_strSchedule.Clear();
   vs_bCustom = FALSE;
+  vs_iCenterI = 0;
 }
 
 BOOL CVarSetting::Validate(void)

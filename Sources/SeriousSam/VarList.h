@@ -39,6 +39,7 @@ public:
   CVarSetting();
   void Clear(void);
   BOOL Validate(void);
+  INDEX vs_iCenterI;
 };
 
 
