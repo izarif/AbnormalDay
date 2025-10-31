@@ -7956,11 +7956,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTexturesSize.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesSize.mg_pvsVar->vs_strName = TRANS("TEXTURES SIZE");
   mgAdvRenderingOptionsTexturesSize.mg_pvsVar->vs_strTip = TRANS("Select textures size");
-  mgAdvRenderingOptionsTexturesSize.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTexturesSize.mg_pvsVar->vs_strVar = "tex_iNormalSize";
   mgAdvRenderingOptionsTexturesSize.mg_pvsVar->vs_iSlider = 1;
   mgAdvRenderingOptionsTexturesSize.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsTexturesSize.mg_strTip = mgAdvRenderingOptionsTexturesSize.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTexturesSize.mg_pvsVar->vs_iCenterI = -1;
 
   INDEX ctTexts = ARRAYCOUNT(astrTextureSizeTexts);
 
@@ -7978,11 +7977,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsAnimTexturesSize.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsAnimTexturesSize.mg_pvsVar->vs_strName = TRANS("ANIMATION TEXTURES SIZE");
   mgAdvRenderingOptionsAnimTexturesSize.mg_pvsVar->vs_strTip = TRANS("Select animation textures size");
-  mgAdvRenderingOptionsAnimTexturesSize.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsAnimTexturesSize.mg_pvsVar->vs_strVar = "tex_iAnimationSize";
   mgAdvRenderingOptionsAnimTexturesSize.mg_pvsVar->vs_iSlider = 1;
   mgAdvRenderingOptionsAnimTexturesSize.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsAnimTexturesSize.mg_strTip = mgAdvRenderingOptionsAnimTexturesSize.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsAnimTexturesSize.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrAnimTextureSizeTexts);
 
@@ -8000,11 +7998,11 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsEffectTexturesSize.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsEffectTexturesSize.mg_pvsVar->vs_strName = TRANS("EFFECT TEXTURES SIZE");
   mgAdvRenderingOptionsEffectTexturesSize.mg_pvsVar->vs_strTip = TRANS("Select effect textures size");
-  mgAdvRenderingOptionsEffectTexturesSize.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsEffectTexturesSize.mg_pvsVar->vs_strVar = "tex_iEffectSize";
   mgAdvRenderingOptionsEffectTexturesSize.mg_pvsVar->vs_iSlider = 1;
   mgAdvRenderingOptionsEffectTexturesSize.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
   mgAdvRenderingOptionsEffectTexturesSize.mg_strTip = mgAdvRenderingOptionsEffectTexturesSize.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsEffectTexturesSize.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrEffectTextureSizeTexts);
 
@@ -8022,11 +8020,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTexturesQuality.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesQuality.mg_pvsVar->vs_strName = TRANS("TEXTURES QUALITY");
   mgAdvRenderingOptionsTexturesQuality.mg_pvsVar->vs_strTip = TRANS("Select textures quality");
-  mgAdvRenderingOptionsTexturesQuality.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTexturesQuality.mg_pvsVar->vs_strVar = "tex_iNormalQuality";
   mgAdvRenderingOptionsTexturesQuality.mg_pvsVar->vs_strFilter = "sys_bHas32bitTextures";
   mgAdvRenderingOptionsTexturesQuality.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsTexturesQuality.mg_strTip = mgAdvRenderingOptionsTexturesQuality.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTexturesQuality.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrTextureQualityTexts);
 
@@ -8044,11 +8041,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_strName = TRANS("EFFECT TEXTURES QUALITY");
   mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_strTip = TRANS("Select effect textures quality");
-  mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_strVar = "tex_bFineEffect";
   mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_strFilter = "sys_bHas32bitTextures";
   mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsEffectTexturesQuality.mg_strTip = mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsEffectTexturesQuality.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrEffectTextureQualityTexts);
 
@@ -8066,11 +8062,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_strName = TRANS("TEXTURES FILTERING STRENGTH");
   mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_strTip = TRANS("Select textures filtering strength");
-  mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_strVar = "tex_iFiltering";
   mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_iSlider = 2;
   mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsTexturesFilteringStrength.mg_strTip = mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTexturesFilteringStrength.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrTextureFilteringStrengthTexts);
 
@@ -8088,11 +8083,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_strName = TRANS("EFFECT TEXTURES FILTERING STRENGTH");
   mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_strTip = TRANS("Select textures filtering strength");
-  mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_strVar = "tex_iEffectFiltering";
   mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_iSlider = 1;
   mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_strTip = mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsEffectTexturesFilteringStrength.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrEffectTextureFilteringStrengthTexts);
 
@@ -8110,10 +8104,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strName = TRANS("TEXTURES FILTERING BOOSTER");
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strTip = TRANS("Enable to boost textures filtering strength");
-  mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strVar = "tex_bProgressiveFilter";
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsTexturesFilteringBooster.mg_strTip = mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrNoYes);
 
@@ -8131,10 +8124,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_strName = TRANS("TEXTURES DITHERING TYPE");
   mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_strTip = TRANS("Select 16-bit textures dithering type");
-  mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_strVar = "tex_bProgressiveFilter";
   mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsTexturesDitheringType.mg_strTip = mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTexturesDitheringType.mg_pvsVar->vs_iCenterI = -1;;
 
   ctTexts = ARRAYCOUNT(astrTextureDitheringTypeTexts);
 
@@ -8152,11 +8144,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_strName = TRANS("SHADOW MAPS SIZE");
   mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_strTip = TRANS("Select shadow maps size");
-  mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_strVar = "shd_iStaticSize";
   mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_iSlider = 1;
   mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyShadowMaps.ini";
-  mgAdvRenderingOptionsShadowMapsSize.mg_strTip = mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsShadowMapsSize.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrShadowMapSizeTexts);
 
@@ -8174,11 +8165,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_strName = TRANS("SHADOW MAPS QUALITY");
   mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_strTip = TRANS("Select shadow maps quality");
-  mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_strVar = "shd_bFineQuality";
   mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_strFilter = "sys_bHas32bitTextures";
   mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyShadowMaps.ini";
-  mgAdvRenderingOptionsShadowMapsQuality.mg_strTip = mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsShadowMapsQuality.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrShadowMapQualityTexts);
 
@@ -8196,11 +8186,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_strName = TRANS("SHADOW MAPS FILTERING STRENGTH");
   mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_strTip = TRANS("Select shadow maps filtering strength");
-  mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_strVar = "shd_iFiltering";
   mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_iSlider = 1;
   mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyShadowMaps.ini";
-  mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_strTip = mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsShadowMapsFilteringStrength.mg_pvsVar->vs_iCenterI = -1;;
 
   ctTexts = ARRAYCOUNT(astrShadowMapFilteringStrengthTexts);
 
@@ -8218,11 +8207,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_strName = TRANS("SHADOW MAPS DITHERING STRENGTH");
   mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_strTip = TRANS("Select 16-bit shadow maps dithering strength");
-  mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_strVar = "shd_iDithering";
   mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_iSlider = 1;
   mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyShadowMaps.ini";
-  mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_strTip = mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsShadowMapsDitheringStrength.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrShadowMapDitheringStrengthTexts);
 
@@ -8240,11 +8228,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_strName = TRANS("SHADOW MAPS CACHE SIZE");
   mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_strTip = TRANS("Select shadow maps cache size");
-  mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_strVar = "shd_fCacheSize";
   mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_iSlider = 1;
   mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyShadowMaps.ini";
-  mgAdvRenderingOptionsShadowMapsCacheSize.mg_strTip = mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsShadowMapsCacheSize.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrShadowMapCacheSizeTexts);
 
@@ -8262,10 +8249,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_strName = TRANS("PRECACHE SHADOW MAPS");
   mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_strTip = TRANS("Cache all shadow maps when loading a level");
-  mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_strVar = "shd_bCacheAll";
   mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyShadowMaps.ini";
-  mgAdvRenderingOptionsPrecacheShadowMaps.mg_strTip = mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsPrecacheShadowMaps.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrNoYes);
 
@@ -8283,10 +8269,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_strName = TRANS("LOD MODELS QUALITY");
   mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_strTip = TRANS("Select LOD models quality");
-  mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_strVar = "mdl_fLODMul";
   mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_iSlider = 2;
-  mgAdvRenderingOptionsLODModelsQuality.mg_strTip = mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsLODModelsQuality.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrLODModelQualityTexts);
 
@@ -8304,9 +8289,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_strName = TRANS("MODELS SHADOW QUALITY");
   mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_strTip = TRANS("Select models shadow quality");
-  mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_strVar = "mdl_iShadowQuality";
-  mgAdvRenderingOptionsModelsShadowQuality.mg_strTip = mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsModelsShadowQuality.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrModelShadowQualityTexts);
 
@@ -8324,9 +8308,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsModelsQuality.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_strName = TRANS("MODELS QUALITY");
   mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_strTip = TRANS("Select models quality");
-  mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_strVar = "mdl_bFineQuality";
-  mgAdvRenderingOptionsModelsQuality.mg_strTip = mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrModelQualityTexts);
 
@@ -8344,9 +8327,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strName = TRANS("MODEL DETAIL TEXTURES");
   mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strTip = TRANS("Enable model detail textures rendering");
-  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strVar = "mdl_bRenderDetail";
-  mgAdvRenderingOptionsModelDetailTextures.mg_strTip = mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrNoYes);
 
@@ -8364,9 +8346,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_strName = TRANS("MODEL SPECULAR MAPS");
   mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_strTip = TRANS("Enable model specular maps rendering");
-  mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_strVar = "tex_bRenderSpecular";
-  mgAdvRenderingOptionsModelSpecularMaps.mg_strTip = mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrNoYes);
 
@@ -8384,9 +8365,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_strName = TRANS("MODEL REFLECTION MAPS");
   mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_strTip = TRANS("Enable model reflection maps rendering");
-  mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_strVar = "mdl_bRenderReflection";
-  mgAdvRenderingOptionsModelReflectionMaps.mg_strTip = mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsModelReflectionMaps.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrNoYes);
 
@@ -8404,10 +8384,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_strName = TRANS("MULTI-TEXTURING MODE");
   mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_strTip = TRANS("Select textures number to render in one pass");
-  mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_strVar = "gap_iUseTextureUnits";
   mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_strFilter = "sys_bHasMultitexturing";
-  mgAdvRenderingOptionsMultiTexturingMode.mg_strTip = mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsMultiTexturingMode.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrMultiTexturingModeTexts);
 
@@ -8425,9 +8404,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_strName = TRANS("TEXTURES FILTERING TYPE");
   mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_strTip = TRANS("Select textures filtering type");
-  mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_strVar = "gap_iTextureFiltering";
-  mgAdvRenderingOptionsTexturesFilteringType.mg_strTip = mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTexturesFilteringType.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrTextureFilteringTypeTexts);
 
@@ -8445,10 +8423,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_strName = TRANS("TEXTURES ANISOTROPY");
   mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_strTip = TRANS("Select textures anisotropy strength");
-  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_strVar = "gap_iTextureAnisotropy";
   mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_strFilter = "sys_bHasTextureAnisotropy";
-  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_strTip = mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTexturesAnisotropyStrength.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrTextureAnisotropyStrengthTexts);
 
@@ -8466,11 +8443,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_strName = TRANS("MIP MAPS BIAS");
   mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_strTip = TRANS("Select mip maps switch distance");
-  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_strVar = "gap_fTextureLODBias";
   mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_iSlider = 2;
   mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_strFilter = "sys_bHasTextureLODBias";
-  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_strTip = mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsMIPMapsSwitchDist.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrMIPMapSwitchDistTexts);
 
@@ -8488,9 +8464,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsDitheringStrength.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_strName = TRANS("DITHERING STRENGTH");
   mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_strTip = TRANS("Select dithering strength for 16-bit display modes");
-  mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_strVar = "gap_iDithering";
-  mgAdvRenderingOptionsDitheringStrength.mg_strTip = mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_iCenterI = -1;;
 
   ctTexts = ARRAYCOUNT(astrDitheringStrengthTexts);
 
@@ -8508,11 +8483,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTruformLevel.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strName = TRANS("TRUFORM LEVEL");
   mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strTip = TRANS("Select truform tessellation level");
-  mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strVar = "gap_iTruformLevel";
   mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_iSlider = 1;
   mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strFilter = "sys_bHasTruform";
-  mgAdvRenderingOptionsTruformLevel.mg_strTip = mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrTruformLevelTexts);
 
@@ -8530,10 +8504,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTruform.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strName = TRANS("TRUFORM");
   mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strTip = TRANS("Enable truform");
-  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strVar = "gap_bForceTruform";
   mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strFilter = "sys_bHasTruform";
-  mgAdvRenderingOptionsTruform.mg_strTip = mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrTruformTexts);
 
@@ -8551,11 +8524,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strName = TRANS("TEXTURES COMPRESSION TYPE");
   mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strTip = TRANS("Select textures compression type");
-  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strVar = "ogl_iTextureCompressionType";
   mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strFilter = "sys_bHasTextureCompression";
   mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsTexturesCompressionType.mg_strTip = mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrTextureCompressionTypeTexts);
 
@@ -8573,10 +8545,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsCVAs.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_strName = TRANS("COMPILED VERTEX ARRAYS");
   mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_strTip = TRANS("Enable compiled vertex arrays extension");
-  mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_strVar = "ogl_bUseCompiledVertexArrays";
   mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_strFilter = "sys_bHasCVAs";
-  mgAdvRenderingOptionsCVAs.mg_strTip = mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsCVAs.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrCVATexts);
 
@@ -8594,9 +8565,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_strName = TRANS("FULLSCREEN EXCLUSIVE MODE");
   mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_strTip = TRANS("Select fullscreen exclusive mode");
-  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_strVar = "ogl_bExclusive";
-  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_strTip = mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsFullscreenExclusiveMode.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrFullscreenExclusiveModeTexts);
 
@@ -8614,11 +8584,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTnLType.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strName = TRANS("T&L type");
   mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strTip = TRANS("Select T&L type");
-  mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strVar = "d3d_bUseHardwareTnL";
   mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strFilter = "sys_bHasHardwareTnL";
   mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyVideo.ini";
-  mgAdvRenderingOptionsTnLType.mg_strTip = mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTnLType.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrTnLTypeTexts);
 
@@ -8636,10 +8605,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_strName = TRANS("T&L buffers size");
   mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_strTip = TRANS("Select vertex buffers size");
-  mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_strVar = "d3d_iVertexBuffersSize";
   mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_iSlider = 1;
-  mgAdvRenderingOptionsTnLBuffersSize.mg_strTip = mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsTnLBuffersSize.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrTnLBufferSizeTexts);
 
@@ -8657,9 +8625,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strName = TRANS("FASTER LENS FLARES");
   mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strTip = TRANS("Enable to sppeed-up lens flares rendering");
-  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strVar = "d3d_bAlternateDepthReads";
-  mgAdvRenderingOptionsFasterLensFlares.mg_strTip = mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrNoYes);
 
@@ -8677,10 +8644,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsHUDSize.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_strName = TRANS("HUD SIZE");
   mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_strTip = TRANS("Select HUD size");
-  mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_strVar = "hud_fScaling";
   mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_iSlider = 1;
-  mgAdvRenderingOptionsHUDSize.mg_strTip = mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsHUDSize.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrHUDSizeTexts);
 
@@ -8698,10 +8664,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsHUDOpacity.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_strName = TRANS("HUD OPACITY");
   mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_strTip = TRANS("Select HUD opacity");
-  mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_strVar = "hud_fOpacity";
   mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_iSlider = 1;
-  mgAdvRenderingOptionsHUDOpacity.mg_strTip = mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsHUDOpacity.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrHUDOpacityTexts);
 
@@ -8719,9 +8684,8 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_strName = TRANS("CROSSHAIR OPACITY");
   mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_strTip = TRANS("Select crosshair opacity");
-  mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_strVar = "hud_fCrosshairOpacity";
-  mgAdvRenderingOptionsCrosshairOpacity.mg_strTip = mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsCrosshairOpacity.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrCrosshairOpacityTexts);
 
@@ -8739,10 +8703,9 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsColorsSaturation.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_strName = TRANS("COLORS SATURATION");
   mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_strTip = TRANS("Select colors saturation");
-  mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_strVar = "gfx_fSaturation";
   mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
-  mgAdvRenderingOptionsColorsSaturation.mg_strTip = mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsColorsSaturation.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrColorSaturationTexts);
 
@@ -8760,11 +8723,10 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsBrightness.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_strName = TRANS("BRIGHTNESS");
   mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_strTip = TRANS("Select game brightness");
-  mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_bSeparator = FALSE;
   mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_strVar = "gfx_fBrightness";
   mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
   mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_iSlider = 2;
-  mgAdvRenderingOptionsBrightness.mg_strTip = mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsBrightness.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrBrightnessTexts);
 
@@ -8785,7 +8747,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsContrast.mg_pvsVar->vs_strVar = "gfx_fContrast";
   mgAdvRenderingOptionsContrast.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
   mgAdvRenderingOptionsContrast.mg_pvsVar->vs_iSlider = 2;
-  mgAdvRenderingOptionsContrast.mg_strTip = mgAdvRenderingOptionsContrast.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsContrast.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrContrastTexts);
 
@@ -8806,7 +8768,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsGamma.mg_pvsVar->vs_strVar = "gfx_fGamma";
   mgAdvRenderingOptionsGamma.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
   mgAdvRenderingOptionsGamma.mg_pvsVar->vs_iSlider = 2;
-  mgAdvRenderingOptionsGamma.mg_strTip = mgAdvRenderingOptionsGamma.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsGamma.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrGammaTexts);
 
@@ -8827,7 +8789,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_strVar = "gfx_fBiasR";
   mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
   mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_iSlider = 2;
-  mgAdvRenderingOptionsRedColorBias.mg_strTip = mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsRedColorBias.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrRedColorBiasTexts);
 
@@ -8848,7 +8810,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_strVar = "gfx_fBiasG";
   mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
   mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_iSlider = 2;
-  mgAdvRenderingOptionsGreenColorBias.mg_strTip = mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsGreenColorBias.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrGreenColorBiasTexts);
 
@@ -8869,7 +8831,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_strVar = "gfx_fBiasB";
   mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
   mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_iSlider = 2;
-  mgAdvRenderingOptionsBlueColorBias.mg_strTip = mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsBlueColorBias.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrBlueColorBiasTexts);
 
@@ -8890,7 +8852,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_strVar = "gfx_iLevels";
   mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_strFilter = "sys_bHasAdjustableGamma";
   mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_iSlider = 1;
-  mgAdvRenderingOptionsColorsNumber.mg_strTip = mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsColorsNumber.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrColorNumberTexts);
 
@@ -8909,7 +8871,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_strName = "STEREO VIEW TYPE";
   mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_strTip = "Select stereoscopy type";
   mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_strVar = "gfx_iStereo";
-  mgAdvRenderingOptionsStereoViewType.mg_strTip = mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsStereoViewType.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrStereoViewTypeTexts);
 
@@ -8928,7 +8890,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strName = "INVERT STEREO VIEW";
   mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strTip = "Enable to swap eye masks";
   mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strVar = "gfx_bStereoInvert";
-  mgAdvRenderingOptionsInvertStereoView.mg_strTip = mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrNoYes);
 
@@ -8948,7 +8910,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_strTip = "Select virtual distance between eyes";
   mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_strVar = "gfx_fStereoSeparation";
   mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_iSlider = 1;
-  mgAdvRenderingOptionsStereoViewSeparation.mg_strTip = mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsStereoViewSeparation.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrStereoViewSeparationTexts);
 
@@ -8968,7 +8930,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_strTip = "Select stereo view separation boost strength";
   mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_strVar = "gfx_iStereoOffset";
   mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_iSlider = 1;
-  mgAdvRenderingOptionsStereoViewOffset.mg_strTip = mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsStereoViewOffset.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrStereoViewOffsetTexts);
 
@@ -8988,7 +8950,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_strTip = "Select environment particles density";
   mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_strVar = "gfx_fEnvParticlesDensity";
   mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_iSlider = 1;
-  mgAdvRenderingOptionsEnvParticlesDensity.mg_strTip = mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsEnvParticlesDensity.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrEnvParticleDensityTexts);
 
@@ -9008,7 +8970,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_strTip = "Select environment particles view range";
   mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_strVar = "gfx_fEnvParticlesRange";
   mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_iSlider = 1;
-  mgAdvRenderingOptionsEnvParticlesRange.mg_strTip = mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsEnvParticlesRange.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrEnvParticleRangeTexts);
 
@@ -9027,7 +8989,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_strName = "LENS FLARES QUALITY";
   mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_strTip = "Select lens flares quality";
   mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_strVar = "gfx_iLensFlareQuality";
-  mgAdvRenderingOptionsLensFlaresQuality.mg_strTip = mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsLensFlaresQuality.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrLensFlareQualityTexts);
 
@@ -9046,7 +9008,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_strName = "SCREEN REFRESH RATE";
   mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_strTip = "Select screen refresh rate";
   mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_strVar = "gap_iRefreshRate";
-  mgAdvRenderingOptionsRefreshRate.mg_strTip = mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsRefreshRate.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrRefreshRateTexts);
 
@@ -9065,7 +9027,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strName = "SCREENSHOT Z-BUFFER";
   mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strTip = "Enable to put z-buffer to alpha channel of a screenshot";
   mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strVar = "ogl_bGrabDepthBuffer";
-  mgAdvRenderingOptionsScreenshotZBuffer.mg_strTip = mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strTip;
+  mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrNoYes);
 
@@ -9084,6 +9046,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_strName = "PRETOUCH MEMORY";
   mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_strTip = "Enable pretouch all memory when loading a level";
   mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_strVar = "gam_bPretouch";
+  mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_iCenterI = -1;
   
   ctTexts = ARRAYCOUNT(astrNoYes);
 
