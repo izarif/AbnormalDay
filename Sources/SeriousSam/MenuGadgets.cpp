@@ -761,58 +761,50 @@ BOOL CMGTrigger::OnKeyDown( int iVKey)
   return FALSE;
 }
 
-void CMGTrigger::Render( CDrawPort *pdp)
+void CMGTrigger::Render(CDrawPort *pdp)
 {
   SetFontMedium(pdp);
 
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixJ = box.Min()(2);
+  PIX pixBoxI = box.Min()(1);
+  PIX pixBoxSizeI = box.Size()(1);
+  PIX pixBoxIR = box.Min()(1) + pixBoxSizeI;
+  PIX pixBoxJ = box.Min()(2);
+  PIX pixSpacingI = pixBoxSizeI * 0.04f;
   COLOR col = GetCurrentColor();
-  PIX pixLabelW = pdp->GetTextWidth(mg_strLabel);
-  PIX pixIL;
-  PIX pixIR;
 
-  if (mg_iCenterI == -1 || mg_iCenterI == 1)
+  if (!mg_bVisual || mg_strValue == "")
   {
-    pixIL = box.Min()(1);
-    pixIR = box.Min()(1) + box.Size()(1);
-  }
-  else
-  {
-    pixIL = box.Min()(1) + (box.Size()(1) * 0.45f);
-    pixIR = box.Min()(1) + (box.Size()(1) * 0.55f);
-  }
-
-  if (!mg_bVisual || mg_strValue=="") {
     CTString strValue = mg_strValue;
-    if (mg_bVisual) {
+
+    if (mg_bVisual)
+    {
       strValue = TRANS("none");
     }
 
-    if (mg_iCenterI == -1)
+    PIX pixLabelSizeI = pdp->GetTextWidth(mg_strLabel);
+    PIX pixValueSizeI = pdp->GetTextWidth(mg_strValue);
+    PIX pixI = pixBoxI;
+
+    if (mg_iCenterI == 0)
     {
-      pdp->PutText(mg_strLabel, pixIL, pixJ, col);
-
-      pixIL += pixLabelW + (box.Size()(1) * 0.04f);
-
-      pdp->PutText(strValue, pixIL, pixJ, col);
+      pixI = (pixBoxSizeI - pixLabelSizeI - pixValueSizeI - pixSpacingI) / 2;
     }
     else if (mg_iCenterI == 1)
     {
-      pdp->PutTextR(mg_strLabel, pixIR, pixJ, col);
-
-      pixIR -= pixLabelW + (box.Size()(1) * 0.04f);
-
-      pdp->PutTextR(strValue, pixIR, pixJ, col);
+      pixI = pixBoxIR - pixLabelSizeI - pixValueSizeI - pixSpacingI;
     }
-    else
-    {
-      pdp->PutTextR(mg_strLabel, pixIL, pixJ, col);
-      pdp->PutText(strValue, pixIR, pixJ, col);
-    }
-  } else {
+
+    pdp->PutText(mg_strLabel, pixI, pixBoxJ, col);
+
+    pixI += pixLabelSizeI + pixSpacingI;
+
+    pdp->PutText(mg_strValue, pixI, pixBoxJ, col);
+  }
+  else
+  {
     CTString strLabel = mg_strLabel+": ";
-    pdp->PutText(strLabel, box.Min()(1), pixJ, col);
+    pdp->PutText(strLabel, box.Min()(1), pixBoxJ, col);
     CTextureObject to;
     try {
       to.SetData_t(mg_strValue);
