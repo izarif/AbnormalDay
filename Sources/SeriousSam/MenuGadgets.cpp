@@ -886,111 +886,46 @@ PIXaabbox2D CMGSlider::GetSliderBox(void)
 {
   extern CDrawPort *pdp;
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixJ = box.Min()(2);
-  PIX pixJSize = box.Size()(2) * 0.95f;
-  PIXaabbox2D boxSlider;
-  PIX pixIL;
-  PIX pixIR;
-  PIX pixISizeR;
+  PIX pixBoxIL = box.Min()(1);
+  PIX pixBoxSizeI = box.Size()(1);
+  PIX pixBoxJ = box.Min()(2);
+  PIX pixBoxSizeJ = box.Size()(2);
+  PIX pixSpacingI = pixBoxSizeI * 0.04f;
 
-  if (mg_iCenterI == -1 || mg_iCenterI == 1)
-  {
-    pixIL = box.Min()(1);
-    pixIR = box.Min()(1) + box.Size()(1);
-    pixISizeR = box.Size()(1);
-  }
-  else
-  {
-    pixIL = box.Min()(1) + (box.Size()(1) * 0.45f);
-    pixIR = box.Min()(1) + (box.Size()(1) * 0.55f);
-    pixISizeR = box.Size()(1) * 0.45f;
-  }
-
-  if (mg_iCenterI == -1 || mg_iCenterI == 1)
-  {
-    boxSlider = PIXaabbox2D(PIX2D(pixIL + 1, pixJ), PIX2D(pixIL + pixISizeR - 2, pixJ + pixJSize - 2));
-  }
-  else
-  {
-    boxSlider = PIXaabbox2D(PIX2D(pixIR + 1, pixJ + 1), PIX2D(pixIR + pixISizeR - 2, pixJ + pixJSize - 2));
-  }
+  PIX pixTextSizeI = pdp->GetTextWidth(mg_strText);
+  PIX pixI = pixBoxIL + pixTextSizeI + pixSpacingI;
+  PIXaabbox2D boxSlider = PIXaabbox2D(PIX2D(pixI + 1, pixBoxJ), PIX2D(pixI + pixBoxSizeI - 2, pixBoxJ + pixBoxSizeJ - 2));
 
   return boxSlider;
 }
 
-void CMGSlider::Render( CDrawPort *pdp)
+void CMGSlider::Render(CDrawPort *pdp)
 {
   SetFontMedium(pdp);
 
-  // get geometry
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixJ = box.Min()(2);
+  PIX pixBoxIL = box.Min()(1);
+  PIX pixBoxSizeI = box.Size()(1);
+  PIX pixBoxJ = box.Min()(2);
+  PIX pixBoxSizeJ = box.Size()(2);
+  PIX pixSpacingI = pixBoxSizeI * 0.04f;
   COLOR col = GetCurrentColor();
-  PIX pixJSize = box.Size()(2) * 0.95f;
-  COLOR colSliderBox = _pGame->LCDGetColor(C_GREEN | 255, "slider box");
-  PIX pixTextW = pdp->GetTextWidth(mg_strText);
   CTString strPercentage;
-  PIX pixIL;
-  PIX pixIR;
-  PIX pixISizeR;
 
-  if (mg_iCenterI == -1 || mg_iCenterI == 1)
-  {
-    pixIL = box.Min()(1);
-    pixIR = box.Min()(1) + box.Size()(1);
-    pixISizeR = box.Size()(1);
-  }
-  else
-  {
-    pixIL = box.Min()(1) + (box.Size()(1) * 0.45f);
-    pixIR = box.Min()(1) + (box.Size()(1) * 0.55f);
-    pixISizeR = box.Size()(1) * 0.45f;
-  }
+  PIX pixTextSizeI = pdp->GetTextWidth(mg_strText);
+  PIX pixI = pixBoxIL;
 
-  if (mg_iCenterI == -1)
-  {
-    pdp->PutText(mg_strText, pixIL, pixJ, col);
+  pdp->PutText(mg_strText, pixI, pixBoxJ, col);
 
-    pixIL += pixTextW + (box.Size()(1) * 0.04f);
+  pixI += pixTextSizeI + pixSpacingI;
 
-    PIXaabbox2D aabbox(PIX2D(pixIL + 1, pixJ), PIX2D(pixIL + pixISizeR - 2, pixJ + pixJSize - 2));
-    _pGame->LCDDrawBox(0, -1, aabbox, colSliderBox);
+  PIXaabbox2D sliderBox = PIXaabbox2D(PIX2D(pixI + 1, pixBoxJ), PIX2D(pixI + pixBoxSizeI - 2, pixBoxJ + pixBoxSizeJ - 2));
+  _pGame->LCDDrawBox(0, -1, sliderBox, _pGame->LCDGetColor(C_GREEN | 255, "slider box"));
 
-    pdp->Fill(pixIL + 2, pixJ + 1, (pixISizeR - 5) * mg_fFactor, (pixJSize - 4), col);
+  pdp->Fill(pixBoxIL + 2, pixBoxJ + 1, (pixBoxSizeI - 5) * mg_fFactor, (pixBoxSizeJ - 4), col);
 
-    strPercentage.PrintF("%d%%", (int)floor(mg_fFactor * 100 + 0.5f));
-    pdp->PutText(strPercentage, pixIL + pixISizeR / 2, pixJ + 1, col);
-  }
-  else if (mg_iCenterI == 1)
-  {
-    pdp->PutTextR(mg_strText, pixIL, pixJ, col);
-
-    pixIR += pixTextW + (box.Size()(1) * 0.04f);
-
-    PIXaabbox2D aabbox(PIX2D(pixIR + 1, pixJ), PIX2D(pixIR + pixISizeR - 2, pixJ + pixJSize - 2));
-    _pGame->LCDDrawBox(0, -1, aabbox, colSliderBox);
-
-    pdp->Fill(pixIR + 2, pixJ + 1, (pixISizeR - 5) * mg_fFactor, (pixJSize - 4), col);
-
-    strPercentage.PrintF("%d%%", (int)floor(mg_fFactor * 100 + 0.5f));
-    pdp->PutTextR(strPercentage, pixIR + pixISizeR / 2, pixJ + 1, col);
-  }
-  else
-  {
-    // print text left of slider
-    pdp->PutTextR(mg_strText, pixIL, pixJ, col);
-
-    // draw box around slider
-    PIXaabbox2D aabbox(PIX2D(pixIR + 1, pixJ), PIX2D(pixIR + pixISizeR - 2, pixJ + pixJSize - 2));
-    _pGame->LCDDrawBox(0, -1, aabbox, colSliderBox);
-
-    // draw filled part of slider
-    pdp->Fill(pixIR + 2, pixJ + 1, (pixISizeR - 5) * mg_fFactor, (pixJSize - 4), col);
-
-    // print percentage text
-    strPercentage.PrintF("%d%%", (int)floor(mg_fFactor * 100 + 0.5f));
-    pdp->PutTextC(strPercentage, pixIR + pixISizeR / 2, pixJ + 1, col);
-  }
+  strPercentage.PrintF("%d%%", (int)floor(mg_fFactor * 100 + 0.5f));
+  pdp->PutText(strPercentage, pixI + pixBoxSizeI / 2, pixBoxJ + 1, col);
 }
 
 void CMGLevelButton::OnActivate(void)
