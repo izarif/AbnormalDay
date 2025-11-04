@@ -958,45 +958,37 @@ void CMGLevelButton::OnSetFocus(void)
 
 // return slider position on scren
 PIXaabbox2D CMGVarButton::GetSliderBox(void)
-{ 
+{
   extern CDrawPort *pdp;
+
+  SetFontMedium(pdp);
+
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixBoxIL = box.Min()(1);
+  PIX pixBoxI = box.Min()(1);
   PIX pixBoxSizeI = box.Size()(1);
   PIX pixBoxIR = box.Min()(1) + pixBoxSizeI;
   PIX pixBoxJ = box.Min()(2);
   PIX pixBoxSizeJ = box.Size()(2);
-  PIX pixSliderBoxSizeI = pixBoxSizeI * 0.13f - 4;
+  PIX pixSliderBoxSizeI = pixBoxSizeI * 0.13f;
+  PIX pixSliderBoxSizeJ = pixBoxSizeJ - 4;
   PIX pixSpacingI = pixBoxSizeI * 0.04f;
 
   CTString strName = mg_pvsVar->vs_strName;
-  PIX pixNameSizeI = 0;
-
-  if (strName.Length() != 0)
-  {
-    pixNameSizeI = pdp->GetTextWidth(strName);
-  }
-
+  PIX pixNameSizeI = pdp->GetTextWidth(strName);
   CTString strText = mg_pvsVar->vs_astrTexts[mg_pvsVar->vs_iValue];
-  PIX pixTextSizeI = 0;
-
-  if (strText.Length() != 0)
-  {
-    pixTextSizeI = pdp->GetTextWidth(strText);
-  }
-
-  PIX pixI = pixBoxIL + pixNameSizeI + pixSpacingI;
+  PIX pixTextSizeI = pdp->GetTextWidth(strText);
+  PIX pixI = pixBoxI + pixNameSizeI + pixSpacingI;
 
   if (mg_pvsVar->vs_iCenterI == 0)
   {
-      pixI = ((pixBoxSizeI - pixSliderBoxSizeI - pixTextSizeI - pixSpacingI) / 2);
+      pixI = (pixBoxSizeI - pixNameSizeI - pixSliderBoxSizeI - pixTextSizeI - pixSpacingI * 2) / 2 + pixNameSizeI + pixSpacingI;
   }
   else if (mg_pvsVar->vs_iCenterI == 1)
   {
-      pixI = pixBoxIR - pixTextSizeI - pixSpacingI - pixSliderBoxSizeI;
+      pixI = pixBoxIR - pixSliderBoxSizeI - pixTextSizeI - pixSpacingI;
   }
 
-  PIXaabbox2D boxSlider = PIXaabbox2D(PIX2D(pixI, pixBoxJ + 1), PIX2D(pixI + pixSliderBoxSizeI, pixBoxJ + pixBoxSizeJ - 6));
+  PIXaabbox2D boxSlider = PIXaabbox2D(PIX2D(pixI, pixBoxJ), PIX2D(pixI + pixSliderBoxSizeI, pixBoxJ + pixSliderBoxSizeJ));
 
   return boxSlider;
 }
@@ -1083,7 +1075,8 @@ void CMGVarButton::Render( CDrawPort *pdp)
   PIX pixBoxIR = box.Min()(1) + pixBoxSizeI;
   PIX pixBoxJ = box.Min()(2);
   PIX pixBoxSizeJ = box.Size()(2);
-  PIX pixSliderBoxSizeI = pixBoxSizeI * 0.13f - 4;
+  PIX pixSliderBoxSizeI = pixBoxSizeI * 0.13f;
+  PIX pixSliderBoxSizeJ = pixBoxSizeJ - 4;
   PIX pixSpacingI = pixBoxSizeI * 0.04f;
 
   PIX pixNameSizeI = pdp->GetTextWidth(mg_pvsVar->vs_strName);
@@ -1101,7 +1094,7 @@ void CMGVarButton::Render( CDrawPort *pdp)
   {
     if (mg_pvsVar->vs_iCenterI == 0)
     {
-      pixI = ((pixBoxSizeI - pixTextSizeI) / 2);
+      pixI = (pixBoxSizeI - pixTextSizeI) / 2;
     }
     else if (mg_pvsVar->vs_iCenterI == 1)
     {
@@ -1112,7 +1105,7 @@ void CMGVarButton::Render( CDrawPort *pdp)
   {
     if (mg_pvsVar->vs_iCenterI == 0)
     {
-      pixI = ((pixBoxSizeI - pixNameSizeI - pixTextSizeI - pixSpacingI) / 2);
+      pixI = (pixBoxSizeI - pixNameSizeI - pixTextSizeI - pixSpacingI) / 2;
     }
     else if (mg_pvsVar->vs_iCenterI == 1)
     {
@@ -1123,7 +1116,7 @@ void CMGVarButton::Render( CDrawPort *pdp)
   {
     if (mg_pvsVar->vs_iCenterI == 0)
     {
-      pixI = ((pixBoxSizeI - pixNameSizeI - pixSliderBoxSizeI - pixTextSizeI - pixSpacingI * 2) / 2);
+      pixI = (pixBoxSizeI - pixNameSizeI - pixSliderBoxSizeI - pixTextSizeI - pixSpacingI * 2) / 2;
     }
     else if (mg_pvsVar->vs_iCenterI == 1)
     {
@@ -1140,7 +1133,6 @@ void CMGVarButton::Render( CDrawPort *pdp)
   }
   else if (mg_pvsVar->Validate())
   {
-    // check whether the variable is disabled
     if (mg_pvsVar->vs_strFilter!="") mg_bEnabled = _pShell->GetINDEX(mg_pvsVar->vs_strFilter);
 
     COLOR col = GetCurrentColor();
@@ -1155,7 +1147,7 @@ void CMGVarButton::Render( CDrawPort *pdp)
       if (mg_pvsVar->vs_iSlider > 0)
       {
         // draw box around slider
-        PIXaabbox2D boxSlider = PIXaabbox2D(PIX2D(pixI, pixBoxJ + 1), PIX2D(pixI + pixSliderBoxSizeI, pixBoxJ + pixBoxSizeJ - 6));
+        PIXaabbox2D boxSlider = PIXaabbox2D(PIX2D(pixI, pixBoxJ), PIX2D(pixI + pixSliderBoxSizeI, pixBoxJ + pixSliderBoxSizeJ));
 
         _pGame->LCDDrawBox(0, -1, boxSlider, _pGame->LCDGetColor(C_GREEN | 255, "slider box"));
 
@@ -1165,14 +1157,14 @@ void CMGVarButton::Render( CDrawPort *pdp)
           // fill slider
           FLOAT fFactor = (FLOAT)(mg_pvsVar->vs_iValue + 1) / mg_pvsVar->vs_ctValues;
 
-          pdp->Fill(pixI + 1, pixBoxJ + 2, (pixSliderBoxSizeI - 2) * fFactor, pixBoxSizeJ - 9, col);
+          pdp->Fill(pixI + 1, pixBoxJ + 1, (pixSliderBoxSizeI - 2) * fFactor, pixSliderBoxSizeJ - 2, col);
         } else {
           // ratio slider
           ASSERT(mg_pvsVar->vs_iSlider == 2);
 
           FLOAT fUnitWidth = (FLOAT)(pixSliderBoxSizeI - 1) / mg_pvsVar->vs_ctValues;
 
-          pdp->Fill(pixI + 1 + (mg_pvsVar->vs_iValue * fUnitWidth), pixBoxJ + 2, fUnitWidth, pixBoxSizeJ - 9, col);
+          pdp->Fill(pixI + 1 + (mg_pvsVar->vs_iValue * fUnitWidth), pixBoxJ + 1, fUnitWidth, pixSliderBoxSizeJ - 2, col);
         }
 
         pixI += pixSliderBoxSizeI + pixSpacingI;
