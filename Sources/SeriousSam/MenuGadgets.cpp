@@ -2076,49 +2076,36 @@ void CMGKeyDefinition::Think( void)
   }
 }
 
-void CMGKeyDefinition::Render( CDrawPort *pdp)
+void CMGKeyDefinition::Render(CDrawPort *pdp)
 {
   SetFontMedium(pdp);
 
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
-  PIX pixLabelW = pdp->GetTextWidth(mg_strLabel);
-  PIX pixJ = box.Min()(2);
+  PIX pixBoxI = box.Min()(1);
+  PIX pixBoxSizeI = box.Size()(1);
+  PIX pixBoxIR = box.Min()(1) + pixBoxSizeI;
+  PIX pixBoxJ = box.Min()(2);
+  PIX pixSpacingI = pixBoxSizeI * 0.04f;
   COLOR col = GetCurrentColor();
-  PIX pixIL;
-  PIX pixIR;
-  
-  if (mg_iCenterI == -1 || mg_iCenterI == 1)
+
+  PIX pixLabelSizeI = pdp->GetTextWidth(mg_strLabel);
+  PIX pixBindingSizeI = pdp->GetTextWidth(mg_strBinding);
+  PIX pixI = pixBoxI;
+
+  if (mg_iCenterI == 0)
   {
-    pixIL = box.Min()(1);
-    pixIR = box.Min()(1) + box.Size()(1);
+    pixI = (pixBoxSizeI - pixLabelSizeI - pixBindingSizeI - pixSpacingI) / 2;
   }
-  else
+  else if (mg_iCenterI == 1)
   {
-    pixIL = box.Min()(1) + (box.Size()(1) * 0.45f);
-    pixIR = box.Min()(1) + (box.Size()(1) * 0.55f);
+    pixI = pixBoxIR - pixLabelSizeI - pixBindingSizeI - pixSpacingI;
   }
 
-  if (mg_iCenterI == -1)
-  {
-    pdp->PutText(mg_strLabel, pixIL, pixJ, col);
+  pdp->PutText(mg_strLabel, pixI, pixBoxJ, col);
 
-    pixIL += pixLabelW + (box.Size()(1) * 0.04f);
+  pixI += pixLabelSizeI + pixSpacingI;
 
-    pdp->PutText(mg_strBinding, pixIL, pixJ, col);
-  }
-  else if (mg_iCenterI == 1) 
-  {
-    pdp->PutTextR(mg_strLabel, pixIR, pixJ, col);
-
-    pixIR -= pixLabelW + (box.Size()(1) * 0.04f);
-
-    pdp->PutTextR(mg_strBinding, pixIR, pixJ, col);
-  }
-  else
-  {
-    pdp->PutTextR(mg_strLabel, pixIL, pixJ, col);
-    pdp->PutText(mg_strBinding, pixIR, pixJ, col);
-  }
+  pdp->PutText(mg_strBinding, pixI, pixBoxJ, col);
 }
 
 void CMGLabel::Render(CDrawPort* pdp)
