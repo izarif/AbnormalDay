@@ -890,6 +890,7 @@ PIXaabbox2D CMGSlider::GetSliderBox(void)
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
   PIX pixBoxI = box.Min()(1);
   PIX pixBoxSizeI = box.Size()(1);
+  PIX pixBoxIR = box.Min()(1) + pixBoxSizeI;
   PIX pixBoxJ = box.Min()(2);
   PIX pixBoxSizeJ = box.Size()(2);
   PIX pixSliderBoxSizeI = pixBoxSizeI * 0.45f;
@@ -898,6 +899,16 @@ PIXaabbox2D CMGSlider::GetSliderBox(void)
 
   PIX pixTextSizeI = pdp->GetTextWidth(mg_strText);
   PIX pixI = pixBoxI + pixTextSizeI + pixSpacingI;
+
+  if (mg_iCenterI == 0)
+  {
+    pixI = (pixBoxSizeI - pixTextSizeI - pixSliderBoxSizeI - pixSpacingI) / 2 + pixTextSizeI + pixSpacingI;
+  }
+  else if (mg_iCenterI == 1)
+  {
+    pixI = pixBoxIR - pixSliderBoxSizeI;
+  }
+
   PIXaabbox2D boxSlider = PIXaabbox2D(PIX2D(pixI, pixBoxJ), PIX2D(pixI + pixSliderBoxSizeI, pixBoxJ + pixSliderBoxSizeJ));
 
   return boxSlider;
@@ -910,6 +921,7 @@ void CMGSlider::Render(CDrawPort *pdp)
   PIXaabbox2D box = FloatBoxToPixBox(pdp, mg_boxOnScreen);
   PIX pixBoxI = box.Min()(1);
   PIX pixBoxSizeI = box.Size()(1);
+  PIX pixBoxIR = box.Min()(1) + pixBoxSizeI;
   PIX pixBoxJ = box.Min()(2);
   PIX pixBoxSizeJ = box.Size()(2);
   PIX pixSliderBoxSizeI = pixBoxSizeI * 0.45f;
@@ -920,6 +932,15 @@ void CMGSlider::Render(CDrawPort *pdp)
 
   PIX pixTextSizeI = pdp->GetTextWidth(mg_strText);
   PIX pixI = pixBoxI;
+
+  if (mg_iCenterI == 0)
+  {
+    pixI = (pixBoxSizeI - pixTextSizeI - pixSliderBoxSizeI - pixSpacingI) / 2;
+  }
+  else if (mg_iCenterI == 1)
+  {
+    pixI = pixBoxIR - pixTextSizeI - pixSliderBoxSizeI - pixSpacingI;
+  }
 
   // print text left of slider
   pdp->PutText(mg_strText, pixI, pixBoxJ, col);
