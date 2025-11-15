@@ -3873,8 +3873,8 @@ BOOL DoMenu( CDrawPort *pdp)
     // do not allow game to show through
     dpMenu.Fill(C_BLACK|255);
 
-    FLOAT fScaleW = (FLOAT)pixW / 640.0f;
-    FLOAT fScaleH = (FLOAT)pixH / 480.0f;
+    FLOAT fScaleW = pixW / 640.0f;
+    FLOAT fScaleH = pixH / 480.0f;
     PIX   pixI0, pixJ0, pixI1, pixJ1;
 
     if (pgmCurrentMenu == &gmMainMenu)
@@ -3925,7 +3925,6 @@ BOOL DoMenu( CDrawPort *pdp)
       } 
       
       {
-        FLOAT fResize = Min(dpMenu.GetWidth()/640.0f, dpMenu.GetHeight()/480.0f);
         PIX pixLogoI = 6 * fScaleW;
         PIX pixLogoJ = 180 * fScaleH;
         PIX pixLogoSizeI = 256 * fScaleW;
