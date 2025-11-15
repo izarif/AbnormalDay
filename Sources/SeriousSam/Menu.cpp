@@ -3925,7 +3925,6 @@ BOOL DoMenu( CDrawPort *pdp)
       } 
       
       {
-        FLOAT fResize = Min(dpMenu.GetWidth()/640.0f, dpMenu.GetHeight()/480.0f);
         PIX pixLogoI = 6 * fScaleW;
         PIX pixLogoJ = 180 * fScaleH;
         PIX pixLogoSizeI = 256 * fScaleW;
