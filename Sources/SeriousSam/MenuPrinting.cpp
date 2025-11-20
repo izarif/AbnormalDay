@@ -243,28 +243,36 @@ FLOATaabbox2D PixBoxToFloatBox(const CDrawPort *pdp, const PIXaabbox2D &boxP)
 extern CFontData _fdTitle;
 void SetFontTitle(CDrawPort *pdp)
 {
+  FLOAT fScaleH = pdp->GetHeight() / 480.0f;
+
   pdp->SetFont( &_fdTitle);
-  pdp->SetTextScaling(1.25f * pdp->GetHeight() / 480.0f);
+  pdp->SetTextScaling(1.24f * fScaleH);
   pdp->SetTextAspect(1.0f);
 }
 extern CFontData _fdBig;
 void SetFontBig(CDrawPort *pdp)
 {
+  FLOAT fScaleH = pdp->GetHeight() / 480.0f;
+
   pdp->SetFont( &_fdBig);
-  pdp->SetTextScaling(1.0f * pdp->GetHeight() / 480.0f);
+  pdp->SetTextScaling(1.0f * fScaleH);
   pdp->SetTextAspect(1.0f);
 }
 extern CFontData _fdMedium;
 void SetFontMedium(CDrawPort *pdp)
 {
+  FLOAT fScaleH = pdp->GetHeight() / 480.0f;
+
   pdp->SetFont( &_fdMedium);
-  pdp->SetTextScaling(1.0f * pdp->GetHeight() / 480.0f);
-  pdp->SetTextAspect(0.75f);
+  pdp->SetTextScaling(0.78f * fScaleH);
+  pdp->SetTextAspect(1.0f);
 }
 void SetFontSmall(CDrawPort *pdp)
 {
+  FLOAT fScaleH = pdp->GetHeight() / 480.0f;
+
   pdp->SetFont( _pfdConsoleFont);
-  pdp->SetTextScaling(1.0f * pdp->GetHeight() / 480.0f);
+  pdp->SetTextScaling(1.0f * fScaleH);
   pdp->SetTextAspect(1.0f);
 }
 
