@@ -697,7 +697,7 @@ FLOAT afTextureQualityValues[] =
   33.0f,
 };
 
-CMGTrigger mgRenderingOptionsDetailTextures;
+CMGTrigger mgRenderingOptionsBumpMaps;
 CMGTrigger mgRenderingOptionsShadowMapsSize;
 
 CTString astrShadowMapSizeTexts[] =
@@ -727,7 +727,7 @@ CTString astrLensFlareQualityTexts[] =
 };
 
 CMGSlider mgRenderingOptionsGamma;
-CMGTrigger mgRenderingOptionsVerticalRetrace;
+CMGTrigger mgRenderingOptionsVSync;
 CMGButton mgRenderingOptionsAdvanced;
 CMGButton mgRenderingOptionsApply;
 CMGButton mgRenderingOptionsBack;
@@ -1059,7 +1059,7 @@ CTString astrModelQualityValues[] =
   RADIOTRANS("Normal"),
 };
 
-CMGVarButton mgAdvRenderingOptionsModelDetailTextures;
+CMGVarButton mgAdvRenderingOptionsModelBumpMaps;
 CMGVarButton mgAdvRenderingOptionsModelSpecularMaps;
 CMGVarButton mgAdvRenderingOptionsModelReflectionMaps;
 CMGVarButton mgAdvRenderingOptionsMultiTexturingMode;
@@ -1168,6 +1168,20 @@ CTString astrDitheringStrengthValues[] =
   "2",
 };
 
+CMGVarButton mgAdvRenderingOptionsTruform;
+
+CTString astrTruformTexts[] =
+{
+  RADIOTRANS("Truform-ready models"),
+  RADIOTRANS("All models"),
+};
+
+CTString astrTruformValues[] =
+{
+  "0",
+  "1",
+};
+
 CMGVarButton mgAdvRenderingOptionsTruformLevel;
 
 CTString astrTruformLevelTexts[] =
@@ -1186,20 +1200,6 @@ CTString astrTruformLevels[] =
   "2",
   "3",
   "4",
-};
-
-CMGVarButton mgAdvRenderingOptionsTruform;
-
-CTString astrTruformTexts[] =
-{
-  RADIOTRANS("For truform-ready models"),
-  RADIOTRANS("For all models"),
-};
-
-CTString astrTruformValues[] =
-{
-  "0",
-  "1",
 };
 
 CMGVarButton mgAdvRenderingOptionsTexturesCompressionType;
@@ -1233,7 +1233,7 @@ CTString astrCVATexts[] =
   RADIOTRANS("Models and world"),
   RADIOTRANS("Models and particles"),
   RADIOTRANS("World and particles"),
-  RADIOTRANS("For everything"),
+  RADIOTRANS("Everything"),
 };
 
 CTString astrCVAValues[] =
@@ -4572,7 +4572,7 @@ void CMainMenu::Initialize_t(void)
   mgMainLoadGame.mg_strText = TRANS("LOAD GAME");
   mgMainLoadGame.mg_bfsFontSize = BFS_LARGE;
   mgMainLoadGame.mg_boxOnScreen = BoxBigLeft(6.51f);
-  mgMainLoadGame.mg_strTip = TRANS("Load a saved game");
+  mgMainLoadGame.mg_strTip = TRANS("Load saved game");
   gm_lhGadgets.AddTail(mgMainLoadGame.mg_lnNode);
   mgMainLoadGame.mg_pmgUp = &mgMainNewGame;
   mgMainLoadGame.mg_pmgDown = &mgMainOptions;
@@ -4592,7 +4592,7 @@ void CMainMenu::Initialize_t(void)
   mgMainCredits.mg_strText = TRANS("CREDITS");
   mgMainCredits.mg_bfsFontSize = BFS_LARGE;
   mgMainCredits.mg_boxOnScreen = BoxBigLeft(8.51f);
-  mgMainCredits.mg_strTip = TRANS("Show the list of authors");
+  mgMainCredits.mg_strTip = TRANS("Show list of authors");
   gm_lhGadgets.AddTail(mgMainCredits.mg_lnNode);
   mgMainCredits.mg_pmgUp = &mgMainOptions;
   mgMainCredits.mg_pmgDown = &mgMainQuitGame;
@@ -4632,7 +4632,7 @@ void CInGameMenu::Initialize_t(void)
   mgInGameLoadGame.mg_strText = TRANS("LOAD GAME");
   mgInGameLoadGame.mg_bfsFontSize = BFS_LARGE;
   mgInGameLoadGame.mg_boxOnScreen = BoxBigLeft(6.51f);
-  mgInGameLoadGame.mg_strTip = TRANS("Load a saved game");
+  mgInGameLoadGame.mg_strTip = TRANS("Load saved game");
   gm_lhGadgets.AddTail(mgInGameLoadGame.mg_lnNode);
   mgInGameLoadGame.mg_pmgUp = &mgInGameResumeGame;
   mgInGameLoadGame.mg_pmgDown = &mgInGameSaveGame;
@@ -5288,7 +5288,7 @@ void CControlsMenu::Initialize_t(void)
   gm_lhGadgets.AddTail(mgControlsTitle.mg_lnNode);
   mgControlsTitle.mg_iCenterI = -1;
 
-  mgControlsButtons.mg_strText = TRANS("CUSTOMIZE KEYS");
+  mgControlsButtons.mg_strText = TRANS("CHANGE KEYS");
   mgControlsButtons.mg_boxOnScreen = BoxMediumLeft(7.71f);
   mgControlsButtons.mg_bfsFontSize = BFS_MEDIUM;
   mgControlsButtons.mg_iCenterI = -1;
@@ -5296,7 +5296,7 @@ void CControlsMenu::Initialize_t(void)
   mgControlsButtons.mg_pmgUp = &mgControlsBack;
   mgControlsButtons.mg_pmgDown = &mgControlsAdvanced;
   mgControlsButtons.mg_pActivatedFunction = &StartCustomizeKeyboardMenu;
-  mgControlsButtons.mg_strTip = TRANS("Customize key bindings");
+  mgControlsButtons.mg_strTip = TRANS("Change key bindings");
 
   mgControlsAdvanced.mg_strText = TRANS("ADVANCED GAMEPAD SETUP");
   mgControlsAdvanced.mg_iCenterI = -1;
@@ -5306,13 +5306,13 @@ void CControlsMenu::Initialize_t(void)
   mgControlsAdvanced.mg_pmgUp = &mgControlsButtons;
   mgControlsAdvanced.mg_pmgDown = &mgControlsSensitivity;
   mgControlsAdvanced.mg_pActivatedFunction = &StartCustomizeAxisMenu;
-  mgControlsAdvanced.mg_strTip = TRANS("Change advanced settings for gamepad axis");
+  mgControlsAdvanced.mg_strTip = TRANS("Change gamepad advanced settings");
 
   mgControlsSensitivity.mg_boxOnScreen = BoxMediumLeft(9.71f);
   mgControlsSensitivity.mg_strText = TRANS("SENSITIVITY");
   mgControlsSensitivity.mg_pmgUp = &mgControlsAdvanced;
   mgControlsSensitivity.mg_pmgDown = &mgControlsInvertTrigger;
-  mgControlsSensitivity.mg_strTip = TRANS("Sensitivity for all axis");
+  mgControlsSensitivity.mg_strTip = TRANS("Change sensitivity for all axis");
   gm_lhGadgets.AddTail( mgControlsSensitivity.mg_lnNode);
   mgControlsSensitivity.mg_iCenterI = -1;
 
@@ -5756,7 +5756,7 @@ void CCustomizeKeyboardMenu::FillListItems(void)
 void CCustomizeKeyboardMenu::Initialize_t(void)
 {
   // intialize Audio options menu
-  mgCustomizeKeyboardTitle.mg_strText = TRANS("# CUSTOMIZE KEYS");
+  mgCustomizeKeyboardTitle.mg_strText = TRANS("# CHANGE KEYS");
   mgCustomizeKeyboardTitle.mg_boxOnScreen = BoxTitle(0.82f);
   gm_lhGadgets.AddTail(mgCustomizeKeyboardTitle.mg_lnNode);
   mgCustomizeKeyboardTitle.mg_iCenterI = -1;
@@ -5841,7 +5841,7 @@ void PostChangeAxis(INDEX iDummy)
 void CCustomizeAxisMenu::Initialize_t(void)
 {
   // intialize axis menu
-  mgCustomizeAxisTitle.mg_strText = TRANS("# CUSTOMIZE AXIS");
+  mgCustomizeAxisTitle.mg_strText = TRANS("# CHANGE AXIS");
   mgCustomizeAxisTitle.mg_boxOnScreen = BoxTitle(3.26f);
   gm_lhGadgets.AddTail(mgCustomizeAxisTitle.mg_lnNode);
   mgCustomizeAxisTitle.mg_iCenterI = -1;
@@ -5855,7 +5855,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
   mgAxisActionTrigger.mg_iSelected = 0; 
   mgAxisActionTrigger.mg_strLabel = TRANS("ACTION");
   mgAxisActionTrigger.mg_strValue = astrNoYes[0];
-  mgAxisActionTrigger.mg_strTip = TRANS("Select action to customize");
+  mgAxisActionTrigger.mg_strTip = TRANS("Select action to change");
   mgAxisActionTrigger.mg_iCenterI = -1;
 
   mgAxisMountedTrigger.mg_pmgUp = &mgAxisActionTrigger;
@@ -5917,7 +5917,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
   mgAxisInvertTrigger.mg_iSelected = 0;
   mgAxisInvertTrigger.mg_strLabel = TRANS("INVERTED");
   mgAxisInvertTrigger.mg_strValue = astrNoYes[0];
-  mgAxisInvertTrigger.mg_strTip = TRANS("Enable to invert this axis");
+  mgAxisInvertTrigger.mg_strTip = TRANS("Invert this axis");
   mgAxisInvertTrigger.mg_iCenterI = -1;
 
   mgAxisRelativeTrigger.mg_pmgUp = &mgAxisInvertTrigger;
@@ -5929,7 +5929,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
   mgAxisRelativeTrigger.mg_iSelected = 0;
   mgAxisRelativeTrigger.mg_strLabel = TRANS("RELATIVE");
   mgAxisRelativeTrigger.mg_strValue = astrNoYes[0];
-  mgAxisRelativeTrigger.mg_strTip = TRANS("Select relative or absolute axis reading");
+  mgAxisRelativeTrigger.mg_strTip = TRANS("Relative axis reading");
   mgAxisRelativeTrigger.mg_iCenterI = -1;
 
   mgAxisSmoothTrigger.mg_pmgUp = &mgAxisRelativeTrigger;
@@ -5941,7 +5941,7 @@ void CCustomizeAxisMenu::Initialize_t(void)
   mgAxisSmoothTrigger.mg_iSelected = 0;
   mgAxisSmoothTrigger.mg_strLabel = TRANS("SMOOTH");
   mgAxisSmoothTrigger.mg_strValue = astrNoYes[0];
-  mgAxisSmoothTrigger.mg_strTip = TRANS("Enable to filter readings on this axis");
+  mgAxisSmoothTrigger.mg_strTip = TRANS("Filter readings on this axis");
   mgAxisSmoothTrigger.mg_iCenterI = -1;
 
   mgAxisBack.mg_bfsFontSize = BFS_LARGE;
@@ -6350,9 +6350,9 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgDisplayAPITrigger.mg_astrTexts = astrDisplayAPIRadioTexts;
   mgDisplayAPITrigger.mg_ctTexts = ARRAYCOUNT(astrDisplayAPIRadioTexts);
   mgDisplayAPITrigger.mg_iSelected = 0;
-  mgDisplayAPITrigger.mg_strLabel = TRANS("GRAPHIC SYSTEM");
+  mgDisplayAPITrigger.mg_strLabel = TRANS("GRAPHICS SYSTEM");
   mgDisplayAPITrigger.mg_strValue = astrDisplayAPIRadioTexts[0];
-  mgDisplayAPITrigger.mg_strTip = TRANS("Select graphic system to use");
+  mgDisplayAPITrigger.mg_strTip = TRANS("Select graphics system to use");
   mgDisplayAPITrigger.mg_iCenterI = -1;
 
   mgDisplayAdaptersTrigger.mg_pmgUp = &mgDisplayAPITrigger;
@@ -6412,10 +6412,11 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgFullScreenTrigger.mg_iSelected = 0;
   mgFullScreenTrigger.mg_strLabel = TRANS("FULL SCREEN");
   mgFullScreenTrigger.mg_strValue = astrNoYes[0];
-  mgFullScreenTrigger.mg_strTip = TRANS("Run game in a window or in full screen");
+  mgFullScreenTrigger.mg_strTip = TRANS("Run game in full screen");
   mgFullScreenTrigger.mg_iCenterI = -1;
 
-  mgBorderLessTrigger.mg_pmgUp = &mgFullScreenTrigger; mgBorderLessTrigger.mg_pmgDown = &mgBitsPerPixelTrigger;
+  mgBorderLessTrigger.mg_pmgUp = &mgFullScreenTrigger;
+  mgBorderLessTrigger.mg_pmgDown = &mgBitsPerPixelTrigger;
   mgBorderLessTrigger.mg_boxOnScreen = BoxMediumLeft(11.11f);
   gm_lhGadgets.AddTail(mgBorderLessTrigger.mg_lnNode);
   mgBorderLessTrigger.mg_astrTexts = astrNoYes;
@@ -6435,7 +6436,7 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgBitsPerPixelTrigger.mg_iSelected = 0;
   mgBitsPerPixelTrigger.mg_strLabel = TRANS("BITS PER PIXEL");
   mgBitsPerPixelTrigger.mg_strValue = astrBitsPerPixelRadioTexts[0];
-  mgBitsPerPixelTrigger.mg_strTip = TRANS("Select number of colors to use for display");
+  mgBitsPerPixelTrigger.mg_strTip = TRANS("Select colors number to use for display");
   mgBitsPerPixelTrigger.mg_iCenterI = -1;
 
   mgDisplayPrefsTrigger.mg_pOnTriggerChange = &UpdateVideoOptionsButtons;
@@ -6555,7 +6556,7 @@ void CAudioOptionsMenu::Initialize_t(void)
   mgFrequencyTrigger.mg_iSelected = 0;
   mgFrequencyTrigger.mg_strLabel = TRANS("FREQUENCY");
   mgFrequencyTrigger.mg_strValue = astrFrequencyRadioTexts[0];
-  mgFrequencyTrigger.mg_strTip = TRANS("Select sound quality or turn sound off");
+  mgFrequencyTrigger.mg_strTip = TRANS("Select sound quality");
   mgFrequencyTrigger.mg_pOnTriggerChange = FrequencyTriggerChange;
   mgFrequencyTrigger.mg_iCenterI = -1;
 
@@ -7763,7 +7764,7 @@ void GetRenderingSettings(void)
 
   INDEX iTextureLayers = _pShell->GetINDEX("wld_bTextureLayers");
 
-  mgRenderingOptionsDetailTextures.mg_iSelected = iTextureLayers - 110;
+  mgRenderingOptionsBumpMaps.mg_iSelected = iTextureLayers - 110;
   mgRenderingOptionsTextureQuality.ApplyCurrentSelection();
 
   INDEX iStaticSize = _pShell->GetINDEX("shd_iStaticSize");
@@ -7779,19 +7780,19 @@ void GetRenderingSettings(void)
   mgRenderingOptionsGamma.mg_iCurPos = fGamma * 10.0f;
   mgRenderingOptionsGamma.ApplyCurrentPosition();
 
-  mgRenderingOptionsVerticalRetrace.mg_iSelected = _pShell->GetINDEX("gap_iSwapInterval");
-  mgRenderingOptionsVerticalRetrace.ApplyCurrentSelection();
+  mgRenderingOptionsVSync.mg_iSelected = _pShell->GetINDEX("gap_iSwapInterval");
+  mgRenderingOptionsVSync.ApplyCurrentSelection();
 }
 
 void ApplyRenderingSettings(void)
 {
   _pShell->SetINDEX("tex_iNormalSize", afTextureSizes[mgRenderingOptionsTexturesSize.mg_iSelected]);
   _pShell->SetINDEX("tex_iNormalQuality", afTextureQualityValues[mgRenderingOptionsTextureQuality.mg_iSelected]);
-  _pShell->SetINDEX("wld_bTextureLayers", 110 + mgRenderingOptionsDetailTextures.mg_iSelected);
+  _pShell->SetINDEX("wld_bTextureLayers", 110 + mgRenderingOptionsBumpMaps.mg_iSelected);
   _pShell->SetINDEX("shd_iStaticSize", afShadowMapSizes[mgRenderingOptionsShadowMapsSize.mg_iSelected]);
   _pShell->SetINDEX("gfx_iLensFlareQuality", mgRenderingOptionsLensFlaresQuality.mg_iSelected);
   _pShell->SetFLOAT("gfx_fGamma", mgRenderingOptionsGamma.mg_iCurPos / 10.0f);
-  _pShell->SetINDEX("gap_iSwapInterval", mgRenderingOptionsVerticalRetrace.mg_iSelected);
+  _pShell->SetINDEX("gap_iSwapInterval", mgRenderingOptionsVSync.mg_iSelected);
 
   sam_iVideoSetup = 3;
 
@@ -7820,7 +7821,7 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsTexturesSize.mg_iCenterI = -1;
 
   mgRenderingOptionsTextureQuality.mg_pmgUp = &mgRenderingOptionsTexturesSize;
-  mgRenderingOptionsTextureQuality.mg_pmgDown = &mgRenderingOptionsDetailTextures;
+  mgRenderingOptionsTextureQuality.mg_pmgDown = &mgRenderingOptionsBumpMaps;
   mgRenderingOptionsTextureQuality.mg_boxOnScreen = BoxMediumLeft(7.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsTextureQuality.mg_lnNode);
   mgRenderingOptionsTextureQuality.mg_astrTexts = astrTextureQualityTexts;
@@ -7831,19 +7832,19 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsTextureQuality.mg_strTip = TRANS("Select texture quality");
   mgRenderingOptionsTextureQuality.mg_iCenterI = -1;
 
-  mgRenderingOptionsDetailTextures.mg_pmgUp = &mgRenderingOptionsTextureQuality;
-  mgRenderingOptionsDetailTextures.mg_pmgDown = &mgRenderingOptionsShadowMapsSize;
-  mgRenderingOptionsDetailTextures.mg_boxOnScreen = BoxMediumLeft(8.11f);
-  gm_lhGadgets.AddTail(mgRenderingOptionsDetailTextures.mg_lnNode);
-  mgRenderingOptionsDetailTextures.mg_astrTexts = astrNoYes;
-  mgRenderingOptionsDetailTextures.mg_ctTexts = ARRAYCOUNT(astrNoYes);
-  mgRenderingOptionsDetailTextures.mg_iSelected = 0;
-  mgRenderingOptionsDetailTextures.mg_strLabel = TRANS("DETAIL TEXTURES");
-  mgRenderingOptionsDetailTextures.mg_strValue = astrNoYes[0];
-  mgRenderingOptionsDetailTextures.mg_strTip = TRANS("Enable detail textures");
-  mgRenderingOptionsDetailTextures.mg_iCenterI = -1;
+  mgRenderingOptionsBumpMaps.mg_pmgUp = &mgRenderingOptionsTextureQuality;
+  mgRenderingOptionsBumpMaps.mg_pmgDown = &mgRenderingOptionsShadowMapsSize;
+  mgRenderingOptionsBumpMaps.mg_boxOnScreen = BoxMediumLeft(8.11f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsBumpMaps.mg_lnNode);
+  mgRenderingOptionsBumpMaps.mg_astrTexts = astrNoYes;
+  mgRenderingOptionsBumpMaps.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgRenderingOptionsBumpMaps.mg_iSelected = 0;
+  mgRenderingOptionsBumpMaps.mg_strLabel = TRANS("BUMP MAPS");
+  mgRenderingOptionsBumpMaps.mg_strValue = astrNoYes[0];
+  mgRenderingOptionsBumpMaps.mg_strTip = TRANS("Enable bump maps");
+  mgRenderingOptionsBumpMaps.mg_iCenterI = -1;
 
-  mgRenderingOptionsShadowMapsSize.mg_pmgUp = &mgRenderingOptionsDetailTextures;
+  mgRenderingOptionsShadowMapsSize.mg_pmgUp = &mgRenderingOptionsBumpMaps;
   mgRenderingOptionsShadowMapsSize.mg_pmgDown = &mgRenderingOptionsLensFlaresQuality;
   mgRenderingOptionsShadowMapsSize.mg_boxOnScreen = BoxMediumLeft(9.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsShadowMapsSize.mg_lnNode);
@@ -7868,29 +7869,29 @@ void CRenderingOptionsMenu::Initialize_t(void)
   mgRenderingOptionsLensFlaresQuality.mg_iCenterI = -1;
 
   mgRenderingOptionsGamma.mg_pmgUp = &mgRenderingOptionsLensFlaresQuality;
-  mgRenderingOptionsGamma.mg_pmgDown = &mgRenderingOptionsVerticalRetrace;
+  mgRenderingOptionsGamma.mg_pmgDown = &mgRenderingOptionsVSync;
   mgRenderingOptionsGamma.mg_boxOnScreen = BoxMediumLeft(11.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsGamma.mg_lnNode);
   mgRenderingOptionsGamma.mg_iMinPos = 0;
   mgRenderingOptionsGamma.mg_iMaxPos = 15;
   mgRenderingOptionsGamma.mg_iCurPos = 0;
   mgRenderingOptionsGamma.mg_strText = TRANS("GAMMA");
-  mgRenderingOptionsGamma.mg_strTip = TRANS("Set game gamma");
+  mgRenderingOptionsGamma.mg_strTip = TRANS("Change game gamma");
   mgRenderingOptionsGamma.mg_iCenterI = -1;
 
-  mgRenderingOptionsVerticalRetrace.mg_pmgUp = &mgRenderingOptionsGamma;
-  mgRenderingOptionsVerticalRetrace.mg_pmgDown = &mgRenderingOptionsAdvanced;
-  mgRenderingOptionsVerticalRetrace.mg_boxOnScreen = BoxMediumLeft(12.11f);
-  gm_lhGadgets.AddTail(mgRenderingOptionsVerticalRetrace.mg_lnNode);
-  mgRenderingOptionsVerticalRetrace.mg_astrTexts = astrNoYes;
-  mgRenderingOptionsVerticalRetrace.mg_ctTexts = ARRAYCOUNT(astrNoYes);
-  mgRenderingOptionsVerticalRetrace.mg_iSelected = 0;
-  mgRenderingOptionsVerticalRetrace.mg_strLabel = TRANS("VERTICAL RETRACE");
-  mgRenderingOptionsVerticalRetrace.mg_strValue = astrNoYes[0];
-  mgRenderingOptionsVerticalRetrace.mg_strTip = TRANS("Synchronize frame rate with monitor refresh rate");
-  mgRenderingOptionsVerticalRetrace.mg_iCenterI = -1;
+  mgRenderingOptionsVSync.mg_pmgUp = &mgRenderingOptionsGamma;
+  mgRenderingOptionsVSync.mg_pmgDown = &mgRenderingOptionsAdvanced;
+  mgRenderingOptionsVSync.mg_boxOnScreen = BoxMediumLeft(12.11f);
+  gm_lhGadgets.AddTail(mgRenderingOptionsVSync.mg_lnNode);
+  mgRenderingOptionsVSync.mg_astrTexts = astrNoYes;
+  mgRenderingOptionsVSync.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgRenderingOptionsVSync.mg_iSelected = 0;
+  mgRenderingOptionsVSync.mg_strLabel = TRANS("VERTICAL SYNCHRONIZATION");
+  mgRenderingOptionsVSync.mg_strValue = astrNoYes[0];
+  mgRenderingOptionsVSync.mg_strTip = TRANS("Synchronize frame rate with monitor refresh rate");
+  mgRenderingOptionsVSync.mg_iCenterI = -1;
 
-  mgRenderingOptionsAdvanced.mg_pmgUp = &mgRenderingOptionsVerticalRetrace;
+  mgRenderingOptionsAdvanced.mg_pmgUp = &mgRenderingOptionsVSync;
   mgRenderingOptionsAdvanced.mg_pmgDown = &mgRenderingOptionsApply;
   mgRenderingOptionsAdvanced.mg_boxOnScreen = BoxMediumLeft(13.11f);
   gm_lhGadgets.AddTail(mgRenderingOptionsAdvanced.mg_lnNode);
@@ -7926,7 +7927,7 @@ void CRenderingOptionsMenu::StartMenu(void)
 
   mgRenderingOptionsTextureQuality.mg_bEnabled = _pShell->GetINDEX("sys_bHas32bitTextures");
   mgRenderingOptionsGamma.mg_bEnabled = _pShell->GetINDEX("sys_bHasAdjustableGamma");
-  mgRenderingOptionsVerticalRetrace.mg_bEnabled = _pShell->GetINDEX("sys_bHasSwapInterval");
+  mgRenderingOptionsVSync.mg_bEnabled = _pShell->GetINDEX("sys_bHasSwapInterval");
 
   CGameMenu::StartMenu();
 }
@@ -8102,7 +8103,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strName = TRANS("TEXTURES FILTERING BOOSTER");
-  mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strTip = TRANS("Enable to boost textures filtering strength");
+  mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strTip = TRANS("Boost textures filtering strength");
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strVar = "tex_bProgressiveFilter";
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_strSchedule = "Scripts\\Menu\\ApplyTextures.ini";
   mgAdvRenderingOptionsTexturesFilteringBooster.mg_pvsVar->vs_iCenterI = -1;
@@ -8323,24 +8324,24 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsModelsQuality.mg_pvsVar->vs_lnNode);
 
-  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar = new CVarSetting;
-  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strName = TRANS("MODEL DETAIL TEXTURES");
-  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strTip = TRANS("Enable model detail textures rendering");
-  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_strVar = "mdl_bRenderDetail";
-  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_iCenterI = -1;
+  mgAdvRenderingOptionsModelBumpMaps.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsModelBumpMaps.mg_pvsVar->vs_strName = TRANS("MODEL BUMP MAPS");
+  mgAdvRenderingOptionsModelBumpMaps.mg_pvsVar->vs_strTip = TRANS("Enable model bump maps rendering");
+  mgAdvRenderingOptionsModelBumpMaps.mg_pvsVar->vs_strVar = "mdl_bRenderDetail";
+  mgAdvRenderingOptionsModelBumpMaps.mg_pvsVar->vs_iCenterI = -1;
 
   ctTexts = ARRAYCOUNT(astrNoYes);
 
-  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_astrTexts.Push(ctTexts);
-  mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_astrValues.Push(ctTexts);
+  mgAdvRenderingOptionsModelBumpMaps.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsModelBumpMaps.mg_pvsVar->vs_astrValues.Push(ctTexts);
 
   for (INDEX i = 0; i < ctTexts; i++)
   {
-    mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
-	mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
+    mgAdvRenderingOptionsModelBumpMaps.mg_pvsVar->vs_astrTexts[i] = astrNoYes[i];
+	mgAdvRenderingOptionsModelBumpMaps.mg_pvsVar->vs_astrValues[i] = astrNoYesValues[i];
   }
 
-  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsModelDetailTextures.mg_pvsVar->vs_lnNode);
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsModelBumpMaps.mg_pvsVar->vs_lnNode);
 
   mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsModelSpecularMaps.mg_pvsVar->vs_strName = TRANS("MODEL SPECULAR MAPS");
@@ -8479,6 +8480,26 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsDitheringStrength.mg_pvsVar->vs_lnNode);
 
+  mgAdvRenderingOptionsTruform.mg_pvsVar = new CVarSetting;
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strName = TRANS("TRUFORM");
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strTip = TRANS("Enable truform tessellation");
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strVar = "gap_bForceTruform";
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strFilter = "sys_bHasTruform";
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_iCenterI = -1;
+
+  ctTexts = ARRAYCOUNT(astrTruformTexts);
+
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrTexts.Push(ctTexts);
+  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrValues.Push(ctTexts);
+
+  for (INDEX i = 0; i < ctTexts; i++)
+  {
+    mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrTexts[i] = astrTruformTexts[i];
+    mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrValues[i] = astrTruformValues[i];
+  }
+
+  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTruform.mg_pvsVar->vs_lnNode);
+
   mgAdvRenderingOptionsTruformLevel.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strName = TRANS("TRUFORM LEVEL");
   mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_strTip = TRANS("Select truform tessellation level");
@@ -8499,26 +8520,6 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
   }
 
   lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTruformLevel.mg_pvsVar->vs_lnNode);
-
-  mgAdvRenderingOptionsTruform.mg_pvsVar = new CVarSetting;
-  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strName = TRANS("TRUFORM");
-  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strTip = TRANS("Enable truform");
-  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strVar = "gap_bForceTruform";
-  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_strFilter = "sys_bHasTruform";
-  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_iCenterI = -1;
-
-  ctTexts = ARRAYCOUNT(astrTruformTexts);
-
-  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrTexts.Push(ctTexts);
-  mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrValues.Push(ctTexts);
-
-  for (INDEX i = 0; i < ctTexts; i++)
-  {
-    mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrTexts[i] = astrTruformTexts[i];
-    mgAdvRenderingOptionsTruform.mg_pvsVar->vs_astrValues[i] = astrTruformValues[i];
-  }
-
-  lhAdvRenderingOptionsVars.AddTail(mgAdvRenderingOptionsTruform.mg_pvsVar->vs_lnNode);
 
   mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsTexturesCompressionType.mg_pvsVar->vs_strName = TRANS("TEXTURES COMPRESSION TYPE");
@@ -8623,7 +8624,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strName = TRANS("FASTER LENS FLARES");
-  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strTip = TRANS("Enable to sppeed-up lens flares rendering");
+  mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strTip = TRANS("Speed-up lens flares rendering");
   mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_strVar = "d3d_bAlternateDepthReads";
   mgAdvRenderingOptionsFasterLensFlares.mg_pvsVar->vs_iCenterI = -1;
 
@@ -8887,7 +8888,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   mgAdvRenderingOptionsInvertStereoView.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strName = "INVERT STEREO VIEW";
-  mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strTip = "Enable to swap eye masks";
+  mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strTip = "Swap eye masks";
   mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_strVar = "gfx_bStereoInvert";
   mgAdvRenderingOptionsInvertStereoView.mg_pvsVar->vs_iCenterI = -1;
 
@@ -9024,7 +9025,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strName = "SCREENSHOT Z-BUFFER";
-  mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strTip = "Enable to put z-buffer to alpha channel of a screenshot";
+  mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strTip = "Put z-buffer to alpha channel of a screenshot";
   mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_strVar = "ogl_bGrabDepthBuffer";
   mgAdvRenderingOptionsScreenshotZBuffer.mg_pvsVar->vs_iCenterI = -1;
 
@@ -9043,7 +9044,7 @@ void CAdvRenderingOptionsMenu::Initialize_t(void)
 
   mgAdvRenderingOptionsPretouchMemory.mg_pvsVar = new CVarSetting;
   mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_strName = "PRETOUCH MEMORY";
-  mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_strTip = "Enable pretouch all memory when loading a level";
+  mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_strTip = "Pretouch all memory when loading a level";
   mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_strVar = "gam_bPretouch";
   mgAdvRenderingOptionsPretouchMemory.mg_pvsVar->vs_iCenterI = -1;
   
