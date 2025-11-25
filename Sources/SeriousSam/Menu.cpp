@@ -9161,7 +9161,8 @@ void CAdvRenderingOptionsMenu::FillListItems(void)
       bHasFirst |= (iLabel == 0);
       bHasLast |= (iLabel == ctLabels - 1);
       amgAdvRenderingOptionsButtons[iInMenu].mg_pvsVar = itvs;
-	  amgAdvRenderingOptionsButtons[iInMenu].mg_bEnabled = amgAdvRenderingOptionsButtons[iInMenu].IsEnabled();
+      amgAdvRenderingOptionsButtons[iInMenu].mg_strTip = itvs->vs_strTip;
+      amgAdvRenderingOptionsButtons[iInMenu].mg_bEnabled = amgAdvRenderingOptionsButtons[iInMenu].IsEnabled();
       amgAdvRenderingOptionsButtons[iInMenu].mg_iInList = iLabel;
     }
 
