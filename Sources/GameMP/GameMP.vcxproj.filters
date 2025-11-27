@@ -35,9 +35,6 @@
     <ClCompile Include="LoadingHook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LoadingScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SessionProperties.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -48,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
