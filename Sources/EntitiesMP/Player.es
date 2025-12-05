@@ -66,7 +66,7 @@ extern __declspec(dllimport) FLOAT _fPlayerFOVAdjuster;
 
 INDEX hud_bShowPing	= FALSE;
 INDEX hud_bShowKills = FALSE;
-INDEX hud_bShowScore = TRUE;
+INDEX hud_bShowScore = FALSE;
 INDEX hud_bLegacyHUD = FALSE;
 
 extern void JumpFromBouncer(CEntity *penToBounce, CEntity *penBouncer);
@@ -363,16 +363,16 @@ INDEX cht_bEnable     = 0;
 // interface control
 static INDEX hud_bShowAll	    = TRUE; // used internaly in menu/console
 INDEX hud_bShowWeapon  = TRUE;
-INDEX hud_bShowMessages = TRUE;
+INDEX hud_bShowMessages = FALSE;
 INDEX hud_bShowInfo    = TRUE;
 INDEX hud_bShowLatency = FALSE;
 INDEX hud_iShowPlayers = -1;   // auto
 INDEX hud_iSortPlayers = -1;   // auto
 FLOAT hud_fOpacity     = 0.9f;
 FLOAT hud_fScaling     = 1.0f;
-FLOAT hud_tmWeaponsOnScreen = 3.0f;
+FLOAT hud_tmWeaponsOnScreen = 0.0f;
 FLOAT hud_tmLatencySnapshot = 1.0f;
-INDEX hud_bShowMatchInfo = TRUE;
+INDEX hud_bShowMatchInfo = FALSE;
 INDEX hud_bWeaponsIconScale = 1; // HUD weapons icons scale: 0 - small, 1 - big
 
 FLOAT plr_fBreathingStrength = 0.0f;

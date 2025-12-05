@@ -690,6 +690,94 @@ static void HUD_DrawSniperMask( void )
   }
 }
 
+static COLOR GetCurrentColor2(FLOAT fNormalizedValue)
+{
+  COLOR col = _cttHUD.ctt_colLow;
+
+  if (fNormalizedValue > 1.0f)
+  {
+    col = _cttHUD.ctt_colFine;
+  }
+  else if (fNormalizedValue > _cttHUD.ctt_fLowMedium)
+  {
+    col = _cttHUD.ctt_colMedium;
+  }
+  else if (fNormalizedValue > _cttHUD.ctt_fMediumHigh)
+  {
+    col = _cttHUD.ctt_colHigh;
+  }
+
+  return col;
+}
+
+static void HUD_DrawBorder2(FLOAT fX, FLOAT fY, FLOAT fSizeX, FLOAT fSizeY,
+  PIX pixBorderSize, COLOR col)
+{
+  for (INDEX i = 0; i < pixBorderSize; i++)
+  {
+    PIX pixI = (fX + i) * _pixDPWidth / 640.0f;
+    PIX pixJ = (fY + i) * _pixDPHeight / (480.0f * _pDP->dp_fWideAdjustment);
+    PIX pixSizeI = _fResolutionScaling * _fCustomScaling * (fSizeX - i);
+    PIX pixSizeJ = _fResolutionScaling * _fCustomScaling * (fSizeY - i);
+
+    _pDP->DrawBorder(pixI, pixJ, pixSizeI, pixSizeJ, col);
+  }
+}
+
+static FLOAT fIconSizeI = 32.0f;
+static FLOAT fIconSizeJ = 32.0f;
+
+static void HUD_DrawIcon2(FLOAT fX, FLOAT fY, CTextureObject& toIcon, COLOR col)
+{
+  FLOAT fI = fX * _pixDPWidth / 640.0f;
+  FLOAT fJ = fY * _pixDPHeight / (480.0f * _pDP->dp_fWideAdjustment);
+  FLOAT fScaledIconSizeI = fIconSizeI * _fResolutionScaling * _fCustomScaling;
+  FLOAT fScaledIconSizeJ = fIconSizeJ * _fResolutionScaling * _fCustomScaling;
+
+  _pDP->InitTexture(&toIcon);
+  _pDP->AddTexture(fX, fY, fX + fScaledIconSizeI, fY + fScaledIconSizeJ, col);
+  _pDP->FlushRenderingQueue();
+}
+
+static void HUD_DrawText2(FLOAT fX, FLOAT fY, const CTString& strText,
+  COLOR col)
+{
+  PIX pixI = fX * _pixDPWidth / 640.0f;
+  PIX pixJ = fY * _pixDPHeight / (480.0f * _pDP->dp_fWideAdjustment);
+
+  _pDP->SetTextScaling(_fResolutionScaling * _fCustomScaling * 0.5f);
+  _pDP->PutText(strText, pixI, pixJ, col);
+}
+
+static void HUD_DrawBar2(FLOAT fX, FLOAT fY, FLOAT fSizeX, FLOAT fSizeY,
+  enum BarOrientations eBarOrientation, FLOAT fNormValue, COLOR col)
+{
+  if (col == NONE) col = GetCurrentColor2(fNormValue);
+
+  PIX pixI = fX * _pixDPWidth / 640.0f;
+  PIX pixJ = fY * _pixDPHeight / (480.0f * _pDP->dp_fWideAdjustment);
+  PIX pixSizeI = fSizeX * _fResolutionScaling * _fCustomScaling;
+  PIX pixSizeJ = fSizeY * _fResolutionScaling * _fCustomScaling;
+
+  switch (eBarOrientation) {
+  case BO_UP:
+      pixSizeJ = (PIX)(pixSizeJ * fNormValue);
+      break;
+  case BO_DOWN:
+      pixJ = pixJ + (PIX)ceil(pixSizeJ * (1.0f - fNormValue));
+      pixSizeJ = (PIX)(pixSizeJ * fNormValue);
+      break;
+  case BO_LEFT:
+      pixSizeI = (PIX)(pixSizeI * fNormValue);
+      break;
+  case BO_RIGHT:
+      pixI = pixI + (PIX)ceil(pixSizeI * (1.0f - fNormValue));
+      pixSizeI = (PIX)(pixSizeI * fNormValue);
+      break;
+  }
+
+  _pDP->Fill(pixI, pixJ, pixSizeI, pixSizeJ, col);
+}
 
 // helper functions
 
@@ -808,14 +896,15 @@ extern void DrawHUD( const CPlayer *penPlayerCurrent, CDrawPort *pdpCurrent, BOO
   _fResolutionScaling = (FLOAT)_pixDPWidth /640.0f;
   _fResolutionScalingY = (FLOAT)_pixDPHeight /480.0f;
   _colHUD     = 0x4C80BB00;
-  _colHUDText = SE_COL_ORANGE_LIGHT;
   _ulAlphaHUD = NormFloatToByte(hud_fOpacity);
+  _colHUDText = 0x00FF0000 | _ulAlphaHUD;
   _tmNow = _pTimer->CurrentTick();
 
   // determine hud colorization;
-  COLOR colMax = SE_COL_BLUEGREEN_LT;
-  COLOR colTop = SE_COL_ORANGE_LIGHT;
-  COLOR colMid = LerpColor(colTop, C_RED, 0.5f);
+  COLOR colMax = 0x00FF0000 | _ulAlphaHUD;
+  COLOR colTop = 0x00FF0000 | _ulAlphaHUD;
+  COLOR colMid = 0x00FF0000 | _ulAlphaHUD;
+  COLOR colLow = 0xFF000000 | _ulAlphaHUD;
 
   // adjust borders color in case of spying mode
   COLOR colBorder = _colHUD; 
@@ -853,134 +942,127 @@ extern void DrawHUD( const CPlayer *penPlayerCurrent, CDrawPort *pdpCurrent, BOO
   FLOAT fHalfUnit = fOneUnit * 0.5f;
   FLOAT fMoverX, fMoverY;
   COLOR colDefault;
-  
-  // prepare and draw health info
-  fValue = ClampDn( _penPlayer->GetHealth(), 0.0f);  // never show negative health
-  fNormValue = fValue/TOP_HEALTH;
-  //####
-	if (fValue > 300.0f)
-	{
-		fValue=999.0f;
-	}
-	strValue.PrintF("%d", (SLONG)ceil(fValue));
-  //####
-  _fCustomScalingAdjustment = 0.9f;
-  if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.5f;}
-  PrepareColorTransitions( colMax, colTop, colMid, C_RED, 0.5f, 0.25f, FALSE);
-  fRow = pixBottomBound-fHalfUnit;
-  fCol = pixLeftBound+fHalfUnit;
-  colDefault = AddShaker( 5, (INDEX) fValue, penLast->m_iLastHealth, penLast->m_tmHealthChanged, fMoverX, fMoverY);
-  if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.7f;}
-  HUD_DrawBorder( fCol+fMoverX, fRow+fMoverY, fOneUnit, fOneUnit, colBorder);
-  fCol += fAdvUnit+fChrUnit*3/2 -fHalfUnit;
-  HUD_DrawBorder( fCol, fRow, fChrUnit*3, fOneUnit, colBorder);
-  if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.5f;}
-  HUD_DrawText( fCol, fRow, strValue, colDefault, fNormValue);
-  fCol -= fAdvUnit+fChrUnit*3/2 -fHalfUnit;
-  HUD_DrawIcon( fCol+fMoverX, fRow+fMoverY, _toHealth, C_WHITE /*_colHUD*/, fNormValue, TRUE);
+  FLOAT fMaxHealth = 125.0f;
+  TIME tmPlayerUnderWater = _penPlayer->en_tmMaxHoldBreath - (_pTimer->CurrentTick() - _penPlayer->en_tmLastBreathed);
+  BOOL bPlayerUnderWater = tmPlayerUnderWater < _penPlayer->en_tmMaxHoldBreath;
 
-  // prepare and draw armor info (eventually)
+  // prepare and draw health info
+  fValue = ClampDn(_penPlayer->GetHealth(), 0.0f); // never show negative health
+  fNormValue = fValue / TOP_HEALTH;
+
+  if (fValue > TOP_HEALTH)
+  {
+    fNormValue = fValue / fMaxHealth;
+  }
+
+  PrepareColorTransitions(colMax, colTop, colMid, colLow, 0.5f, 0.25f, FALSE);
+
+  FLOAT fTopPadding = 6.0f;
+  FLOAT fLeftPadding = 6.0f;
+  PIX pixBorderSize = 1;
+  FLOAT fMaxHealthBarSizeI = TOP_HEALTH;
+
+  if (fValue > TOP_HEALTH)
+  {
+    fMaxHealthBarSizeI = fMaxHealth;
+  }
+
+  FLOAT fHealthBarSizeI = fValue;
+  FLOAT fHealthBarSizeJ = 10.0f;
+  COLOR colHeathBar = 0x00FF0000 | _ulAlphaHUD;
+  colBorder = 0x00000000 | _ulAlphaHUD;
+  fCol = pixLeftBound;
+  fRow = pixTopBound;
+
+  if (!bPlayerUnderWater)
+  {
+    HUD_DrawBorder2(fCol, fRow, fMaxHealthBarSizeI + pixBorderSize * 2, fHealthBarSizeJ + pixBorderSize * 2, pixBorderSize, colBorder),
+    HUD_DrawBar2(fCol + pixBorderSize, fRow + pixBorderSize, fHealthBarSizeI, fHealthBarSizeJ, BO_LEFT, fNormValue, NONE);
+  }
+
+  // prepare and draw armor info
+  FLOAT fMaxArmor = 125.0f;
   fValue = _penPlayer->m_fArmor;
-  if( fValue > 0.0f) {
-    fNormValue = fValue/TOP_ARMOR;
-    strValue.PrintF( "%d", (SLONG)ceil(fValue));
-    PrepareColorTransitions( colMax, colTop, colMid, C_lGRAY, 0.5f, 0.25f, FALSE);
-    //fRow = pixBottomBound- (fNextUnit+fHalfUnit);//*_pDP->dp_fWideAdjustment;
-    if (hud_bLegacyHUD) {
-      fRow = pixBottomBound - (fNextUnit+fHalfUnit) * (_fArmorHeightAdjuster + 0.3f);
-    } else {
-      fRow = pixBottomBound - (fNextUnit+fHalfUnit) * _fArmorHeightAdjuster;
-    }
-    fCol = pixLeftBound+    fHalfUnit;
-    colDefault = AddShaker( 3, (INDEX) fValue, penLast->m_iLastArmor, penLast->m_tmArmorChanged, fMoverX, fMoverY);
-    if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.7f;}
-    HUD_DrawBorder( fCol+fMoverX, fRow+fMoverY, fOneUnit, fOneUnit, colBorder);
-    fCol += fAdvUnit+fChrUnit*3/2 -fHalfUnit;
-    HUD_DrawBorder( fCol, fRow, fChrUnit*3, fOneUnit, colBorder);
-    if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.5f;}
-    HUD_DrawText( fCol, fRow, strValue, NONE, fNormValue);
-    fCol -= fAdvUnit+fChrUnit*3/2 -fHalfUnit;
-    if (fValue<=50.5f) {
-      HUD_DrawIcon( fCol+fMoverX, fRow+fMoverY, _toArmorSmall, C_WHITE /*_colHUD*/, fNormValue, FALSE);
-    } else if (fValue<=100.5f) {
-      HUD_DrawIcon( fCol+fMoverX, fRow+fMoverY, _toArmorMedium, C_WHITE /*_colHUD*/, fNormValue, FALSE);
-    } else {
-      HUD_DrawIcon( fCol+fMoverX, fRow+fMoverY, _toArmorLarge, C_WHITE /*_colHUD*/, fNormValue, FALSE);
-    }
+  fNormValue = fValue / TOP_ARMOR;
+
+  if (fValue > TOP_ARMOR)
+  {
+    fNormValue = fValue / fMaxArmor;
+  }
+
+  FLOAT fMaxArmorBarSizeI = TOP_ARMOR;
+
+  if (fValue > TOP_ARMOR)
+  {
+    fMaxArmorBarSizeI = fMaxArmor;
+  }
+
+  FLOAT fArmorBarSizeI = fValue;
+  FLOAT fArmorBarSizeJ = 10.0f;
+  COLOR colArmorBar = 0xadd8e600 | _ulAlphaHUD;
+  fCol = pixLeftBound;
+  fRow = pixTopBound + fHealthBarSizeJ + pixBorderSize * 2 + fTopPadding;
+
+  if (fValue > 0.0f)
+  {
+    HUD_DrawBorder2(fCol, fRow, fMaxArmorBarSizeI + pixBorderSize * 2, fArmorBarSizeJ + pixBorderSize * 2, pixBorderSize, colBorder),
+    HUD_DrawBar2(fCol + pixBorderSize, fRow + pixBorderSize, fArmorBarSizeI, fArmorBarSizeJ, BO_LEFT, fNormValue, colArmorBar);
   }
 
   // prepare and draw ammo and weapon info
-  CTextureObject *ptoCurrentAmmo=NULL, *ptoCurrentWeapon=NULL, *ptoWantedWeapon=NULL;
+  CTextureObject* ptoCurrentAmmo = NULL, *ptoCurrentWeapon = NULL, *ptoWantedWeapon = NULL;
   INDEX iCurrentWeapon = _penWeapons->m_iCurrentWeapon;
-  INDEX iWantedWeapon  = _penWeapons->m_iWantedWeapon;
-  // determine corresponding ammo and weapon texture component
+  INDEX iWantedWeapon = _penWeapons->m_iWantedWeapon;
+
   ptoCurrentWeapon = _awiWeapons[iCurrentWeapon].wi_ptoWeapon;
-  ptoWantedWeapon  = _awiWeapons[iWantedWeapon].wi_ptoWeapon;
+  ptoWantedWeapon = _awiWeapons[iWantedWeapon].wi_ptoWeapon;
 
-  AmmoInfo *paiCurrent = _awiWeapons[iCurrentWeapon].wi_paiAmmo;
-  if( paiCurrent!=NULL) ptoCurrentAmmo = paiCurrent->ai_ptoAmmo;
+  AmmoInfo* paiCurrent = _awiWeapons[iCurrentWeapon].wi_paiAmmo;
 
-  // draw complete weapon info if knife isn't current weapon
-  if( ptoCurrentAmmo!=NULL && !GetSP()->sp_bInfiniteAmmo) {
-    // determine ammo quantities
+  if (paiCurrent != NULL) ptoCurrentAmmo = paiCurrent->ai_ptoAmmo;
+
+  COLOR colIcon = C_WHITE | _ulAlphaHUD;
+  fCol = pixLeftBound;
+  fRow = pixTopBound + fHealthBarSizeJ + fArmorBarSizeJ + pixBorderSize * 4 + fTopPadding * 2;
+
+  HUD_DrawIcon2(fCol, fRow, *ptoCurrentWeapon, colIcon);
+
+  fCol = pixLeftBound + fIconSizeI + fLeftPadding;
+  fRow = pixTopBound + fHealthBarSizeJ + fArmorBarSizeJ + pixBorderSize * 4 + fTopPadding * 2;
+
+  if (ptoCurrentAmmo != NULL && !GetSP()->sp_bInfiniteAmmo)
+  {
     FLOAT fMaxValue = _penWeapons->GetMaxAmmo();
     fValue = _penWeapons->GetAmmo();
-    fNormValue = fValue / fMaxValue;
-    strValue.PrintF( "%d", (SLONG)ceil(fValue));
-    PrepareColorTransitions( colMax, colTop, colMid, C_RED, 0.30f, 0.15f, FALSE);
-    BOOL bDrawAmmoIcon = _fCustomScaling<=1.0f;
-    // draw ammo, value and weapon
-    fRow = pixBottomBound-fHalfUnit;
-    FLOAT fColAdjustment = 0.0f;
-    if (hud_bLegacyHUD) {
-      if (hud_fScaling > 0.5f) {
-        fColAdjustment = 3.0f;
-      } else {
-        fColAdjustment = 2.0f;
-      }
-      fCol = 205 + fHalfUnit;
-    } else {
-      fCol = 175 + fHalfUnit;
-    }
-    colDefault = AddShaker( 4, fValue, penLast->m_iLastAmmo, penLast->m_tmAmmoChanged, fMoverX, fMoverY);
-  	if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.7f;}
-    HUD_DrawBorder( fCol+fMoverX, fRow+fMoverY, fOneUnit*1.5, fOneUnit, colBorder);
-    fCol += fAdvUnit+fChrUnit*3/2 -fHalfUnit;
-    fCol += fColAdjustment;
-    HUD_DrawBorder( fCol, fRow, fChrUnit*3, fOneUnit, colBorder);
-    fCol -= fColAdjustment;
-    if( bDrawAmmoIcon) {
-      fCol += fAdvUnit+fChrUnit*3/2 -fHalfUnit;
-      HUD_DrawBorder( fCol, fRow, fOneUnit, fOneUnit, colBorder);
-      if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.5f;}
-      HUD_DrawIcon( fCol, fRow, *ptoCurrentAmmo, C_WHITE /*_colHUD*/, fNormValue, TRUE);
-      fCol -= fAdvUnit+fChrUnit*3/2 -fHalfUnit;
-    }
-    if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.5f;}
-    fCol += fColAdjustment;
-    HUD_DrawText( fCol, fRow, strValue, NONE, fNormValue);
-    fCol -= fColAdjustment;
-    fCol -= fAdvUnit+fChrUnit*3/2 -fHalfUnit;
-    HUD_DrawIcon( fCol+fMoverX, fRow+fMoverY, *ptoCurrentWeapon, C_WHITE /*_colHUD*/, fNormValue, !bDrawAmmoIcon);
-  } else if( ptoCurrentWeapon!=NULL) {
-    // draw only knife or colt icons (ammo is irrelevant)
-    fRow = pixBottomBound-fHalfUnit;
-    if (hud_bLegacyHUD) {
-      fCol = 205 + fHalfUnit;
-    } else {
-      fCol = 205 + fHalfUnit;
-    }
-    if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.7f;}
-    HUD_DrawBorder( fCol, fRow, fOneUnit* 1.5, fOneUnit, colBorder);
-    if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.5f;}
-    HUD_DrawIcon(   fCol, fRow, *ptoCurrentWeapon, C_WHITE /*_colHUD*/, fNormValue, FALSE);
+    strValue.PrintF("%d", (SLONG)ceil(fValue));
+
+    HUD_DrawText2(fCol, fRow, strValue, _colHUDText);
   }
 
+  // draw oxygen info if needed
+  fValue = _penPlayer->en_tmMaxHoldBreath - (_pTimer->CurrentTick() - _penPlayer->en_tmLastBreathed);
+  fNormValue = fValue / _penPlayer->en_tmMaxHoldBreath;
+  fNormValue = ClampDn(fNormValue, 0.0f);
+
+  FLOAT fMaxOxygenBarSizeI = 100.0f;
+  FLOAT fOxygenBarSizeI = fValue + 42.0f;
+  FLOAT fOxygenBarSizeJ = 10.0f;
+  COLOR colOxygenBar = 0xFFFF00 | _ulAlphaHUD;
+  fCol = pixLeftBound;
+  fRow = pixTopBound;
+
+  if ((_penPlayer->GetFlags() & ENF_ALIVE) && bPlayerUnderWater)
+  {
+    HUD_DrawBorder2(fCol, fRow, fMaxOxygenBarSizeI + pixBorderSize * 2, fOxygenBarSizeJ + pixBorderSize * 2, pixBorderSize, colBorder),
+    HUD_DrawBar2(fCol + pixBorderSize, fRow + pixBorderSize, fOxygenBarSizeI, fOxygenBarSizeJ, BO_LEFT, fNormValue, colOxygenBar);
+  }
+
+  BOOL bOxygenOnScreen = FALSE;
 
   // display all ammo infos
   INDEX i;
   FLOAT fAdv;
-  COLOR colIcon, colBar;
+  COLOR colBar;
   PrepareColorTransitions( colMax, colTop, colMid, C_RED, 0.5f, 0.25f, FALSE);
   // reduce the size of icon slightly
   _fCustomScaling = ClampDn( _fCustomScaling*0.8f, 0.5f);
@@ -994,59 +1076,6 @@ extern void DrawHUD( const CPlayer *penPlayerCurrent, CDrawPort *pdpCurrent, BOO
   fCol = pixRightBound -fHalfUnitS;
   const FLOAT fBarPos = fHalfUnitS*0.7f;
   FillWeaponAmmoTables();
-
-  FLOAT fBombCount = penPlayerCurrent->m_iSeriousBombCount;
-  BOOL  bBombFiring = FALSE;
-  // draw serious bomb
-#define BOMB_FIRE_TIME 1.5f
-  if (penPlayerCurrent->m_tmSeriousBombFired+BOMB_FIRE_TIME>_pTimer->GetLerpedCurrentTick()) {
-    fBombCount++;
-    if (fBombCount>3) { fBombCount = 3; }
-    bBombFiring = TRUE;
-  }
-  if (fBombCount>0) {
-    fNormValue = (FLOAT) fBombCount / 3.0f;
-    COLOR colBombBorder = _colHUD;
-    COLOR colBombIcon = C_WHITE;
-    COLOR colBombBar = _colHUDText; if (fBombCount==1) { colBombBar = C_RED; }
-    if (bBombFiring) { 
-      FLOAT fFactor = (_pTimer->GetLerpedCurrentTick() - penPlayerCurrent->m_tmSeriousBombFired)/BOMB_FIRE_TIME;
-      colBombBorder = LerpColor(colBombBorder, C_RED, fFactor);
-      colBombIcon = LerpColor(colBombIcon, C_RED, fFactor);
-      colBombBar = LerpColor(colBombBar, C_RED, fFactor);
-    }
-    if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.7f;}
-    HUD_DrawBorder( fCol,         fRow, fOneUnitS, fOneUnitS, colBombBorder);
-    if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.5f;}
-    HUD_DrawIcon(   fCol,         fRow, _toASeriousBomb, colBombIcon, fNormValue, FALSE);
-    HUD_DrawBar(    fCol+fBarPos, fRow, (INDEX) (fOneUnitS/5), (INDEX) (fOneUnitS-2), BO_DOWN, colBombBar, fNormValue);
-    // make space for serious bomb
-    fCol -= fAdvUnitS;
-  }
-
-  // loop thru all ammo types
-  if (!GetSP()->sp_bInfiniteAmmo) {
-    for( INDEX ii=7; ii>=0; ii--) {
-      i = aiAmmoRemap[ii];
-      // if no ammo and hasn't got that weapon - just skip this ammo
-      AmmoInfo &ai = _aaiAmmo[i];
-      ASSERT( ai.ai_iAmmoAmmount>=0);
-      if( ai.ai_iAmmoAmmount==0 && !ai.ai_bHasWeapon) continue;
-      // display ammo info
-      colIcon = C_WHITE /*_colHUD*/;
-      if( ai.ai_iAmmoAmmount==0) colIcon = C_mdGRAY;
-      if( ptoCurrentAmmo == ai.ai_ptoAmmo) colIcon = C_WHITE; 
-      fNormValue = (FLOAT)ai.ai_iAmmoAmmount / ai.ai_iMaxAmmoAmmount;
-      colBar = AddShaker( 4, ai.ai_iAmmoAmmount, ai.ai_iLastAmmoAmmount, ai.ai_tmAmmoChanged, fMoverX, fMoverY);
-      if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.7f;}
-      HUD_DrawBorder( fCol,         fRow+fMoverY, fOneUnitS, fOneUnitS, colBorder);
-      if (!hud_bLegacyHUD) {_fCustomScalingAdjustment = 0.5f;}
-      HUD_DrawIcon(   fCol,         fRow+fMoverY, *_aaiAmmo[i].ai_ptoAmmo, colIcon, fNormValue, FALSE);
-      HUD_DrawBar(    fCol+fBarPos, fRow+fMoverY, (INDEX) (fOneUnitS/5), (INDEX) (fOneUnitS-2), BO_DOWN, colBar, fNormValue);
-      // advance to next position
-      fCol -= fAdvUnitS;  
-    }
-  }
 
   // draw powerup(s) if needed
   PrepareColorTransitions( colMax, colTop, colMid, C_RED, 0.66f, 0.33f, FALSE);
@@ -1186,24 +1215,6 @@ extern void DrawHUD( const CPlayer *penPlayerCurrent, CDrawPort *pdpCurrent, BOO
   fHalfUnit *= fUpperSize;
   fAdvUnit  *= fUpperSize;
   fNextUnit *= fUpperSize;
-
-  // draw oxygen info if needed
-  BOOL bOxygenOnScreen = FALSE;
-  fValue = _penPlayer->en_tmMaxHoldBreath - (_pTimer->CurrentTick() - _penPlayer->en_tmLastBreathed);
-  if( _penPlayer->IsConnected() && (_penPlayer->GetFlags()&ENF_ALIVE) && fValue<30.0f) { 
-    // prepare and draw oxygen info
-    fRow = pixTopBound + fOneUnit + fNextUnit;
-    fCol = 280.0f;
-    fAdv = fAdvUnit + fOneUnit*4/2 - fHalfUnit;
-    PrepareColorTransitions( colMax, colTop, colMid, C_RED, 0.5f, 0.25f, FALSE);
-    fNormValue = fValue/30.0f;
-    fNormValue = ClampDn(fNormValue, 0.0f);
-    HUD_DrawBorder( fCol,      fRow, fOneUnit,         fOneUnit, colBorder);
-    HUD_DrawBorder( fCol+fAdv, fRow, fOneUnit*4,       fOneUnit, colBorder);
-    HUD_DrawBar(    fCol+fAdv, fRow, (INDEX) (fOneUnit*4*0.975), (INDEX) (fOneUnit*0.9375), BO_LEFT, NONE, fNormValue);
-    HUD_DrawIcon(   fCol,      fRow, _toOxygen, C_WHITE /*_colHUD*/, fNormValue, TRUE);
-    bOxygenOnScreen = TRUE;
-  }
 
   // draw boss energy if needed
   if( _penPlayer->m_penMainMusicHolder!=NULL) {
