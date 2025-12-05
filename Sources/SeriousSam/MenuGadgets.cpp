@@ -770,7 +770,7 @@ void CMGTrigger::Render(CDrawPort *pdp)
   PIX pixBoxSizeI = box.Size()(1);
   PIX pixBoxIR = box.Min()(1) + pixBoxSizeI;
   PIX pixBoxJ = box.Min()(2);
-  PIX pixSpacingI = pixBoxSizeI * 0.04f;
+  PIX pixSpacingI = pixBoxSizeI * 0.03f;
   COLOR col = GetCurrentColor();
 
   if (!mg_bVisual || mg_strValue == "")
@@ -895,7 +895,7 @@ PIXaabbox2D CMGSlider::GetSliderBox(void)
   PIX pixBoxSizeJ = box.Size()(2);
   PIX pixSliderBoxSizeI = pixBoxSizeI * 0.45f;
   PIX pixSliderBoxSizeJ = pixBoxSizeJ - 4;
-  PIX pixSpacingI = pixBoxSizeI * 0.04f;
+  PIX pixSpacingI = pixBoxSizeI * 0.03f;
 
   PIX pixTextSizeI = pdp->GetTextWidth(mg_strText);
   PIX pixI = pixBoxI + pixTextSizeI + pixSpacingI;
@@ -926,7 +926,7 @@ void CMGSlider::Render(CDrawPort *pdp)
   PIX pixBoxSizeJ = box.Size()(2);
   PIX pixSliderBoxSizeI = pixBoxSizeI * 0.45f;
   PIX pixSliderBoxSizeJ = pixBoxSizeJ - 4;
-  PIX pixSpacingI = pixBoxSizeI * 0.04f;
+  PIX pixSpacingI = pixBoxSizeI * 0.03f;
   COLOR col = GetCurrentColor();
   CTString strPercentage;
 
@@ -992,7 +992,7 @@ PIXaabbox2D CMGVarButton::GetSliderBox(void)
   PIX pixBoxSizeJ = box.Size()(2);
   PIX pixSliderBoxSizeI = pixBoxSizeI * 0.13f;
   PIX pixSliderBoxSizeJ = pixBoxSizeJ - 4;
-  PIX pixSpacingI = pixBoxSizeI * 0.04f;
+  PIX pixSpacingI = pixBoxSizeI * 0.03f;
 
   CTString strName = mg_pvsVar->vs_strName;
   PIX pixNameSizeI = pdp->GetTextWidth(strName);
@@ -1098,7 +1098,7 @@ void CMGVarButton::Render( CDrawPort *pdp)
   PIX pixBoxSizeJ = box.Size()(2);
   PIX pixSliderBoxSizeI = pixBoxSizeI * 0.13f;
   PIX pixSliderBoxSizeJ = pixBoxSizeJ - 4;
-  PIX pixSpacingI = pixBoxSizeI * 0.04f;
+  PIX pixSpacingI = pixBoxSizeI * 0.03f;
 
   PIX pixNameSizeI = pdp->GetTextWidth(mg_pvsVar->vs_strName);
   CTString strText = TRANS("Custom");
@@ -2043,7 +2043,7 @@ void CMGKeyDefinition::Render(CDrawPort *pdp)
   PIX pixBoxSizeI = box.Size()(1);
   PIX pixBoxIR = box.Min()(1) + pixBoxSizeI;
   PIX pixBoxJ = box.Min()(2);
-  PIX pixSpacingI = pixBoxSizeI * 0.04f;
+  PIX pixSpacingI = pixBoxSizeI * 0.03f;
   COLOR col = GetCurrentColor();
 
   PIX pixLabelSizeI = pdp->GetTextWidth(mg_strLabel);
