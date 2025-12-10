@@ -32,7 +32,7 @@ static FLOAT _fSpeed = 2.0f;
 static BOOL _bUseRealTime = FALSE;
 static CTimerValue _tvStart;
 
-FLOAT fCreditsStartTime;
+TIME tmCreditsStart;
 
 static FLOAT fScaleW;
 static FLOAT fScaleH;
@@ -40,7 +40,7 @@ static FLOAT fScaleH;
 FLOAT GetTime(void)
 {
   if(!_bUseRealTime) {
-    return  _pTimer->GetLerpedCurrentTick() - fCreditsStartTime;
+    return  _pTimer->GetLerpedCurrentTick() - tmCreditsStart;
   } else {
     return (_pTimer->GetHighPrecisionTimer()-_tvStart).GetSeconds();;
   }
@@ -113,7 +113,7 @@ void Credits_On(INDEX iType)
     // remember start time
     if (iType==1 || iType==2) {
       _bUseRealTime = FALSE;
-      fCreditsStartTime = _pTimer->GetLerpedCurrentTick();
+      tmCreditsStart = _pTimer->GetLerpedCurrentTick();
     } else {
       _bUseRealTime = TRUE;
       _tvStart = _pTimer->GetHighPrecisionTimer();
@@ -131,7 +131,7 @@ void Credits_Off(void)
   _astrCredits.Clear();
 }
 
-FLOAT fCreditsTime;
+TIME tmCredits;
 
 // render credits to given drawport
 FLOAT Credits_Render(CDrawPort *pdp)
@@ -145,7 +145,7 @@ FLOAT Credits_Render(CDrawPort *pdp)
   pdp->Unlock();
   dpCredits.Lock();
 
-  fCreditsTime = GetTime();
+  tmCredits = GetTime();
 
   pixScreenSizeI = dpCredits.GetWidth();
   pixScreenSizeJ = dpCredits.GetHeight();
@@ -157,7 +157,7 @@ FLOAT Credits_Render(CDrawPort *pdp)
   pixLineHeight = 20 * fScaleH;
 
   const FLOAT fLinesPerSecond = _fSpeed;
-  FLOAT fOffset = fCreditsTime * fLinesPerSecond;
+  FLOAT fOffset = tmCredits * fLinesPerSecond;
   INDEX ctLinesOnScreen = pixScreenSizeJ / pixLineHeight;
   INDEX iLine1 = (INDEX) fOffset;
 

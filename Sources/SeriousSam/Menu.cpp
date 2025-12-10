@@ -9207,8 +9207,8 @@ void CCreditsMenu::Initialize_t(void)
   mgCreditsBack.mg_iCenterI = -1;
 }
 
-extern FLOAT fCreditsStartTime;
-extern FLOAT fCreditsTime;
+extern TIME tmCreditsStart;
+extern TIME tmCredits;
 
 void CCreditsMenu::StartMenu(void)
 {
@@ -9219,8 +9219,8 @@ void CCreditsMenu::StartMenu(void)
     CPrintF("%s\n", (const char*)strError);
   }
 
-  fCreditsStartTime = 0;
-  fCreditsTime = 0;
+  tmCreditsStart = 0.0f;
+  tmCredits = 0.0f;
 
   _pShell->SetINDEX("ad_iStartCredits", 3);
   CGameMenu::StartMenu();
@@ -9230,7 +9230,7 @@ void CCreditsMenu::Think(void)
 {
    CGameMenu::Think();
 
-  if (fCreditsTime > (fCreditsStartTime + 18)) {
+  if (tmCredits > (tmCreditsStart + 18)) {
     MenuBack();
   }
 }
