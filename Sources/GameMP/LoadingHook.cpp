@@ -131,7 +131,7 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
 
   if (ulLevelMask!=0 && !_pNetwork->IsPlayingDemo()) {
     // map hook
-    extern void RenderMap(CDrawPort *pdp, ULONG ulLevelMask, CProgressHookInfo *pphi);
+    extern void RenderMap(CDrawPort* pdp, ULONG ulLevelMask, CProgressHookInfo*  pphi);
 
     RenderMap(&dpHook, ulLevelMask, pphi);
 
@@ -154,20 +154,19 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
   FLOAT fScaleH = pixScreenSizeJ / 480.0f;
 
   PIX pixCharSizeJ = (pfd->GetHeight() - 1) * fScaleH;
-  PIX pixBarSizeJ = 22 * fScaleH;
+  PIX pixBarSizeJ = 17 * fScaleH;
 
-  COLOR colBcg = C_BLACK | 255;
+  COLOR colBcg = C_BLACK | 128;
   COLOR colBar = SE_COL_GREEN_LIGHT | 255;
   COLOR colLines = SE_COL_GREEN_LIGHT | 255;
   COLOR colText = SE_COL_GREEN_LIGHT | 255;
   COLOR colEsc = SE_COL_GREEN_LIGHT | 255;
 
-  PIX pixBarBorderW = 1;
   PIX pixPaddingI = 6 * fScaleW;
   PIX pixPaddingJ = 6 * fScaleH;
   PIX pixBarSizeI = pixScreenSizeI - (pixPaddingI * 2);
-  PIX pixI = pixPaddingI - (3 * fScaleW);
-  PIX pixJ = pixScreenSizeJ - (pixPaddingJ * 2) - pixBarSizeJ - pixCharSizeJ;
+  PIX pixI = pixPaddingI;
+  PIX pixJ = pixScreenSizeJ - pixCharSizeJ - pixPaddingJ;
 
   dpHook.SetFont(_pfdConsoleFont);
   dpHook.SetTextScaling(fScaleH);
@@ -177,8 +176,8 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
     dpHook.PutText(TRANS("[Esc] - Abort"), pixI, pixJ, colEsc);
   }
 
-  pixI += (3 * fScaleW);
-  pixJ += pixCharSizeJ + pixPaddingJ;
+  pixI = pixPaddingI;
+  pixJ = pixScreenSizeJ - pixCharSizeJ - pixBarSizeJ - pixPaddingJ * 2;
 
   dpHook.Fill(pixI, pixJ, pixBarSizeI, pixBarSizeJ, colBcg);
   dpHook.Fill(pixI, pixJ, pixScreenSizeI * pphi->phi_fCompleted, pixBarSizeJ, colBar);
@@ -191,13 +190,14 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
   //dpHook.PutText(strDesc, pixCharSizeI/2, pixSizeJ-pixBarSizeJ-2-pixCharSizeJ, C_GREEN|255);
   //dpHook.PutTextCXY(strPerc, pixSizeI/2, pixSizeJ-pixBarSizeJ/2+1, C_GREEN|255);
 
-  pixI += pixBarBorderW + pixPaddingI - (3 * fScaleW);
-  pixJ += pixBarBorderW + pixPaddingJ;
+  pixI = pixPaddingI;
+  pixJ = pixScreenSizeJ - pixCharSizeJ * 2 - pixBarSizeJ - pixPaddingJ * 3;
 
   dpHook.PutText(strDesc, pixI, pixJ, colText);
 
   PIX pixDescW = dpHook.GetTextWidth(strDesc);
-  pixI += pixDescW + (pixPaddingI * 2);
+  pixI = pixDescW + pixPaddingI * 2;
+  pixJ = pixScreenSizeJ - pixCharSizeJ * 2 - pixBarSizeJ - pixPaddingJ * 3;
 
   dpHook.PutText(strPerc, pixI, pixJ, colText);
 
