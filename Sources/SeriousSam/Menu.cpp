@@ -632,6 +632,9 @@ CTString astrBloodTexts[] =
   RADIOTRANS("Hippie"),
 };
 
+CMGTrigger mgGameOptionsShowHUD;
+CMGTrigger mgGameOptionsShowFPS;
+CMGButton mgGameOptionsApply;
 CMGButton mgGameOptionsBack;
 
 // -------- Rendering options menu
@@ -7605,11 +7608,6 @@ void CSplitStartMenu::EndMenu(void)
 }
 
 // ------------------------ CGameOptionsMenu implementation
-void ChangeBloodColor(INDEX iNew)
-{
-  _pShell->SetINDEX("gam_iBlood", iNew);
-}
-
 void GetGameSettings(void)
 {
   CPlayerCharacter& pc = _pGame->gm_apcPlayers[0];
@@ -7629,18 +7627,83 @@ void GetGameSettings(void)
 
   mgGameOptionsBlood.mg_iSelected = _pShell->GetINDEX("gam_iBlood");
   mgGameOptionsBlood.ApplyCurrentSelection();
+
+  mgGameOptionsShowHUD.mg_iSelected = _pShell->GetINDEX("hud_bShowInfo");
+  mgGameOptionsShowHUD.ApplyCurrentSelection();
+
+  mgGameOptionsShowFPS.mg_iSelected = _pShell->GetINDEX("hud_iStats");
+  mgGameOptionsShowFPS.ApplyCurrentSelection();
+}
+
+void ApplyGameSettings(void)
+{
+  CPlayerCharacter& pc = _pGame->gm_apcPlayers[0];
+  CPlayerSettings* pps = (CPlayerSettings*)pc.pc_aubAppearance;
+
+  BOOL bPrefer3rdPerson = mgGameOptions3rdPerson.mg_iSelected;
+
+  if (bPrefer3rdPerson)
+  {
+    pps->ps_ulFlags |= PSF_PREFER3RDPERSON;
+  }
+  else
+  {
+    pps->ps_ulFlags &= ~PSF_PREFER3RDPERSON;
+  }
+
+  BOOL bAutoSave = mgGameOptionsAutoSave.mg_iSelected;
+
+  if (bAutoSave)
+  {
+    pps->ps_ulFlags |= PSF_AUTOSAVE;
+  }
+  else
+  {
+    pps->ps_ulFlags &= ~PSF_AUTOSAVE;
+  }
+
+  BOOL bViewBobbing = mgGameOptionsViewBobbing.mg_iSelected;
+
+  if (bViewBobbing)
+  {
+    pps->ps_ulFlags &= ~PSF_NOBOBBING;
+  }
+  else
+  {
+    pps->ps_ulFlags |= PSF_NOBOBBING;
+  }
+
+  BOOL bSharpTurning = mgGameOptionsSharpTurning.mg_iSelected;
+
+  if (bSharpTurning)
+  {
+    pps->ps_ulFlags |= PSF_SHARPTURNING;
+  }
+  else
+  {
+    pps->ps_ulFlags &= ~PSF_SHARPTURNING;
+  }
+
+  INDEX iBlood = mgGameOptionsBlood.mg_iSelected;
+  _pShell->SetINDEX("gam_iBlood", iBlood);
+
+  BOOL bShowHUD = mgGameOptionsShowHUD.mg_iSelected;
+  _pShell->SetINDEX("hud_bShowInfo", bShowHUD);
+
+  BOOL bShowFPS = mgGameOptionsShowFPS.mg_iSelected;
+  _pShell->SetINDEX("hud_iStats", bShowFPS);
 }
 
 void CGameOptionsMenu::Initialize_t(void)
 {
-  mgGameOptionsTitle.mg_boxOnScreen = BoxTitle(4.22f);
+  mgGameOptionsTitle.mg_boxOnScreen = BoxTitle(2.46f);
   mgGameOptionsTitle.mg_strText = TRANS("# GAME OPTIONS");
   gm_lhGadgets.AddTail(mgGameOptionsTitle.mg_lnNode);
   mgGameOptionsTitle.mg_iCenterI = -1;
 
   mgGameOptions3rdPerson.mg_pmgUp = &mgGameOptionsBack;
   mgGameOptions3rdPerson.mg_pmgDown = &mgGameOptionsAutoSave;
-  mgGameOptions3rdPerson.mg_boxOnScreen = BoxMediumLeft(10.71f);
+  mgGameOptions3rdPerson.mg_boxOnScreen = BoxMediumLeft(7.11f);
   gm_lhGadgets.AddTail(mgGameOptions3rdPerson.mg_lnNode);
   mgGameOptions3rdPerson.mg_astrTexts = astrNoYes;
   mgGameOptions3rdPerson.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -7649,11 +7712,11 @@ void CGameOptionsMenu::Initialize_t(void)
   mgGameOptions3rdPerson.mg_strValue = astrNoYes[0];
   mgGameOptions3rdPerson.mg_strTip = TRANS("Enable third person view");
   mgGameOptions3rdPerson.mg_iCenterI = -1;
-  mgGameOptions3rdPerson.mg_pOnTriggerChange = Change3rdPerson;
+  mgGameOptions3rdPerson.mg_pOnTriggerChange = NULL;
 
   mgGameOptionsAutoSave.mg_pmgUp = &mgGameOptions3rdPerson;
   mgGameOptionsAutoSave.mg_pmgDown = &mgGameOptionsSharpTurning;
-  mgGameOptionsAutoSave.mg_boxOnScreen = BoxMediumLeft(11.71f);
+  mgGameOptionsAutoSave.mg_boxOnScreen = BoxMediumLeft(8.11f);
   gm_lhGadgets.AddTail(mgGameOptionsAutoSave.mg_lnNode);
   mgGameOptionsAutoSave.mg_astrTexts = astrNoYes;
   mgGameOptionsAutoSave.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -7662,11 +7725,11 @@ void CGameOptionsMenu::Initialize_t(void)
   mgGameOptionsAutoSave.mg_strValue = astrNoYes[0];
   mgGameOptionsAutoSave.mg_strTip = TRANS("Automatically save game every few minutes");
   mgGameOptionsAutoSave.mg_iCenterI = -1;
-  mgGameOptionsAutoSave.mg_pOnTriggerChange = Change3rdPerson;
+  mgGameOptionsAutoSave.mg_pOnTriggerChange = NULL;
 
   mgGameOptionsSharpTurning.mg_pmgUp = &mgGameOptionsAutoSave;
   mgGameOptionsSharpTurning.mg_pmgDown = &mgGameOptionsViewBobbing;
-  mgGameOptionsSharpTurning.mg_boxOnScreen = BoxMediumLeft(12.71f);
+  mgGameOptionsSharpTurning.mg_boxOnScreen = BoxMediumLeft(9.11f);
   gm_lhGadgets.AddTail(mgGameOptionsSharpTurning.mg_lnNode);
   mgGameOptionsSharpTurning.mg_astrTexts = astrNoYes;
   mgGameOptionsSharpTurning.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -7675,11 +7738,11 @@ void CGameOptionsMenu::Initialize_t(void)
   mgGameOptionsSharpTurning.mg_strValue = astrNoYes[0];
   mgGameOptionsSharpTurning.mg_strTip = TRANS("Makes in-game camera turning faster");
   mgGameOptionsSharpTurning.mg_iCenterI = -1;
-  mgGameOptionsSharpTurning.mg_pOnTriggerChange = ChangeSharpTurning;
+  mgGameOptionsSharpTurning.mg_pOnTriggerChange = NULL;
 
   mgGameOptionsViewBobbing.mg_pmgUp = &mgGameOptionsSharpTurning;
   mgGameOptionsViewBobbing.mg_pmgDown = &mgGameOptionsBlood;
-  mgGameOptionsViewBobbing.mg_boxOnScreen = BoxMediumLeft(13.71f);
+  mgGameOptionsViewBobbing.mg_boxOnScreen = BoxMediumLeft(10.11f);
   gm_lhGadgets.AddTail(mgGameOptionsViewBobbing.mg_lnNode);
   mgGameOptionsViewBobbing.mg_astrTexts = astrNoYes;
   mgGameOptionsViewBobbing.mg_ctTexts = ARRAYCOUNT(astrNoYes);
@@ -7688,11 +7751,11 @@ void CGameOptionsMenu::Initialize_t(void)
   mgGameOptionsViewBobbing.mg_strValue = astrNoYes[0];
   mgGameOptionsViewBobbing.mg_strTip = TRANS("Enable view bobbing");
   mgGameOptionsViewBobbing.mg_iCenterI = -1;
-  mgGameOptionsViewBobbing.mg_pOnTriggerChange = ChangeViewBobbing;
+  mgGameOptionsViewBobbing.mg_pOnTriggerChange = NULL;
 
   mgGameOptionsBlood.mg_pmgUp = &mgGameOptionsViewBobbing;
-  mgGameOptionsBlood.mg_pmgDown = &mgGameOptionsBack;
-  mgGameOptionsBlood.mg_boxOnScreen = BoxMediumLeft(14.71f);
+  mgGameOptionsBlood.mg_pmgDown = &mgGameOptionsShowFPS;
+  mgGameOptionsBlood.mg_boxOnScreen = BoxMediumLeft(11.11f);
   gm_lhGadgets.AddTail(mgGameOptionsBlood.mg_lnNode);
   mgGameOptionsBlood.mg_astrTexts = astrBloodTexts;
   mgGameOptionsBlood.mg_ctTexts = ARRAYCOUNT(astrBloodTexts);
@@ -7701,7 +7764,43 @@ void CGameOptionsMenu::Initialize_t(void)
   mgGameOptionsBlood.mg_strValue = astrBloodTexts[0];
   mgGameOptionsBlood.mg_strTip = TRANS("Select blood and gore appearance");
   mgGameOptionsBlood.mg_iCenterI = -1;
-  mgGameOptionsBlood.mg_pOnTriggerChange = ChangeBloodColor;
+  mgGameOptionsBlood.mg_pOnTriggerChange = NULL;
+
+  mgGameOptionsShowHUD.mg_pmgUp = &mgGameOptionsBlood;
+  mgGameOptionsShowHUD.mg_pmgDown = &mgGameOptionsShowFPS;
+  mgGameOptionsShowHUD.mg_boxOnScreen = BoxMediumLeft(12.11f);
+  gm_lhGadgets.AddTail(mgGameOptionsShowHUD.mg_lnNode);
+  mgGameOptionsShowHUD.mg_astrTexts = astrNoYes;
+  mgGameOptionsShowHUD.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgGameOptionsShowHUD.mg_iSelected = 0;
+  mgGameOptionsShowHUD.mg_strLabel = TRANS("SHOW HUD");
+  mgGameOptionsShowHUD.mg_strValue = astrNoYes[0];
+  mgGameOptionsShowHUD.mg_strTip = TRANS("Show screen elements");
+  mgGameOptionsShowHUD.mg_iCenterI = -1;
+  mgGameOptionsShowHUD.mg_pOnTriggerChange = NULL;
+
+  mgGameOptionsShowFPS.mg_pmgUp = &mgGameOptionsShowHUD;
+  mgGameOptionsShowFPS.mg_pmgDown = &mgGameOptionsApply;
+  mgGameOptionsShowFPS.mg_boxOnScreen = BoxMediumLeft(13.11f);
+  gm_lhGadgets.AddTail(mgGameOptionsShowFPS.mg_lnNode);
+  mgGameOptionsShowFPS.mg_astrTexts = astrNoYes;
+  mgGameOptionsShowFPS.mg_ctTexts = ARRAYCOUNT(astrNoYes);
+  mgGameOptionsShowFPS.mg_iSelected = 0;
+  mgGameOptionsShowFPS.mg_strLabel = TRANS("SHOW FPS");
+  mgGameOptionsShowFPS.mg_strValue = astrNoYes[0];
+  mgGameOptionsShowFPS.mg_strTip = TRANS("Show frame rate counter");
+  mgGameOptionsShowFPS.mg_iCenterI = -1;
+  mgGameOptionsShowFPS.mg_pOnTriggerChange = NULL;
+
+  mgGameOptionsApply.mg_bfsFontSize = BFS_LARGE;
+  mgGameOptionsApply.mg_boxOnScreen = BoxBigLeft(8.51f);
+  mgGameOptionsApply.mg_pmgUp = &mgGameOptionsShowFPS;
+  mgGameOptionsApply.mg_pmgDown = &mgGameOptionsBack;
+  mgGameOptionsApply.mg_strText = TRANS("APPLY");
+  mgGameOptionsApply.mg_strTip = TRANS("Apply game settings");
+  gm_lhGadgets.AddTail(mgGameOptionsApply.mg_lnNode);
+  mgGameOptionsApply.mg_pActivatedFunction = &ApplyGameSettings;
+  mgGameOptionsApply.mg_iCenterI = -1;
 
   mgGameOptionsBack.mg_bfsFontSize = BFS_LARGE;
   mgGameOptionsBack.mg_boxOnScreen = BoxBigLeft(9.51f);
