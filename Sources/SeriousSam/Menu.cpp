@@ -650,12 +650,12 @@ CTString astrTextureSizeTexts[] =
   RADIOTRANS("Large"),
 };
 
-FLOAT afTextureSizes[] =
+INDEX aiTextureSizes[] =
 {
-  6.0f,
-  7.0f,
-  8.0f,
-  9.0f,
+  6,
+  7,
+  8,
+  9,
 };
 
 CMGTrigger mgRenderingOptionsTextureQuality;
@@ -680,24 +680,24 @@ CTString astrTextureQualityTexts[] =
   RADIOTRANS("Compressed"),
 };
 
-FLOAT afTextureQualityValues[] =
+INDEX aiTextureQualityValues[] =
 {
-  0.0f,
-  10.0f,
-  20.0f,
-  30.0f,
-  1.0f,
-  11.0f,
-  21.0f,
-  31.0f,
-  2.0f,
-  12.0f,
-  22.0f,
-  32.0f,
-  3.0f,
-  13.0f,
-  23.0f,
-  33.0f,
+  0,
+  10,
+  20,
+  30,
+  1,
+  11,
+  21,
+  31,
+  2,
+  12,
+  22,
+  32,
+  3,
+  13,
+  23,
+  33,
 };
 
 CMGTrigger mgRenderingOptionsBumpMaps;
@@ -711,12 +711,12 @@ CTString astrShadowMapSizeTexts[] =
   RADIOTRANS("Large"),
 };
 
-FLOAT afShadowMapSizes[] =
+INDEX aiShadowMapSizes[] =
 {
-  5.0f,
-  6.0f,
-  7.0f,
-  8.0f,
+  5,
+  6,
+  7,
+  8,
 };
 
 CMGTrigger mgRenderingOptionsLensFlaresQuality;
@@ -7823,16 +7823,33 @@ void CGameOptionsMenu::StartMenu(void)
 }
 
 // ------------------------ CRenderingOptionsMenu implementation
-INDEX FindFloatInArray(FLOAT a[], INDEX iLen, FLOAT fVal)
+INDEX FindIndexInArray(INDEX ai[], INDEX iLen, FLOAT iValue)
 {
-  BOOL found = FALSE;
+  BOOL bFound = FALSE;
   INDEX i;
 
   for (i = 0; i < iLen; i++)
   {
-    if (a[i] == fVal)
+    if (ai[i] == iValue)
     {
-        found = TRUE;
+        bFound = TRUE;
+        break;
+    }
+  }
+
+  return i;
+}
+
+INDEX FindFloatInArray(FLOAT af[], INDEX iLen, FLOAT fValue)
+{
+  BOOL bFound = FALSE;
+  INDEX i;
+
+  for (i = 0; i < iLen; i++)
+  {
+    if (af[i] == fValue)
+    {
+        bFound = TRUE;
         break;
     }
   }
@@ -7843,31 +7860,35 @@ INDEX FindFloatInArray(FLOAT a[], INDEX iLen, FLOAT fVal)
 void GetRenderingSettings(void)
 {
   INDEX iNormalSize = _pShell->GetINDEX("tex_iNormalSize");
+  INDEX ctTextureSizes = ARRAYCOUNT(aiTextureSizes);
 
-  mgRenderingOptionsTexturesSize.mg_iSelected = FindFloatInArray(afTextureSizes, ARRAYCOUNT(afTextureSizes), iNormalSize);
+  mgRenderingOptionsTexturesSize.mg_iSelected = FindIndexInArray(aiTextureSizes, ctTextureSizes, iNormalSize);
   mgRenderingOptionsTexturesSize.ApplyCurrentSelection();
 
   INDEX iNormalQuality = _pShell->GetINDEX("tex_iNormalQuality");
 
-  mgRenderingOptionsTextureQuality.mg_iSelected = FindFloatInArray(afTextureQualityValues, ARRAYCOUNT(afTextureQualityValues), iNormalQuality);
+  mgRenderingOptionsTextureQuality.mg_iSelected = FindIndexInArray(aiTextureQualityValues, ARRAYCOUNT(aiTextureQualityValues), iNormalQuality);
   mgRenderingOptionsTextureQuality.ApplyCurrentSelection();
 
   INDEX iTextureLayers = _pShell->GetINDEX("wld_bTextureLayers");
+  INDEX i = iTextureLayers - 110;
 
-  mgRenderingOptionsBumpMaps.mg_iSelected = iTextureLayers - 110;
+  mgRenderingOptionsBumpMaps.mg_iSelected = i;
   mgRenderingOptionsTextureQuality.ApplyCurrentSelection();
 
   INDEX iStaticSize = _pShell->GetINDEX("shd_iStaticSize");
+  INDEX ctShadowMapSizes = ARRAYCOUNT(aiShadowMapSizes);
 
-  mgRenderingOptionsShadowMapsSize.mg_iSelected = FindFloatInArray(afShadowMapSizes, ARRAYCOUNT(afShadowMapSizes), iStaticSize);
+  mgRenderingOptionsShadowMapsSize.mg_iSelected = FindIndexInArray(aiShadowMapSizes, ctShadowMapSizes, iStaticSize);
   mgRenderingOptionsShadowMapsSize.ApplyCurrentSelection();
 
   mgRenderingOptionsLensFlaresQuality.mg_iSelected = _pShell->GetINDEX("gfx_iLensFlareQuality");
   mgRenderingOptionsLensFlaresQuality.ApplyCurrentSelection();
 
   FLOAT fGamma = _pShell->GetFLOAT("gfx_fGamma");
+  i = fGamma * 10;
 
-  mgRenderingOptionsGamma.mg_iCurPos = fGamma * 10.0f;
+  mgRenderingOptionsGamma.mg_iCurPos = i;
   mgRenderingOptionsGamma.ApplyCurrentPosition();
 
   mgRenderingOptionsVSync.mg_iSelected = _pShell->GetINDEX("gap_iSwapInterval");
@@ -7876,13 +7897,26 @@ void GetRenderingSettings(void)
 
 void ApplyRenderingSettings(void)
 {
-  _pShell->SetINDEX("tex_iNormalSize", afTextureSizes[mgRenderingOptionsTexturesSize.mg_iSelected]);
-  _pShell->SetINDEX("tex_iNormalQuality", afTextureQualityValues[mgRenderingOptionsTextureQuality.mg_iSelected]);
-  _pShell->SetINDEX("wld_bTextureLayers", 110 + mgRenderingOptionsBumpMaps.mg_iSelected);
-  _pShell->SetINDEX("shd_iStaticSize", afShadowMapSizes[mgRenderingOptionsShadowMapsSize.mg_iSelected]);
-  _pShell->SetINDEX("gfx_iLensFlareQuality", mgRenderingOptionsLensFlaresQuality.mg_iSelected);
-  _pShell->SetFLOAT("gfx_fGamma", mgRenderingOptionsGamma.mg_iCurPos / 10.0f);
-  _pShell->SetINDEX("gap_iSwapInterval", mgRenderingOptionsVSync.mg_iSelected);
+  INDEX iNormalSize = aiTextureSizes[mgRenderingOptionsTexturesSize.mg_iSelected];
+  _pShell->SetINDEX("tex_iNormalSize", iNormalSize);
+
+  INDEX iNormalQuality = aiTextureQualityValues[mgRenderingOptionsTextureQuality.mg_iSelected];
+  _pShell->SetINDEX("tex_iNormalQuality", iNormalQuality);
+
+  INDEX bTextureLayers = mgRenderingOptionsBumpMaps.mg_iSelected + 110;
+  _pShell->SetINDEX("wld_bTextureLayers", bTextureLayers);
+
+  INDEX iStaticSize = aiShadowMapSizes[mgRenderingOptionsShadowMapsSize.mg_iSelected];
+  _pShell->SetINDEX("shd_iStaticSize", iStaticSize);
+
+  INDEX iLensFlareQuality = mgRenderingOptionsLensFlaresQuality.mg_iSelected;
+  _pShell->SetINDEX("gfx_iLensFlareQuality", iLensFlareQuality);
+
+  FLOAT fGamma = mgRenderingOptionsGamma.mg_iCurPos / 10.0f;
+  _pShell->SetFLOAT("gfx_fGamma", fGamma);
+
+  INDEX iSwapInterval = mgRenderingOptionsVSync.mg_iSelected;
+  _pShell->SetINDEX("gap_iSwapInterval", iSwapInterval);
 
   sam_iVideoSetup = 3;
 
