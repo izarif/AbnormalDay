@@ -715,7 +715,7 @@ static void HUD_DrawBorder2(FLOAT fX, FLOAT fY, FLOAT fSizeX, FLOAT fSizeY,
 {
   for (INDEX i = 0; i < pixBorderSize; i++)
   {
-    PIX pixI = (fX + i) * _pixDPWidth / 640.0f;
+    PIX pixI = (fX + i) * _fResolutionScaling;
     PIX pixJ = (fY + i) * _pixDPHeight / (480.0f * _pDP->dp_fWideAdjustment);
     PIX pixSizeI = _fResolutionScaling * _fCustomScaling * (fSizeX - i);
     PIX pixSizeJ = _fResolutionScaling * _fCustomScaling * (fSizeY - i);
@@ -729,7 +729,7 @@ static FLOAT fIconSizeJ = 32.0f;
 
 static void HUD_DrawIcon2(FLOAT fX, FLOAT fY, CTextureObject& toIcon, COLOR col)
 {
-  FLOAT fI = fX * _pixDPWidth / 640.0f;
+  FLOAT fI = fX * _fResolutionScaling;
   FLOAT fJ = fY * _pixDPHeight / (480.0f * _pDP->dp_fWideAdjustment);
   FLOAT fScaledIconSizeI = fIconSizeI * _fResolutionScaling * _fCustomScaling;
   FLOAT fScaledIconSizeJ = fIconSizeJ * _fResolutionScaling * _fCustomScaling;
@@ -742,7 +742,7 @@ static void HUD_DrawIcon2(FLOAT fX, FLOAT fY, CTextureObject& toIcon, COLOR col)
 static void HUD_DrawText2(FLOAT fX, FLOAT fY, const CTString& strText,
   COLOR col)
 {
-  PIX pixI = fX * _pixDPWidth / 640.0f;
+  PIX pixI = fX * _fResolutionScaling;
   PIX pixJ = fY * _pixDPHeight / (480.0f * _pDP->dp_fWideAdjustment);
 
   _pDP->SetTextScaling(_fResolutionScaling * _fCustomScaling * 0.5f);
@@ -754,7 +754,7 @@ static void HUD_DrawBar2(FLOAT fX, FLOAT fY, FLOAT fSizeX, FLOAT fSizeY,
 {
   if (col == NONE) col = GetCurrentColor2(fNormValue);
 
-  PIX pixI = fX * _pixDPWidth / 640.0f;
+  PIX pixI = fX * _fResolutionScaling;
   PIX pixJ = fY * _pixDPHeight / (480.0f * _pDP->dp_fWideAdjustment);
   PIX pixSizeI = fSizeX * _fResolutionScaling * _fCustomScaling;
   PIX pixSizeJ = fSizeY * _fResolutionScaling * _fCustomScaling;
@@ -897,13 +897,13 @@ extern void DrawHUD( const CPlayer *penPlayerCurrent, CDrawPort *pdpCurrent, BOO
   _fResolutionScalingY = (FLOAT)_pixDPHeight /480.0f;
   _colHUD     = 0x4C80BB00;
   _ulAlphaHUD = NormFloatToByte(hud_fOpacity);
-  _colHUDText = 0x00FF0000 | _ulAlphaHUD;
+  _colHUDText = SE_COL_GREEN_LIGHT | _ulAlphaHUD;
   _tmNow = _pTimer->CurrentTick();
 
   // determine hud colorization;
-  COLOR colMax = 0x00FF0000 | _ulAlphaHUD;
-  COLOR colTop = 0x00FF0000 | _ulAlphaHUD;
-  COLOR colMid = 0x00FF0000 | _ulAlphaHUD;
+  COLOR colMax = SE_COL_GREEN_LIGHT | _ulAlphaHUD;
+  COLOR colTop = SE_COL_GREEN_LIGHT | _ulAlphaHUD;
+  COLOR colMid = SE_COL_GREEN_LIGHT | _ulAlphaHUD;
   COLOR colLow = 0xFF000000 | _ulAlphaHUD;
 
   // adjust borders color in case of spying mode
@@ -943,7 +943,7 @@ extern void DrawHUD( const CPlayer *penPlayerCurrent, CDrawPort *pdpCurrent, BOO
   FLOAT fMoverX, fMoverY;
   COLOR colDefault;
   FLOAT fMaxHealth = 125.0f;
-  TIME tmPlayerUnderWater = _penPlayer->en_tmMaxHoldBreath - (_pTimer->CurrentTick() - _penPlayer->en_tmLastBreathed);
+  TIME tmPlayerUnderWater = _penPlayer->en_tmMaxHoldBreath - (_tmNow - _penPlayer->en_tmLastBreathed);
   BOOL bPlayerUnderWater = tmPlayerUnderWater < _penPlayer->en_tmMaxHoldBreath;
 
   // prepare and draw health info
@@ -957,8 +957,8 @@ extern void DrawHUD( const CPlayer *penPlayerCurrent, CDrawPort *pdpCurrent, BOO
 
   PrepareColorTransitions(colMax, colTop, colMid, colLow, 0.5f, 0.25f, FALSE);
 
-  FLOAT fTopPadding = 6.0f;
-  FLOAT fLeftPadding = 6.0f;
+  FLOAT fPaddingI = 6.0f;
+  FLOAT fPaddingJ = 6.0f;
   PIX pixBorderSize = 1;
   FLOAT fMaxHealthBarSizeI = TOP_HEALTH;
 
@@ -969,8 +969,8 @@ extern void DrawHUD( const CPlayer *penPlayerCurrent, CDrawPort *pdpCurrent, BOO
 
   FLOAT fHealthBarSizeI = fValue;
   FLOAT fHealthBarSizeJ = 10.0f;
-  COLOR colHeathBar = 0x00FF0000 | _ulAlphaHUD;
-  colBorder = 0x00000000 | _ulAlphaHUD;
+  COLOR colHeathBar = SE_COL_GREEN_LIGHT | _ulAlphaHUD;
+  colBorder = C_BLACK | _ulAlphaHUD;
   fCol = pixLeftBound;
   fRow = pixTopBound;
 
@@ -999,9 +999,9 @@ extern void DrawHUD( const CPlayer *penPlayerCurrent, CDrawPort *pdpCurrent, BOO
 
   FLOAT fArmorBarSizeI = fValue;
   FLOAT fArmorBarSizeJ = 10.0f;
-  COLOR colArmorBar = 0xadd8e600 | _ulAlphaHUD;
+  COLOR colArmorBar = SE_COL_BLUE_LIGHT | _ulAlphaHUD;
   fCol = pixLeftBound;
-  fRow = pixTopBound + fHealthBarSizeJ + pixBorderSize * 2 + fTopPadding;
+  fRow = pixTopBound + fHealthBarSizeJ + pixBorderSize * 2 + fPaddingJ;
 
   if (fValue > 0.0f)
   {
@@ -1023,12 +1023,13 @@ extern void DrawHUD( const CPlayer *penPlayerCurrent, CDrawPort *pdpCurrent, BOO
 
   COLOR colIcon = C_WHITE | _ulAlphaHUD;
   fCol = pixLeftBound;
-  fRow = pixTopBound + fHealthBarSizeJ + fArmorBarSizeJ + pixBorderSize * 4 + fTopPadding * 2;
+  fRow = pixTopBound + fHealthBarSizeJ + fArmorBarSizeJ + pixBorderSize * 4 + fPaddingJ * 2;
 
-  HUD_DrawIcon2(fCol, fRow, *ptoCurrentWeapon, colIcon);
+  HUD_DrawBorder2(fCol, fRow, fIconSizeI + pixBorderSize * 2, fIconSizeJ + pixBorderSize * 2, pixBorderSize, colBorder),
+  HUD_DrawIcon2(fCol + pixBorderSize, fRow + pixBorderSize, *ptoCurrentWeapon, colIcon);
 
-  fCol = pixLeftBound + fIconSizeI + fLeftPadding;
-  fRow = pixTopBound + fHealthBarSizeJ + fArmorBarSizeJ + pixBorderSize * 4 + fTopPadding * 2;
+  fCol = pixLeftBound + fIconSizeI + pixBorderSize * 2 + fPaddingI;
+  fRow = pixTopBound + fHealthBarSizeJ + fArmorBarSizeJ + pixBorderSize * 4 + fPaddingJ * 2;
 
   if (ptoCurrentAmmo != NULL && !GetSP()->sp_bInfiniteAmmo)
   {
