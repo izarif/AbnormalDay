@@ -268,8 +268,8 @@ void RenderMap(CDrawPort *pdp, ULONG ulLevelMask, CProgressHookInfo *pphi)
   FLOAT fScaleW = pixScreenSizeI / 640.0f;
   FLOAT fScaleH = pixScreenSizeJ / 480.0f;
 
-  CFontData* pfd = _pfdConsoleFont;
-  PIX pixCharSizeJ = (pfd->GetHeight() - 1) * fScaleH;
+  PIX pixFontSizeJ = _pfdConsoleFont->GetHeight();
+  PIX pixCharSizeJ = (pixFontSizeJ - 1) * fScaleH;
 
   COLOR colText = SE_COL_GREEN_LIGHT | 255;
 
