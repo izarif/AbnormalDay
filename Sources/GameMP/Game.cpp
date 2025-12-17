@@ -2017,35 +2017,28 @@ static void PrintStats( CDrawPort *pdpDrawPort)
   _tvLasts[_iCheckNow] = tvNow;
   _iCheckNow = (_iCheckNow+1) % FRAMES_AVERAGING_MAX;
 
+  FLOAT fScaleW = slDPWidth / 640.0f;
+  FLOAT fScaleH = slDPHeight / 480.0f;
+
   // set display interface (proportional) font
-  pdpDrawPort->SetFont( _pfdDisplayFont);
-  pdpDrawPort->SetTextAspect( 1.0f);
-  pdpDrawPort->SetTextScaling( fTextScale);
+  pdpDrawPort->SetFont(_pfdDisplayFont);
+  pdpDrawPort->SetTextAspect(1.0f);
+  pdpDrawPort->SetTextScaling(fScaleH * 0.78f);
 
-		// display colored FPS 
-		COLOR colFPS = C_RED;
-		if( fFPS >= 20) colFPS = C_GREEN;
-		if( fFPS >= 60) colFPS = C_WHITE;
+  PIX pixFontSizeJ = _pfdDisplayFont->GetHeight();
+  PIX pixCharSizeJ = (pixFontSizeJ - 6) * fScaleH;
 
-		// prepare FPS string for printing
-		CTString strFPS = "?";
-				 if( fFPS >= 20)   strFPS.PrintF( "%4.1f", fFPS);
-		else if( fFPS >= 0.1f) strFPS.PrintF( "%4.1f", fFPS);
+  COLOR colFPS = SE_COL_GREEN_LIGHT | 255;
+  CTString strFPS = "";
+  strFPS.PrintF("FPS %4.1f", fFPS);
+  PIX pixFPSSizeI = pdpDrawPort->GetTextWidth(strFPS);
 
-		// printout FPS number
-        if(!_pShell->GetINDEX("hud_bLegacyHUD")) {
-		  pdpDrawPort->PutTextR( strFPS, slDPWidth*0.643f, slDPHeight*0.97f, colFPS|245);
-        } else {
-          if( hud_fEnableFPS) pdpDrawPort->PutTextC( strFPS, slDPWidth*0.75f, slDPHeight*0.005f, colFPS|192);
-        }
-		// set display interface (proportional) font
-        if(!_pShell->GetINDEX("hud_bLegacyHUD")) {
-		  pdpDrawPort->SetFont( _pfdDisplayFont);
-		  pdpDrawPort->SetTextAspect( 1.0f);
-		  pdpDrawPort->SetTextScaling( 0.6f*fTextScale);
-		  strFPS.PrintF("FPS\n");
-		  pdpDrawPort->PutTextR( strFPS, slDPWidth*0.67f, slDPHeight*0.979f, colFPS|245);
-       }
+  PIX pixPaddingI = 6 * fScaleW;
+  PIX pixPaddingJ = 6 * fScaleH;
+  PIX pixI = slDPWidth - pixFPSSizeI - pixPaddingI;
+  PIX pixJ = slDPHeight - pixCharSizeJ - pixPaddingJ;
+
+  pdpDrawPort->PutText(strFPS, pixI, pixJ, colFPS);
 
   // if in extensive stats mode
   if( hud_iStats==2 && hud_iEnableStats)
