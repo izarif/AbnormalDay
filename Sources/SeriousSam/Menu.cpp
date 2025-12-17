@@ -4063,10 +4063,14 @@ BOOL DoMenu( CDrawPort *pdp)
     if (_bEditingString) {
       strTip = TRANS("[Enter] - Ok, [Escape] - Cancel");
     }
-    // print the tip
-    SetFontMedium(&dpMenu);
-    dpMenu.PutText(strTip,
-      pixW * 0.01f, pixH * 0.962f, _pGame->LCDGetColor(C_WHITE | 255, "tool tip"));
+
+  // print the tip
+  PIX pixI = pixW * 0.01f;
+  PIX pixJ = pixH * 0.962f;
+
+  SetFontMedium(&dpMenu);
+  dpMenu.PutText(strTip,
+    pixI, pixJ, _pGame->LCDGetColor(C_WHITE | 255, "tool tip"));
   }
 
   _pGame->ConsolePrintLastLines(&dpMenu);
