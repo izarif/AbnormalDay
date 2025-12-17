@@ -153,7 +153,8 @@ static void LoadingHook_t(CProgressHookInfo *pphi)
   FLOAT fScaleW = pixScreenSizeI / 640.0f;
   FLOAT fScaleH = pixScreenSizeJ / 480.0f;
 
-  PIX pixCharSizeJ = (pfd->GetHeight() - 1) * fScaleH;
+  PIX pixFontSizeJ = _pfdConsoleFont->GetHeight();
+  PIX pixCharSizeJ = (pixFontSizeJ - 1) * fScaleH;
   PIX pixBarSizeJ = 17 * fScaleH;
 
   COLOR colBcg = C_BLACK | 128;
