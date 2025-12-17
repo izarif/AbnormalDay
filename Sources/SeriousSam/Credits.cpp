@@ -48,13 +48,14 @@ FLOAT GetTime(void)
 
 void PrintOneLine(CDrawPort *pdp, const CTString &strText) 
 {
-  COLOR col = _pGame->LCDGetColor(C_WHITE, "credits line");
+  PIX pixI = 6.0 * fScaleW;
+  COLOR col = _pGame->LCDGetColor(C_WHITE, "credits line") | 255;
 
   pdp->SetTextScaling(fScaleH);
-  pdp->SetTextAspect( 1.0f);
-  pdp->PutText(strText, 6.0f * fScaleW, pixJ, col | 255);
+  pdp->SetTextAspect(1.0f);
+  pdp->PutText(strText, pixI, pixJ, col);
 
-  pixJ+=pixLineHeight;
+  pixJ += pixLineHeight;
 }
 
 static void LoadOneFile(const CTFileName &fnm)
@@ -153,7 +154,8 @@ FLOAT Credits_Render(CDrawPort *pdp)
   fScaleW = pixScreenSizeI / 640.0f;
   fScaleH = pixScreenSizeJ / 480.0f;
 
-  dpCredits.SetFont( _pfdDisplayFont);
+  dpCredits.SetFont(_pfdDisplayFont);
+
   pixLineHeight = 20 * fScaleH;
 
   const FLOAT fLinesPerSecond = _fSpeed;
