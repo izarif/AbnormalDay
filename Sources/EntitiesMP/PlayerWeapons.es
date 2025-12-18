@@ -235,9 +235,9 @@ static FLOAT afSniperZoom[] =
 };
 
 // crosshair console variables
-static INDEX hud_bCrosshairFixed    = FALSE;
-static INDEX hud_bCrosshairColoring = TRUE;
-static FLOAT hud_fCrosshairScale    = 1.0f;
+static INDEX hud_bCrosshairFixed = TRUE;
+static INDEX hud_bCrosshairColoring = FALSE;
+static FLOAT hud_fCrosshairScale = 0.5f;
 static FLOAT hud_fCrosshairOpacity  = 1.0f;
 static FLOAT hud_fCrosshairRatio    = 0.5f;  // max distance size ratio
 // misc HUD vars
@@ -1333,7 +1333,8 @@ functions:
         return;
       }
     }
-    COLOR colCrosshair = C_WHITE;
+
+    COLOR colCrosshair = SE_COL_GREEN_LIGHT;
     TIME  tmNow = _pTimer->CurrentTick();
 
     // if hit anything
