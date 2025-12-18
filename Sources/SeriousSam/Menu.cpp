@@ -6366,8 +6366,11 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgDisplayAdaptersTrigger.mg_pmgDown = &mgDisplayPrefsTrigger;
   mgDisplayAdaptersTrigger.mg_boxOnScreen = BoxMediumLeft(6.11f);
   gm_lhGadgets.AddTail(mgDisplayAdaptersTrigger.mg_lnNode);
+  mgDisplayAdaptersTrigger.mg_astrTexts = astrNoYes; // must be non null
+  mgDisplayAdaptersTrigger.mg_ctTexts = 0;
   mgDisplayAdaptersTrigger.mg_iSelected = 0;
   mgDisplayAdaptersTrigger.mg_strLabel = TRANS("DISPLAY ADAPTER");
+  mgDisplayAdaptersTrigger.mg_strValue = "";
   mgDisplayAdaptersTrigger.mg_strTip = TRANS("Select display adapter to use");
   mgDisplayAdaptersTrigger.mg_iCenterI = -1;
 
@@ -6387,8 +6390,11 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgAspectRatiosTrigger.mg_pmgDown = &mgResolutionsTrigger;
   mgAspectRatiosTrigger.mg_boxOnScreen = BoxMediumLeft(8.11f);
   gm_lhGadgets.AddTail(mgAspectRatiosTrigger.mg_lnNode);
+  mgAspectRatiosTrigger.mg_astrTexts = astrNoYes; // must be non null
+  mgAspectRatiosTrigger.mg_ctTexts = 0;
   mgAspectRatiosTrigger.mg_iSelected = 0;
   mgAspectRatiosTrigger.mg_strLabel = TRANS("ASPECT RATIO");
+  mgAspectRatiosTrigger.mg_strValue = "";
   mgAspectRatiosTrigger.mg_strTip = TRANS("Select video aspect ratio");
   mgAspectRatiosTrigger.mg_iCenterI = -1;
 
@@ -6396,8 +6402,11 @@ void CVideoOptionsMenu::Initialize_t(void)
   mgResolutionsTrigger.mg_pmgDown = &mgFullScreenTrigger;
   mgResolutionsTrigger.mg_boxOnScreen = BoxMediumLeft(9.11f);
   gm_lhGadgets.AddTail(mgResolutionsTrigger.mg_lnNode);
+  mgResolutionsTrigger.mg_astrTexts = astrNoYes; // must be non null
+  mgResolutionsTrigger.mg_ctTexts = 0;
   mgResolutionsTrigger.mg_iSelected = 0;
   mgResolutionsTrigger.mg_strLabel = TRANS("RESOLUTION");
+  mgResolutionsTrigger.mg_strValue = "";
   mgResolutionsTrigger.mg_strTip = TRANS("Select video resolution");
   mgResolutionsTrigger.mg_iCenterI = -1;
 
